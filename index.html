@@ -1,7 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BEAR FC - Ultimate Team Dashboard</title>
@@ -547,7 +548,33 @@
             }
         }
 
+    
+        /* Modalità test pacchetti: aperture illimitate */
+        .packs-unlimited-notice {
+            border: 1px solid rgba(245,158,11,.35);
+            background: rgba(16,185,129,.08);
+        }
+
     </style>
+
+<style>
+/* BEAR FC - mobile full access */
+@media (max-width: 700px) {
+    body { width:100vw !important; max-width:100vw !important; overflow-x:hidden !important; }
+    #appContainer { width:100vw !important; max-width:100vw !important; }
+    #appContainer > main { width:100% !important; min-width:0 !important; }
+    #appContainer > aside nav { overflow-x:auto !important; scrollbar-width:none !important; }
+    #appContainer > aside nav::-webkit-scrollbar { display:none !important; }
+    #appContainer > aside nav button { flex:0 0 76px !important; min-width:76px !important; }
+    .overflow-x-auto { max-width:100% !important; }
+    table { min-width: 640px; }
+    #packOpeningAnimation .player-main-photo {
+        transform: scale(1.32) !important;
+        transform-origin:center bottom !important;
+    }
+}
+</style>
+
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
 
@@ -1757,27 +1784,16 @@
         }
 
         function openWeeklyPack(slotIndex) {
-            if (!currentUser) return;
+            const slots = getWeeklyPackSlots();
+            const slot = slots[slotIndex];
+            if (!slot) return;
 
-            const today = new Date();
-            const slots = getWeeklyPackSlots(today);
-            const slot = slots.find(s => s.index === slotIndex);
-            if (!slot || !sameCalendarDay(today, slot.date)) {
-                alert('Questo pacchetto può essere aperto solo nella data indicata.');
+            if (!ALL_PLAYERS.length) {
+                alert('Prima crea almeno una carta dalla sezione Crea Carte.');
                 return;
             }
 
-            const claims = getWeeklyPackClaims();
-            if (claims.includes(slotIndex)) {
-                alert('Hai già aperto il pacchetto di questa data.');
-                return;
-            }
-
-            if (ALL_PLAYERS.length === 0) {
-                alert('Non ci sono ancora carte create. Vai in “Crea Carte” e creane almeno una.');
-                return;
-            }
-
+            // PER ORA: pacchetti apribili senza limiti.
             const packRarity = chooseRandomPackRarity();
             const pool = getPlayersForRarity(packRarity);
             // Ogni pacchetto contiene ESATTAMENTE una carta.
@@ -2300,7 +2316,8 @@
                 renderCustomCardsAdmin();
                 updateCurrenciesDisplay();
                 renderCollection();
-                alert(`Carta di ${name} creata!`);
+                bearSaveCloudCard(card);
+                alert(`Carta di ${name} creata e sincronizzata nel Cloud!`);
                 document.getElementById('newCardName').value = '';
                 imageInput.value = '';
                 document.getElementById('newCardImagePreview').innerHTML = '<i class="fa-solid fa-user text-xl"></i>';
@@ -2341,6 +2358,7 @@
             if (!confirm('Eliminare questa carta? Verrà rimossa anche dalle collezioni degli utenti.')) return;
             ALL_PLAYERS = ALL_PLAYERS.filter(card => card.id !== id);
             localStorage.setItem('bear_fc_custom_cards', JSON.stringify(ALL_PLAYERS));
+            bearDeleteCloudCard(id);
             const usersDb = JSON.parse(localStorage.getItem('bear_fc_users_db') || '{}');
             Object.values(usersDb).forEach(user => {
                 user.cards = (user.cards || []).filter(cardId => cardId !== id);
@@ -2381,6 +2399,146 @@
             alert("Link di invito copiato negli appunti!");
                  }
     </script>
+
+
+
+<script>
+/* ===== BEAR FC - Supabase Cloud ===== */
+const BEAR_SUPABASE_URL = 'https://iuoupigourbiomwfumdd.supabase.co';
+const BEAR_SUPABASE_ANON_KEY = 'sb_publishable_QWtNLJgRlmYVbrm5E3CJcw_RWR0CiPh';
+const bearSupabase = window.supabase.createClient(BEAR_SUPABASE_URL, BEAR_SUPABASE_ANON_KEY);
+let bearCloudEnabled = true;
+
+function bearCloudSetStatus(text, ok = true) {
+    const el = document.getElementById('bearCloudStatus');
+    if (!el) return;
+    el.textContent = text;
+    el.className = 'fixed top-2 right-2 z-[100] text-[10px] font-bold px-2 py-1 rounded-full ' +
+        (ok
+            ? 'bg-black/80 border border-emerald-500/50 text-emerald-300'
+            : 'bg-black/80 border border-amber-500/50 text-amber-300');
+}
+
+function bearCloudRowToCard(row) {
+    return {
+        id: Number(row.id),
+        name: row.name || '',
+        image: row.image || '',
+        pos: row.pos || 'ST',
+        rating: Number(row.rating || 1),
+        rare: row.rare || 'common',
+        pace: Number(row.pace || 1),
+        shoot: Number(row.shoot || 1),
+        pass: Number(row.pass || 1),
+        drib: Number(row.drib || 1),
+        def: Number(row.def || 1),
+        phys: Number(row.phys || 1)
+    };
+}
+
+function bearCardToRow(card) {
+    return {
+        id: Number(card.id),
+        name: card.name,
+        image: card.image || '',
+        pos: card.pos,
+        rating: Number(card.rating || 1),
+        rare: card.rare,
+        pace: Number(card.pace || 1),
+        shoot: Number(card.shoot || 1),
+        pass: Number(card.pass || 1),
+        drib: Number(card.drib || 1),
+        def: Number(card.def || 1),
+        phys: Number(card.phys || 1)
+    };
+}
+
+async function bearRefreshCloudCards() {
+    try {
+        const { data, error } = await bearSupabase
+            .from('bear_fc_cards')
+            .select('*')
+            .order('created_at', { ascending: true });
+
+        if (error) throw error;
+
+        const cloudCards = (data || []).map(bearCloudRowToCard);
+
+        // If the shared table is empty, upload cards already saved on this PC once.
+        if (cloudCards.length === 0 && ALL_PLAYERS.length > 0) {
+            for (const card of ALL_PLAYERS) {
+                await bearSaveCloudCard(card, true);
+            }
+            bearCloudSetStatus('☁️ Cloud: sincronizzato', true);
+            return;
+        }
+
+        ALL_PLAYERS = cloudCards;
+        localStorage.setItem('bear_fc_custom_cards', JSON.stringify(ALL_PLAYERS));
+
+        if (typeof renderCustomCardsAdmin === 'function') renderCustomCardsAdmin();
+        if (typeof renderCollection === 'function') renderCollection();
+        if (typeof renderSquadPitch === 'function') renderSquadPitch();
+        if (typeof updateCurrenciesDisplay === 'function') updateCurrenciesDisplay();
+
+        bearCloudSetStatus('☁️ Cloud: sincronizzato', true);
+    } catch (err) {
+        console.error('BEAR FC Supabase load error:', err);
+        bearCloudSetStatus('☁️ Cloud: errore', false);
+    }
+}
+
+async function bearSaveCloudCard(card, silent = false) {
+    try {
+        const { error } = await bearSupabase
+            .from('bear_fc_cards')
+            .upsert([bearCardToRow(card)], { onConflict: 'id' });
+
+        if (error) throw error;
+        if (!silent) bearCloudSetStatus('☁️ Carta salvata nel Cloud', true);
+        return true;
+    } catch (err) {
+        console.error('BEAR FC Supabase save error:', err);
+        bearCloudSetStatus('☁️ Errore salvataggio Cloud', false);
+        if (!silent) alert('La carta è stata salvata su questo PC, ma non è stata sincronizzata con il Cloud. Controlla la configurazione Supabase.');
+        return false;
+    }
+}
+
+async function bearDeleteCloudCard(id) {
+    try {
+        const { error } = await bearSupabase
+            .from('bear_fc_cards')
+            .delete()
+            .eq('id', Number(id));
+
+        if (error) throw error;
+        bearCloudSetStatus('☁️ Carta eliminata dal Cloud', true);
+        return true;
+    } catch (err) {
+        console.error('BEAR FC Supabase delete error:', err);
+        bearCloudSetStatus('☁️ Errore eliminazione Cloud', false);
+        return false;
+    }
+}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    const status = document.getElementById('bearCloudStatus');
+    if (!status) return;
+
+    if (bearCloudEnabled) {
+        status.textContent = '☁️ Cloud: connesso';
+        status.className = 'fixed top-2 right-2 z-[100] text-[10px] font-bold px-2 py-1 rounded-full bg-black/80 border border-emerald-500/50 text-emerald-300';
+
+        await bearRefreshCloudCards();
+    } else {
+        status.textContent = '☁️ Cloud: da configurare';
+        status.className = 'fixed top-2 right-2 z-[100] text-[10px] font-bold px-2 py-1 rounded-full bg-black/80 border border-amber-500/50 text-amber-300';
+    }
+});
+</script>
 
 </body>
 </html>
