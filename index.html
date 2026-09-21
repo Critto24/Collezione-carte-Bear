@@ -14,12 +14,105 @@
         body { font-family: 'Inter', sans-serif; }
         .glass { background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .glass-card { background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        /* Card Rarities Styling */
-        .card-common { background: linear-gradient(135deg, #4b5563 0%, #1f2937 100%); border-color: #9ca3af; }
-        .card-rare { background: linear-gradient(135deg, #1d4ed8 0%, #0f172a 100%); border-color: #60a5fa; }
-        .card-epic { background: linear-gradient(135deg, #7c3aed 0%, #3b0764 100%); border-color: #c084fc; }
-        .card-legendary { background: linear-gradient(135deg, #b45309 0%, #78350f 100%, #f59e0b 50%); border-color: #fbbf24; box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
-        
+        /* BEAR FC — Tema ufficiale Nero / Verde / Oro */
+        :root {
+            --bear-black: #050706;
+            --bear-black-2: #0b100d;
+            --bear-green: #16a34a;
+            --bear-green-bright: #22c55e;
+            --bear-green-dark: #064e3b;
+            --bear-gold: #f59e0b;
+            --bear-gold-bright: #fbbf24;
+            --bear-gold-soft: #fde68a;
+        }
+        body { background: radial-gradient(circle at 50% -10%, rgba(22,163,74,.16), transparent 35%), #050706 !important; }
+        .glass { background: rgba(7, 12, 9, 0.86); border-color: rgba(245, 158, 11, 0.18); }
+        .glass-card { background: rgba(10, 20, 14, 0.82); border-color: rgba(34, 197, 94, 0.14); }
+
+        /* Carte */
+        .card-common { background: linear-gradient(145deg, #202822 0%, #080b09 75%); border-color: #94a38f; }
+        .card-rare { background: linear-gradient(145deg, #16a34a 0%, #064e3b 48%, #030705 100%); border-color: #4ade80; box-shadow: 0 0 18px rgba(34,197,94,.22); }
+        .card-epic { background: linear-gradient(145deg, #f59e0b 0%, #166534 34%, #052e16 70%, #030705 100%); border-color: #fbbf24; box-shadow: 0 0 22px rgba(245,158,11,.28); }
+        .card-legendary { background: linear-gradient(145deg, #fff7c2 0%, #f59e0b 20%, #166534 52%, #020503 90%); border-color: #fde68a; box-shadow: 0 0 30px rgba(251,191,36,.45), 0 0 60px rgba(34,197,94,.18); }
+
+        .text-blue-400, .text-blue-500 { color: #4ade80 !important; }
+        .bg-blue-500\/10, .bg-blue-500\/20 { background-color: rgba(34,197,94,.12) !important; }
+        .border-blue-500\/20, .border-blue-500\/30 { border-color: rgba(34,197,94,.28) !important; }
+        .bg-slate-950 { background-color: #050706 !important; }
+        .bg-slate-900 { background-color: #0b100d !important; }
+        .text-amber-400, .text-amber-500 { color: #fbbf24 !important; }
+        .bg-amber-500 { background-color: #f59e0b !important; }
+        .border-amber-500\/20, .border-amber-500\/30, .border-amber-500\/50 { border-color: rgba(245,158,11,.38) !important; }
+
+
+        /* Pacchetto fisico: prima si vede chiuso, poi si apre */
+        @keyframes packIdle {
+            0%,100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        @keyframes packShake {
+            0%,100% { transform: translateX(0) rotate(0); }
+            15% { transform: translateX(-8px) rotate(-3deg); }
+            30% { transform: translateX(8px) rotate(3deg); }
+            45% { transform: translateX(-7px) rotate(-2deg); }
+            60% { transform: translateX(7px) rotate(2deg); }
+            75% { transform: translateX(-4px) rotate(-1deg); }
+        }
+        @keyframes packOpen {
+            0% { transform: scale(.9) rotate(0); opacity: 1; }
+            45% { transform: scale(1.08) rotate(-2deg); opacity: 1; }
+            100% { transform: scale(1.22) rotate(2deg); opacity: 0; }
+        }
+        .bear-pack {
+            width: 190px;
+            height: 265px;
+            border-radius: 28px;
+            background: linear-gradient(150deg, #fbbf24 0%, #166534 38%, #050706 78%);
+            border: 3px solid #fbbf24;
+            box-shadow: 0 0 35px rgba(245,158,11,.35), inset 0 0 30px rgba(34,197,94,.22);
+            animation: packIdle 2s ease-in-out infinite;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .bear-pack::before {
+            content: "BEAR FC";
+            position: absolute;
+            inset: 22px 10px auto;
+            text-align: center;
+            font-weight: 900;
+            letter-spacing: .16em;
+            color: #fff7c2;
+            font-size: 22px;
+        }
+        .bear-pack::after {
+            content: "PACK";
+            position: absolute;
+            inset: 82px 0 auto;
+            text-align: center;
+            font-weight: 900;
+            color: #050706;
+            background: #fbbf24;
+            padding: 9px 0;
+            transform: rotate(-5deg);
+        }
+        .bear-pack-open { animation: packShake .65s ease-in-out, packOpen .7s .65s ease-in forwards; }
+        .pack-reveal-common { animation: packCommonReveal 700ms cubic-bezier(.2,.8,.2,1) both; }
+        .pack-reveal-rare { animation: packRareReveal 900ms cubic-bezier(.16,1,.3,1) both; }
+        .pack-reveal-epic { animation: packEpicReveal 1100ms cubic-bezier(.16,1,.3,1) both; }
+        .pack-reveal-legendary { animation: packLegendaryReveal 1500ms cubic-bezier(.12,.8,.2,1) both; }
+        .pack-rarity-label {
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .18em;
+            animation: packRarityPop .8s cubic-bezier(.16,1,.3,1) both;
+        }
+        @keyframes packRarityPop {
+            0% { opacity: 0; transform: scale(.5); }
+            70% { opacity: 1; transform: scale(1.18); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
@@ -31,6 +124,233 @@
             50% { transform: scale(1.05); opacity: 1; }
         }
         .animate-glow { animation: pulse-glow 3s infinite ease-in-out; }
+    
+        /* Animazioni personalizzate per rarità pacchetto */
+        @keyframes packCommonReveal {
+            0% { transform: scale(.7) rotate(-4deg); opacity: 0; filter: blur(6px); }
+            55% { transform: scale(1.08) rotate(2deg); opacity: 1; filter: blur(0); }
+            100% { transform: scale(1) rotate(0); }
+        }
+        @keyframes packRareReveal {
+            0% { transform: scale(.55); opacity: 0; filter: brightness(.5); }
+            45% { transform: scale(1.12); opacity: 1; filter: brightness(1.5); }
+            70% { transform: scale(.96); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+        @keyframes packEpicReveal {
+            0% { transform: scale(.45) rotate(-8deg); opacity: 0; filter: blur(8px); }
+            35% { transform: scale(1.15) rotate(5deg); opacity: 1; filter: blur(0) brightness(1.8); }
+            60% { transform: scale(.98) rotate(-2deg); }
+            100% { transform: scale(1) rotate(0); filter: brightness(1); }
+        }
+        @keyframes packLegendaryReveal {
+            0% { transform: scale(.2) rotate(-15deg); opacity: 0; filter: blur(14px) brightness(3); }
+            25% { transform: scale(.9) rotate(8deg); opacity: 1; }
+            45% { transform: scale(1.2) rotate(-4deg); filter: blur(0) brightness(2.5); }
+            65% { transform: scale(.96) rotate(2deg); }
+            100% { transform: scale(1) rotate(0); filter: brightness(1); }
+        }
+        .pack-reveal-common { animation: packCommonReveal 700ms cubic-bezier(.2,.8,.2,1) both; }
+        .pack-reveal-rare { animation: packRareReveal 900ms cubic-bezier(.16,1,.3,1) both; }
+        .pack-reveal-epic { animation: packEpicReveal 1100ms cubic-bezier(.16,1,.3,1) both; }
+        .pack-reveal-legendary { animation: packLegendaryReveal 1500ms cubic-bezier(.12,.8,.2,1) both; }
+
+        .pack-burst {
+            position: absolute;
+            inset: 50% auto auto 50%;
+            width: 10px;
+            height: 10px;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            border-radius: 999px;
+            box-shadow: 0 0 0 0 rgba(255,255,255,.5);
+            animation: packBurst 900ms ease-out both;
+        }
+        @keyframes packBurst {
+            0% { width: 10px; height: 10px; opacity: 1; box-shadow: 0 0 0 0 rgba(255,255,255,.8); }
+            100% { width: 420px; height: 420px; opacity: 0; box-shadow: 0 0 60px 30px rgba(255,255,255,.08); }
+        }
+
+    
+        /* ===== BEAR FC FINAL THEME: NERO + VERDE + ORO ===== */
+        body {
+            background: #030504 !important;
+            color: #f8fafc !important;
+        }
+        .glass {
+            background: rgba(5, 12, 8, .94) !important;
+            border-color: rgba(245, 158, 11, .24) !important;
+            box-shadow: 0 10px 35px rgba(0,0,0,.35), 0 0 24px rgba(22,163,74,.06) !important;
+        }
+        header, nav, aside, footer {
+            background-color: #050906 !important;
+            border-color: rgba(245,158,11,.18) !important;
+        }
+        .bg-slate-950, .bg-slate-900, .bg-slate-800 {
+            background-color: #030504 !important;
+        }
+        .bg-slate-700 {
+            background-color: #102018 !important;
+        }
+        .text-slate-400, .text-slate-500 {
+            color: #9cae9f !important;
+        }
+        .text-slate-300 {
+            color: #d1dbd3 !important;
+        }
+        .text-white {
+            color: #f8fafc !important;
+        }
+        .text-amber-300, .text-amber-400, .text-amber-500 {
+            color: #fbbf24 !important;
+        }
+        .bg-amber-500, .bg-amber-600 {
+            background-color: #d99a05 !important;
+        }
+        .bg-amber-500:hover, .bg-amber-600:hover {
+            background-color: #fbbf24 !important;
+        }
+        .bg-amber-500\/10, .bg-amber-500\/20 {
+            background-color: rgba(245,158,11,.12) !important;
+        }
+        .border-amber-500, .border-amber-500\/20, .border-amber-500\/30, .border-amber-500\/50 {
+            border-color: rgba(245,158,11,.55) !important;
+        }
+        .text-green-400, .text-green-500 {
+            color: #4ade80 !important;
+        }
+        .bg-green-500, .bg-green-600 {
+            background-color: #15803d !important;
+        }
+        .bg-green-500\/10, .bg-green-500\/20 {
+            background-color: rgba(34,197,94,.12) !important;
+        }
+        .border-green-500, .border-green-500\/20, .border-green-500\/30 {
+            border-color: rgba(34,197,94,.45) !important;
+        }
+        .text-blue-400, .text-blue-500, .text-indigo-400, .text-purple-400 {
+            color: #4ade80 !important;
+        }
+        .bg-blue-500, .bg-blue-600, .bg-indigo-500, .bg-purple-500 {
+            background-color: #15803d !important;
+        }
+        .bg-blue-500\/10, .bg-blue-500\/20, .bg-indigo-500\/10, .bg-purple-500\/10, .bg-purple-500\/20 {
+            background-color: rgba(34,197,94,.12) !important;
+        }
+        .border-blue-500, .border-blue-500\/20, .border-blue-500\/30,
+        .border-indigo-500, .border-purple-500, .border-purple-500\/20 {
+            border-color: rgba(34,197,94,.4) !important;
+        }
+        .nav-item:hover {
+            background: rgba(22,163,74,.12) !important;
+            color: #fbbf24 !important;
+        }
+        .nav-item.bg-amber-600\/20 {
+            background: linear-gradient(90deg, rgba(22,163,74,.22), rgba(245,158,11,.10)) !important;
+            color: #fbbf24 !important;
+            border-left-color: #fbbf24 !important;
+        }
+        button:not(:disabled):hover {
+            border-color: rgba(251,191,36,.5);
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #fbbf24 !important;
+            box-shadow: 0 0 0 2px rgba(245,158,11,.12) !important;
+            outline: none !important;
+        }
+        /* Pacchetto disponibile: molto evidente */
+        #monthlyPackSchedule button:not(:disabled) {
+            background: linear-gradient(135deg, #fbbf24, #15803d) !important;
+            color: #030504 !important;
+            box-shadow: 0 0 22px rgba(245,158,11,.22);
+        }
+        #monthlyPackSchedule button:not(:disabled):hover {
+            background: linear-gradient(135deg, #fde68a, #22c55e) !important;
+            transform: translateY(-1px);
+        }
+        #monthlyPackSchedule > div {
+            background: rgba(5,12,8,.9) !important;
+        }
+        .bear-pack {
+            background: linear-gradient(145deg, #fbbf24 0%, #15803d 42%, #030504 82%) !important;
+            border-color: #fbbf24 !important;
+            box-shadow: 0 0 35px rgba(245,158,11,.45), 0 0 65px rgba(34,197,94,.22) !important;
+        }
+        .bear-pack::before {
+            color: #fff7c2 !important;
+        }
+        .bear-pack::after {
+            background: #fbbf24 !important;
+            color: #030504 !important;
+        }
+
+    
+        /* Carta pack: foto giocatore protagonista */
+        #packOpeningAnimation img {
+            object-position: center bottom !important;
+            filter: drop-shadow(0 12px 18px rgba(0,0,0,.55));
+        }
+        #packOpeningAnimation .card-common,
+        #packOpeningAnimation .card-rare,
+        #packOpeningAnimation .card-epic,
+        #packOpeningAnimation .card-legendary {
+            overflow: hidden;
+        }
+
+    
+        /* FOTO GIOCATORE: grande e ottimizzata per smartphone */
+        #packOpeningAnimation {
+            width: 100%;
+            padding: 10px;
+        }
+        #packOpeningAnimation .player-card-photo {
+            position: relative;
+            min-height: 0;
+            flex: 1 1 auto;
+        }
+        #packOpeningAnimation .player-main-photo {
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            object-fit: contain;
+            object-position: center bottom;
+            transform: scale(1.28);
+            transform-origin: center bottom;
+            filter: drop-shadow(0 14px 22px rgba(0,0,0,.7));
+        }
+        #packOpeningAnimation .card-common,
+        #packOpeningAnimation .card-rare,
+        #packOpeningAnimation .card-epic,
+        #packOpeningAnimation .card-legendary {
+            width: min(86vw, 360px) !important;
+            height: min(118vw, 500px) !important;
+            min-height: 430px !important;
+            padding: 12px !important;
+        }
+        #packOpeningAnimation .card-common .text-3xl,
+        #packOpeningAnimation .card-rare .text-3xl,
+        #packOpeningAnimation .card-epic .text-3xl,
+        #packOpeningAnimation .card-legendary .text-3xl {
+            font-size: 2.25rem !important;
+        }
+        @media (max-width: 480px) {
+            #packOpeningAnimation .card-common,
+            #packOpeningAnimation .card-rare,
+            #packOpeningAnimation .card-epic,
+            #packOpeningAnimation .card-legendary {
+                width: 88vw !important;
+                height: 122vw !important;
+                min-height: 420px !important;
+                max-height: 540px !important;
+            }
+            #packOpeningAnimation .player-main-photo {
+                transform: scale(1.38);
+            }
+            #packOpeningAnimation h4 {
+                font-size: 1.35rem !important;
+            }
+        }
+
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
@@ -140,6 +460,10 @@
                 <button onclick="switchTab('settings')" id="nav-settings" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
                     <i class="fa-solid fa-gear w-5 text-center"></i>
                     <span>Impostazioni Account</span>
+                </button>
+                <button onclick="openCardCreator()" id="nav-cardcreator" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+                    <i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-purple-400"></i>
+                    <span>Crea Carte</span>
                 </button>
             </nav>
 
@@ -487,54 +811,73 @@
                     </div>
                 </div>
 
-                <!-- 4. NEGOZIO PACCHETTI -->
+                <!-- 4. PACCHETTI MENSILI -->
                 <div id="view-packs" class="view-section space-y-6 hidden">
-                    <div class="glass p-6 rounded-3xl border border-slate-800 text-center max-w-2xl mx-auto">
-                        <span class="px-3 py-1 bg-amber-500/20 border border-amber-500/30 text-amber-400 text-[10px] font-bold uppercase tracking-wider rounded-full">Negozio Ufficiale</span>
-                        <h2 class="text-3xl font-extrabold text-white mt-2">Apri Pacchetti & Trova Campioni</h2>
-                        <p class="text-xs text-slate-400 mt-1">Usa i tuoi FC Coins per spacchettare e trovare nuove carte o doppioni da scambiare.</p>
+                    <div class="glass p-6 rounded-3xl border border-slate-800 text-center max-w-3xl mx-auto">
+                        <span class="px-3 py-1 bg-amber-500/20 border border-amber-500/30 text-amber-400 text-[10px] font-bold uppercase tracking-wider rounded-full">Pacchetti Settimanali</span>
+                        <h2 class="text-3xl font-extrabold text-white mt-2">3 Pacchetti Gratis Ogni Settimana</h2>
+                        <p class="text-xs text-slate-400 mt-2">Puoi aprire un solo pacchetto per ciascuna delle 3 date. La rarità del pacchetto viene estratta casualmente.</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                        <!-- Bronze Pack -->
-                        <div class="glass p-6 rounded-3xl border border-slate-800 flex flex-col items-center text-center relative overflow-hidden group hover:border-amber-500/50 transition">
-                            <div class="w-24 h-32 rounded-xl bg-gradient-to-b from-amber-900 to-amber-950 border-2 border-amber-800 flex flex-col items-center justify-center p-3 mb-4 shadow-xl group-hover:scale-105 transition">
-                                <i class="fa-solid fa-box-open text-3xl text-amber-500 mb-2"></i>
-                                <span class="text-xs font-bold text-white">Pacchetto Bronzo</span>
+                    <div class="glass p-5 rounded-3xl border border-slate-800 max-w-5xl mx-auto">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                            <div>
+                                <h3 class="text-lg font-extrabold text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-calendar-days text-amber-400"></i>
+                                    Calendario Pacchetti
+                                </h3>
+                                <p class="text-[11px] text-slate-500 mt-1">Lunedì · Mercoledì · Sabato di ogni settimana</p>
                             </div>
-                            <h3 class="font-extrabold text-white text-lg">Pacchetto Base</h3>
-                            <p class="text-xs text-slate-400 mt-1 mb-4">Contiene 3 carte (Alta probabilità Comuni e Rare).</p>
-                            <button onclick="openPack('bronze', 250)" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold rounded-2xl text-xs border border-slate-700 transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-coins">></i> 250 FC Coins
-                            </button>
+                            <div id="monthlyPackCounter" class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-2 rounded-xl">
+                                0 / 3 aperti questa settimana
+                            </div>
                         </div>
 
-                        <!-- Silver Pack -->
-                        <div class="glass p-6 rounded-3xl border border-slate-800 flex flex-col items-center text-center relative overflow-hidden group hover:border-blue-500/50 transition">
-                            <div class="absolute top-3 right-3 bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-500/30">Popolare</div>
-                            <div class="w-24 h-32 rounded-xl bg-gradient-to-b from-blue-900 to-slate-900 border-2 border-blue-600 flex flex-col items-center justify-center p-3 mb-4 shadow-xl group-hover:scale-105 transition">
-                                <i class="fa-solid fa-box-open text-3xl text-blue-400 mb-2"></i>
-                                <span class="text-xs font-bold text-white">Pacchetto Argento</span>
-                            </div>
-                            <h3 class="font-extrabold text-white text-lg">Pacchetto Pro</h3>
-                            <p class="text-xs text-slate-400 mt-1 mb-4">Contiene 3 carte (Maggiore probabilità Epiche).</p>
-                            <button onclick="openPack('silver', 600)" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl text-xs shadow-lg transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-coins"></i> 600 FC Coins
-                            </button>
+                        <div id="monthlyPackSchedule" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Calendario inserito via JS -->
                         </div>
-
-                        <!-- Gold / Legendary Pack -->
-                        <div class="glass p-6 rounded-3xl border border-amber-500/40 flex flex-col items-center text-center relative overflow-hidden group hover:border-amber-400 transition bg-gradient-to-b from-amber-950/20 to-slate-900/80">
-                            <div class="absolute top-3 right-3 bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/30">Top</div>
-                            <div class="w-24 h-32 rounded-xl bg-gradient-to-b from-amber-600 to-amber-900 border-2 border-amber-400 flex flex-col items-center justify-center p-3 mb-4 shadow-xl shadow-amber-500/20 group-hover:scale-105 transition animate-glow">
-                                <i class="fa-solid fa-box-open text-3xl text-amber-200 mb-2"></i>
-                                <span class="text-xs font-bold text-white">Pacchetto Oro</span>
+                        <div class="mt-5 grid grid-cols-2 md:grid-cols-4 gap-2 text-center">
+                            <div class="rounded-xl border border-slate-800 bg-black/20 p-3">
+                                <div class="text-xs font-black text-slate-300">COMUNE</div>
+                                <div class="text-sm font-black text-white mt-1">60%</div>
                             </div>
-                            <h3 class="font-extrabold text-white text-lg">Pacchetto Leggendario</h3>
-                            <p class="text-xs text-slate-400 mt-1 mb-4">Contiene 3 carte (Garantita almeno 1 Epica o Leggendaria!).</p>
-                            <button onclick="openPack('gold', 1500)" class="w-full py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold rounded-2xl text-xs shadow-lg transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-coins"></i> 1500 FC Coins
-                            </button>
+                            <div class="rounded-xl border border-green-500/20 bg-green-500/5 p-3">
+                                <div class="text-xs font-black text-green-400">RARA</div>
+                                <div class="text-sm font-black text-white mt-1">27%</div>
+                            </div>
+                            <div class="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
+                                <div class="text-xs font-black text-amber-400">EPICA</div>
+                                <div class="text-sm font-black text-white mt-1">10%</div>
+                            </div>
+                            <div class="rounded-xl border border-yellow-300/30 bg-yellow-300/5 p-3">
+                                <div class="text-xs font-black text-yellow-200">LEGGENDARIA</div>
+                                <div class="text-sm font-black text-white mt-1">3%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="glass p-5 rounded-3xl border border-slate-800">
+                            <div class="flex items-center gap-3">
+                                <div class="w-11 h-11 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                                    <i class="fa-solid fa-dice text-amber-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-extrabold text-white text-sm">Rarità casuale</h4>
+                                    <p class="text-[11px] text-slate-500">Ogni apertura può essere diversa.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass p-5 rounded-3xl border border-slate-800">
+                            <div class="flex items-center gap-3">
+                                <div class="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                                    <i class="fa-solid fa-gift text-emerald-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-extrabold text-white text-sm">Nessun FC Coin</h4>
+                                    <p class="text-[11px] text-slate-500">I 3 pacchetti settimanali sono gratuiti.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -651,7 +994,66 @@
                     </div>
                 </div>
 
-                <!-- 8. IMPOSTAZIONI ACCOUNT -->
+                <!-- 8. CREAZIONE CARTE (PROTETTA) -->
+                <div id="view-cardcreator" class="view-section space-y-6 hidden">
+                    <div class="glass p-6 rounded-3xl border border-slate-800">
+                        <h2 class="text-2xl font-extrabold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i> Crea le tue Carte
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Sezione amministratore: crea manualmente le carte che compariranno nella collezione e nei pacchetti.</p>
+                    </div>
+
+                    <div id="cardCreatorLocked" class="glass p-8 rounded-3xl border border-slate-800 max-w-md mx-auto text-center">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl border border-purple-500/30 mb-4">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Area protetta</h3>
+                        <p class="text-xs text-slate-400 mt-2 mb-5">Inserisci la password amministratore per accedere alla creazione delle carte.</p>
+                        <input type="password" id="cardCreatorPassword" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 transition mb-3" placeholder="Password amministratore">
+                        <button onclick="unlockCardCreator()" class="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl text-sm transition">
+                            <i class="fa-solid fa-unlock mr-2"></i> Sblocca
+                        </button>
+                        <p id="cardCreatorError" class="text-xs text-rose-400 mt-3 hidden"></p>
+                    </div>
+
+                    <div id="cardCreatorPanel" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="glass p-6 rounded-3xl border border-slate-800">
+                            <h3 class="font-bold text-white text-lg mb-4">Nuova carta</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="col-span-2"><label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Nome giocatore</label><input id="newCardName" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white" placeholder="Es. Mario Bear"></div>
+                                <div class="col-span-2">
+                                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Foto giocatore</label>
+                                    <div class="flex items-center gap-4">
+                                        <label class="flex-1 cursor-pointer bg-slate-900/90 border border-slate-700 hover:border-purple-500 rounded-xl px-4 py-3 text-sm text-slate-300 transition">
+                                            <i class="fa-solid fa-camera mr-2 text-purple-400"></i> Scegli una foto
+                                            <input id="newCardImage" type="file" accept="image/*" class="hidden" onchange="previewCardImage(event)">
+                                        </label>
+                                        <div id="newCardImagePreview" class="w-16 h-20 rounded-xl overflow-hidden border border-slate-700 bg-slate-950/60 flex items-center justify-center text-slate-600">
+                                            <i class="fa-solid fa-user text-xl"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 mt-1">La foto viene salvata nel browser insieme alla carta.</p>
+                                </div>
+                                <div><label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Posizione</label><select id="newCardPos" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white"><option>GK</option><option>LB</option><option>CB1</option><option>CB2</option><option>RB</option><option>CM1</option><option>CDM</option><option>CM2</option><option>LW</option><option>ST</option><option>RW</option></select></div>
+                                <div><label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Valutazione</label><input id="newCardRating" type="number" min="1" max="99" value="75" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white"></div>
+                                <div class="col-span-2"><label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Rarità</label><select id="newCardRare" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white"><option value="common">Comune</option><option value="rare">Rara</option><option value="epic">Epica</option><option value="legendary">Leggendaria</option></select></div>
+                                <div><label class="block text-xs font-semibold text-slate-300 uppercase mb-1">VEL</label><input id="newCardPace" type="number" min="1" max="99" value="75" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white"></div>
+                                <div><label class="block text-xs font-semibold text-slate-300 uppercase mb-1">TIR</label><input id="newCardShoot" type="number" min="1" max="99" value="75" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white"></div>
+                                <div><label class="block text-xs font-semibold text-slate-300 uppercase mb-1">PAS</label><input id="newCardPass" type="number" min="1" max="99" value="75" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white"></div>
+                                <div><label class="block text-xs font-semibold text-slate-300 uppercase mb-1">DRI</label><input id="newCardDrib" type="number" min="1" max="99" value="75" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white"></div>
+                                <div><label class="block text-xs font-semibold text-slate-300 uppercase mb-1">DIF</label><input id="newCardDef" type="number" min="1" max="99" value="75" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white"></div>
+                                <div><label class="block text-xs font-semibold text-slate-300 uppercase mb-1">FIS</label><input id="newCardPhys" type="number" min="1" max="99" value="75" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white"></div>
+                            </div>
+                            <button onclick="createCustomCard()" class="w-full mt-5 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl text-sm transition"><i class="fa-solid fa-plus mr-2"></i> Crea Carta</button>
+                        </div>
+                        <div class="glass p-6 rounded-3xl border border-slate-800">
+                            <div class="flex items-center justify-between mb-4"><h3 class="font-bold text-white text-lg">Le tue carte</h3><span id="customCardsCount" class="text-xs text-purple-400 font-bold">0 carte</span></div>
+                            <div id="customCardsAdminList" class="space-y-2 max-h-[520px] overflow-y-auto pr-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. IMPOSTAZIONI ACCOUNT -->
                 <div id="view-settings" class="view-section space-y-6 hidden">
                     <div class="glass p-6 rounded-3xl border border-slate-800 max-w-2xl mx-auto space-y-6">
                         <h2 class="text-2xl font-extrabold text-white flex items-center gap-2">
@@ -731,33 +1133,10 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        /* Database of all possible players in BEAR FC */
-        const ALL_PLAYERS = [
-            { id: 1, name: "K. BEAROTTI", pos: "ST", rating: 94, rare: "legendary", pace: 96, shoot: 95, pass: 92, drib: 94, def: 45, phys: 88 },
-            { id: 2, name: "G. GHIRO", pos: "LW", rating: 91, rare: "legendary", pace: 98, shoot: 89, pass: 88, drib: 95, def: 38, phys: 75 },
-            { id: 3, name: "M. BRUIN", pos: "RW", rating: 89, rare: "epic", pace: 92, shoot: 88, pass: 85, drib: 90, def: 40, phys: 78 },
-            { id: 4, name: "L. GRIZZLY", pos: "GK", rating: 88, rare: "epic", pace: 80, shoot: 40, pass: 75, drib: 82, def: 90, phys: 92 },
-            { id: 5, name: "A. PANDA", pos: "CB1", rating: 87, rare: "epic", pace: 78, shoot: 50, pass: 72, drib: 75, def: 89, phys: 94 },
-            { id: 6, name: "S. KODIAK", pos: "CM1", rating: 86, rare: "rare", pace: 82, shoot: 80, pass: 87, drib: 84, def: 78, phys: 85 },
-            { id: 7, name: "R. POLAR", pos: "CM2", rating: 85, rare: "rare", pace: 84, shoot: 82, pass: 85, drib: 83, def: 76, phys: 82 },
-            { id: 8, name: "T. TEDDY", pos: "CDM", rating: 84, rare: "rare", pace: 76, shoot: 70, pass: 82, drib: 80, def: 86, phys: 89 },
-            { id: 9, name: "D. HONEY", pos: "LB", rating: 83, rare: "rare", pace: 88, shoot: 68, pass: 78, drib: 82, def: 81, phys: 79 },
-            { id: 10, name: "F. FOREST", pos: "RB", rating: 82, rare: "rare", pace: 87, shoot: 65, pass: 76, drib: 80, def: 80, phys: 80 },
-            { id: 11, name: "P. WOOD", pos: "ST", rating: 80, rare: "common", pace: 81, shoot: 82, pass: 70, drib: 78, def: 30, phys: 75 },
-            { id: 12, name: "N. WOODS", pos: "CM1", rating: 79, rare: "common", pace: 75, shoot: 74, pass: 80, drib: 79, def: 72, phys: 76 },
-            { id: 13, name: "B. OAK", pos: "CB2", rating: 78, rare: "common", pace: 70, shoot: 45, pass: 68, drib: 70, def: 82, phys: 88 },
-            { id: 14, name: "C. PINE", pos: "LW", rating: 77, rare: "common", pace: 89, shoot: 75, pass: 72, drib: 83, def: 35, phys: 68 },
-            { id: 15, name: "H. LEAF", pos: "RW", rating: 76, rare: "common", pace: 88, shoot: 73, pass: 70, drib: 82, def: 34, phys: 66 },
-            { id: 16, name: "J. BARK", pos: "CDM", rating: 75, rare: "common", pace: 72, shoot: 60, pass: 75, drib: 74, def: 78, phys: 82 },
-            { id: 17, name: "E. ROOT", pos: "LB", rating: 74, rare: "common", pace: 82, shoot: 55, pass: 70, drib: 75, def: 74, phys: 72 },
-            { id: 18, name: "W. BRANCH", pos: "RB", rating: 73, rare: "common", pace: 83, shoot: 54, pass: 69, drib: 74, def: 73, phys: 73 },
-            { id: 19, name: "O. MOSS", pos: "GK", rating: 72, rare: "common", pace: 70, shoot: 30, pass: 65, drib: 70, def: 75, phys: 78 },
-            { id: 20, name: "K. STONE", pos: "CB1", rating: 71, rare: "common", pace: 68, shoot: 40, pass: 64, drib: 68, def: 76, phys: 82 },
-            { id: 21, name: "Z. PEAK", pos: "CM2", rating: 70, rare: "common", pace: 74, shoot: 68, pass: 72, drib: 71, def: 68, phys: 70 },
-            { id: 22, name: "V. RIDGE", pos: "ST", rating: 69, rare: "common", pace: 78, shoot: 70, pass: 62, drib: 72, def: 28, phys: 68 },
-            { id: 23, name: "X. CREEK", pos: "LW", rating: 68, rare: "common", pace: 84, shoot: 65, pass: 64, drib: 76, def: 30, phys: 64 },
-            { id: 24, name: "Y. TRAIL", pos: "RW", rating: 67, rare: "common", pace: 85, shoot: 64, pass: 63, drib: 77, def: 29, phys: 65 }
-        ];
+        /* Database delle carte create manualmente dall'amministratore */
+        let ALL_PLAYERS = JSON.parse(localStorage.getItem('bear_fc_custom_cards') || '[]');
+        const CARD_CREATOR_PASSWORD = 'bearadmin2026';
+
 
         /* Current user session state */
         let currentUser = null;
@@ -836,8 +1215,9 @@
                 email: email,
                 coins: 1250,
                 trophies: 0,
-                cards: [11, 14, 19], // Starter common cards
-                squad: { LW: 14, ST: 11, RW: null, CM1: null, CDM: null, CM2: null, LB: null, CB1: null, CB2: null, RB: null, GK: 19 }
+                cards: [], // Nessuna carta iniziale: le carte vengono create manualmente
+                squad: { LW: null, ST: null, RW: null, CM1: null, CDM: null, CM2: null, LB: null, CB1: null, CB2: null, RB: null, GK: null },
+                weeklyPacks: {}
             };
 
             usersDb[username] = newUser;
@@ -876,8 +1256,12 @@
         }
 
         function loadUserData() {
-            userCards = currentUser.cards || [];
+            const validIds = new Set(ALL_PLAYERS.map(p => p.id));
+            userCards = (currentUser.cards || []).filter(id => validIds.has(id));
             userSquad = currentUser.squad || userSquad;
+            Object.keys(userSquad).forEach(pos => { if (userSquad[pos] && !validIds.has(userSquad[pos])) userSquad[pos] = null; });
+            currentUser.cards = userCards;
+            currentUser.squad = userSquad;
             
             // Update UI headers & stats
             const initialLetter = currentUser.username.charAt(0).toUpperCase();
@@ -903,7 +1287,7 @@
             document.getElementById('statCardsCount').innerText = `${uniqueOwned} / ${ALL_PLAYERS.length}`;
             
             // Album progress
-            const pct = Math.round((uniqueOwned / ALL_PLAYERS.length) * 100);
+            const pct = ALL_PLAYERS.length ? Math.round((uniqueOwned / ALL_PLAYERS.length) * 100) : 0;
             document.getElementById('albumProgressText').innerText = `${uniqueOwned} / ${ALL_PLAYERS.length} Sbloccate (${pct}%)`;
             document.getElementById('albumProgressBar').style.width = `${pct}%`;
 
@@ -947,6 +1331,17 @@
             if (tabId === 'collection') renderCollection();
             if (tabId === 'squad') renderSquadPitch();
             if (tabId === 'market') renderMarket();
+            if (tabId === 'packs') renderMonthlyPackSchedule();
+            if (tabId === 'cardcreator') renderCustomCardsAdmin();
+        }
+
+        function playerPhotoHTML(player, sizeClass = 'w-12 h-12') {
+            if (player && player.image) {
+                return `<img src="${player.image}" alt="${player.name}" class="${sizeClass} mx-auto rounded-xl object-cover border border-white/20 shadow-lg">`;
+            }
+            return `<div class="${sizeClass} mx-auto rounded-full bg-black/30 flex items-center justify-center text-2xl border border-white/20">
+                <i class="fa-solid fa-shield-cat"></i>
+            </div>`;
         }
 
         /* 3. Render Collection */
@@ -987,9 +1382,7 @@
                             ${count > 1 ? `<span class="bg-amber-500 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-full">x${count}</span>` : ''}
                         </div>
                         <div class="my-auto text-center">
-                            <div class="w-12 h-12 mx-auto rounded-full bg-black/30 flex items-center justify-center text-2xl mb-1 border border-white/20">
-                                <i class="fa-solid fa-shield-cat"></i>
-                            </div>
+                            <div class="mb-1">${playerPhotoHTML(player, 'w-12 h-12')}</div>
                             <h4 class="font-extrabold text-xs text-white tracking-wide truncate">${player.name}</h4>
                         </div>
                         <div class="grid grid-cols-3 gap-1 text-[9px] font-bold text-white bg-black/40 p-1.5 rounded-lg text-center">
@@ -1015,76 +1408,308 @@
             });
         }
 
-        /* 4. Pack Opening */
-        function openPack(type, cost) {
-            if (currentUser.coins < cost) {
-                alert("Non hai abbastanza FC Coins! Gioca partite o vendi doppioni.");
+        /* 4. Pacchetti Settimanali */
+        function getWeekKey(date = new Date()) {
+            const d = new Date(date);
+            d.setHours(0, 0, 0, 0);
+            const day = d.getDay() || 7;
+            d.setDate(d.getDate() - day + 1);
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
+
+        function getWeeklyPackSlots(date = new Date()) {
+            const monday = new Date(date);
+            monday.setHours(0, 0, 0, 0);
+            const day = monday.getDay() || 7;
+            monday.setDate(monday.getDate() - day + 1);
+
+            return [
+                { index: 0, date: new Date(monday), label: 'Lunedì' },
+                { index: 1, date: new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 2), label: 'Mercoledì' },
+                { index: 2, date: new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 5), label: 'Sabato' }
+            ];
+        }
+
+        function sameCalendarDay(a, b) {
+            return a.getFullYear() === b.getFullYear() &&
+                   a.getMonth() === b.getMonth() &&
+                   a.getDate() === b.getDate();
+        }
+
+        function formatPackDate(date) {
+            return date.toLocaleDateString('it-IT', {
+                weekday: 'long',
+                day: '2-digit',
+                month: 'long'
+            });
+        }
+
+        function getWeeklyPackClaims() {
+            if (!currentUser.weeklyPacks || typeof currentUser.weeklyPacks !== 'object') {
+                currentUser.weeklyPacks = {};
+            }
+            const weekKey = getWeekKey();
+            if (!Array.isArray(currentUser.weeklyPacks[weekKey])) {
+                currentUser.weeklyPacks[weekKey] = [];
+            }
+            return currentUser.weeklyPacks[weekKey];
+        }
+
+        function renderMonthlyPackSchedule() {
+            const container = document.getElementById('monthlyPackSchedule');
+            const counter = document.getElementById('monthlyPackCounter');
+            if (!container || !currentUser) return;
+
+            const today = new Date();
+            const slots = getWeeklyPackSlots(today);
+            const claims = getWeeklyPackClaims();
+            const openedCount = claims.length;
+
+            counter.innerText = `${openedCount} / 3 aperti questa settimana`;
+            container.innerHTML = '';
+
+            slots.forEach(slot => {
+                const isOpened = claims.includes(slot.index);
+                const isToday = sameCalendarDay(today, slot.date);
+                const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                const slotOnly = new Date(slot.date.getFullYear(), slot.date.getMonth(), slot.date.getDate());
+                const isPast = slotOnly < todayOnly;
+                const isFuture = slotOnly > todayOnly;
+
+                let statusText = 'Disponibile oggi';
+                let statusClass = 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20';
+                let buttonClass = 'bg-amber-500 hover:bg-amber-400 text-slate-950';
+                let disabled = '';
+
+                if (isOpened) {
+                    statusText = 'Già aperto';
+                    statusClass = 'text-slate-400 bg-slate-800 border-slate-700';
+                    buttonClass = 'bg-slate-800 text-slate-500 border border-slate-700';
+                    disabled = 'disabled';
+                } else if (isFuture) {
+                    statusText = 'In arrivo';
+                    statusClass = 'text-blue-400 bg-blue-500/10 border-blue-500/20';
+                    buttonClass = 'bg-slate-800 text-slate-500 border border-slate-700';
+                    disabled = 'disabled';
+                } else if (isPast) {
+                    statusText = 'Scaduto';
+                    statusClass = 'text-slate-500 bg-slate-900 border-slate-800';
+                    buttonClass = 'bg-slate-900 text-slate-600 border border-slate-800';
+                    disabled = 'disabled';
+                }
+
+                const card = document.createElement('div');
+                card.className = `rounded-3xl border p-5 flex flex-col ${isToday && !isOpened ? 'border-amber-500/50 bg-amber-500/5 shadow-lg shadow-amber-500/5' : 'border-slate-800 bg-slate-900/30'}`;
+                card.innerHTML = `
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-slate-500">Pacchetto ${slot.index + 1}</span>
+                        <span class="text-[9px] font-bold px-2 py-1 rounded-full border ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="flex items-center gap-4 mt-4">
+                        <div class="w-16 h-20 rounded-2xl bg-gradient-to-b from-slate-800 to-slate-950 border border-slate-700 flex items-center justify-center shadow-xl">
+                            <i class="fa-solid fa-box-open text-2xl ${isToday && !isOpened ? 'text-amber-400' : 'text-slate-600'}"></i>
+                        </div>
+                        <div>
+                            <div class="text-lg font-black text-white">${slot.label}</div>
+                            <div class="text-xs text-slate-400 mt-1">${formatPackDate(slot.date)}</div>
+                            <div class="text-[10px] text-slate-500 mt-1">1 carta · rarità casuale</div>
+                        </div>
+                    </div>
+                    <button ${disabled} onclick="openWeeklyPack(${slot.index})" class="mt-5 w-full py-3 rounded-2xl text-xs font-black transition ${buttonClass}">
+                        ${isOpened ? 'Pacchetto aperto' : isToday ? '🎁 APRI IL PACCHETTO' : isFuture ? 'Aspetta la data' : 'Data passata'}
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function chooseRandomPackRarity() {
+            // Probabilità del pacchetto:
+            // Comune 60% · Rara 27% · Epica 10% · Leggendaria 3%
+            const roll = Math.random() * 100;
+            if (roll < 60) return 'common';
+            if (roll < 87) return 'rare';
+            if (roll < 97) return 'epic';
+            return 'legendary';
+        }
+
+        function rarityLabel(rare) {
+            return {
+                common: 'Comune',
+                rare: 'Rara',
+                epic: 'Epica',
+                legendary: 'Leggendaria'
+            }[rare] || rare;
+        }
+
+        function getPlayersForRarity(rare) {
+            const exact = ALL_PLAYERS.filter(p => p.rare === rare);
+            if (exact.length) return exact;
+
+            const fallbackOrder = {
+                legendary: ['epic', 'rare', 'common'],
+                epic: ['rare', 'common', 'legendary'],
+                rare: ['common', 'epic', 'legendary'],
+                common: ['rare', 'epic', 'legendary']
+            };
+
+            for (const fallbackRare of fallbackOrder[rare] || []) {
+                const pool = ALL_PLAYERS.filter(p => p.rare === fallbackRare);
+                if (pool.length) return pool;
+            }
+            return ALL_PLAYERS;
+        }
+
+        function openWeeklyPack(slotIndex) {
+            if (!currentUser) return;
+
+            const today = new Date();
+            const slots = getWeeklyPackSlots(today);
+            const slot = slots.find(s => s.index === slotIndex);
+            if (!slot || !sameCalendarDay(today, slot.date)) {
+                alert('Questo pacchetto può essere aperto solo nella data indicata.');
                 return;
             }
 
-            currentUser.coins -= cost;
-            saveUserSession();
-            updateCurrenciesDisplay();
+            const claims = getWeeklyPackClaims();
+            if (claims.includes(slotIndex)) {
+                alert('Hai già aperto il pacchetto di questa data.');
+                return;
+            }
 
-            // Determine cards based on pack type
-            let pulled = [];
-            for (let i = 0; i < 3; i++) {
-                let pool = [];
-                if (type === 'bronze') {
-                    pool = ALL_PLAYERS.filter(p => p.rare === 'common' || p.rare === 'rare');
-                } else if (type === 'silver') {
-                    pool = ALL_PLAYERS.filter(p => p.rare === 'rare' || p.rare === 'epic');
-                } else if (type === 'gold') {
-                    if (i === 0) {
-                        pool = ALL_PLAYERS.filter(p => p.rare === 'epic' || p.rare === 'legendary');
-                    } else {
-                        pool = ALL_PLAYERS;
-                    }
-                }
-                const randomPlayer = pool[Math.floor(Math.random() * pool.length)];
+            if (ALL_PLAYERS.length === 0) {
+                alert('Non ci sono ancora carte create. Vai in “Crea Carte” e creane almeno una.');
+                return;
+            }
+
+            const packRarity = chooseRandomPackRarity();
+            const pool = getPlayersForRarity(packRarity);
+            // Ogni pacchetto contiene ESATTAMENTE una carta.
+            const pulled = [];
+            const randomPlayer = pool[Math.floor(Math.random() * pool.length)];
+
+            if (randomPlayer) {
                 pulled.push(randomPlayer);
                 userCards.push(randomPlayer.id);
             }
 
+            if (!pulled.length) {
+                alert('Non è stato possibile creare il pacchetto. Aggiungi almeno una carta.');
+                return;
+            }
+
+            claims.push(slotIndex);
             currentUser.cards = userCards;
+            currentUser.weeklyPacks[getWeekKey()] = claims;
             saveUserSession();
             updateCurrenciesDisplay();
+            renderMonthlyPackSchedule();
 
-            // Show animation modal
-            showPackModal(pulled);
+            showPackModal(pulled, packRarity);
         }
 
-        function showPackModal(cards) {
+        // Compatibilità: eventuali vecchi pulsanti/collegamenti che richiamano openPack
+        // vengono trasformati nel nuovo sistema gratuito settimanale.
+        function openPack(type, cost) {
+            switchTab('packs');
+            renderMonthlyPackSchedule();
+            alert('I vecchi pacchetti a pagamento sono stati sostituiti dai 3 pacchetti settimanali gratuiti.');
+        }
+
+        function showPackModal(cards, packRarity = null) {
             const modal = document.getElementById('packModal');
             const container = document.getElementById('packOpeningAnimation');
             const btn = document.getElementById('closePackBtn');
             const title = document.getElementById('packModalTitle');
 
             container.innerHTML = '';
-            title.innerText = "✨ Spacchettamento Riuscito!";
-            btn.classList.remove('hidden');
+            btn.classList.add('hidden');
+            title.innerText = '🎁 PACCHETTO BEAR FC';
 
-            cards.forEach((player, idx) => {
-                const cardDiv = document.createElement('div');
-                cardDiv.className = `rounded-2xl p-4 flex flex-col justify-between w-36 h-52 card-${player.rare} shadow-2xl animate-bounce`;
-                cardDiv.style.animationDelay = `${idx * 0.2}s`;
-                cardDiv.innerHTML = `
-                    <div class="flex justify-between items-start text-white">
-                        <div class="text-xl font-black italic">${player.rating}</div>
-                        <div class="text-[9px] uppercase font-bold">${player.pos}</div>
-                    </div>
-                    <div class="my-auto text-center">
-                        <div class="w-10 h-10 mx-auto rounded-full bg-black/30 flex items-center justify-center text-xl mb-1 border border-white/20">
-                            <i class="fa-solid fa-shield-cat"></i>
-                        </div>
-                        <h4 class="font-extrabold text-xs text-white truncate">${player.name}</h4>
-                    </div>
-                    <div class="text-[9px] font-bold text-white bg-black/40 py-1 rounded text-center uppercase">${player.rare}</div>
-                `;
-                container.appendChild(cardDiv);
-            });
+            const stage = document.createElement('div');
+            stage.className = 'flex flex-col items-center justify-center gap-5 py-6 min-h-[360px]';
 
+            const pack = document.createElement('button');
+            pack.type = 'button';
+            pack.className = 'bear-pack focus:outline-none';
+            pack.setAttribute('aria-label', 'Apri il pacchetto BEAR FC');
+
+            const hint = document.createElement('div');
+            hint.className = 'text-sm font-black text-amber-300 animate-pulse';
+            hint.innerText = 'CLICCA SUL PACCHETTO PER APRIRLO';
+
+            stage.appendChild(pack);
+            stage.appendChild(hint);
+            container.appendChild(stage);
             modal.classList.remove('hidden');
+
+            let opened = false;
+            const reveal = () => {
+                if (opened) return;
+                opened = true;
+
+                hint.innerText = 'APERTURA...';
+                hint.className = 'text-sm font-black text-green-400';
+                pack.classList.remove('bear-pack');
+                pack.className = 'bear-pack bear-pack-open';
+
+                setTimeout(() => {
+                    stage.innerHTML = '';
+                    const rarityTitle = document.createElement('div');
+                    rarityTitle.className = `pack-rarity-label text-2xl mb-2 ${
+                        packRarity === 'legendary' ? 'text-amber-300' :
+                        packRarity === 'epic' ? 'text-amber-400' :
+                        packRarity === 'rare' ? 'text-green-400' : 'text-slate-300'
+                    }`;
+                    rarityTitle.innerText = `${rarityLabel(packRarity)}!`;
+                    stage.appendChild(rarityTitle);
+
+                    const cardsRow = document.createElement('div');
+                    cardsRow.className = 'flex flex-wrap items-center justify-center gap-4';
+
+                    cards.forEach((player, idx) => {
+                        const cardDiv = document.createElement('div');
+                        const rarityClass = `pack-reveal-${packRarity || player.rare || 'common'}`;
+                        cardDiv.className = `rounded-2xl p-3 flex flex-col justify-between w-[86vw] max-w-[360px] h-[118vw] max-h-[500px] min-h-[430px] card-${player.rare} shadow-2xl ${rarityClass}`;
+                        cardDiv.style.animationDelay = `${idx * 0.35}s`;
+                        cardDiv.innerHTML = `
+                            <div class="flex justify-between items-start text-white px-1 z-10">
+                                <div>
+                                    <div class="text-3xl font-black italic leading-none">${player.rating}</div>
+                                    <div class="text-[10px] uppercase font-black mt-1">${player.pos}</div>
+                                </div>
+                                <div class="text-[10px] uppercase font-black px-2 py-1 rounded-lg bg-black/50">${player.rare}</div>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-end text-center min-h-0">
+                                <div class="player-card-photo flex-1 min-h-0 flex items-end justify-center overflow-hidden rounded-xl mt-1">
+                                    ${player.image
+                                        ? `<img src="${player.image}" alt="${player.name}" class="player-main-photo drop-shadow-2xl">`
+                                        : playerPhotoHTML(player, 'w-48 h-48')}
+                                </div>
+                                <div class="mt-2 px-2">
+                                    <h4 class="font-black text-xl text-white truncate drop-shadow-lg">${player.name}</h4>
+                                </div>
+                            </div>
+                            <div class="text-[10px] font-black text-white bg-black/60 py-2 rounded-xl text-center uppercase tracking-widest">${rarityLabel(player.rare || packRarity)}</div>
+                        `;
+                        cardsRow.appendChild(cardDiv);
+                    });
+
+                    stage.appendChild(cardsRow);
+                    btn.classList.remove('hidden');
+
+                    const modalBox = container.closest('.relative') || container.parentElement;
+                    if (modalBox) {
+                        const burst = document.createElement('div');
+                        burst.className = 'pack-burst';
+                        modalBox.style.position = 'relative';
+                        modalBox.appendChild(burst);
+                        setTimeout(() => burst.remove(), 1000);
+                    }
+                }, 1250);
+            };
+
+            pack.addEventListener('click', reveal);
         }
 
         function closePackModal() {
@@ -1107,6 +1732,7 @@
                                 <span>${player.rating}</span>
                                 <span>${player.pos}</span>
                             </div>
+                            <div class="text-center mb-1">${playerPhotoHTML(player, 'w-9 h-9')}</div>
                             <div class="text-center font-bold text-[9px] text-white truncate">${player.name.split(' ')[1] || player.name}</div>
                             <div class="text-[8px] text-center text-amber-300">${player.pace}V</div>
                         `;
@@ -1236,7 +1862,7 @@
             }
 
             // Global market auctions mock
-            const marketPool = [ALL_PLAYERS[1], ALL_PLAYERS[4], ALL_PLAYERS[6]];
+            const marketPool = ALL_PLAYERS.slice(0, 3);
             marketPool.forEach(player => {
                 const price = player.rating * 35;
                 const item = document.createElement('div');
@@ -1337,6 +1963,132 @@
             }, 400);
         }
 
+        /* Card Creator */
+        function openCardCreator() {
+            switchTab('cardcreator');
+            document.getElementById('cardCreatorPassword').focus();
+        }
+
+        function unlockCardCreator() {
+            const password = document.getElementById('cardCreatorPassword').value;
+            const error = document.getElementById('cardCreatorError');
+            if (password === CARD_CREATOR_PASSWORD) {
+                document.getElementById('cardCreatorLocked').classList.add('hidden');
+                document.getElementById('cardCreatorPanel').classList.remove('hidden');
+                error.classList.add('hidden');
+                renderCustomCardsAdmin();
+            } else {
+                error.innerText = 'Password non corretta.';
+                error.classList.remove('hidden');
+            }
+        }
+
+        function previewCardImage(event) {
+            const file = event.target.files && event.target.files[0];
+            const preview = document.getElementById('newCardImagePreview');
+            if (!file) {
+                preview.innerHTML = '<i class="fa-solid fa-user text-xl"></i>';
+                return;
+            }
+            if (!file.type.startsWith('image/')) {
+                alert('Seleziona un file immagine.');
+                event.target.value = '';
+                preview.innerHTML = '<i class="fa-solid fa-user text-xl"></i>';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = () => {
+                preview.innerHTML = `<img src="${reader.result}" alt="Anteprima" class="w-full h-full object-cover">`;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function createCustomCard() {
+            const name = document.getElementById('newCardName').value.trim();
+            if (!name) { alert('Inserisci il nome del giocatore.'); return; }
+
+            const imageInput = document.getElementById('newCardImage');
+            const file = imageInput.files && imageInput.files[0];
+
+            const finishCreate = (imageData = '') => {
+                const card = {
+                    id: Date.now(), name,
+                    image: imageData,
+                    pos: document.getElementById('newCardPos').value,
+                    rating: Number(document.getElementById('newCardRating').value),
+                    rare: document.getElementById('newCardRare').value,
+                    pace: Number(document.getElementById('newCardPace').value),
+                    shoot: Number(document.getElementById('newCardShoot').value),
+                    pass: Number(document.getElementById('newCardPass').value),
+                    drib: Number(document.getElementById('newCardDrib').value),
+                    def: Number(document.getElementById('newCardDef').value),
+                    phys: Number(document.getElementById('newCardPhys').value)
+                };
+                ALL_PLAYERS.push(card);
+                try {
+                    localStorage.setItem('bear_fc_custom_cards', JSON.stringify(ALL_PLAYERS));
+                } catch (e) {
+                    ALL_PLAYERS.pop();
+                    alert('La foto è troppo grande per lo spazio disponibile nel browser. Prova con una foto più piccola.');
+                    return;
+                }
+                renderCustomCardsAdmin();
+                updateCurrenciesDisplay();
+                renderCollection();
+                alert(`Carta di ${name} creata!`);
+                document.getElementById('newCardName').value = '';
+                imageInput.value = '';
+                document.getElementById('newCardImagePreview').innerHTML = '<i class="fa-solid fa-user text-xl"></i>';
+            };
+
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Per evitare di riempire il browser, usa una foto sotto i 2 MB.');
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = () => finishCreate(reader.result);
+                reader.readAsDataURL(file);
+            } else {
+                finishCreate('');
+            }
+        }
+
+        function renderCustomCardsAdmin() {
+            const list = document.getElementById('customCardsAdminList');
+            const count = document.getElementById('customCardsCount');
+            if (!list) return;
+            count.innerText = `${ALL_PLAYERS.length} carte`;
+            list.innerHTML = '';
+            if (!ALL_PLAYERS.length) {
+                list.innerHTML = '<div class="text-center py-8 text-xs text-slate-500">Nessuna carta creata. Usa il modulo a sinistra.</div>';
+                return;
+            }
+            ALL_PLAYERS.forEach(card => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between p-3 bg-slate-900/70 rounded-xl border border-slate-800';
+                row.innerHTML = `<div class="flex items-center gap-3"><div class="w-10 h-12 rounded-lg overflow-hidden card-${card.rare} flex items-center justify-center text-white text-xs font-black">${card.image ? `<img src="${card.image}" alt="${card.name}" class="w-full h-full object-cover">` : `<div class="text-center"><span>${card.rating}</span><span class="block text-[8px]">${card.pos}</span></div>`}</div><div><div class="font-bold text-white text-sm">${card.name}</div><div class="text-[10px] text-slate-400 uppercase">${card.rare}</div></div></div><button onclick="deleteCustomCard(${card.id})" class="px-3 py-2 bg-rose-600/20 hover:bg-rose-600/30 text-rose-400 rounded-lg text-xs font-bold border border-rose-500/20">Elimina</button>`;
+                list.appendChild(row);
+            });
+        }
+
+        function deleteCustomCard(id) {
+            if (!confirm('Eliminare questa carta? Verrà rimossa anche dalle collezioni degli utenti.')) return;
+            ALL_PLAYERS = ALL_PLAYERS.filter(card => card.id !== id);
+            localStorage.setItem('bear_fc_custom_cards', JSON.stringify(ALL_PLAYERS));
+            const usersDb = JSON.parse(localStorage.getItem('bear_fc_users_db') || '{}');
+            Object.values(usersDb).forEach(user => {
+                user.cards = (user.cards || []).filter(cardId => cardId !== id);
+                Object.keys(user.squad || {}).forEach(pos => { if (user.squad[pos] === id) user.squad[pos] = null; });
+            });
+            localStorage.setItem('bear_fc_users_db', JSON.stringify(usersDb));
+            userCards = userCards.filter(cardId => cardId !== id);
+            Object.keys(userSquad).forEach(pos => { if (userSquad[pos] === id) userSquad[pos] = null; });
+            currentUser.cards = userCards; currentUser.squad = userSquad;
+            saveUserSession();
+            renderCustomCardsAdmin(); renderCollection(); renderSquadPitch(); updateCurrenciesDisplay();
+        }
+
         /* Settings Save */
         function saveSettings() {
             const newName = document.getElementById('settingsUsername').value.trim();
@@ -1362,7 +2114,8 @@
             input.select();
             document.execCommand('copy');
             alert("Link di invito copiato negli appunti!");
-        }
+                 }
     </script>
+
 </body>
 </html>
