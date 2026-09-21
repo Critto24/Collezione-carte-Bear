@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEAR FC - Ultimate Team Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-card { background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        /* Card Rarities Styling */
+        .card-common { background: linear-gradient(135deg, #4b5563 0%, #1f2937 100%); border-color: #9ca3af; }
+        .card-rare { background: linear-gradient(135deg, #1d4ed8 0%, #0f172a 100%); border-color: #60a5fa; }
+        .card-epic { background: linear-gradient(135deg, #7c3aed 0%, #3b0764 100%); border-color: #c084fc; }
+        .card-legendary { background: linear-gradient(135deg, #b45309 0%, #78350f 100%, #f59e0b 50%); border-color: #fbbf24; box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
+        ::-webkit-scrollbar-thumb { background: rgba(75, 85, 99, 0.6); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(107, 114, 128, 0.8); }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        .animate-glow { animation: pulse-glow 3s infinite ease-in-out; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
+
+    <!-- AUTHENTICATION MODAL -->
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden">
+        <div class="glass p-8 rounded-2xl w-full max-w-md shadow-2xl border border-slate-700 relative">
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 text-2xl font-bold mb-3 border border-amber-500/30">
+                    <i class="fa-solid fa-shield-cat"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white tracking-wide">BEAR FC Ultimate Team</h2>
+                <p class="text-xs text-slate-400 mt-1">Accedi o registrati per salvare la tua collezione e i tuoi progressi</p>
+            </div>
+
+            <div id="authTabs" class="flex rounded-xl bg-slate-900/80 p-1 mb-6 border border-slate-800">
+                <button onclick="switchAuthTab('login')" id="tabLoginBtn" class="flex-1 py-2 text-sm font-semibold rounded-lg bg-amber-600 text-white transition">Accedi</button>
+                <button onclick="switchAuthTab('register')" id="tabRegisterBtn" class="flex-1 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition">Registrati</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Username o Email</label>
+                    <input type="text" id="loginUsername" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition" placeholder="Es. bear_fan99">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Password</label>
+                    <input type="password" id="loginPassword" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full py-3 bg-gradient-to-r from-amber-600 to-amber-500 text-white font-bold rounded-xl shadow-lg hover:from-amber-500 hover:to-amber-400 transition transform active:scale-95">
+                    Entra nel Club <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Nome Allenatore / Username</label>
+                    <input type="text" id="regUsername" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition" placeholder="Es. MisterBear">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Email</label>
+                    <input type="email" id="regEmail" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition" placeholder="tu@email.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Password</label>
+                    <input type="password" id="regPassword" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-xl shadow-lg hover:from-emerald-500 hover:to-emerald-400 transition transform active:scale-95">
+                    Crea Account & Ricevi Bonus (1000 FC Coins) <i class="fa-solid fa-user-plus ml-2"></i>
+                </button>
+            </form>
+
+            <div id="authError" class="mt-4 text-center text-xs text-rose-400 hidden"></div>
+        </div>
+    </div>
+
+    <!-- APP CONTAINER -->
+    <div id="appContainer" class="flex h-screen w-screen overflow-hidden hidden">
+        
+        <!-- SIDEBAR (Bitrix24 Style) -->
+        <aside class="w-64 bg-slate-900/95 border-r border-slate-800 flex flex-col z-20 flex-shrink-0 transition-all duration-300">
+            <!-- Brand Logo -->
+            <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800 bg-slate-950/40">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20 text-slate-950 font-black text-xl">
+                        <i class="fa-solid fa-shield-cat"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-white tracking-wider text-base">BEAR FC</h1>
+                        <span class="text-[10px] uppercase tracking-widest text-amber-400 font-semibold">Ultimate Team</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+                <button onclick="switchTab('feed')" id="nav-feed" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+                    <i class="fa-solid fa-house-chimney w-5 text-center"></i>
+                    <span>Feed & Bacheca</span>
+                </button>
+                <button onclick="switchTab('squad')" id="nav-squad" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+                    <i class="fa-solid fa-shirt w-5 text-center"></i>
+                    <span>Squadra Titolare</span>
+                </button>
+                <button onclick="switchTab('collection')" id="nav-collection" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+                    <i class="fa-solid fa-id-card w-5 text-center"></i>
+                    <span>Collezione Carte</span>
+                </button>
+                <button onclick="switchTab('packs')" id="nav-packs" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+                    <i class="fa-solid fa-box-open w-5 text-center text-amber-400"></i>
+                    <span>Negozio Pacchetti</span>
+                </button>
+                <button onclick="switchTab('market')" id="nav-market" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+                    <i class="fa-solid fa-store w-5 text-center"></i>
+                    <span>Mercato & Scambi</span>
+                </button>
+                <button onclick="switchTab('match')" id="nav-match" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+                    <i class="fa-solid fa-futbol w-5 text-center text-emerald-400"></i>
+                    <span>Modalità Partita</span>
+                </button>
+                <button onclick="switchTab('crm')" id="nav-crm" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+                    <i class="fa-solid fa-address-book w-5 text-center"></i>
+                    <span>CRM Club & Sponsor</span>
+                </button>
+                <button onclick="switchTab('settings')" id="nav-settings" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    <span>Impostazioni Account</span>
+                </button>
+            </nav>
+
+            <!-- User Quick Status Card at bottom of sidebar -->
+            <div class="p-4 border-t border-slate-800 bg-slate-950/60 flex items-center justify-between">
+                <div class="flex items-center space-x-3 overflow-hidden">
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center font-bold text-white text-sm flex-shrink-0" id="sidebarUserAvatar">
+                        B
+                    </div>
+                    <div class="truncate">
+                        <p class="text-xs font-bold text-white truncate" id="sidebarUserName">Allenatore</p>
+                        <p class="text-[10px] text-amber-400 font-semibold flex items-center gap-1">
+                            <i class="fa-solid fa-coins"></i> <span id="sidebarUserCoins">1000</span> FC
+                        </p>
+                    </div>
+                </div>
+                <button onclick="logout()" title="Esci dall'account" class="text-slate-400 hover:text-rose-400 p-2 transition">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN AREA -->
+        <div class="flex-1 flex flex-col min-w-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black">
+            
+            <!-- TOPBAR -->
+            <header class="h-16 px-6 border-b border-slate-800/80 glass flex items-center justify-between z-10">
+                <!-- Search bar -->
+                <div class="flex items-center space-x-4 flex-1 max-w-md">
+                    <div class="relative w-full">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" placeholder="Cerca giocatori, pacchetti, trofei..." class="w-full bg-slate-900/80 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-xs text-white focus:outline-none focus:border-amber-500 transition">
+                    </div>
+                </div>
+
+                <!-- Right Header items -->
+                <div class="flex items-center space-x-4">
+                    <!-- Realtime Clock -->
+                    <div class="hidden md:flex items-center space-x-2 text-xs text-slate-400 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-800">
+                        <i class="fa-regular fa-clock text-amber-400"></i>
+                        <span id="realtimeClock">00:00:00</span>
+                    </div>
+
+                    <!-- Currencies (Coins & Trophies) -->
+                    <div class="flex items-center space-x-3 bg-slate-900/80 border border-slate-800 px-3 py-1.5 rounded-xl text-xs">
+                        <div class="flex items-center space-x-1.5 text-amber-400 font-bold" title="FC Coins">
+                            <i class="fa-solid fa-coins"></i>
+                            <span id="topbarCoins">1000</span>
+                        </div>
+                        <div class="h-4 w-[1px] bg-slate-700"></div>
+                        <div class="flex items-center space-x-1.5 text-yellow-300 font-bold" title="Trofei Vinti">
+                            <i class="fa-solid fa-trophy"></i>
+                            <span id="topbarTrophies">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Invite button -->
+                    <button onclick="openInviteModal()" class="hidden sm:flex items-center space-x-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-semibold px-4 py-2 rounded-xl text-xs shadow-lg transition transform active:scale-95">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Invita Amico</span>
+                    </button>
+
+                    <!-- User Profile Quick Toggle -->
+                    <div class="flex items-center space-x-3 pl-2 border-l border-slate-800">
+                        <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold text-sm" id="topbarUserAvatar">
+                            B
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT VIEW CONTAINER -->
+            <main class="flex-1 overflow-y-auto p-6 relative">
+                
+                <!-- 1. FEED & DASHBOARD VIEW -->
+                <div id="view-feed" class="view-section space-y-6">
+                    <!-- Welcome Banner -->
+                    <div class="glass p-6 rounded-3xl relative overflow-hidden bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-amber-950/30 border border-slate-800">
+                        <div class="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div>
+                                <span class="px-3 py-1 bg-amber-500/20 border border-amber-500/30 text-amber-400 text-[10px] font-bold uppercase tracking-wider rounded-full">Stagione 2026</span>
+                                <h2 class="text-3xl font-extrabold text-white mt-2">Benvenuto, <span id="welcomeManagerName" class="text-amber-400">Allenatore</span>!</h2>
+                                <p class="text-sm text-slate-400 mt-1">Il quartier generale di BEAR FC è pronto. Gestisci i tuoi pacchetti, colleziona le stelle del calcio e domina il campo.</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button onclick="switchTab('packs')" class="px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-2xl text-sm shadow-lg shadow-amber-500/20 transition flex items-center gap-2">
+                                    <i class="fa-solid fa-box-open"></i> Apri Pacchetto Gratis
+                                </button>
+                                <button onclick="switchTab('match')" class="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl text-sm border border-slate-700 transition flex items-center gap-2">
+                                    <i class="fa-solid fa-futbol text-emerald-400"></i> Gioca Partita
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="glass-card p-5 rounded-2xl flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl font-bold border border-blue-500/30">
+                                <i class="fa-solid fa-id-card"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-medium">Carte Collezionate</p>
+                                <h3 class="text-2xl font-black text-white mt-0.5" id="statCardsCount">0 / 24</h3>
+                            </div>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold border border-amber-500/30">
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-medium">Crediti FC Coins</p>
+                                <h3 class="text-2xl font-black text-white mt-0.5" id="statCoinsCount">1000</h3>
+                            </div>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl font-bold border border-purple-500/30">
+                                <i class="fa-solid fa-shirt"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-medium">Valutazione Squadra</p>
+                                <h3 class="text-2xl font-black text-white mt-0.5" id="statTeamRating">82</h3>
+                            </div>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-bold border border-emerald-500/30">
+                                <i class="fa-solid fa-trophy"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-medium">Trofei Vinti</p>
+                                <h3 class="text-2xl font-black text-white mt-0.5" id="statTrophiesCount">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest Club Activity & Featured Card -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 glass p-6 rounded-3xl border border-slate-800 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-white text-base flex items-center gap-2">
+                                    <i class="fa-solid fa-bolt text-amber-400"></i> Attività Recenti del Club
+                                </h3>
+                                <span class="text-xs text-slate-400">Aggiornato in tempo reale</span>
+                            </div>
+                            <div class="space-y-3" id="activityFeedList">
+                                <div class="flex items-center space-x-3 p-3 bg-slate-900/60 rounded-xl border border-slate-800/80">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-user-plus"></i>
+                                    </div>
+                                    <div class="flex-1 text-xs">
+                                        <p class="text-slate-200"><span class="font-bold text-white" id="feedUserName">Allenatore</span> ha registrato ufficialmente il club BEAR FC.</p>
+                                        <span class="text-[10px] text-slate-500">Oggi</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Star Card Preview -->
+                        <div class="glass p-6 rounded-3xl border border-slate-800 flex flex-col items-center justify-center text-center">
+                            <span class="text-xs font-bold uppercase tracking-widest text-amber-400 mb-3">Stellina in Evidenza</span>
+                            <div id="featuredCardContainer" class="w-48 h-72 rounded-2xl p-4 flex flex-col justify-between relative shadow-2xl card-legendary border-2 transition transform hover:scale-105 cursor-pointer" onclick="switchTab('collection')">
+                                <div class="flex justify-between items-start text-white">
+                                    <div>
+                                        <div class="text-2xl font-black italic">94</div>
+                                        <div class="text-[10px] uppercase font-bold tracking-wider">ATT</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-xs font-bold">BEAR FC</div>
+                                        <div class="text-[9px] text-amber-200">Leggendario</div>
+                                    </div>
+                                </div>
+                                <div class="my-auto text-center">
+                                    <div class="w-16 h-16 mx-auto rounded-full bg-amber-500/30 flex items-center justify-center text-3xl mb-1 border border-amber-400/50">
+                                        <i class="fa-solid fa-shield-cat"></i>
+                                    </div>
+                                    <h4 class="font-extrabold text-sm text-white tracking-wide">K. BEAROTTI</h4>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 text-[10px] font-bold text-white bg-black/40 p-1.5 rounded-lg text-center">
+                                    <div>96 VEL</div>
+                                    <div>95 TIR</div>
+                                    <div>92 PAS</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. SQUADRA TITOLARE (4-3-3 Field) -->
+                <div id="view-squad" class="view-section space-y-6 hidden">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 glass p-6 rounded-3xl border border-slate-800">
+                        <div>
+                            <h2 class="text-2xl font-extrabold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-shirt text-amber-400"></i> Formazione Titolare 4-3-3
+                            </h2>
+                            <p class="text-xs text-slate-400 mt-1">Clicca su una posizione in campo per assegnare un giocatore dalla tua collezione.</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="autoFillSquad()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl text-xs border border-slate-700 transition">
+                                <i class="fa-solid fa-wand-magic-sparkles text-amber-400 mr-1.5"></i> Schiera Migliori
+                            </button>
+                            <div class="bg-slate-900 px-4 py-2 rounded-xl border border-slate-800 text-xs font-bold text-amber-400">
+                                V. SQUADRA: <span id="squadRatingDisplay">82</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soccer Pitch Container -->
+                    <div class="relative w-full max-w-4xl mx-auto h-[600px] bg-gradient-to-b from-emerald-900 via-emerald-800 to-emerald-950 rounded-3xl border-4 border-emerald-700 shadow-2xl overflow-hidden flex flex-col justify-between p-6">
+                        <!-- Pitch Markings (Center Circle & Lines) -->
+                        <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+                            <div class="w-48 h-48 rounded-full border-2 border-emerald-600/40"></div>
+                            <div class="absolute w-full h-[2px] bg-emerald-600/40"></div>
+                            <div class="absolute top-0 w-48 h-24 border-b-2 border-x-2 border-emerald-600/40 rounded-b-xl"></div>
+                            <div class="absolute bottom-0 w-48 h-24 border-t-2 border-x-2 border-emerald-600/40 rounded-t-xl"></div>
+                        </div>
+
+                        <!-- STRIKES / FORWARDS (LW, ST, RW) -->
+                        <div class="relative z-10 flex justify-around items-center px-12">
+                            <div onclick="openPlayerSelector('LW')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="LW">
+                                <div id="slot-LW" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                    <i class="fa-solid fa-plus text-lg"></i>
+                                    <span class="text-[10px] font-bold mt-1">LW</span>
+                                </div>
+                                <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-LW">Ala Sinistra</span>
+                            </div>
+                            <div onclick="openPlayerSelector('ST')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="ST">
+                                <div id="slot-ST" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                    <i class="fa-solid fa-plus text-lg"></i>
+                                    <span class="text-[10px] font-bold mt-1">ST</span>
+                                </div>
+                                <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-ST">Attaccante</span>
+                            </div>
+                            <div onclick="openPlayerSelector('RW')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="RW">
+                                <div id="slot-RW" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                    <i class="fa-solid fa-plus text-lg"></i>
+                                    <span class="text-[10px] font-bold mt-1">RW</span>
+                                </div>
+                                <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-RW">Ala Destra</span>
+                            </div>
+                        </div>
+
+                        <!-- MIDFIELDERS (CM1, CM2, CDM) -->
+                        <div class="relative z-10 flex justify-around items-center px-8">
+                            <div onclick="openPlayerSelector('CM1')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="CM1">
+                                <div id="slot-CM1" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                    <i class="fa-solid fa-plus text-lg"></i>
+                                    <span class="text-[10px] font-bold mt-1">CC</span>
+                                </div>
+                                <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-CM1">Centrocampista</span>
+                            </div>
+                            <div onclick="openPlayerSelector('CDM')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="CDM">
+                                <div id="slot-CDM" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                    <i class="fa-solid fa-plus text-lg"></i>
+                                    <span class="text-[10px] font-bold mt-1">CDC</span>
+                                </div>
+                                <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-CDM">Mediano</span>
+                            </div>
+                            <div onclick="openPlayerSelector('CM2')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="CM2">
+                                <div id="slot-CM2" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                    <i class="fa-solid fa-plus text-lg"></i>
+                                    <span class="text-[10px] font-bold mt-1">CC</span>
+                                </div>
+                                <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-CM2">Centrocampista</span>
+                            </div>
+                        </div>
+
+                        <!-- DEFENDERS & GOALKEEPER (LB, CB1, CB2, RB, GK) -->
+                        <div class="relative z-10 flex flex-col space-y-4">
+                            <div class="flex justify-between items-center px-4">
+                                <div onclick="openPlayerSelector('LB')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="LB">
+                                    <div id="slot-LB" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                        <i class="fa-solid fa-plus text-lg"></i>
+                                        <span class="text-[10px] font-bold mt-1">TS</span>
+                                    </div>
+                                    <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-LB">Terzino S</span>
+                                </div>
+                                <div onclick="openPlayerSelector('CB1')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="CB1">
+                                    <div id="slot-CB1" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                        <i class="fa-solid fa-plus text-lg"></i>
+                                        <span class="text-[10px] font-bold mt-1">DC</span>
+                                    </div>
+                                    <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-CB1">Difensore</span>
+                                </div>
+                                <div onclick="openPlayerSelector('CB2')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="CB2">
+                                    <div id="slot-CB2" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                        <i class="fa-solid fa-plus text-lg"></i>
+                                        <span class="text-[10px] font-bold mt-1">DC</span>
+                                    </div>
+                                    <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-CB2">Difensore</span>
+                                </div>
+                                <div onclick="openPlayerSelector('RB')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="RB">
+                                    <div id="slot-RB" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                        <i class="fa-solid fa-plus text-lg"></i>
+                                        <span class="text-[10px] font-bold mt-1">TD</span>
+                                    </div>
+                                    <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-RB">Terzino D</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-center items-center">
+                                <div onclick="openPlayerSelector('GK')" class="pitch-slot flex flex-col items-center cursor-pointer group" data-position="GK">
+                                    <div id="slot-GK" class="w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 group-hover:border-amber-400 transition shadow-lg">
+                                        <i class="fa-solid fa-plus text-lg"></i>
+                                        <span class="text-[10px] font-bold mt-1">POR</span>
+                                    </div>
+                                    <span class="text-xs font-bold text-white mt-1 bg-black/60 px-2 py-0.5 rounded-md" id="name-GK">Portiere</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. COLLEZIONE DI CARTE -->
+                <div id="view-collection" class="view-section space-y-6 hidden">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 glass p-6 rounded-3xl border border-slate-800">
+                        <div>
+                            <h2 class="text-2xl font-extrabold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-id-card text-amber-400"></i> Album Collezione Carte
+                            </h2>
+                            <p class="text-xs text-slate-400 mt-1">Colleziona tutte le carte stelle di BEAR FC. Filtra per rarità o gestisci i doppioni.</p>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-slate-900 p-1.5 rounded-2xl border border-slate-800">
+                            <button onclick="filterCollection('all')" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-amber-600 text-white transition" data-filter="all">Tutte</button>
+                            <button onclick="filterCollection('legendary')" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition" data-filter="legendary">Leggendarie</button>
+                            <button onclick="filterCollection('epic')" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition" data-filter="epic">Epiche</button>
+                            <button onclick="filterCollection('rare')" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition" data-filter="rare">Rare</button>
+                            <button onclick="filterCollection('common')" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition" data-filter="common">Comuni</button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar Album -->
+                    <div class="glass p-5 rounded-2xl border border-slate-800 flex items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs text-slate-400 font-semibold">Completamento Album</span>
+                            <h3 class="text-lg font-black text-white" id="albumProgressText">0 / 24 Sbloccate (0%)</h3>
+                        </div>
+                        <div class="w-1/2 bg-slate-900 rounded-full h-3 p-0.5 border border-slate-800 overflow-hidden">
+                            <div id="albumProgressBar" class="bg-gradient-to-r from-amber-600 to-amber-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Cards Grid -->
+                    <div id="collectionGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <!-- Cards injected via JS -->
+                    </div>
+                </div>
+
+                <!-- 4. NEGOZIO PACCHETTI -->
+                <div id="view-packs" class="view-section space-y-6 hidden">
+                    <div class="glass p-6 rounded-3xl border border-slate-800 text-center max-w-2xl mx-auto">
+                        <span class="px-3 py-1 bg-amber-500/20 border border-amber-500/30 text-amber-400 text-[10px] font-bold uppercase tracking-wider rounded-full">Negozio Ufficiale</span>
+                        <h2 class="text-3xl font-extrabold text-white mt-2">Apri Pacchetti & Trova Campioni</h2>
+                        <p class="text-xs text-slate-400 mt-1">Usa i tuoi FC Coins per spacchettare e trovare nuove carte o doppioni da scambiare.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        <!-- Bronze Pack -->
+                        <div class="glass p-6 rounded-3xl border border-slate-800 flex flex-col items-center text-center relative overflow-hidden group hover:border-amber-500/50 transition">
+                            <div class="w-24 h-32 rounded-xl bg-gradient-to-b from-amber-900 to-amber-950 border-2 border-amber-800 flex flex-col items-center justify-center p-3 mb-4 shadow-xl group-hover:scale-105 transition">
+                                <i class="fa-solid fa-box-open text-3xl text-amber-500 mb-2"></i>
+                                <span class="text-xs font-bold text-white">Pacchetto Bronzo</span>
+                            </div>
+                            <h3 class="font-extrabold text-white text-lg">Pacchetto Base</h3>
+                            <p class="text-xs text-slate-400 mt-1 mb-4">Contiene 3 carte (Alta probabilità Comuni e Rare).</p>
+                            <button onclick="openPack('bronze', 250)" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold rounded-2xl text-xs border border-slate-700 transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-coins">></i> 250 FC Coins
+                            </button>
+                        </div>
+
+                        <!-- Silver Pack -->
+                        <div class="glass p-6 rounded-3xl border border-slate-800 flex flex-col items-center text-center relative overflow-hidden group hover:border-blue-500/50 transition">
+                            <div class="absolute top-3 right-3 bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-500/30">Popolare</div>
+                            <div class="w-24 h-32 rounded-xl bg-gradient-to-b from-blue-900 to-slate-900 border-2 border-blue-600 flex flex-col items-center justify-center p-3 mb-4 shadow-xl group-hover:scale-105 transition">
+                                <i class="fa-solid fa-box-open text-3xl text-blue-400 mb-2"></i>
+                                <span class="text-xs font-bold text-white">Pacchetto Argento</span>
+                            </div>
+                            <h3 class="font-extrabold text-white text-lg">Pacchetto Pro</h3>
+                            <p class="text-xs text-slate-400 mt-1 mb-4">Contiene 3 carte (Maggiore probabilità Epiche).</p>
+                            <button onclick="openPack('silver', 600)" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl text-xs shadow-lg transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-coins"></i> 600 FC Coins
+                            </button>
+                        </div>
+
+                        <!-- Gold / Legendary Pack -->
+                        <div class="glass p-6 rounded-3xl border border-amber-500/40 flex flex-col items-center text-center relative overflow-hidden group hover:border-amber-400 transition bg-gradient-to-b from-amber-950/20 to-slate-900/80">
+                            <div class="absolute top-3 right-3 bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/30">Top</div>
+                            <div class="w-24 h-32 rounded-xl bg-gradient-to-b from-amber-600 to-amber-900 border-2 border-amber-400 flex flex-col items-center justify-center p-3 mb-4 shadow-xl shadow-amber-500/20 group-hover:scale-105 transition animate-glow">
+                                <i class="fa-solid fa-box-open text-3xl text-amber-200 mb-2"></i>
+                                <span class="text-xs font-bold text-white">Pacchetto Oro</span>
+                            </div>
+                            <h3 class="font-extrabold text-white text-lg">Pacchetto Leggendario</h3>
+                            <p class="text-xs text-slate-400 mt-1 mb-4">Contiene 3 carte (Garantita almeno 1 Epica o Leggendaria!).</p>
+                            <button onclick="openPack('gold', 1500)" class="w-full py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold rounded-2xl text-xs shadow-lg transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-coins"></i> 1500 FC Coins
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. MERCATO TRASFERIMENTI -->
+                <div id="view-market" class="view-section space-y-6 hidden">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 glass p-6 rounded-3xl border border-slate-800">
+                        <div>
+                            <h2 class="text-2xl font-extrabold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-store text-amber-400"></i> Mercato Trasferimenti & Doppioni
+                            </h2>
+                            <p class="text-xs text-slate-400 mt-1">Vendi i tuoi doppioni in cambio di FC Coins o acquista scoperte dal mercato globale.</p>
+                        </div>
+                    </div>
+
+                    <!-- Market Tabs or Sections -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Sell Duplicates -->
+                        <div class="glass p-6 rounded-3xl border border-slate-800 space-y-4">
+                            <h3 class="font-bold text-white text-base flex items-center gap-2">
+                                <i class="fa-solid fa-tags text-emerald-400"></i> Vendi Doppioni
+                            </h3>
+                            <p class="text-xs text-slate-400">Hai trovato copie multiple dei tuoi giocatori? Vendile per fare cassa.</p>
+                            <div id="duplicatesList" class="space-y-3 max-h-80 overflow-y-auto pr-2">
+                                <!-- Injected via JS -->
+                                <div class="text-center py-8 text-xs text-slate-500">Nessun doppione disponibile al momento. Apri altri pacchetti!</div>
+                            </div>
+                        </div>
+
+                        <!-- Transfer Market Buy -->
+                        <div class="glass p-6 rounded-3xl border border-slate-800 space-y-4">
+                            <h3 class="font-bold text-white text-base flex items-center gap-2">
+                                <i class="fa-solid fa-cart-shopping text-amber-400"></i> Aste in Corso
+                            </h3>
+                            <p class="text-xs text-slate-400">Giocatori in vendita sul mercato globale del club.</p>
+                            <div id="marketAuctionsList" class="space-y-3 max-h-80 overflow-y-auto pr-2">
+                                <!-- Injected via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. MODALITÀ PARTITA -->
+                <div id="view-match" class="view-section space-y-6 hidden">
+                    <div class="glass p-8 rounded-3xl border border-slate-800 max-w-3xl mx-auto text-center space-y-6">
+                        <span class="px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider rounded-full">Modalità Competitiva</span>
+                        <h2 class="text-3xl font-extrabold text-white">Torneo Champions BEAR FC</h2>
+                        <p class="text-xs text-slate-400 max-w-lg mx-auto">Scendi in campo con la tua formazione titolare 4-3-3. Più alta è la valutazione della tua squadra, più probabilità avrai di vincere partite, crediti e trofei leggendari!</p>
+                        
+                        <div class="flex justify-center items-center gap-6 py-4">
+                            <div class="text-center">
+                                <div class="text-sm text-slate-400 font-semibold">Tua Formazione</div>
+                                <div class="text-2xl font-black text-amber-400 mt-1" id="matchTeamRating">82 V.R.</div>
+                            </div>
+                            <div class="text-2xl font-bold text-slate-600">VS</div>
+                            <div class="text-center">
+                                <div class="text-sm text-slate-400 font-semibold">Avversario</div>
+                                <div class="text-2xl font-black text-rose-400 mt-1">FC Real Rivals</div>
+                            </div>
+                        </div>
+
+                        <div id="matchSimulationArea" class="hidden glass-card p-6 rounded-2xl border border-slate-700 space-y-4">
+                            <div class="text-lg font-bold text-white" id="matchStatusText">Fischio d'inizio... Partita in corso!</div>
+                            <div class="flex justify-center items-center space-x-6 text-3xl font-black text-amber-400">
+                                <span id="matchScoreMy">0</span>
+                                <span class="text-slate-600">-</span>
+                                <span id="matchScoreOpp">0</span>
+                            </div>
+                            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                                <div id="matchProgressBar" class="bg-emerald-500 h-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <button onclick="startMatchSimulation()" id="startMatchBtn" class="px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-extrabold rounded-2xl text-sm shadow-xl transition transform active:scale-95">
+                            <i class="fa-solid fa-futbol mr-2"></i> Inizia Partita (Costo: 50 Energia)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 7. CRM CLUB & SPONSOR -->
+                <div id="view-crm" class="view-section space-y-6 hidden">
+                    <div class="glass p-6 rounded-3xl border border-slate-800">
+                        <h2 class="text-2xl font-extrabold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-address-book text-amber-400"></i> CRM Club & Sponsor Ufficiali
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Gestisci i contatti commerciali, gli sponsor e i contratti per aumentare le entrate di BEAR FC.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg border border-amber-500/30">
+                                <i class="fa-solid fa-handshake"></i>
+                            </div>
+                            <h3 class="font-bold text-white text-base">Sponsor Principale: TechBear</h3>
+                            <p class="text-xs text-slate-400">Contratto attivo per la maglia ufficiale.</p>
+                            <div class="text-xs font-bold text-amber-400 pt-2">+150 FC Coins / giorno</div>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-lg border border-blue-500/30">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+                            <h3 class="font-bold text-white text-base">Stadio BEAR Arena</h3>
+                            <p class="text-xs text-slate-400">Capienza: 45.000 spettatori.</p>
+                            <div class="text-xs font-bold text-blue-400 pt-2">Incasso biglietti: Ottimale</div>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-lg border border-purple-500/30">
+                                <i class="fa-solid fa-bullhorn"></i>
+                            </div>
+                            <h3 class="font-bold text-white text-base">Campagna Abbonamenti</h3>
+                            <p class="text-xs text-slate-400">Tifosi fidelizzati e store merchandising.</p>
+                            <div class="text-xs font-bold text-purple-400 pt-2">Status: 92% Sold Out</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. IMPOSTAZIONI ACCOUNT -->
+                <div id="view-settings" class="view-section space-y-6 hidden">
+                    <div class="glass p-6 rounded-3xl border border-slate-800 max-w-2xl mx-auto space-y-6">
+                        <h2 class="text-2xl font-extrabold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-gear text-amber-400"></i> Gestione Profilo Account
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Nome Allenatore</label>
+                                <input type="text" id="settingsUsername" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Email Registrata</label>
+                                <input type="email" id="settingsEmail" disabled class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-400 cursor-not-allowed">
+                            </div>
+                            <button onclick="saveSettings()" class="px-6 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-xs shadow-lg transition">
+                                Salva Modifiche
+                            </button>
+                        </div>
+                        <hr class="border-slate-800">
+                        <div class="pt-2 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Disconnetti Account</h4>
+                                <p class="text-xs text-slate-400">I tuoi dati sono salvati in modo sicuro nella sessione locale.</p>
+                            </div>
+                            <button onclick="logout()" class="px-4 py-2 bg-rose-600/20 hover:bg-rose-600/30 text-rose-400 border border-rose-500/30 font-bold rounded-xl text-xs transition">
+                                <i class="fa-solid fa-right-from-bracket mr-1.5"></i> Esci
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- PACK OPENING ANIMATION MODAL -->
+    <div id="packModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md hidden">
+        <div class="glass p-8 rounded-3xl w-full max-w-2xl text-center space-y-6 border border-slate-700 relative">
+            <h3 class="text-2xl font-extrabold text-white" id="packModalTitle">Spacchettamento in corso...</h3>
+            <div id="packOpeningAnimation" class="py-12 flex justify-center items-center gap-4 flex-wrap">
+                <!-- Cards revealed dynamically -->
+            </div>
+            <button onclick="closePackModal()" id="closePackBtn" class="px-8 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-2xl text-xs shadow-lg transition hidden">
+                Riscuoti Carte & Chiudi
+            </button>
+        </div>
+    </div>
+
+    <!-- PLAYER SELECTOR MODAL FOR SQUAD -->
+    <div id="playerSelectorModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden">
+        <div class="glass p-6 rounded-3xl w-full max-w-xl max-h-[80vh] flex flex-col border border-slate-700">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-white text-base">Seleziona Giocatore per <span id="selectingPositionTitle" class="text-amber-400"></span></h3>
+                <button onclick="closePlayerSelector()" class="text-slate-400 hover:text-white p-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="availablePlayersList" class="flex-1 overflow-y-auto space-y-2 pr-2">
+                <!-- Players injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- INVITE FRIEND MODAL -->
+    <div id="inviteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden">
+        <div class="glass p-6 rounded-3xl w-full max-w-md text-center space-y-4 border border-slate-700 relative">
+            <div class="w-14 h-14 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mx-auto border border-amber-500/30">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <h3 class="font-extrabold text-white text-lg">Invita un Amico in BEAR FC</h3>
+            <p class="text-xs text-slate-400">Condividi questo link di invito con i tuoi amici. Entrambi riceverete un pacchetto oro omaggio!</p>
+            <div class="flex items-center space-x-2 bg-slate-900 p-2 rounded-xl border border-slate-800">
+                <input type="text" readonly id="inviteLinkInput" value="https://bearfc.ultimateteam.club/invite?ref=bear2026" class="w-full bg-transparent text-xs text-amber-400 px-2 focus:outline-none">
+                <button onclick="copyInviteLink()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-xs transition">Copia</button>
+            </div>
+            <button onclick="closeInviteModal()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl text-xs transition">Chiudi</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* Database of all possible players in BEAR FC */
+        const ALL_PLAYERS = [
+            { id: 1, name: "K. BEAROTTI", pos: "ST", rating: 94, rare: "legendary", pace: 96, shoot: 95, pass: 92, drib: 94, def: 45, phys: 88 },
+            { id: 2, name: "G. GHIRO", pos: "LW", rating: 91, rare: "legendary", pace: 98, shoot: 89, pass: 88, drib: 95, def: 38, phys: 75 },
+            { id: 3, name: "M. BRUIN", pos: "RW", rating: 89, rare: "epic", pace: 92, shoot: 88, pass: 85, drib: 90, def: 40, phys: 78 },
+            { id: 4, name: "L. GRIZZLY", pos: "GK", rating: 88, rare: "epic", pace: 80, shoot: 40, pass: 75, drib: 82, def: 90, phys: 92 },
+            { id: 5, name: "A. PANDA", pos: "CB1", rating: 87, rare: "epic", pace: 78, shoot: 50, pass: 72, drib: 75, def: 89, phys: 94 },
+            { id: 6, name: "S. KODIAK", pos: "CM1", rating: 86, rare: "rare", pace: 82, shoot: 80, pass: 87, drib: 84, def: 78, phys: 85 },
+            { id: 7, name: "R. POLAR", pos: "CM2", rating: 85, rare: "rare", pace: 84, shoot: 82, pass: 85, drib: 83, def: 76, phys: 82 },
+            { id: 8, name: "T. TEDDY", pos: "CDM", rating: 84, rare: "rare", pace: 76, shoot: 70, pass: 82, drib: 80, def: 86, phys: 89 },
+            { id: 9, name: "D. HONEY", pos: "LB", rating: 83, rare: "rare", pace: 88, shoot: 68, pass: 78, drib: 82, def: 81, phys: 79 },
+            { id: 10, name: "F. FOREST", pos: "RB", rating: 82, rare: "rare", pace: 87, shoot: 65, pass: 76, drib: 80, def: 80, phys: 80 },
+            { id: 11, name: "P. WOOD", pos: "ST", rating: 80, rare: "common", pace: 81, shoot: 82, pass: 70, drib: 78, def: 30, phys: 75 },
+            { id: 12, name: "N. WOODS", pos: "CM1", rating: 79, rare: "common", pace: 75, shoot: 74, pass: 80, drib: 79, def: 72, phys: 76 },
+            { id: 13, name: "B. OAK", pos: "CB2", rating: 78, rare: "common", pace: 70, shoot: 45, pass: 68, drib: 70, def: 82, phys: 88 },
+            { id: 14, name: "C. PINE", pos: "LW", rating: 77, rare: "common", pace: 89, shoot: 75, pass: 72, drib: 83, def: 35, phys: 68 },
+            { id: 15, name: "H. LEAF", pos: "RW", rating: 76, rare: "common", pace: 88, shoot: 73, pass: 70, drib: 82, def: 34, phys: 66 },
+            { id: 16, name: "J. BARK", pos: "CDM", rating: 75, rare: "common", pace: 72, shoot: 60, pass: 75, drib: 74, def: 78, phys: 82 },
+            { id: 17, name: "E. ROOT", pos: "LB", rating: 74, rare: "common", pace: 82, shoot: 55, pass: 70, drib: 75, def: 74, phys: 72 },
+            { id: 18, name: "W. BRANCH", pos: "RB", rating: 73, rare: "common", pace: 83, shoot: 54, pass: 69, drib: 74, def: 73, phys: 73 },
+            { id: 19, name: "O. MOSS", pos: "GK", rating: 72, rare: "common", pace: 70, shoot: 30, pass: 65, drib: 70, def: 75, phys: 78 },
+            { id: 20, name: "K. STONE", pos: "CB1", rating: 71, rare: "common", pace: 68, shoot: 40, pass: 64, drib: 68, def: 76, phys: 82 },
+            { id: 21, name: "Z. PEAK", pos: "CM2", rating: 70, rare: "common", pace: 74, shoot: 68, pass: 72, drib: 71, def: 68, phys: 70 },
+            { id: 22, name: "V. RIDGE", pos: "ST", rating: 69, rare: "common", pace: 78, shoot: 70, pass: 62, drib: 72, def: 28, phys: 68 },
+            { id: 23, name: "X. CREEK", pos: "LW", rating: 68, rare: "common", pace: 84, shoot: 65, pass: 64, drib: 76, def: 30, phys: 64 },
+            { id: 24, name: "Y. TRAIL", pos: "RW", rating: 67, rare: "common", pace: 85, shoot: 64, pass: 63, drib: 77, def: 29, phys: 65 }
+        ];
+
+        /* Current user session state */
+        let currentUser = null;
+        let userCards = []; // array of player IDs owned (can contain duplicates)
+        let userSquad = {
+            LW: null, ST: null, RW: null,
+            CM1: null, CDM: null, CM2: null,
+            LB: null, CB1: null, CB2: null, RB: null, GK: null
+        };
+        let currentFilter = 'all';
+        let currentSelectingSlot = null;
+
+        /* Realtime Clock */
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('realtimeClock').innerText = now.toLocaleTimeString('it-IT');
+        }, 1000);
+
+        /* Initialize App on Load */
+        window.onload = function() {
+            const savedSession = localStorage.getItem('bear_fc_current_user');
+            if (savedSession) {
+                currentUser = JSON.parse(savedSession);
+                loadUserData();
+                showApp();
+            } else {
+                document.getElementById('authModal').classList.remove('hidden');
+            }
+        };
+
+        function switchAuthTab(tab) {
+            if (tab === 'login') {
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('tabLoginBtn').className = "flex-1 py-2 text-sm font-semibold rounded-lg bg-amber-600 text-white transition";
+                document.getElementById('tabRegisterBtn').className = "flex-1 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition";
+            } else {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.remove('hidden');
+                document.getElementById('tabRegisterBtn').className = "flex-1 py-2 text-sm font-semibold rounded-lg bg-emerald-600 text-white transition";
+                document.getElementById('tabLoginBtn').className = "flex-1 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition";
+            }
+            document.getElementById('authError').classList.add('hidden');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const usersDb = JSON.parse(localStorage.getItem('bear_fc_users_db') || '{}');
+
+            if (usersDb[username]) {
+                currentUser = usersDb[username];
+                saveUserSession();
+                loadUserData();
+                document.getElementById('authModal').classList.add('hidden');
+                showApp();
+            } else {
+                showAuthError("Utente non trovato. Registrati per iniziare.");
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const usersDb = JSON.parse(localStorage.getItem('bear_fc_users_db') || '{}');
+
+            if (usersDb[username]) {
+                showAuthError("Questo username esiste già. Scegline un altro.");
+                return;
+            }
+
+            // Create new user with starter cards & bonus coins
+            const newUser = {
+                username: username,
+                email: email,
+                coins: 1250,
+                trophies: 0,
+                cards: [11, 14, 19], // Starter common cards
+                squad: { LW: 14, ST: 11, RW: null, CM1: null, CDM: null, CM2: null, LB: null, CB1: null, CB2: null, RB: null, GK: 19 }
+            };
+
+            usersDb[username] = newUser;
+            localStorage.setItem('bear_fc_users_db', JSON.stringify(usersDb));
+
+            currentUser = newUser;
+            saveUserSession();
+            loadUserData();
+            document.getElementById('authModal').classList.add('hidden');
+            showApp();
+        }
+
+        function showAuthError(msg) {
+            const errEl = document.getElementById('authError');
+            errEl.innerText = msg;
+            errEl.classList.remove('hidden');
+        }
+
+        function saveUserSession() {
+            localStorage.setItem('bear_fc_current_user', JSON.stringify(currentUser));
+            // Also update in users db
+            const usersDb = JSON.parse(localStorage.getItem('bear_fc_users_db') || '{}');
+            usersDb[currentUser.username] = currentUser;
+            localStorage.setItem('bear_fc_users_db', JSON.stringify(usersDb));
+        }
+
+        function logout() {
+            localStorage.removeItem('bear_fc_current_user');
+            location.reload();
+        }
+
+        function showApp() {
+            document.getElementById('appContainer').classList.remove('hidden');
+            updateUIState();
+            switchTab('feed');
+        }
+
+        function loadUserData() {
+            userCards = currentUser.cards || [];
+            userSquad = currentUser.squad || userSquad;
+            
+            // Update UI headers & stats
+            const initialLetter = currentUser.username.charAt(0).toUpperCase();
+            document.getElementById('sidebarUserName').innerText = currentUser.username;
+            document.getElementById('sidebarUserAvatar').innerText = initialLetter;
+            document.getElementById('topbarUserAvatar').innerText = initialLetter;
+            document.getElementById('welcomeManagerName').innerText = currentUser.username;
+            document.getElementById('settingsUsername').value = currentUser.username;
+            document.getElementById('settingsEmail').value = currentUser.email || 'allenatore@bearfc.club';
+            
+            updateCurrenciesDisplay();
+        }
+
+        function updateCurrenciesDisplay() {
+            document.getElementById('sidebarUserCoins').innerText = currentUser.coins;
+            document.getElementById('topbarCoins').innerText = currentUser.coins;
+            document.getElementById('topbarTrophies').innerText = currentUser.trophies;
+            document.getElementById('statCoinsCount').innerText = currentUser.coins;
+            document.getElementById('statTrophiesCount').innerText = currentUser.trophies;
+            
+            // Cards count
+            const uniqueOwned = [...new Set(userCards)].length;
+            document.getElementById('statCardsCount').innerText = `${uniqueOwned} / ${ALL_PLAYERS.length}`;
+            
+            // Album progress
+            const pct = Math.round((uniqueOwned / ALL_PLAYERS.length) * 100);
+            document.getElementById('albumProgressText').innerText = `${uniqueOwned} / ${ALL_PLAYERS.length} Sbloccate (${pct}%)`;
+            document.getElementById('albumProgressBar').style.width = `${pct}%`;
+
+            // Squad rating calculation
+            calculateSquadRating();
+        }
+
+        function calculateSquadRating() {
+            let total = 0;
+            let count = 0;
+            for (let pos in userSquad) {
+                if (userSquad[pos]) {
+                    const p = ALL_PLAYERS.find(pl => pl.id === userSquad[pos]);
+                    if (p) {
+                        total += p.rating;
+                        count++;
+                    }
+                }
+            }
+            const avg = count > 0 ? Math.round(total / 11) : 0;
+            document.getElementById('statTeamRating').innerText = avg;
+            document.getElementById('squadRatingDisplay').innerText = avg;
+            document.getElementById('matchTeamRating').innerText = `${avg} V.R.`;
+        }
+
+        /* Tab Switching */
+        function switchTab(tabId) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('bg-amber-600/20', 'text-amber-400', 'border-l-4', 'border-amber-500');
+                el.classList.add('text-slate-400');
+            });
+
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+            const navBtn = document.getElementById(`nav-${tabId}`);
+            if (navBtn) {
+                navBtn.classList.add('bg-amber-600/20', 'text-amber-400', 'border-l-4', 'border-amber-500');
+                navBtn.classList.remove('text-slate-400');
+            }
+
+            if (tabId === 'collection') renderCollection();
+            if (tabId === 'squad') renderSquadPitch();
+            if (tabId === 'market') renderMarket();
+        }
+
+        /* 3. Render Collection */
+        function filterCollection(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === filter) {
+                    btn.className = "filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-amber-600 text-white transition";
+                } else {
+                    btn.className = "filter-btn px-4 py-2 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition";
+                }
+            });
+            renderCollection();
+        }
+
+        function renderCollection() {
+            const grid = document.getElementById('collectionGrid');
+            grid.innerHTML = '';
+
+            ALL_PLAYERS.forEach(player => {
+                if (currentFilter !== 'all' && player.rare !== currentFilter) return;
+
+                const isOwned = userCards.includes(player.id);
+                const count = userCards.filter(id => id === player.id).length;
+                const rareClass = `card-${player.rare}`;
+
+                const cardEl = document.createElement('div');
+                cardEl.className = `rounded-2xl p-4 flex flex-col justify-between relative transition duration-300 ${isOwned ? rareClass + ' shadow-xl hover:scale-105 cursor-pointer' : 'bg-slate-900/40 border border-slate-800 opacity-50 grayscale'}`;
+                cardEl.style.height = '240px';
+
+                if (isOwned) {
+                    cardEl.innerHTML = `
+                        <div class="flex justify-between items-start text-white">
+                            <div>
+                                <div class="text-xl font-black italic">${player.rating}</div>
+                                <div class="text-[9px] uppercase font-bold tracking-wider">${player.pos}</div>
+                            </div>
+                            ${count > 1 ? `<span class="bg-amber-500 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-full">x${count}</span>` : ''}
+                        </div>
+                        <div class="my-auto text-center">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-black/30 flex items-center justify-center text-2xl mb-1 border border-white/20">
+                                <i class="fa-solid fa-shield-cat"></i>
+                            </div>
+                            <h4 class="font-extrabold text-xs text-white tracking-wide truncate">${player.name}</h4>
+                        </div>
+                        <div class="grid grid-cols-3 gap-1 text-[9px] font-bold text-white bg-black/40 p-1.5 rounded-lg text-center">
+                            <div>${player.pace} VEL</div>
+                            <div>${player.shoot} TIR</div>
+                            <div>${player.pass} PAS</div>
+                        </div>
+                    `;
+                } else {
+                    cardEl.innerHTML = `
+                        <div class="flex justify-between items-start text-slate-600">
+                            <div class="text-lg font-black italic">??</div>
+                            <div class="text-[9px] uppercase font-bold">LOCKED</div>
+                        </div>
+                        <div class="my-auto text-center text-slate-600">
+                            <i class="fa-solid fa-lock text-2xl mb-2"></i>
+                            <h4 class="font-bold text-xs">?????</h4>
+                        </div>
+                        <div class="text-[9px] text-center text-slate-600 uppercase font-semibold">Non Sbloccata</div>
+                    `;
+                }
+                grid.appendChild(cardEl);
+            });
+        }
+
+        /* 4. Pack Opening */
+        function openPack(type, cost) {
+            if (currentUser.coins < cost) {
+                alert("Non hai abbastanza FC Coins! Gioca partite o vendi doppioni.");
+                return;
+            }
+
+            currentUser.coins -= cost;
+            saveUserSession();
+            updateCurrenciesDisplay();
+
+            // Determine cards based on pack type
+            let pulled = [];
+            for (let i = 0; i < 3; i++) {
+                let pool = [];
+                if (type === 'bronze') {
+                    pool = ALL_PLAYERS.filter(p => p.rare === 'common' || p.rare === 'rare');
+                } else if (type === 'silver') {
+                    pool = ALL_PLAYERS.filter(p => p.rare === 'rare' || p.rare === 'epic');
+                } else if (type === 'gold') {
+                    if (i === 0) {
+                        pool = ALL_PLAYERS.filter(p => p.rare === 'epic' || p.rare === 'legendary');
+                    } else {
+                        pool = ALL_PLAYERS;
+                    }
+                }
+                const randomPlayer = pool[Math.floor(Math.random() * pool.length)];
+                pulled.push(randomPlayer);
+                userCards.push(randomPlayer.id);
+            }
+
+            currentUser.cards = userCards;
+            saveUserSession();
+            updateCurrenciesDisplay();
+
+            // Show animation modal
+            showPackModal(pulled);
+        }
+
+        function showPackModal(cards) {
+            const modal = document.getElementById('packModal');
+            const container = document.getElementById('packOpeningAnimation');
+            const btn = document.getElementById('closePackBtn');
+            const title = document.getElementById('packModalTitle');
+
+            container.innerHTML = '';
+            title.innerText = "✨ Spacchettamento Riuscito!";
+            btn.classList.remove('hidden');
+
+            cards.forEach((player, idx) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = `rounded-2xl p-4 flex flex-col justify-between w-36 h-52 card-${player.rare} shadow-2xl animate-bounce`;
+                cardDiv.style.animationDelay = `${idx * 0.2}s`;
+                cardDiv.innerHTML = `
+                    <div class="flex justify-between items-start text-white">
+                        <div class="text-xl font-black italic">${player.rating}</div>
+                        <div class="text-[9px] uppercase font-bold">${player.pos}</div>
+                    </div>
+                    <div class="my-auto text-center">
+                        <div class="w-10 h-10 mx-auto rounded-full bg-black/30 flex items-center justify-center text-xl mb-1 border border-white/20">
+                            <i class="fa-solid fa-shield-cat"></i>
+                        </div>
+                        <h4 class="font-extrabold text-xs text-white truncate">${player.name}</h4>
+                    </div>
+                    <div class="text-[9px] font-bold text-white bg-black/40 py-1 rounded text-center uppercase">${player.rare}</div>
+                `;
+                container.appendChild(cardDiv);
+            });
+
+            modal.classList.remove('hidden');
+        }
+
+        function closePackModal() {
+            document.getElementById('packModal').classList.add('hidden');
+        }
+
+        /* 2. Squad Pitch Management */
+        function renderSquadPitch() {
+            for (let pos in userSquad) {
+                const playerId = userSquad[pos];
+                const slotContainer = document.getElementById(`slot-${pos}`);
+                const nameLabel = document.getElementById(`name-${pos}`);
+
+                if (playerId) {
+                    const player = ALL_PLAYERS.find(p => p.id === playerId);
+                    if (player) {
+                        slotContainer.className = `w-16 h-24 rounded-xl p-2 flex flex-col justify-between card-${player.rare} shadow-xl border-2 cursor-pointer`;
+                        slotContainer.innerHTML = `
+                            <div class="flex justify-between items-start text-white text-[10px] font-black">
+                                <span>${player.rating}</span>
+                                <span>${player.pos}</span>
+                            </div>
+                            <div class="text-center font-bold text-[9px] text-white truncate">${player.name.split(' ')[1] || player.name}</div>
+                            <div class="text-[8px] text-center text-amber-300">${player.pace}V</div>
+                        `;
+                        nameLabel.innerText = player.name;
+                    }
+                } else {
+                    slotContainer.className = `w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 hover:border-amber-400 transition shadow-lg`;
+                    slotContainer.innerHTML = `
+                        <i class="fa-solid fa-plus text-lg"></i>
+                        <span class="text-[10px] font-bold mt-1">${pos}</span>
+                    `;
+                    nameLabel.innerText = pos;
+                }
+            }
+        }
+
+        function openPlayerSelector(pos) {
+            currentSelectingSlot = pos;
+            const modal = document.getElementById('playerSelectorModal');
+            const list = document.getElementById('availablePlayersList');
+            document.getElementById('selectingPositionTitle').innerText = pos;
+            list.innerHTML = '';
+
+            // Get unique owned players or all owned
+            const ownedUnique = [...new Set(userCards)];
+            if (ownedUnique.length === 0) {
+                list.innerHTML = `<div class="text-center py-6 text-xs text-slate-400">Non hai ancora carte collezionate. Apri pacchetti nel negozio!</div>`;
+            } else {
+                ownedUnique.forEach(id => {
+                    const player = ALL_PLAYERS.find(p => p.id === id);
+                    const item = document.createElement('div');
+                    item.className = "flex items-center justify-between p-3 bg-slate-900/80 hover:bg-slate-800 rounded-xl border border-slate-800 cursor-pointer transition";
+                    item.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-12 rounded-lg card-${player.rare} flex flex-col items-center justify-center text-white text-xs font-black">
+                                <span>${player.rating}</span>
+                                <span class="text-[8px]">${player.pos}</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">${player.name}</h4>
+                                <span class="text-[10px] text-amber-400 uppercase font-semibold">${player.rare} • VEL: ${player.pace} TIR: ${player.shoot}</span>
+                            </div>
+                        </div>
+                        <button class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-xs transition">Schiera</button>
+                    `;
+                    item.onclick = () => assignPlayerToSlot(player.id);
+                    list.appendChild(item);
+                });
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closePlayerSelector() {
+            document.getElementById('playerSelectorModal').classList.add('hidden');
+        }
+
+        function assignPlayerToSlot(playerId) {
+            userSquad[currentSelectingSlot] = playerId;
+            currentUser.squad = userSquad;
+            saveUserSession();
+            closePlayerSelector();
+            renderSquadPitch();
+            calculateSquadRating();
+        }
+
+        function autoFillSquad() {
+            const positions = ['LW', 'ST', 'RW', 'CM1', 'CDM', 'CM2', 'LB', 'CB1', 'CB2', 'RB', 'GK'];
+            const ownedUnique = [...new Set(userCards)];
+            
+            positions.forEach(pos => {
+                // Find best owned player for this position or highest rating available
+                const match = ownedUnique.map(id => ALL_PLAYERS.find(p => p.id === id)).filter(p => p && p.pos === pos)[0] 
+                           || ownedUnique.map(id => ALL_PLAYERS.find(p => p.id === id)).sort((a,b) => b.rating - a.rating)[0];
+                if (match) {
+                    userSquad[pos] = match.id;
+                }
+            });
+
+            currentUser.squad = userSquad;
+            saveUserSession();
+            renderSquadPitch();
+            calculateSquadRating();
+        }
+
+        /* 5. Transfer Market / Duplicates */
+        function renderMarket() {
+            const duplicatesList = document.getElementById('duplicatesList');
+            const auctionsList = document.getElementById('marketAuctionsList');
+            
+            duplicatesList.innerHTML = '';
+            auctionsList.innerHTML = '';
+
+            // Find duplicates (cards owned > 1)
+            const counts = {};
+            userCards.forEach(id => counts[id] = (counts[id] || 0) + 1);
+            let hasDuplicates = false;
+
+            for (let id in counts) {
+                if (counts[id] > 1) {
+                    hasDuplicates = true;
+                    const player = ALL_PLAYERS.find(p => p.id == id);
+                    const sellPrice = player.rating * 15;
+
+                    const item = document.createElement('div');
+                    item.className = "flex items-center justify-between p-3 bg-slate-900/80 rounded-xl border border-slate-800";
+                    item.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-11 rounded-lg card-${player.rare} flex flex-col items-center justify-center text-white text-xs font-black">
+                                <span>${player.rating}</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-xs">${player.name}</h4>
+                                <span class="text-[10px] text-amber-400">Doppioni: ${counts[id]}</span>
+                            </div>
+                        </div>
+                        <button onclick="sellDuplicate(${player.id}, ${sellPrice})" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs transition">
+                            Vendi (+${sellPrice} FC)
+                        </button>
+                    `;
+                    duplicatesList.appendChild(item);
+                }
+            }
+
+            if (!hasDuplicates) {
+                duplicatesList.innerHTML = `<div class="text-center py-6 text-xs text-slate-500">Nessun doppione disponibile.</div>`;
+            }
+
+            // Global market auctions mock
+            const marketPool = [ALL_PLAYERS[1], ALL_PLAYERS[4], ALL_PLAYERS[6]];
+            marketPool.forEach(player => {
+                const price = player.rating * 35;
+                const item = document.createElement('div');
+                item.className = "flex items-center justify-between p-3 bg-slate-900/80 rounded-xl border border-slate-800";
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-11 rounded-lg card-${player.rare} flex flex-col items-center justify-center text-white text-xs font-black">
+                            <span>${player.rating}</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-xs">${player.name}</h4>
+                            <span class="text-[10px] text-amber-400"><i class="fa-solid fa-coins"></i> ${price} FC Coins</span>
+                        </div>
+                    </div>
+                    <button onclick="buyMarketPlayer(${player.id}, ${price})" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-xs transition">
+                        Acquista
+                    </button>
+                `;
+                auctionsList.appendChild(item);
+            });
+        }
+
+        function sellDuplicate(playerId, price) {
+            const idx = userCards.indexOf(playerId);
+            if (idx > -1) {
+                userCards.splice(idx, 1);
+                currentUser.cards = userCards;
+                currentUser.coins += price;
+                saveUserSession();
+                updateCurrenciesDisplay();
+                renderMarket();
+            }
+        }
+
+        function buyMarketPlayer(playerId, price) {
+            if (currentUser.coins < price) {
+                alert("Non hai abbastanza crediti FC Coins!");
+                return;
+            }
+            currentUser.coins -= price;
+            userCards.push(playerId);
+            currentUser.cards = userCards;
+            saveUserSession();
+            updateCurrenciesDisplay();
+            renderMarket();
+            alert("Giocatore acquistato con successo e aggiunto alla tua collezione!");
+        }
+
+        /* 6. Match Simulation */
+        function startMatchSimulation() {
+            const simArea = document.getElementById('matchSimulationArea');
+            const statusText = document.getElementById('matchStatusText');
+            const scoreMy = document.getElementById('matchScoreMy');
+            const scoreOpp = document.getElementById('matchScoreOpp');
+            const progressBar = document.getElementById('matchProgressBar');
+            const startBtn = document.getElementById('startMatchBtn');
+
+            simArea.classList.remove('hidden');
+            startBtn.classList.add('hidden');
+            scoreMy.innerText = '0';
+            scoreOpp.innerText = '0';
+            progressBar.style.width = '0%';
+
+            let progress = 0;
+            let myGoals = 0;
+            let oppGoals = Math.random() > 0.6 ? 1 : 0;
+
+            const interval = setInterval(() => {
+                progress += 10;
+                progressBar.style.width = `${progress}%`;
+
+                if (progress === 40) {
+                    statusText.innerText = "Azione offensiva di BEAR FC...";
+                    if (Math.random() > 0.3) { myGoals++; scoreMy.innerText = myGoals; }
+                } else if (progress === 80) {
+                    statusText.innerText = "Assedio finale e parata decisiva!";
+                    if (Math.random() > 0.5) { myGoals++; scoreMy.innerText = myGoals; }
+                }
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    if (myGoals > oppGoals) {
+                        statusText.innerText = "🎉 Vittoria straordinaria! Complimenti!";
+                        currentUser.coins += 400;
+                        currentUser.trophies += 1;
+                    } else if (myGoals === oppGoals) {
+                        statusText.innerText = "🤝 Pareggio combattuto!";
+                        currentUser.coins += 200;
+                    } else {
+                        statusText.innerText = "⚠️ Sconfitta. Rafforza la squadra e riprova!";
+                        currentUser.coins += 100;
+                    }
+                    saveUserSession();
+                    updateCurrenciesDisplay();
+                    startBtn.classList.remove('hidden');
+                    startBtn.innerText = "Gioca Ancora";
+                }
+            }, 400);
+        }
+
+        /* Settings Save */
+        function saveSettings() {
+            const newName = document.getElementById('settingsUsername').value.trim();
+            if (!newName) return;
+
+            currentUser.username = newName;
+            saveUserSession();
+            loadUserData();
+            alert("Impostazioni salvate con successo!");
+        }
+
+        /* Invite Modal */
+        function openInviteModal() {
+            document.getElementById('inviteModal').classList.remove('hidden');
+        }
+
+        function closeInviteModal() {
+            document.getElementById('inviteModal').classList.add('hidden');
+        }
+
+        function copyInviteLink() {
+            const input = document.getElementById('inviteLinkInput');
+            input.select();
+            document.execCommand('copy');
+            alert("Link di invito copiato negli appunti!");
+        }
+    </script>
+</body>
+</html>
