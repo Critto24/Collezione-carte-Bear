@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -348,6 +349,201 @@
             }
             #packOpeningAnimation h4 {
                 font-size: 1.35rem !important;
+            }
+        }
+
+    
+        /* =========================================================
+           BEAR FC MOBILE MODE
+           Layout adattato realmente allo schermo del telefono
+           ========================================================= */
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            min-height: 100%;
+            overflow-x: hidden !important;
+        }
+
+        @media (max-width: 700px) {
+            #appContainer {
+                width: 100% !important;
+                height: 100dvh !important;
+                min-height: 100dvh;
+                display: flex !important;
+                flex-direction: column !important;
+                overflow: hidden !important;
+            }
+
+            #appContainer > aside {
+                order: 2;
+                width: 100% !important;
+                height: 68px !important;
+                min-height: 68px !important;
+                max-height: 68px !important;
+                border-right: 0 !important;
+                border-top: 1px solid rgba(245,158,11,.18);
+                display: flex !important;
+                flex-direction: row !important;
+                overflow: hidden !important;
+                position: relative !important;
+                z-index: 40;
+                background: rgba(3,7,5,.97) !important;
+            }
+
+            #appContainer > aside > div:first-child {
+                display: none !important;
+            }
+
+            #appContainer > aside nav {
+                display: flex !important;
+                flex-direction: row !important;
+                width: 100% !important;
+                height: 68px !important;
+                padding: 5px 3px !important;
+                gap: 2px !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                scrollbar-width: none;
+            }
+
+            #appContainer > aside nav::-webkit-scrollbar { display: none; }
+
+            #appContainer > aside nav button {
+                flex: 0 0 74px !important;
+                width: 74px !important;
+                min-width: 74px !important;
+                height: 58px !important;
+                padding: 5px 3px !important;
+                margin: 0 !important;
+                border-radius: 10px !important;
+                border-left: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 3px !important;
+                font-size: 9px !important;
+                line-height: 1.05 !important;
+                white-space: normal !important;
+            }
+
+            #appContainer > aside nav button i {
+                width: auto !important;
+                font-size: 16px !important;
+                margin: 0 !important;
+            }
+
+            #appContainer > aside nav button span {
+                display: block !important;
+                max-width: 72px;
+                text-align: center;
+            }
+
+            #appContainer > aside > div:last-child {
+                display: none !important;
+            }
+
+            #appContainer > main {
+                order: 1;
+                width: 100% !important;
+                min-width: 0 !important;
+                height: calc(100dvh - 68px) !important;
+                padding: 12px !important;
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+            }
+
+            .view-section {
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            /* Evita elementi troppo larghi */
+            .glass, .glass-card {
+                max-width: 100% !important;
+            }
+
+            /* Griglie leggibili */
+            #collectionGrid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 10px !important;
+            }
+
+            /* Campo squadra più compatto */
+            #view-squad {
+                overflow-x: hidden !important;
+            }
+
+            #view-squad .relative {
+                max-width: 100% !important;
+            }
+
+            /* Modali a misura di telefono */
+            #playerSelectorModal > div,
+            #authModal > div {
+                width: calc(100vw - 24px) !important;
+                max-width: none !important;
+                max-height: calc(100dvh - 24px) !important;
+                overflow-y: auto !important;
+            }
+
+            /* Pacchetto/carta: niente più larghezze fisse */
+            #packOpeningAnimation {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                padding: 8px !important;
+            }
+
+            #packOpeningAnimation .card-common,
+            #packOpeningAnimation .card-rare,
+            #packOpeningAnimation .card-epic,
+            #packOpeningAnimation .card-legendary {
+                width: min(82vw, 330px) !important;
+                height: min(112vw, 455px) !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                padding: 10px !important;
+                margin: 0 auto !important;
+            }
+
+            #packOpeningAnimation .player-main-photo {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important;
+                object-position: center bottom !important;
+                transform: scale(1.45) !important;
+                transform-origin: center bottom !important;
+            }
+
+            #packOpeningAnimation h4 {
+                font-size: clamp(16px, 5vw, 22px) !important;
+            }
+
+            /* Squadra: riduce gli spazi senza deformare il campo */
+            #view-squad .w-16 {
+                width: 56px !important;
+            }
+            #view-squad .h-24 {
+                height: 82px !important;
+            }
+        }
+
+        @media (max-width: 380px) {
+            #appContainer > aside nav button {
+                flex-basis: 66px !important;
+                width: 66px !important;
+                min-width: 66px !important;
+                font-size: 8px !important;
+            }
+            #collectionGrid {
+                grid-template-columns: 1fr !important;
+            }
+            #packOpeningAnimation .card-common,
+            #packOpeningAnimation .card-rare,
+            #packOpeningAnimation .card-epic,
+            #packOpeningAnimation .card-legendary {
+                width: 86vw !important;
+                height: 112vw !important;
             }
         }
 
@@ -1717,6 +1913,26 @@
         }
 
         /* 2. Squad Pitch Management */
+        /* Gestione Squadra: ruoli corretti + niente doppioni in campo */
+        function normalizeSquadRole(slot) {
+            const roleMap = {
+                'CM1': 'CM',
+                'CM2': 'CM',
+                'CB1': 'CB',
+                'CB2': 'CB'
+            };
+            return roleMap[slot] || slot;
+        }
+
+        function isPlayerInSquad(playerId, exceptSlot = null) {
+            return Object.keys(userSquad).some(slot => slot !== exceptSlot && userSquad[slot] === playerId);
+        }
+
+        function isPlayerCompatibleWithSlot(player, slot) {
+            if (!player) return false;
+            return String(player.pos).toUpperCase() === normalizeSquadRole(slot).toUpperCase();
+        }
+
         function renderSquadPitch() {
             for (let pos in userSquad) {
                 const playerId = userSquad[pos];
@@ -1725,26 +1941,34 @@
 
                 if (playerId) {
                     const player = ALL_PLAYERS.find(p => p.id === playerId);
-                    if (player) {
-                        slotContainer.className = `w-16 h-24 rounded-xl p-2 flex flex-col justify-between card-${player.rare} shadow-xl border-2 cursor-pointer`;
-                        slotContainer.innerHTML = `
-                            <div class="flex justify-between items-start text-white text-[10px] font-black">
-                                <span>${player.rating}</span>
-                                <span>${player.pos}</span>
-                            </div>
-                            <div class="text-center mb-1">${playerPhotoHTML(player, 'w-9 h-9')}</div>
-                            <div class="text-center font-bold text-[9px] text-white truncate">${player.name.split(' ')[1] || player.name}</div>
-                            <div class="text-[8px] text-center text-amber-300">${player.pace}V</div>
-                        `;
-                        nameLabel.innerText = player.name;
+
+                    // Pulizia automatica di eventuali vecchi dati non validi
+                    if (!player || !isPlayerCompatibleWithSlot(player, pos)) {
+                        userSquad[pos] = null;
+                        currentUser.squad = userSquad;
+                        saveUserSession();
+                        renderSquadPitch();
+                        return;
                     }
+
+                    slotContainer.className = `w-16 h-24 rounded-xl p-2 flex flex-col justify-between card-${player.rare} shadow-xl border-2 cursor-pointer`;
+                    slotContainer.innerHTML = `
+                        <div class="flex justify-between items-start text-white text-[10px] font-black">
+                            <span>${player.rating}</span>
+                            <span>${player.pos}</span>
+                        </div>
+                        <div class="text-center mb-1">${playerPhotoHTML(player, 'w-10 h-10')}</div>
+                        <div class="text-center font-bold text-[9px] text-white truncate">${player.name.split(' ')[1] || player.name}</div>
+                        <div class="text-[8px] text-center text-amber-300">${player.pace}V</div>
+                    `;
+                    nameLabel.innerText = player.name;
                 } else {
                     slotContainer.className = `w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 hover:border-amber-400 transition shadow-lg`;
                     slotContainer.innerHTML = `
                         <i class="fa-solid fa-plus text-lg"></i>
-                        <span class="text-[10px] font-bold mt-1">${pos}</span>
+                        <span class="text-[10px] font-bold mt-1">${normalizeSquadRole(pos)}</span>
                     `;
-                    nameLabel.innerText = pos;
+                    nameLabel.innerText = normalizeSquadRole(pos);
                 }
             }
         }
@@ -1753,30 +1977,44 @@
             currentSelectingSlot = pos;
             const modal = document.getElementById('playerSelectorModal');
             const list = document.getElementById('availablePlayersList');
-            document.getElementById('selectingPositionTitle').innerText = pos;
+            const requiredRole = normalizeSquadRole(pos);
+
+            document.getElementById('selectingPositionTitle').innerText = `${requiredRole} — scegli un giocatore`;
             list.innerHTML = '';
 
-            // Get unique owned players or all owned
-            const ownedUnique = [...new Set(userCards)];
-            if (ownedUnique.length === 0) {
-                list.innerHTML = `<div class="text-center py-6 text-xs text-slate-400">Non hai ancora carte collezionate. Apri pacchetti nel negozio!</div>`;
+            const ownedUnique = [...new Set(userCards)]
+                .map(id => ALL_PLAYERS.find(p => p.id === id))
+                .filter(Boolean);
+
+            // Mostra solo giocatori del ruolo corretto e non già schierati altrove.
+            const compatiblePlayers = ownedUnique.filter(player =>
+                isPlayerCompatibleWithSlot(player, pos) &&
+                !isPlayerInSquad(player.id, pos)
+            );
+
+            if (compatiblePlayers.length === 0) {
+                list.innerHTML = `
+                    <div class="text-center py-8 px-4">
+                        <i class="fa-solid fa-user-slash text-2xl text-amber-400 mb-3"></i>
+                        <p class="text-sm font-bold text-white">Nessun giocatore disponibile per ${requiredRole}</p>
+                        <p class="text-xs text-slate-500 mt-1">Servono una carta ${requiredRole} non già presente in campo.</p>
+                    </div>`;
             } else {
-                ownedUnique.forEach(id => {
-                    const player = ALL_PLAYERS.find(p => p.id === id);
+                compatiblePlayers.forEach(player => {
                     const item = document.createElement('div');
                     item.className = "flex items-center justify-between p-3 bg-slate-900/80 hover:bg-slate-800 rounded-xl border border-slate-800 cursor-pointer transition";
                     item.innerHTML = `
-                        <div class="flex items-center space-x-3">
-                            <div class="w-10 h-12 rounded-lg card-${player.rare} flex flex-col items-center justify-center text-white text-xs font-black">
+                        <div class="flex items-center space-x-3 min-w-0">
+                            <div class="w-12 h-14 rounded-lg card-${player.rare} flex flex-col items-center justify-center text-white text-xs font-black shrink-0">
                                 <span>${player.rating}</span>
                                 <span class="text-[8px]">${player.pos}</span>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">${player.name}</h4>
-                                <span class="text-[10px] text-amber-400 uppercase font-semibold">${player.rare} • VEL: ${player.pace} TIR: ${player.shoot}</span>
+                            <div class="min-w-0">
+                                <h4 class="font-bold text-white text-sm truncate">${player.name}</h4>
+                                <span class="text-[10px] text-amber-400 uppercase font-semibold">${player.rare} • ${player.pos} • VEL: ${player.pace} TIR: ${player.shoot}</span>
                             </div>
                         </div>
-                        <button class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-xs transition">Schiera</button>
+                        <button class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-xs transition shrink-0">Schiera</button>
                     `;
                     item.onclick = () => assignPlayerToSlot(player.id);
                     list.appendChild(item);
@@ -1791,7 +2029,22 @@
         }
 
         function assignPlayerToSlot(playerId) {
-            userSquad[currentSelectingSlot] = playerId;
+            const player = ALL_PLAYERS.find(p => p.id === playerId);
+            const slot = currentSelectingSlot;
+
+            if (!player || !slot) return;
+
+            if (!isPlayerCompatibleWithSlot(player, slot)) {
+                alert(`Questo giocatore è ${player.pos}. Nel ruolo ${normalizeSquadRole(slot)} non può essere schierato.`);
+                return;
+            }
+
+            if (isPlayerInSquad(playerId, slot)) {
+                alert("Questo giocatore è già schierato in un'altra posizione.");
+                return;
+            }
+
+            userSquad[slot] = playerId;
             currentUser.squad = userSquad;
             saveUserSession();
             closePlayerSelector();
@@ -1801,14 +2054,26 @@
 
         function autoFillSquad() {
             const positions = ['LW', 'ST', 'RW', 'CM1', 'CDM', 'CM2', 'LB', 'CB1', 'CB2', 'RB', 'GK'];
-            const ownedUnique = [...new Set(userCards)];
-            
+            const ownedUnique = [...new Set(userCards)]
+                .map(id => ALL_PLAYERS.find(p => p.id === id))
+                .filter(Boolean);
+
+            // Riparte da una squadra vuota per evitare che una vecchia configurazione
+            // lasci giocatori fuori ruolo o duplicati.
+            positions.forEach(pos => userSquad[pos] = null);
+
+            const used = new Set();
+
             positions.forEach(pos => {
-                // Find best owned player for this position or highest rating available
-                const match = ownedUnique.map(id => ALL_PLAYERS.find(p => p.id === id)).filter(p => p && p.pos === pos)[0] 
-                           || ownedUnique.map(id => ALL_PLAYERS.find(p => p.id === id)).sort((a,b) => b.rating - a.rating)[0];
-                if (match) {
+                const role = normalizeSquadRole(pos);
+                const candidates = ownedUnique
+                    .filter(player => !used.has(player.id) && isPlayerCompatibleWithSlot(player, pos))
+                    .sort((a, b) => b.rating - a.rating);
+
+                if (candidates.length) {
+                    const match = candidates[0];
                     userSquad[pos] = match.id;
+                    used.add(match.id);
                 }
             });
 
