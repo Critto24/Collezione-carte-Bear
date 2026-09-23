@@ -706,7 +706,31 @@
             background: rgba(16,185,129,.08);
         }
 
-    </style>
+    
+/* ===== FIX SCROLL MOBILE ===== */
+@media (max-width: 700px) {
+  html, body { min-height: 100%; height: auto !important; overflow-x: hidden !important; overflow-y: auto !important; }
+  #appContainer {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: none !important;
+    overflow: hidden !important;
+  }
+  #appContainer > main {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: calc(100dvh - 68px) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain;
+    padding-bottom: 88px !important;
+  }
+  #appContainer > aside { flex: 0 0 68px !important; }
+}
+
+</style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
 
