@@ -828,7 +828,7 @@
                     <i class="fa-solid fa-store w-5 text-center"></i>
                     <span>Mercato & Scambi</span>
                 </button>
-                <button onclick="switchTab('match')" id="nav-match" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+                <button onclick="showMaintenance()" id="nav-match" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
                     <i class="fa-solid fa-futbol w-5 text-center text-emerald-400"></i>
                     <span>Modalità Partita</span>
                 </button>
@@ -932,7 +932,7 @@
                                 <button onclick="switchTab('packs')" class="px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-2xl text-sm shadow-lg shadow-amber-500/20 transition flex items-center gap-2">
                                     <i class="fa-solid fa-box-open"></i> Apri Pacchetto Gratis
                                 </button>
-                                <button onclick="switchTab('match')" class="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl text-sm border border-slate-700 transition flex items-center gap-2">
+                                <button onclick="showMaintenance()" class="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl text-sm border border-slate-700 transition flex items-center gap-2">
                                     <i class="fa-solid fa-futbol text-emerald-400"></i> Gioca Partita
                                 </button>
                             </div>
@@ -1683,11 +1683,21 @@
             const savedSession = localStorage.getItem('bear_fc_current_user');
             if (savedSession) {
                 currentUser = JSON.parse(savedSession);
-                loadUserData();
-                showApp();
             } else {
-                document.getElementById('authModal').classList.remove('hidden');
+                // Accesso automatico: crea un profilo locale BEAR FC se non esiste.
+                currentUser = {
+                    username: 'Mister Bear',
+                    email: 'allenatore@bearfc.club',
+                    coins: 1250,
+                    trophies: 0,
+                    cards: [],
+                    squad: { LW: null, ST: null, RW: null, CM1: null, CDM: null, CM2: null, LB: null, CB1: null, CB2: null, RB: null, GK: null }
+                };
+                localStorage.setItem('bear_fc_current_user', JSON.stringify(currentUser));
+                localStorage.setItem('bear_fc_users_db', JSON.stringify({ [currentUser.username]: currentUser }));
             }
+            loadUserData();
+            showApp();
         };
 
         function switchAuthTab(tab) {
@@ -2532,6 +2542,10 @@ function chooseRandomPackRarity() {
             updateCurrenciesDisplay();
             renderMarket();
             alert("Giocatore acquistato con successo e aggiunto alla tua collezione!");
+        }
+
+        function showMaintenance() {
+            alert("🛠️ Gioca Partita è attualmente in manutenzione. Torna presto!");
         }
 
         /* 6. Match Simulation */
