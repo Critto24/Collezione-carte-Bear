@@ -730,6 +730,62 @@
   #appContainer > aside { flex: 0 0 68px !important; }
 }
 
+
+/* ===== MOBILE PORTRAIT SCROLL FINAL FIX ===== */
+@media (max-width: 700px) {
+  html, body {
+    width: 100% !important;
+    min-height: 100% !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  #appContainer {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+
+  #appContainer > main {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 8px 8px 105px !important;
+  }
+
+  #appContainer > aside {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 68px !important;
+    min-height: 68px !important;
+    max-height: 68px !important;
+    z-index: 100 !important;
+  }
+
+  #appContainer > aside nav {
+    width: 100% !important;
+    height: 68px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Evita che elementi interni creino uno scroll verticale separato */
+  #appContainer > main .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
 </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
