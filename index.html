@@ -894,93 +894,6 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
   : null;
 </script>
 
-
-<style id="bear-championship-step1-css">
-#bearChampBtn{cursor:pointer}
-#bearChampOverlay{position:fixed;inset:0;background:rgba(5,8,12,.96);z-index:99999;display:none;overflow:auto;color:#fff;font-family:inherit}
-#bearChampPanel{width:min(760px,94vw);margin:5vh auto;padding:24px;border:1px solid rgba(255,165,0,.35);border-radius:20px;background:linear-gradient(145deg,#17120e,#0b0d11);box-shadow:0 20px 80px rgba(0,0,0,.6)}
-#bearChampPanel h2{margin:0 0 8px;color:#ff9d22}
-#bearChampPanel p{opacity:.82}
-.bearChampGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
-.bearChampCard{padding:20px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
-.bearChampCard button{width:100%;padding:13px;border:0;border-radius:12px;font-weight:800;cursor:pointer;background:#ff8c00;color:#111}
-.bearChampCard button.secondary{background:#262a31;color:#fff}
-#bearChampCreateBox,#bearChampJoinBox{display:none;margin-top:16px}
-#bearChampCreateBox input,#bearChampJoinBox input{width:100%;box-sizing:border-box;padding:13px;margin:7px 0;border-radius:10px;border:1px solid #444;background:#11151b;color:#fff}
-.bearChampClose{float:right;background:none;border:0;color:#aaa;font-size:24px;cursor:pointer}
-.bearChampMsg{margin-top:12px;min-height:20px;color:#ffbd66}
-@media(max-width:600px){.bearChampGrid{grid-template-columns:1fr}}
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style id="bear-championship-step2-css">
-.bearInviteBox{margin-top:16px;padding:16px;border-radius:14px;background:rgba(255,140,0,.08);border:1px solid rgba(255,165,0,.22)}
-.bearInviteCode{font-size:28px;font-weight:900;letter-spacing:4px;color:#ffad3d;margin:8px 0}
-.bearInviteRow{display:flex;gap:8px}
-.bearInviteRow input{flex:1;min-width:0}
-.bearSmallBtn{padding:11px 13px!important;width:auto!important}
-.bearParticipants{margin-top:16px}
-.bearParticipant{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;margin:7px 0;border-radius:10px;background:rgba(255,255,255,.045)}
-.bearParticipant small{opacity:.65}
-.bearStatus{color:#7ee787;font-weight:800}
-</style>
-
-
-<style id="bear-formation-step3-css">
-#bearFormationBox{margin-top:16px;padding:16px;border-radius:14px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09)}
-.bearFormationSlots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.bearFormationSlot{display:flex;align-items:center;gap:8px;padding:9px;border-radius:10px;background:rgba(0,0,0,.22)}
-.bearFormationSlot label{min-width:46px;font-weight:900;color:#ffad3d;font-size:12px}
-.bearFormationSlot select{flex:1;min-width:0;padding:9px;border-radius:8px;border:1px solid #444;background:#11151b;color:#fff}
-.bearFormationActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.bearFormationComplete{color:#7ee787;font-weight:900}
-@media(max-width:600px){.bearFormationSlots{grid-template-columns:1fr}.bearFormationSlot label{min-width:50px}}
-</style>
-
-
-<style id="bear-championship-step4-css">
-#bearChampOverlay{background:radial-gradient(circle at 50% 0%,#17291e 0,#07100b 45%,#030605 100%)!important}
-#bearChampPanel{width:min(1120px,96vw)!important;margin:2vh auto!important;padding:18px!important;background:linear-gradient(145deg,#101a14,#070b09)!important;border:1px solid rgba(255,174,58,.22)!important}
-.bearHero{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:15px 16px;border-radius:18px;background:linear-gradient(110deg,rgba(255,145,0,.16),rgba(31,72,48,.2));border:1px solid rgba(255,255,255,.08)}
-.bearHero h2{margin:0!important;font-size:25px!important}.bearHero p{margin:4px 0 0!important}
-.bearClubCodeBig{font-weight:900;color:#ffb24b;letter-spacing:3px}
-.bearChampTabs{display:flex;gap:8px;margin:14px 0;overflow:auto}
-.bearChampTab{white-space:nowrap;padding:10px 15px;border-radius:11px;border:1px solid #303b34;background:#111813;color:#aeb9b1;font-weight:800;cursor:pointer}
-.bearChampTab.active{background:#f39a28;color:#10130f;border-color:#f39a28}
-.bearChampView{display:none}.bearChampView.active{display:block}
-.bearPitchWrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px}
-.bearPitch{position:relative;min-height:610px;border-radius:24px;overflow:hidden;border:3px solid rgba(255,255,255,.24);background:linear-gradient(90deg,#17662f,#25833f,#17662f);box-shadow:inset 0 0 60px rgba(0,0,0,.28)}
-.bearPitch:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 10%,transparent 10% 20%);pointer-events:none}
-.bearPitch:after{content:"";position:absolute;inset:5%;border:2px solid rgba(255,255,255,.7);border-radius:3px;box-shadow:0 0 0 0, inset 0 0 0 0;pointer-events:none}
-.bearLine{position:absolute;left:50%;top:5%;bottom:5%;border-left:2px solid rgba(255,255,255,.55)}
-.bearCenterCircle{position:absolute;left:50%;top:50%;width:105px;height:105px;transform:translate(-50%,-50%);border:2px solid rgba(255,255,255,.6);border-radius:50%}
-.bearCenterDot{position:absolute;left:50%;top:50%;width:8px;height:8px;transform:translate(-50%,-50%);border-radius:50%;background:#fff}
-.bearSpot{position:absolute;transform:translate(-50%,-50%);width:112px;cursor:pointer;text-align:center;z-index:3}
-.bearSpot .bearCardMini{transition:.18s}.bearSpot:hover .bearCardMini{transform:translateY(-4px) scale(1.03)}
-.bearEmpty{height:150px;border:2px dashed rgba(255,214,140,.7);border-radius:13px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.15);color:#ffe0ad;font-weight:900;font-size:12px}
-.bearCardMini{height:145px;border-radius:12px;padding:4px;background:linear-gradient(145deg,#d69a3a,#fff0ae,#9b651e);box-shadow:0 8px 18px rgba(0,0,0,.38);position:relative}
-.bearCardInner{height:100%;border-radius:9px;background:#171a18;overflow:hidden;position:relative}
-.bearCardImg{width:100%;height:94px;object-fit:contain;display:block;background:linear-gradient(#27352d,#111)}
-.bearCardRating{position:absolute;left:6px;top:5px;font-size:19px;font-weight:1000;color:#fff;text-shadow:0 2px 3px #000}
-.bearCardPos{position:absolute;left:7px;top:27px;font-size:8px;font-weight:900;color:#ffc66c}
-.bearCardName{position:absolute;bottom:3px;left:4px;right:4px;font-size:10px;font-weight:1000;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bearCardStats{position:absolute;bottom:19px;left:5px;right:5px;font-size:7px;color:#ddd;display:flex;justify-content:space-between}
-.bearSide{background:rgba(5,10,7,.72);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:14px}
-.bearSide h3{margin:0 0 10px}.bearSquadList{max-height:475px;overflow:auto}
-.bearBenchCard{display:flex;align-items:center;gap:9px;padding:8px;margin:6px 0;border-radius:11px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.06);cursor:pointer}
-.bearBenchThumb{width:42px;height:52px;border-radius:7px;overflow:hidden;background:#20251f;flex:0 0 auto}
-.bearBenchThumb img{width:100%;height:100%;object-fit:contain}
-.bearBenchMeta{min-width:0}.bearBenchMeta b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bearBenchMeta small{opacity:.7}
-.bearReady{padding:10px 12px;border-radius:11px;background:rgba(70,190,105,.13);border:1px solid rgba(70,190,105,.3);color:#8cf0a6;font-weight:900}
-.bearNotReady{padding:10px 12px;border-radius:11px;background:rgba(255,167,58,.1);border:1px solid rgba(255,167,58,.25);color:#ffc477;font-weight:800}
-.bearActionRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.bearActionRow button{padding:11px 14px;border:0;border-radius:10px;font-weight:900;cursor:pointer;background:#f39a28;color:#10130f}.bearActionRow button.dark{background:#242d27;color:#fff}
-.bearParticipantsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
-.bearTeamTile{padding:14px;border-radius:14px;background:#111813;border:1px solid #27352b}.bearTeamTile b{font-size:16px}.bearTeamTile small{display:block;margin-top:5px;opacity:.65}
-@media(max-width:800px){.bearPitchWrap{grid-template-columns:1fr}.bearPitch{min-height:560px}.bearSpot{width:92px}.bearCardMini{height:128px}.bearCardImg{height:81px}}
-@media(max-width:520px){.bearHero{align-items:flex-start}.bearHero h2{font-size:21px!important}.bearPitch{min-height:500px}.bearSpot{width:75px}.bearCardMini{height:108px}.bearCardImg{height:67px}.bearCardRating{font-size:15px}.bearCardPos{top:23px;font-size:7px}.bearCardName{font-size:8px}.bearCardStats{display:none}.bearEmpty{height:110px;font-size:9px}}
-</style>
-
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden halloween-event">
 
@@ -1091,7 +1004,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
             <!-- Navigation Links -->
             <nav class="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
-                <button onclick="switchTab('feed')" id="nav-feed" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
+<button onclick="switchTab('feed')" id="nav-feed" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-800/60 hover:text-white">
                     <i class="fa-solid fa-house-chimney w-5 text-center"></i>
                     <span>Feed & Bacheca</span>
                 </button>
@@ -1127,7 +1040,11 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                     <i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-purple-400"></i>
                     <span>Crea Carte</span>
                 </button>
-            </nav>
+
+<button type="button" id="nav-championship" onclick="showChampionship()" class="nav-item w-full">
+  <i class="fas fa-trophy"></i><span>Campionato</span>
+</button>
+</nav>
 
             <!-- User Quick Status Card at bottom of sidebar -->
             <div class="p-4 border-t border-slate-800 bg-slate-950/60 flex items-center justify-between">
@@ -1801,7 +1718,47 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                     </div>
                 </div>
 
-            </main>
+            
+<section id="championshipPage" class="app-page" style="display:none;">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-6">
+      <div class="flex items-center gap-3">
+        <div style="font-size:32px;">🏆</div>
+        <div>
+          <h1 class="text-2xl font-black">Campionato Online</h1>
+          <p class="opacity-70">Crea un club, invita altri giocatori e prepara il campionato.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-2">
+      <div class="rounded-2xl p-5" style="background:rgba(20,20,20,.82);border:1px solid rgba(249,115,22,.28);">
+        <h2 class="font-bold text-lg mb-2">👥 Club Online</h2>
+        <p class="text-sm opacity-75 mb-4">Il club sarà condiviso online tramite Supabase.</p>
+        <div class="flex gap-2 flex-wrap">
+          <button type="button" onclick="createOnlineClubFromChampionship()" class="px-4 py-2 rounded-xl font-bold" style="background:#f97316;color:#111;">
+            CREA CLUB
+          </button>
+          <button type="button" onclick="joinOnlineClubFromChampionship()" class="px-4 py-2 rounded-xl font-bold" style="background:#27272a;color:#fff;">
+            ENTRA CON CODICE
+          </button>
+        </div>
+        <div id="championshipClubStatus" class="mt-4 text-sm opacity-80">
+          Nessun club collegato.
+        </div>
+      </div>
+
+      <div class="rounded-2xl p-5" style="background:rgba(20,20,20,.82);border:1px solid rgba(249,115,22,.28);">
+        <h2 class="font-bold text-lg mb-2">⚽ Stato campionato</h2>
+        <div id="championshipCompetitionStatus" class="text-sm opacity-80">
+          Il campionato si sbloccherà quando il club avrà almeno 2 squadre complete.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
         </div>
     </div>
 
@@ -2092,6 +2049,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             }
 
             loadUserData();
+            purgeHalloweenCardsFromAllLocalProfiles();
             showApp();
             document.body.classList.add('halloween-event');
             setTimeout(() => {
@@ -2406,6 +2364,54 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
         /* SPONSOR GIORNALIERO: +20 FC COINS UNA VOLTA AL GIORNO */
         const DAILY_SPONSOR_REWARD = 20;
         const DAILY_SPONSOR_KEY = 'bearfc_daily_sponsor_claim';
+
+        /* PULIZIA HALLOWEEN: rimuove SOLO le carte dell'edizione Halloween.
+           Non tocca carte normali, monete, formazione, club o altri dati. */
+        function purgeHalloweenCardsFromAllLocalProfiles() {
+            const halloweenIds = new Set(
+                (typeof HALLOWEEN_PLAYERS !== 'undefined' ? HALLOWEEN_PLAYERS : []).map(p => p.id)
+            );
+            if (!halloweenIds.size) return;
+
+            const usersDb = JSON.parse(localStorage.getItem('bear_fc_users_db') || '{}');
+
+            Object.keys(usersDb).forEach(key => {
+                const u = usersDb[key];
+                if (!u) return;
+
+                if (Array.isArray(u.cards)) {
+                    u.cards = u.cards.filter(id => !halloweenIds.has(id));
+                }
+
+                if (u.squad && typeof u.squad === 'object') {
+                    Object.keys(u.squad).forEach(pos => {
+                        if (halloweenIds.has(u.squad[pos])) u.squad[pos] = null;
+                    });
+                }
+
+                if (u.halloweenPack) delete u.halloweenPack;
+            });
+
+            localStorage.setItem('bear_fc_users_db', JSON.stringify(usersDb));
+
+            if (currentUser) {
+                userCards = Array.isArray(currentUser.cards)
+                    ? currentUser.cards.filter(id => !halloweenIds.has(id))
+                    : [];
+
+                currentUser.cards = [...userCards];
+
+                if (currentUser.squad && typeof currentUser.squad === 'object') {
+                    Object.keys(currentUser.squad).forEach(pos => {
+                        if (halloweenIds.has(currentUser.squad[pos])) currentUser.squad[pos] = null;
+                    });
+                }
+
+                if (currentUser.halloweenPack) delete currentUser.halloweenPack;
+
+                localStorage.setItem('bear_fc_current_user', JSON.stringify(currentUser));
+            }
+        }
 
         function getSponsorTodayKey() {
             const now = new Date();
@@ -2798,6 +2804,8 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
             const claims = getWeeklyPackClaims();
             const currentSlot = getCurrentWeeklyPackSlot();
+            // Ogni apertura appartiene esclusivamente al proprio giorno:
+            // se il giorno passa, quello slot è perso e NON viene recuperato.
             const openedThisSlot = currentSlot >= 0 && claims.some(c => Number(c.slotIndex) === currentSlot);
             const totalOpened = claims.length;
             const todayAllowed = currentSlot >= 0;
@@ -2840,6 +2848,41 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             if (roll < 87) return 'rare';
             if (roll < 97) return 'epic';
             return 'legendary';
+        }
+
+        /* RANDOMIZZAZIONE PACCHETTI: evita ripetizioni eccessive.
+           Ogni rarità ha un "sacchetto" mescolato: le carte vengono estratte senza
+           ripetizione finché il sacchetto è vuoto, poi viene rimescolato. */
+        function packBagKey(rare) {
+            return `bearfc_pack_bag_${String(rare || 'common').toLowerCase()}`;
+        }
+
+        function shuffleArray(arr) {
+            const a = Array.isArray(arr) ? [...arr] : [];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function chooseRandomPlayerForPack(pool, rare) {
+            if (!pool || !pool.length) return null;
+            const key = packBagKey(rare);
+            let bag = [];
+            try { bag = JSON.parse(localStorage.getItem(key) || '[]'); } catch (_) { bag = []; }
+
+            const validIds = new Set(pool.map(p => p.id));
+            bag = Array.isArray(bag) ? bag.filter(id => validIds.has(id)) : [];
+
+            if (!bag.length) {
+                bag = shuffleArray(pool.map(p => p.id));
+            }
+
+            const chosenId = bag.shift();
+            localStorage.setItem(key, JSON.stringify(bag));
+
+            return pool.find(p => p.id === chosenId) || pool[Math.floor(Math.random() * pool.length)];
         }
 
         function rarityLabel(rare) {
@@ -2896,15 +2939,11 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                 return;
             }
 
-            if (claims.length >= 2) {
-                alert('Hai già aperto entrambi i pacchetti normali disponibili questa settimana.');
-                renderMonthlyPackSchedule();
-                return;
-            }
-
+            // NON usare il numero totale delle aperture per recuperare slot persi:
+            // il controllo decisivo resta quello sul giorno/slot corrente.
             const packRarity = chooseRandomPackRarity();
             const pool = getPlayersForRarity(packRarity);
-            const randomPlayer = pool[Math.floor(Math.random() * pool.length)];
+            const randomPlayer = chooseRandomPlayerForPack(pool, packRarity);
 
             if (!randomPlayer) {
                 alert('Non è stato possibile creare il pacchetto. Aggiungi almeno una carta.');
@@ -3612,595 +3651,46 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
 
 
-<script id="bear-championship-step2-js">
+<script id="bearfc-championship-definitive">
 (function(){
-  const SUPA_URL = 'https://pggvacfskcwlbcqtazjw.supabase.co';
-  const SUPA_KEY = 'sb_publishable_SBNaxcReGPSoQ6bAlEgIwA_x3VvSmNy';
-  let refreshTimer = null;
-
-  function esc(v){
-    return String(v||'').replace(/[&<>"']/g,m=>({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
-    }[m]));
-  }
-  function client(){
-    if(window.supabase && window.supabase.createClient)
-      return window.supabase.createClient(SUPA_URL,SUPA_KEY);
-    return null;
-  }
-  function getSavedClub(){ return localStorage.getItem('bear_fc_champ_club') || ''; }
-  function setMsg(t){ const x=document.getElementById('bearChampMsg'); if(x)x.innerHTML=t||''; }
-
-  window.bearOpenChampionship = function(){
-    const o=document.getElementById('bearChampOverlay');
-    if(o)o.style.display='block';
-    setTimeout(()=>bearRefreshClub(),50);
-  };
-  window.bearCloseChampionship = function(){
-    const o=document.getElementById('bearChampOverlay');
-    if(o)o.style.display='none';
-  };
-  window.bearShowChampBox = function(which){
-    document.getElementById('bearChampCreateBox').style.display=which==='create'?'block':'none';
-    document.getElementById('bearChampJoinBox').style.display=which==='join'?'block':'none';
-    document.getElementById('bearClubPanel').style.display='none';
-    setMsg('');
-  };
-
-  async function loadClub(id){
-    const sb=client();
-    if(!sb) throw new Error('Supabase non disponibile');
-    const {data,error}=await sb.from('bear_fc_clubs').select('state,updated_at').eq('id',id).maybeSingle();
-    if(error) throw error;
-    if(!data) return null;
-    return data.state || {};
-  }
-
-  window.bearRefreshClub = async function(silent){
-    const id=getSavedClub();
-    const panel=document.getElementById('bearClubPanel');
-    if(!id){
-      if(panel) panel.style.display='none';
-      return;
-    }
-    try{
-      const state=await loadClub(id);
-      if(!state){
-        if(panel) panel.style.display='none';
-        if(!silent)setMsg('Club non trovato.');
-        return;
-      }
-      renderClub(state);
-    }catch(e){
-      if(!silent)setMsg('Errore nel caricamento del club: '+esc(e.message));
-    }
-  };
-
-  function renderClub(state){
-    const panel=document.getElementById('bearClubPanel');
-    if(!panel)return;
-    const teams=Array.isArray(state.teams)?state.teams:[];
-    panel.style.display='block';
-    document.getElementById('bearClubCode').textContent=state.id || getSavedClub();
-    document.getElementById('bearTeamCount').textContent=teams.length;
-
-    const list=document.getElementById('bearParticipantsList');
-    list.innerHTML=teams.length ? teams.map((t,i)=>`
-      <div class="bearParticipant">
-        <span><b>${i+1}. ${esc(t.name)}</b></span>
-        <small>${t.complete ? '<span class="bearStatus">✓ Completa</span>' : 'Formazione non completata'}</small>
-      </div>`).join('') : '<p>Nessuna squadra nel club.</p>';
-
-    const invite=document.getElementById('bearInviteLink');
-    if(invite){
-      const base=location.href.split('#')[0];
-      invite.value=base+'#club='+encodeURIComponent(state.id || getSavedClub());
-    }
-    document.getElementById('bearChampCreateBox').style.display='none';
-    document.getElementById('bearChampJoinBox').style.display='none';
-    setMsg('Club online sincronizzato.');
-  }
-
-  window.bearCopyInvite = async function(){
-    const input=document.getElementById('bearInviteLink');
-    if(!input)return;
-    try{
-      await navigator.clipboard.writeText(input.value);
-      setMsg('🔗 Link invito copiato!');
-    }catch(e){
-      input.select();
-      try{document.execCommand('copy');setMsg('🔗 Link invito copiato!');}
-      catch(_){prompt('Copia questo link:',input.value);}
-    }
-  };
-
-  window.bearCreateClub = async function(){
-    const name=document.getElementById('bearChampTeamName').value.trim();
-    if(!name){setMsg('Inserisci il nome della squadra.');return;}
-    const sb=client();
-    if(!sb){setMsg('Supabase non è ancora disponibile. Ricarica la pagina.');return;}
-
-    const id=Math.random().toString(36).slice(2,8).toUpperCase();
-    const teamId='team_'+Math.random().toString(36).slice(2,10);
-    const state={
-      id,
-      createdAt:new Date().toISOString(),
-      teams:[{id:teamId,name,complete:false}]
-    };
-    const {error}=await sb.from('bear_fc_clubs').insert({id,state});
-    if(error){setMsg('Errore Supabase: '+esc(error.message));return;}
-
-    localStorage.setItem('bear_fc_champ_club',id);
-    localStorage.setItem('bear_fc_champ_team_id',teamId);
-    localStorage.setItem('bear_fc_champ_team_name',name);
-    document.getElementById('bearChampTeamName').value='';
-    renderClub(state);
-    setMsg('✅ Club creato online. Condividi il link oppure il codice.');
-  };
-
-  window.bearJoinClub = async function(){
-    const code=document.getElementById('bearChampJoinCode').value.trim().toUpperCase();
-    const name=document.getElementById('bearChampJoinName').value.trim();
-    if(!code||!name){setMsg('Inserisci codice e nome squadra.');return;}
-    const sb=client();
-    if(!sb){setMsg('Supabase non è ancora disponibile. Ricarica la pagina.');return;}
-
-    const {data,error}=await sb.from('bear_fc_clubs').select('state').eq('id',code).maybeSingle();
-    if(error){setMsg('Errore Supabase: '+esc(error.message));return;}
-    if(!data){setMsg('Club non trovato. Controlla il codice.');return;}
-
-    const state=data.state||{};
-    state.teams=Array.isArray(state.teams)?state.teams:[];
-    if(state.teams.some(t=>String(t.name).toLowerCase()===name.toLowerCase())){
-      setMsg('Nome squadra già presente nel club.');return;
-    }
-
-    const teamId='team_'+Math.random().toString(36).slice(2,10);
-    state.teams.push({id:teamId,name,complete:false});
-    const up=await sb.from('bear_fc_clubs')
-      .update({state,updated_at:new Date().toISOString()})
-      .eq('id',code);
-    if(up.error){setMsg('Errore Supabase: '+esc(up.error.message));return;}
-
-    localStorage.setItem('bear_fc_champ_club',code);
-    localStorage.setItem('bear_fc_champ_team_id',teamId);
-    localStorage.setItem('bear_fc_champ_team_name',name);
-    document.getElementById('bearChampJoinCode').value='';
-    document.getElementById('bearChampJoinName').value='';
-    renderClub(state);
-    setMsg('✅ Sei entrato nel club online.');
-  };
-
-  window.bearLeaveLocalClub = function(){
-    localStorage.removeItem('bear_fc_champ_club');
-    localStorage.removeItem('bear_fc_champ_team_id');
-    localStorage.removeItem('bear_fc_champ_team_name');
-    if(refreshTimer)clearInterval(refreshTimer);
-    const panel=document.getElementById('bearClubPanel');
-    if(panel)panel.style.display='none';
-    setMsg('Hai scollegato questo dispositivo dal club. Il club online non è stato cancellato.');
-  };
-
-  function buildOverlay(){
-    const overlay=document.createElement('div');
-    overlay.id='bearChampOverlay';
-    overlay.innerHTML=`
-      <div id="bearChampPanel">
-        <button class="bearChampClose" onclick="bearCloseChampionship()">×</button>
-        <h2>🏆 CAMPIONATO</h2>
-        <p>Club online sincronizzati con Supabase.</p>
-
-        <div id="bearClubPanel" class="bearChampCard" style="display:none">
-          <h3>👥 Il tuo Club</h3>
-          <p>Codice: <b id="bearClubCode"></b> · Squadre: <b id="bearTeamCount">0</b></p>
-          <div class="bearInviteBox">
-            <div><b>🔗 Link invito</b></div>
-            <div class="bearInviteRow">
-              <input id="bearInviteLink" readonly>
-              <button class="bearSmallBtn" onclick="bearCopyInvite()">COPIA</button>
-            </div>
-            <div class="bearInviteCode" id="bearClubCode"></div>
-            <small>Chi apre il link potrà inserire il proprio nome squadra.</small>
-          </div>
-          <div class="bearParticipants">
-            <h3>Partecipanti</h3>
-            <div id="bearParticipantsList"></div>
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-            <button class="secondary bearSmallBtn" onclick="bearRefreshClub()">AGGIORNA</button>
-            <button class="secondary bearSmallBtn" onclick="bearLeaveLocalClub()">SCOLLEGA DISPOSITIVO</button>
-          </div>
-        </div>
-
-        <div class="bearChampGrid">
-          <div class="bearChampCard">
-            <h3>Crea Club</h3>
-            <p>Diventa il proprietario e invita gli altri.</p>
-            <button onclick="bearShowChampBox('create')">CREA CLUB</button>
-          </div>
-          <div class="bearChampCard">
-            <h3>Entra nel Club</h3>
-            <p>Usa il codice ricevuto oppure il link invito.</p>
-            <button class="secondary" onclick="bearShowChampBox('join')">ENTRA</button>
-          </div>
-        </div>
-
-        <div id="bearChampCreateBox" class="bearChampCard">
-          <input id="bearChampTeamName" placeholder="Nome della tua squadra">
-          <button onclick="bearCreateClub()">CREA E SALVA ONLINE</button>
-        </div>
-
-        <div id="bearChampJoinBox" class="bearChampCard">
-          <input id="bearChampJoinCode" placeholder="Codice club">
-          <input id="bearChampJoinName" placeholder="Nome della tua squadra">
-          <button onclick="bearJoinClub()">ENTRA NEL CLUB</button>
-        </div>
-
-        <div id="bearChampMsg" class="bearChampMsg"></div>
-      </div>`;
-    document.body.appendChild(overlay);
-  }
-
-  function addNavButton(){
-    const candidates=[...document.querySelectorAll('nav,header,.nav,.navbar,.topbar')];
-    const host=candidates.find(x=>x && x.querySelector('button,a')) || candidates[0];
-    if(host && !document.getElementById('bearChampBtn')){
-      const b=document.createElement('button');
-      b.id='bearChampBtn'; b.type='button'; b.textContent='🏆 CAMPIONATO';
-      b.onclick=window.bearOpenChampionship;
-      b.style.cssText='margin:4px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,165,0,.4);background:#151515;color:#ffad3d;font-weight:800;';
-      host.appendChild(b);
-    }
-  }
-
-  function readInviteHash(){
-    const m=location.hash.match(/^#club=([^&]+)/);
-    if(!m)return;
-    try{
-      const code=decodeURIComponent(m[1]).toUpperCase();
-      const input=document.getElementById('bearChampJoinCode');
-      if(input)input.value=code;
-      bearShowChampBox('join');
-      bearOpenChampionship();
-    }catch(e){}
-  }
-
-  document.addEventListener('DOMContentLoaded',function(){
-    buildOverlay();
-    addNavButton();
-    readInviteHash();
-    if(getSavedClub()){
-      bearRefreshClub(true);
-      refreshTimer=setInterval(()=>bearRefreshClub(true),5000);
-    }
-  });
-})();
-</script>
-
-
-
-<script id="bear-formation-step3-js">
-(function(){
-  const SUPA_URL='https://pggvacfskcwlbcqtazjw.supabase.co';
-  const SUPA_KEY='sb_publishable_SBNaxcReGPSoQ6bAlEgIwA_x3VvSmNy';
-  const SLOT_LABELS={LW:'AS',ST:'ATT',RW:'AD',CM1:'CC',CDM:'MED',CM2:'CC',LB:'TS',CB1:'DC',CB2:'DC',RB:'TD',GK:'POR'};
-
-  function sb(){return window.supabase?.createClient ? window.supabase.createClient(SUPA_URL,SUPA_KEY):null}
-  function esc(v){return String(v||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-  function players(){return (typeof ALL_PLAYERS!=='undefined')?ALL_PLAYERS:[]}
-  function owned(){
-    const ids=(typeof userCards!=='undefined'?userCards:[]);
-    const seen=new Set();
-    return ids.map(id=>players().find(p=>p.id===id)).filter(p=>p && !seen.has(p.id) && seen.add(p.id));
-  }
-  function roleOK(p,slot){
-    if(!p)return false;
-    const r=String(p.pos||'').toUpperCase();
-    if(slot==='GK')return /GK|POR/.test(r);
-    if(['LW','ST','RW'].includes(slot))return /ATT|ST|LW|RW|CF/.test(r);
-    if(['CM1','CDM','CM2'].includes(slot))return /CM|CDM|CAM|LM|RM/.test(r);
-    return /CB|LB|RB|DIF|DEF|LWB|RWB/.test(r);
-  }
-  function formation(){
-    return (typeof userSquad!=='undefined' && userSquad) ? userSquad : {};
-  }
-  function isComplete(){
-    const f=formation(), ps=players();
-    return Object.keys(SLOT_LABELS).every(s=>{
-      const id=f[s]; return id && ps.some(p=>p.id===id && roleOK(p,s));
+  function hideAppContent(){
+    document.querySelectorAll('main > section').forEach(function(s){
+      if(s.id !== 'championshipPage') s.style.display='none';
     });
   }
-  function renderFormation(){
-    const box=document.getElementById('bearFormationBox');
-    if(!box)return;
-    const f=formation(), own=owned(), ps=players();
-    const complete=isComplete();
-    box.innerHTML=`
-      <h3>⚽ Formazione obbligatoria</h3>
-      <p>${complete?'<span class="bearFormationComplete">✓ Formazione completa</span>':'Per partecipare al campionato devi schierare tutti gli 11 titolari.'}</p>
-      <div class="bearFormationSlots">
-        ${Object.keys(SLOT_LABELS).map(slot=>{
-          const opts=own.filter(p=>roleOK(p,slot));
-          return `<div class="bearFormationSlot">
-            <label>${SLOT_LABELS[slot]}</label>
-            <select data-slot="${slot}">
-              <option value="">Seleziona giocatore</option>
-              ${opts.map(p=>`<option value="${esc(p.id)}" ${f[slot]===p.id?'selected':''}>${esc(p.name)} · ${p.rating}</option>`).join('')}
-            </select>
-          </div>`;
-        }).join('')}
-      </div>
-      <div class="bearFormationActions">
-        <button onclick="bearSaveFormation()">SALVA FORMAZIONE</button>
-        <button class="secondary bearSmallBtn" onclick="bearRenderFormation()">AGGIORNA</button>
-      </div>
-      <div id="bearFormationMsg" class="bearChampMsg"></div>`;
-  }
-  window.bearRenderFormation=renderFormation;
 
-  window.bearSaveFormation=async function(){
-    const f=formation();
-    document.querySelectorAll('#bearFormationBox select').forEach(s=>f[s.dataset.slot]=s.value||null);
-
-    // Check duplicates among the 11 slots.
-    const ids=Object.values(f).filter(Boolean);
-    if(new Set(ids).size!==ids.length){
-      document.getElementById('bearFormationMsg').textContent='Un giocatore non può occupare due posizioni.';
-      return;
+  window.showChampionship = function(){
+    hideAppContent();
+    var page=document.getElementById('championshipPage');
+    if(page) page.style.display='block';
+    var status=document.getElementById('championshipClubStatus');
+    if(status && window.SUPABASE_READY){
+      status.innerHTML='🟢 Supabase configurato. Il club online è pronto per essere collegato.';
     }
-    const complete=isComplete();
-    if(!complete){
-      document.getElementById('bearFormationMsg').textContent='Completa tutti gli 11 ruoli prima di salvare.';
-      renderFormation();
-      return;
-    }
-
-    if(typeof currentUser!=='undefined'){
-      currentUser.squad=f;
-      if(typeof saveUserSession==='function')saveUserSession();
-      if(typeof loadUserData==='function')loadUserData();
-    }
-
-    const clubId=localStorage.getItem('bear_fc_champ_club');
-    const teamId=localStorage.getItem('bear_fc_champ_team_id');
-    const teamName=localStorage.getItem('bear_fc_champ_team_name')||'Squadra';
-    const api=sb();
-    if(!api || !clubId || !teamId){
-      document.getElementById('bearFormationMsg').textContent='Formazione salvata localmente, ma manca il club online.';
-      renderFormation(); return;
-    }
-
-    const {data,error}=await api.from('bear_fc_clubs').select('state').eq('id',clubId).maybeSingle();
-    if(error||!data){document.getElementById('bearFormationMsg').textContent='Errore nel caricamento del club.';return;}
-    const state=data.state||{};
-    state.teams=Array.isArray(state.teams)?state.teams:[];
-    let team=state.teams.find(t=>t.id===teamId);
-    if(!team){
-      team={id:teamId,name:teamName,complete:false};
-      state.teams.push(team);
-    }
-    team.name=teamName;
-    team.squad=f;
-    team.complete=true;
-    team.updatedAt=new Date().toISOString();
-
-    const up=await api.from('bear_fc_clubs').update({state,updated_at:new Date().toISOString()}).eq('id',clubId);
-    if(up.error){
-      document.getElementById('bearFormationMsg').textContent='Errore salvataggio online: '+up.error.message;
-      return;
-    }
-    document.getElementById('bearFormationMsg').innerHTML='<span class="bearFormationComplete">✓ Formazione salvata online!</span>';
-    renderFormation();
-    if(typeof bearRefreshClub==='function')bearRefreshClub(true);
   };
 
-  function addFormationUI(){
-    const panel=document.getElementById('bearClubPanel');
-    if(!panel || document.getElementById('bearFormationBox'))return;
-    const box=document.createElement('div');
-    box.id='bearFormationBox';
-    panel.appendChild(box);
-    renderFormation();
-  }
-
-  const oldOpen=window.bearOpenChampionship;
-  window.bearOpenChampionship=function(){
-    if(oldOpen)oldOpen();
-    setTimeout(addFormationUI,60);
+  window.createOnlineClubFromChampionship = async function(){
+    if(typeof window.createClub === 'function'){
+      try { await window.createClub(); return; } catch(e){}
+    }
+    var status=document.getElementById('championshipClubStatus');
+    if(status) status.innerHTML='ℹ️ La funzione di creazione club verrà collegata al sistema online.';
   };
 
-  document.addEventListener('DOMContentLoaded',()=>{
-    setTimeout(()=>{
-      if(document.getElementById('bearClubPanel')) addFormationUI();
-    },800);
+  window.joinOnlineClubFromChampionship = async function(){
+    if(typeof window.joinClub === 'function'){
+      try { await window.joinClub(); return; } catch(e){}
+    }
+    var code=prompt('Inserisci il codice del club:');
+    if(!code) return;
+    var status=document.getElementById('championshipClubStatus');
+    if(status) status.innerHTML='🔗 Codice club inserito: '+code;
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var btn=document.getElementById('nav-championship');
+    if(btn) btn.style.display='';
   });
-})();
-</script>
-
-
-<script id="bear-championship-step4-js">
-(function(){
-  const slots={
-    GK:{x:50,y:91,label:'POR'},LB:{x:17,y:75,label:'TS'},CB1:{x:39,y:78,label:'DC'},CB2:{x:61,y:78,label:'DC'},RB:{x:83,y:75,label:'TD'},
-    CM1:{x:34,y:54,label:'CC'},CDM:{x:50,y:62,label:'MED'},CM2:{x:66,y:54,label:'CC'},
-    LW:{x:18,y:25,label:'AS'},ST:{x:50,y:18,label:'ATT'},RW:{x:82,y:25,label:'AD'}
-  };
-  function all(){return window.ALL_PLAYERS||[]}
-  function owned(){
-    const ids=window.userCards||[];
-    const seen=new Set();
-    return ids.map(id=>all().find(p=>p.id===id)).filter(p=>p&&!seen.has(p.id)&&seen.add(p.id));
-  }
-  function compat(p,s){
-    if(!p)return false;
-    const r=String(p.pos||'').toUpperCase();
-    if(s==='GK')return /GK|POR/.test(r);
-    if(['LW','ST','RW'].includes(s))return /ATT|ST|LW|RW|CF/.test(r);
-    if(['CM1','CDM','CM2'].includes(s))return /CM|CDM|CAM|LM|RM|CC/.test(r);
-    return /CB|LB|RB|DIF|DEF|LWB|RWB/.test(r);
-  }
-  function squad(){return window.userSquad||{}}
-  function photo(p){
-    if(p.image)return `<img class="bearCardImg" src="${p.image}" alt="">`;
-    if(typeof playerPhotoHTML==='function')return playerPhotoHTML(p,'bearCardImg');
-    return `<div class="bearCardImg"></div>`;
-  }
-  function card(p){
-    return `<div class="bearCardMini"><div class="bearCardInner">${photo(p)}<div class="bearCardRating">${p.rating??p.overall??''}</div><div class="bearCardPos">${p.pos||''}</div><div class="bearCardStats"><span>VEL ${p.pace??''}</span><span>TIR ${p.shoot??''}</span><span>DRI ${p.drib??''}</span></div><div class="bearCardName">${String(p.name||'').replace(/</g,'&lt;')}</div></div></div>`;
-  }
-  function complete(){
-    return Object.keys(slots).every(s=>squad()[s]);
-  }
-  function renderPitch(){
-    const pitch=document.getElementById('bearVisualPitch'); if(!pitch)return;
-    pitch.innerHTML='<div class="bearLine"></div><div class="bearCenterCircle"></div><div class="bearCenterDot"></div>';
-    Object.entries(slots).forEach(([s,meta])=>{
-      const p=all().find(x=>x.id===squad()[s]);
-      const el=document.createElement('div');el.className='bearSpot';el.style.left=meta.x+'%';el.style.top=meta.y+'%';
-      el.title=p?`Cambia ${meta.label}`:`Inserisci ${meta.label}`;
-      el.innerHTML=p?card(p):`<div class="bearEmpty">${meta.label}<br>+ AGGIUNGI</div>`;
-      el.onclick=()=>openPicker(s);
-      pitch.appendChild(el);
-    });
-    const status=document.getElementById('bearFormationStatus');
-    if(status)status.innerHTML=complete()?'<div class="bearReady">✓ FORMAZIONE COMPLETA</div>':'<div class="bearNotReady">⚠ Completa tutti gli 11 titolari</div>';
-  }
-  function renderBench(){
-    const box=document.getElementById('bearSquadList'); if(!box)return;
-    const used=new Set(Object.values(squad()).filter(Boolean));
-    const arr=owned().filter(p=>!used.has(p.id));
-    box.innerHTML=arr.length?arr.map(p=>`<div class="bearBenchCard" onclick="bearPickForAny('${String(p.id).replace(/'/g,"\\'")}')"><div class="bearBenchThumb">${photo(p)}</div><div class="bearBenchMeta"><b>${String(p.name||'').replace(/</g,'&lt;')}</b><small>${p.pos||''} · ${p.rating||''}</small></div></div>`).join(''):'<p style="opacity:.6;font-size:13px">Tutte le tue carte compatibili sono già in campo.</p>';
-  }
-  function openPicker(slot){
-    const modal=document.getElementById('bearPicker'); if(!modal)return;
-    modal.style.display='flex';modal.dataset.slot=slot;
-    const title=document.getElementById('bearPickerTitle');title.textContent='Scegli '+slots[slot].label;
-    const list=document.getElementById('bearPickerList');
-    const used=new Set(Object.entries(squad()).filter(([s])=>s!==slot).map(([,id])=>id));
-    const arr=owned().filter(p=>compat(p,slot)&&!used.has(p.id));
-    list.innerHTML=arr.length?arr.map(p=>`<div class="bearBenchCard" onclick="bearAssignVisual('${String(p.id).replace(/'/g,"\\'")}')"><div class="bearBenchThumb">${photo(p)}</div><div class="bearBenchMeta"><b>${String(p.name||'').replace(/</g,'&lt;')}</b><small>${p.pos||''} · OVR ${p.rating||''}</small></div></div>`).join(''):'<p>Nessuna carta compatibile disponibile.</p>';
-  }
-  window.bearPickForAny=function(id){
-    const p=all().find(x=>x.id===id); if(!p)return;
-    const free=Object.keys(slots).find(s=>!squad()[s]&&compat(p,s));
-    if(free){openPicker(free);document.getElementById('bearPicker').dataset.preselect=id;}
-    else alert('Non c’è una posizione libera compatibile per questa carta.');
-  };
-  window.bearAssignVisual=function(id){
-    const m=document.getElementById('bearPicker');const s=m?.dataset.slot;if(!s)return;
-    const p=all().find(x=>x.id===id);if(!p||!compat(p,s))return;
-    squad()[s]=id;
-    window.currentUser.squad=window.userSquad;
-    if(typeof saveUserSession==='function')saveUserSession();
-    m.style.display='none';renderPitch();renderBench();
-  };
-  window.bearClosePicker=function(){document.getElementById('bearPicker').style.display='none'};
-  window.bearAutoVisual=function(){
-    if(typeof autoFillSquad==='function')autoFillSquad();
-    renderPitch();renderBench();
-  };
-  window.bearClearVisual=function(){
-    Object.keys(slots).forEach(s=>squad()[s]=null);
-    window.currentUser.squad=window.userSquad;
-    if(typeof saveUserSession==='function')saveUserSession();
-    renderPitch();renderBench();
-  };
-  window.bearSaveVisualFormation=async function(){
-    if(!complete()){alert('Completa tutti gli 11 titolari prima di salvare.');return;}
-    if(typeof bearSaveFormation==='function'){
-      // Reuse the existing secure Supabase save routine.
-      await bearSaveFormation();
-    }else if(typeof saveUserSession==='function'){
-      saveUserSession();
-    }
-    renderPitch();renderBench();
-  };
-  function buildVisual(){
-    const old=document.getElementById('bearVisualChamp');if(old)old.remove();
-    const panel=document.getElementById('bearChampPanel');if(!panel)return;
-    const hero=panel.querySelector('.bearHero');
-    if(hero)hero.remove();
-    const oldGrid=panel.querySelector('.bearChampGrid');if(oldGrid)oldGrid.remove();
-    const oldCreate=document.getElementById('bearChampCreateBox');if(oldCreate)oldCreate.style.display='none';
-    const oldJoin=document.getElementById('bearChampJoinBox');if(oldJoin)oldJoin.style.display='none';
-    const oldMsg=document.getElementById('bearChampMsg');if(oldMsg)oldMsg.style.display='none';
-    const clubPanel=document.getElementById('bearClubPanel');
-    if(clubPanel)clubPanel.style.display='none';
-
-    const wrap=document.createElement('div');wrap.id='bearVisualChamp';
-    wrap.innerHTML=`
-      <div class="bearHero">
-        <div><h2>🏆 CAMPIONATO</h2><p>La tua squadra · <span class="bearClubCodeBig">${localStorage.getItem('bear_fc_champ_team_name')||'Club'}</span></p></div>
-        <div><small>CODICE CLUB</small><div class="bearClubCodeBig">${localStorage.getItem('bear_fc_champ_club')||'—'}</div></div>
-      </div>
-      <div class="bearChampTabs">
-        <button class="bearChampTab active" onclick="bearTab('formation')">⚽ Formazione</button>
-        <button class="bearChampTab" onclick="bearTab('teams')">👥 Squadre</button>
-        <button class="bearChampTab" onclick="bearTab('club')">🔗 Club</button>
-      </div>
-      <div id="bearViewFormation" class="bearChampView active">
-        <div class="bearPitchWrap">
-          <div>
-            <div id="bearVisualPitch" class="bearPitch"></div>
-            <div class="bearActionRow">
-              <button onclick="bearSaveVisualFormation()">💾 SALVA FORMAZIONE</button>
-              <button class="dark" onclick="bearAutoVisual()">⚡ RIEMPI AUTOMATICAMENTE</button>
-              <button class="dark" onclick="bearClearVisual()">🗑 SVUOTA</button>
-            </div>
-            <div id="bearFormationStatus" style="margin-top:10px"></div>
-          </div>
-          <aside class="bearSide">
-            <h3>🃏 Le tue carte</h3>
-            <p style="font-size:12px;opacity:.65">Clicca una carta per inserirla in una posizione libera compatibile.</p>
-            <div id="bearSquadList" class="bearSquadList"></div>
-          </aside>
-        </div>
-      </div>
-      <div id="bearViewTeams" class="bearChampView">
-        <div class="bearSide"><h3>👥 Squadre del club</h3><div id="bearTeamsGrid" class="bearParticipantsGrid"></div></div>
-      </div>
-      <div id="bearViewClub" class="bearChampView">
-        <div class="bearSide">
-          <h3>🔗 Invita amici</h3>
-          <p style="opacity:.7">Condividi il codice o il link del tuo club.</p>
-          <input id="bearVisualInvite" readonly style="width:100%;box-sizing:border-box;padding:12px;border-radius:10px;background:#0c100d;color:#fff;border:1px solid #39453d">
-          <div class="bearActionRow"><button onclick="bearCopyVisualInvite()">COPIA LINK</button></div>
-        </div>
-      </div>
-      <div id="bearPicker" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:100001;align-items:center;justify-content:center;padding:16px">
-        <div style="width:min(440px,94vw);max-height:86vh;overflow:auto;background:#101611;border:1px solid #3a493d;border-radius:18px;padding:16px">
-          <button onclick="bearClosePicker()" style="float:right;background:none;border:0;color:#aaa;font-size:24px">×</button>
-          <h3 id="bearPickerTitle">Scegli giocatore</h3><div id="bearPickerList"></div>
-        </div>
-      </div>`;
-    panel.appendChild(wrap);
-    renderPitch();renderBench();loadTeams();
-  }
-  window.bearTab=function(tab){
-    document.querySelectorAll('#bearVisualChamp .bearChampTab').forEach((b,i)=>b.classList.toggle('active',['formation','teams','club'][i]===tab));
-    ['formation','teams','club'].forEach(x=>document.getElementById('bearView'+x[0].toUpperCase()+x.slice(1)).classList.toggle('active',x===tab));
-    if(tab==='teams')loadTeams();
-  };
-  async function loadTeams(){
-    const box=document.getElementById('bearTeamsGrid');if(!box)return;
-    const id=localStorage.getItem('bear_fc_champ_club');if(!id)return;
-    try{
-      const api=window.supabase?.createClient?.('https://pggvacfskcwlbcqtazjw.supabase.co','sb_publishable_SBNaxcReGPSoQ6bAlEgIwA_x3VvSmNy');
-      const {data}=await api.from('bear_fc_clubs').select('state').eq('id',id).maybeSingle();
-      const teams=data?.state?.teams||[];
-      box.innerHTML=teams.map(t=>`<div class="bearTeamTile"><b>${String(t.name||'Squadra').replace(/</g,'&lt;')}</b><small>${t.complete?'✓ Formazione completa':'⚠ Formazione da completare'}</small></div>`).join('')||'<p>Nessuna squadra.</p>';
-      const inv=document.getElementById('bearVisualInvite');if(inv)inv.value=location.href.split('#')[0]+'#club='+encodeURIComponent(id);
-    }catch(e){}
-  }
-  window.bearCopyVisualInvite=async function(){
-    const x=document.getElementById('bearVisualInvite');if(!x)return;
-    try{await navigator.clipboard.writeText(x.value);alert('Link copiato!')}catch(e){x.select();document.execCommand('copy')}
-  };
-  const oldOpen=window.bearOpenChampionship;
-  window.bearOpenChampionship=function(){
-    if(oldOpen)oldOpen();
-    setTimeout(buildVisual,100);
-  };
 })();
 </script>
 
