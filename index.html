@@ -1238,7 +1238,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                             <h2 class="text-2xl font-extrabold text-white flex items-center gap-2">
                                 <i class="fa-solid fa-shirt text-amber-400"></i> Formazione Titolare 4-3-3
                             </h2>
-                            <p class="text-xs text-slate-400 mt-1">Clicca su una posizione in campo per assegnare un giocatore dalla tua collezione.</p>
+                            <p class="text-xs text-slate-400 mt-1">Clicca per cambiare giocatore, trascina le carte per spostarle e usa × per rimuoverle.</p>
                         </div>
                         <div class="flex items-center space-x-3">
                             <button onclick="autoFillSquad()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl text-xs border border-slate-700 transition">
@@ -2049,7 +2049,6 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             }
 
             loadUserData();
-            purgeHalloweenCardsFromAllLocalProfiles();
             showApp();
             document.body.classList.add('halloween-event');
             setTimeout(() => {
@@ -2155,6 +2154,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             Object.keys(userSquad).forEach(pos => { if (userSquad[pos] && !validIds.has(userSquad[pos])) userSquad[pos] = null; });
             currentUser.cards = userCards;
             currentUser.squad = userSquad;
+            normalizeSquadDuplicates();
             
             // Update UI headers & stats
             const initialLetter = currentUser.username.charAt(0).toUpperCase();
@@ -3154,8 +3154,101 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             return roleMap[slot] || slot;
         }
 
+        function getPlayerIdentityKey(player) {
+            if (!player) return null;
+            // normalId collega eventuali versioni della stessa persona tra rarità/edizioni.
+            // Il fallback sul nome impedisce comunque di schierare lo stesso giocatore due volte.
+            return String(player.normalId || player.name || player.id).trim().toLowerCase();
+        }
+
+        function isSamePlayerIdentity(playerA, playerB) {
+            return !!playerA && !!playerB && getPlayerIdentityKey(playerA) === getPlayerIdentityKey(playerB);
+        }
+
         function isPlayerInSquad(playerId, exceptSlot = null) {
-            return Object.keys(userSquad).some(slot => slot !== exceptSlot && userSquad[slot] === playerId);
+            const candidate = ALL_PLAYERS.find(p => p.id === playerId);
+            if (!candidate) return false;
+            return Object.keys(userSquad).some(slot => {
+                if (slot === exceptSlot || !userSquad[slot]) return false;
+                const other = ALL_PLAYERS.find(p => p.id === userSquad[slot]);
+                return isSamePlayerIdentity(candidate, other);
+            });
+        }
+
+        function removePlayerFromSlot(slot) {
+            if (!userSquad[slot]) return;
+            userSquad[slot] = null;
+            currentUser.squad = userSquad;
+            saveUserSession();
+            renderSquadPitch();
+            calculateSquadRating();
+        }
+
+        function startSquadDrag(event, slot) {
+            if (!userSquad[slot]) return;
+            event.dataTransfer.setData('text/plain', slot);
+            event.dataTransfer.effectAllowed = 'move';
+        }
+
+        function allowSquadDrop(event) {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleSquadDrop(event, targetSlot) {
+            event.preventDefault();
+            const sourceSlot = event.dataTransfer.getData('text/plain');
+            if (!sourceSlot || sourceSlot === targetSlot || !userSquad[sourceSlot]) return;
+
+            const sourceId = userSquad[sourceSlot];
+            const targetId = userSquad[targetSlot];
+            const sourcePlayer = ALL_PLAYERS.find(p => p.id === sourceId);
+            const targetPlayer = targetId ? ALL_PLAYERS.find(p => p.id === targetId) : null;
+            if (!sourcePlayer) return;
+
+            // Spostamento semplice su posizione vuota.
+            if (!targetPlayer) {
+                if (!isPlayerCompatibleWithSlot(sourcePlayer, targetSlot)) {
+                    alert('Questo giocatore non è compatibile con questa posizione.');
+                    return;
+                }
+                userSquad[targetSlot] = sourceId;
+                userSquad[sourceSlot] = null;
+            } else {
+                // Scambio tra due giocatori, se entrambi possono occupare la posizione opposta.
+                if (!isPlayerCompatibleWithSlot(sourcePlayer, targetSlot) || !isPlayerCompatibleWithSlot(targetPlayer, sourceSlot)) {
+                    alert('Lo spostamento non è possibile: uno dei due giocatori non è compatibile con la posizione.');
+                    return;
+                }
+                userSquad[targetSlot] = sourceId;
+                userSquad[sourceSlot] = targetId;
+            }
+
+            currentUser.squad = userSquad;
+            saveUserSession();
+            renderSquadPitch();
+            calculateSquadRating();
+        }
+
+        function normalizeSquadDuplicates() {
+            const seen = new Set();
+            let changed = false;
+            Object.keys(userSquad).forEach(slot => {
+                const id = userSquad[slot];
+                if (!id) return;
+                const player = ALL_PLAYERS.find(p => p.id === id);
+                const key = getPlayerIdentityKey(player);
+                if (!player || seen.has(key)) {
+                    userSquad[slot] = null;
+                    changed = true;
+                } else {
+                    seen.add(key);
+                }
+            });
+            if (changed) {
+                currentUser.squad = userSquad;
+                saveUserSession();
+            }
         }
 
         function isPlayerCompatibleWithSlot(player, slot) {
@@ -3211,8 +3304,13 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                         return;
                     }
 
-                    slotContainer.className = `w-20 h-28 sm:w-24 sm:h-32 rounded-xl p-1 flex flex-col justify-between ${getCardThemeClass(player)} shadow-xl border-2 border-white/20 cursor-pointer overflow-hidden`;
+                    slotContainer.className = `w-20 h-28 sm:w-24 sm:h-32 rounded-xl p-1 flex flex-col justify-between ${getCardThemeClass(player)} shadow-xl border-2 border-white/20 cursor-grab active:cursor-grabbing overflow-hidden relative`;
+                    slotContainer.draggable = true;
+                    slotContainer.ondragstart = (event) => startSquadDrag(event, pos);
+                    slotContainer.ondragover = allowSquadDrop;
+                    slotContainer.ondrop = (event) => handleSquadDrop(event, pos);
                     slotContainer.innerHTML = `
+                        <button type="button" title="Rimuovi dalla formazione" onclick="event.stopPropagation(); removePlayerFromSlot('${pos}')" class="absolute top-1 right-1 z-20 w-6 h-6 rounded-full bg-black/70 hover:bg-red-600 text-white text-xs font-black border border-white/20">×</button>
                         <div class="relative flex-1 min-h-0 rounded-lg overflow-hidden bg-black/10">
                             ${player.image ? `<img src="${player.image}" alt="${player.name}" class="squad-card-image">` : playerPhotoHTML(player, 'w-full h-full object-contain')}
                         </div>
@@ -3221,6 +3319,9 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                     nameLabel.innerText = player.name;
                 } else {
                     slotContainer.className = `w-16 h-24 rounded-xl bg-slate-900/80 border-2 border-dashed border-emerald-500/60 flex flex-col items-center justify-center text-emerald-300 hover:border-amber-400 transition shadow-lg`;
+                    slotContainer.draggable = false;
+                    slotContainer.ondragover = allowSquadDrop;
+                    slotContainer.ondrop = (event) => handleSquadDrop(event, pos);
                     slotContainer.innerHTML = `
                         <i class="fa-solid fa-plus text-lg"></i>
                         <span class="text-[10px] font-bold mt-1">${normalizeSquadRole(pos)}</span>
@@ -3297,7 +3398,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             }
 
             if (isPlayerInSquad(playerId, slot)) {
-                alert("Questo giocatore è già schierato in un'altra posizione.");
+                alert("Questo giocatore è già presente in campo, anche se possiedi una copia di rarità diversa.");
                 return;
             }
 
