@@ -1681,6 +1681,22 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
                         
 
+                        <div id="halloweenPackPanel" class="mt-5 rounded-[2rem] border border-orange-500/30 bg-gradient-to-br from-orange-950/35 via-red-950/25 to-slate-950/70 p-5 sm:p-6 relative overflow-hidden">
+                            <div class="absolute -right-5 -top-7 text-8xl opacity-10">🎃</div>
+                            <div class="absolute -left-5 -bottom-8 text-8xl opacity-10">🕸️</div>
+                            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10">
+                                <div>
+                                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full halloween-badge text-[9px] font-black uppercase tracking-[.22em]">🎃 Pacchetto Evento</div>
+                                    <h3 class="text-2xl font-black text-white mt-3">Pacchetto Halloween</h3>
+                                    <p class="text-xs text-orange-100/70 mt-2 max-w-2xl">Una selezione esclusiva delle carte Halloween. L'apertura usa una scena horror completamente diversa dal pacchetto normale.</p>
+                                    <p id="halloweenPackStatus" class="text-[11px] font-black text-orange-300 mt-3">Gratis lunedì e venerdì: una sola apertura per giornata.</p>
+                                </div>
+                                <button id="halloweenPackBtn" onclick="openHalloweenPack()" class="w-full lg:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 via-red-600 to-red-900 hover:from-orange-400 hover:via-red-500 hover:to-red-800 text-white font-black text-xs shadow-[0_0_30px_rgba(249,115,22,.18)] transition">
+                                    🎃 APRI PACCHETTO HALLOWEEN
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="mt-5 grid grid-cols-2 md:grid-cols-4 gap-2 text-center">
                             <div class="rounded-xl border border-slate-800 bg-black/20 p-3">
                                 <div class="text-xs font-black text-slate-300">COMUNE</div>
@@ -3290,7 +3306,37 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                     : '⏳ Il Pacchetto Halloween è disponibile solo lunedì e venerdì.';
         }
 
-        function openHalloweenPack() { return; }
+        function openHalloweenPack() {
+            if (!currentUser) return;
+            const now = new Date();
+            const day = now.getDay();
+            if (day !== 1 && day !== 5) {
+                alert('Il Pacchetto Halloween è disponibile solo il lunedì e il venerdì.');
+                updateHalloweenPackPanel();
+                return;
+            }
+            const claimed = getHalloweenPackClaim();
+            if (claimed) {
+                alert('Hai già aperto il Pacchetto Halloween oggi. Se perdi la giornata, non puoi recuperarlo.');
+                updateHalloweenPackPanel();
+                return;
+            }
+            const pool = HALLOWEEN_PLAYERS;
+            const player = pool[Math.floor(Math.random() * pool.length)];
+            if (!player) return;
+
+            currentUser.halloweenPack = currentUser.halloweenPack || {};
+            const dateKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+            currentUser.halloweenPack[dateKey] = { openedAt:now.toISOString(), playerId:player.id };
+            userCards.push(player.id);
+            currentUser.cards = userCards;
+            saveUserSession();
+            showHalloweenPackModal(player);
+            updateCurrenciesDisplay();
+            renderCollection();
+            renderShop();
+            updateHalloweenPackPanel();
+        }
 
         let packAnimationTimers = [];
         function clearPackAnimationTimers() {
@@ -3943,14 +3989,12 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
 <script id="halloween-calendar-override">
 (function(){
-  const HALLOWEEN_END = new Date('2026-10-31T23:59:59');
   const HALLOWEEN_DAYS = new Set([1,5]); // Monday, Friday
   const NORMAL_DAYS = new Set([2,4]);    // Tuesday, Thursday
 
   window.getBearFcPackSchedule = function(){
     const now = new Date();
     const day = now.getDay();
-    if(now > HALLOWEEN_END) return {type:'normal', allowed:false, reason:'halloween-ended'};
     if(HALLOWEEN_DAYS.has(day)) return {type:'halloween', allowed:true};
     if(NORMAL_DAYS.has(day)) return {type:'normal', allowed:true};
     return {type:null, allowed:false, reason:'no-pack-day'};
@@ -3985,9 +4029,11 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
     el.className='halloween-weekly-schedule';
     el.innerHTML='<h3>Calendario pacchetti gratuiti</h3><div class="days">'
       
+      +'<div class="day h"><strong>Lunedì</strong>🎃 Halloween gratis</div>'
       +'<div class="day n"><strong>Martedì</strong>⚽ Normale</div>'
       +'<div class="day n"><strong>Giovedì</strong>⚽ Normale</div>'
       
+      +'<div class="day h"><strong>Venerdì</strong>🎃 Halloween gratis</div>'
       +'</div>';
     const target=document.querySelector('main') || document.body;
     target.insertBefore(el,target.firstChild);
@@ -4001,7 +4047,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
 
 <div id="halloweenCalendarNote" style="margin:10px auto;text-align:center;font-size:12px;opacity:.82;">
-⚽ Pacchetto gratuito: martedì e giovedì · Acquisti nello Shop disponibili ogni giorno
+🎃 Halloween gratuito: lunedì e venerdì · ⚽ Normali gratuiti: martedì e giovedì · Shop disponibile ogni giorno
 </div>
 
 
@@ -4145,16 +4191,24 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
     return double?rounds.concat(rounds.map(g=>g.map(([a,b])=>[b,a]))):rounds;
   }
   function team(name){return {name,pg:0,w:0,d:0,l:0,gf:0,ga:0,pts:0};}
-  function fresh(kind){const cfg=CONFIG[kind];return {id:`${Date.now()}_${Math.random().toString(36).slice(2)}`,kind,round:1,stage:cfg.type==='cup'?'knockout':'league',teams:Object.fromEntries(cfg.clubs.map(n=>[n,team(n)])),history:[],bracket:cfg.type==='cup'?cfg.clubs.reduce((a,n,i,all)=>{if(i%2===0)a.push([n,all[i+1]]);return a;},[]):[],completed:false,champion:null};}
+  function shuffledClubs(names){
+    const clubs=[...names];
+    for(let i=clubs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[clubs[i],clubs[j]]=[clubs[j],clubs[i]];}
+    return clubs;
+  }
+  function fresh(kind){
+    const cfg=CONFIG[kind],clubs=shuffledClubs(cfg.clubs);
+    return {id:Date.now()+'_'+Math.random().toString(36).slice(2),kind,round:1,stage:cfg.type==='cup'?'knockout':'league',teams:Object.fromEntries(cfg.clubs.map(n=>[n,team(n)])),calendar:cfg.type==='cup'?[]:schedule(clubs,kind==='seriea'),history:[],bracket:cfg.type==='cup'?clubs.reduce((a,n,i,all)=>{if(i%2===0)a.push([n,all[i+1]]);return a;},[]):[],completed:false,champion:null};
+  }
   function load(kind=selected){
     let s=read(key(kind));if(s?.teams&&s.id)return s;
     s=fresh(kind);
     // Import the former Italian standings once, preserving existing progress.
-    if(kind==='seriea'){const legacy=read('bear_fc_offline_serie_a_v1');if(legacy?.teams){for(const n of CONFIG.seriea.clubs)if(legacy.teams[n])s.teams[n]={...team(n),...legacy.teams[n]};s.round=Math.max(1,Math.min(43,Number(legacy.round)||1));s.completed=s.round>42;s.history=Array.isArray(legacy.history)?legacy.history:[];}}
+    if(kind==='seriea'){const legacy=read('bear_fc_offline_serie_a_v1');if(legacy?.teams){for(const n of CONFIG.seriea.clubs)if(legacy.teams[n])s.teams[n]={...team(n),...legacy.teams[n]};s.round=Math.max(1,Math.min(43,Number(legacy.round)||1));s.completed=s.round>42;s.history=Array.isArray(legacy.history)?legacy.history:[];s.calendar=schedule(CONFIG[kind].clubs,true);}}
     save(s);return s;
   }
   function save(s){localStorage.setItem(key(s.kind),JSON.stringify(s));}
-  function rounds(s){return s.stage==='knockout'?[s.bracket]:schedule(CONFIG[s.kind].clubs,s.kind==='seriea');}
+  function rounds(s){return s.stage==='knockout'?[s.bracket]:(Array.isArray(s.calendar)&&s.calendar.length?s.calendar:schedule(CONFIG[s.kind].clubs,s.kind==='seriea'));}
   function fixtures(s){return s.completed?[]:s.stage==='knockout'?s.bracket:rounds(s)[s.round-1]||[];}
   function fixture(s){return fixtures(s).find(g=>g.includes(USER))||null;}
   function standings(s){return Object.values(s.teams).sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf||a.name.localeCompare(b.name));}
