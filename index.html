@@ -1048,7 +1048,28 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 .match-note{font-size:10px;color:#718078;text-align:center;padding:0 18px 18px}
 </style>
 
-</head>
+<style>
+/* The pack scene remains functional without the remote utility stylesheet. */
+#packModal { position:fixed; inset:0; z-index:2147483647; align-items:center; justify-content:center; padding:12px; background:rgba(0,0,0,.92); }
+#packModal.hidden { display:none !important; }
+#packModal:not(.hidden) { display:flex !important; }
+#packModal .pack-modal-shell { position:relative; padding:24px; border-radius:24px; color:white; background:#0b100d; }
+#packModal .hidden { display:none !important; }
+#packOpeningAnimation { position:relative; display:flex; align-items:center; justify-content:center; min-height:360px; }
+#packBoxStage { flex-shrink:0; }
+#packRevealArea:not(.hidden), #halloweenRevealArea:not(.hidden) { display:flex; width:100%; justify-content:center; }
+#packRevealArea > div, #halloweenRevealArea > div { display:flex; flex-direction:column; align-items:center; gap:12px; }
+#packRevealArea .pack-card-reveal, #halloweenRevealArea .halloween-pack-card { width:min(78vw,330px); height:430px; display:flex; flex-direction:column; justify-content:space-between; padding:12px; border-radius:16px; }
+#packOpeningAnimation img { max-width:100%; max-height:280px; object-fit:contain; }
+#packModalTitle { font-size:24px; font-weight:800; margin:0 0 12px; }
+#closePackBtn { padding:12px 24px; background:#f59e0b; color:#050706; border:0; border-radius:12px; font-weight:bold; cursor:pointer; }
+</style>
+<style>
+.offline-hub{padding:22px;border:1px solid #245237;border-radius:22px;background:#0b1710;color:#e2e8f0;margin-bottom:20px}.offline-hub h2{font-size:26px;font-weight:900;color:#fbbf24}.offline-hub h3{font-size:20px;font-weight:800;color:#fbbf24}.offline-hub h4{font-weight:800;margin:18px 0 8px}.offline-hub p{font-size:13px;color:#cbd5e1;margin:8px 0}.offline-hub button,.offline-competitions button{cursor:pointer}.offline-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.offline-actions button,.offline-club-editor button,.offline-shop-pack button{background:#fbbf24;color:#07110a;padding:11px 16px;border-radius:12px;font-weight:800;border:0}.offline-actions button:disabled{opacity:.5;cursor:default}.offline-club-editor{display:flex;flex-wrap:wrap;align-items:end;gap:14px;margin:18px 0}.offline-club-editor label{display:block;font-size:12px;margin-bottom:5px}.offline-club-editor input,.offline-club-editor select{border:1px solid #39794f;border-radius:8px;padding:9px;color:white;background:#102018}.offline-club-editor input[type=color]{height:42px;width:58px;padding:4px}.offline-kit-legend{display:flex;align-items:center;flex-wrap:wrap;gap:12px;color:white;padding:10px}.club-shirt{display:inline-block;flex-shrink:0;width:44px;height:42px;clip-path:polygon(24% 0,38% 8%,62% 8%,76% 0,100% 24%,84% 42%,76% 34%,76% 100%,24% 100%,24% 34%,16% 42%,0 24%);filter:drop-shadow(0 2px 3px #000)}.offline-lineup{display:grid;grid-template-columns:repeat(auto-fit,minmax(76px,1fr));gap:12px;margin:16px 0}.offline-lineup-slot{display:flex;flex-direction:column;align-items:center;font-size:11px;gap:5px}.offline-card{position:relative;display:flex;flex-direction:column;justify-content:space-between;align-items:center;width:72px;height:104px;overflow:hidden;border:2px solid #fbbf24;border-radius:9px;background:#14291c;color:white;cursor:pointer;padding:3px}.offline-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center}.offline-card-details{position:relative;z-index:1;font-size:9px;font-weight:900;background:#000b;padding:1px 3px;border-radius:4px;align-self:start}.offline-card-name{position:relative;z-index:1;width:100%;background:#000c;font-size:9px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:2px;text-align:center;margin-top:auto}.offline-card .club-shirt{position:absolute;top:29px;width:36px;height:36px}.offline-kit-strip{position:absolute;bottom:0;left:0;right:0;height:4px}.offline-competitions{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:20px 0}.offline-competitions button{display:flex;flex-direction:column;align-items:start;gap:8px;background:#102018;color:white;padding:18px;border:1px solid #316348;border-radius:18px;text-align:left}.offline-competitions button[aria-pressed=true]{border-color:#fbbf24;background:#193322}.offline-competitions button span{font-size:25px}.offline-competitions button small{font-size:11px;color:#cbd5e1}.offline-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}.offline-stats div{background:#102018;padding:12px;border-radius:12px;font-size:11px}.offline-stats strong{display:block;color:#fbbf24;margin-top:4px;font-size:16px}.offline-table{width:100%;font-size:12px;color:#e2e8f0;text-align:left;border-collapse:collapse}.offline-table th,.offline-table td{padding:8px 6px;border-bottom:1px solid #254232}.offline-table .beart{background:#193d26;color:#fde68a}.offline-next{font-weight:800;color:#fbbf24!important}.offline-small{font-size:11px!important}.offline-shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}.offline-shop-pack{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:16px;background:#102018;border:1px solid #39794f}.offline-shop-pack p{flex:1}.offline-shop-pack strong{color:#fbbf24}.match-box{max-height:96vh;overflow-y:auto;width:min(1100px,98vw)}#matchPitch{height:auto;aspect-ratio:1.7;min-height:280px;overflow:hidden}.match-player{width:64px!important;height:90px!important;overflow:visible!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important}.match-player .offline-card{width:64px;height:90px}.match-player.away .offline-card{border-color:#93c5fd}.match-player.active-ball .offline-card{box-shadow:0 0 15px #fde68a}.match-player .offline-card img{height:100%;width:100%;object-fit:contain}.match-player.bot .offline-card{background:#17202b}.match-ball{pointer-events:none}.offline-match-roster{display:flex;gap:8px;padding:10px;overflow-x:auto}.offline-match-roster .offline-card{flex-shrink:0}#offlineMatchOverlay{z-index:1000000}.offline-lineup .offline-card{cursor:default}
+@media(max-width:600px){.offline-hub{padding:14px}.offline-hub h2{font-size:22px}.offline-club-editor{gap:9px}.offline-club-editor input:not([type=color]){max-width:180px}.offline-stats{grid-template-columns:repeat(2,1fr)}#matchPitch{min-height:260px;aspect-ratio:1.25}.match-player{width:38px!important;height:58px!important}.match-player .offline-card{width:38px;height:58px;padding:1px;border-width:1px}.match-player .offline-card-details,.match-player .offline-card-name{font-size:6px}.match-player .club-shirt{width:25px;height:25px;top:16px}.offline-match-roster .offline-card{width:64px;height:92px}.offline-competitions{grid-template-columns:repeat(2,1fr)}}
+</style><style>
+.match-pitch-shell{position:relative}.match-time-strip{display:flex;gap:14px;align-items:center;justify-content:center;color:#e2e8f0;font-size:12px;padding:8px}.match-time-strip strong{color:#fbbf24}.match-stats{padding:8px;color:#cbd5e1;font-size:11px;text-align:center;background:#101e16;border-radius:10px}.match-event-banner{position:absolute;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:rgba(2,12,7,.82);color:#fff;pointer-events:none;border-radius:15px}.match-event-banner.hidden{display:none}.match-event-banner strong{font-size:clamp(24px,6vw,60px);font-weight:1000;text-align:center}.match-event-banner span{font-weight:800;text-align:center;padding:0 15px}.match-event-banner.goal{background:radial-gradient(circle,rgba(22,163,74,.94),rgba(2,12,7,.85));animation:goalFlash .6s ease-out}.match-event-banner.goal strong{color:#fde68a;animation:goalWord .6s cubic-bezier(.2,1.4,.4,1) both}.match-event-banner.goal::before,.match-event-banner.goal::after{content:'';position:absolute;border:3px solid #fbbf24;border-radius:50%;width:100px;height:100px;animation:goalRing 1.8s ease-out both;pointer-events:none}.match-event-banner.goal::after{animation-delay:.25s}.match-event-banner.yellow strong{color:#facc15}.match-event-banner.red strong{color:#ef4444}.match-event-banner.halftime{pointer-events:auto}#startSecondHalfBtn{display:none;background:#fbbf24;padding:12px 20px;border-radius:12px;font-weight:800;color:#07110a;cursor:pointer}.discipline-badge{position:absolute;top:-6px;right:-4px;z-index:20;font-size:14px}.match-roster-details,.match-log-details{font-size:12px;padding:8px;color:#cbd5e1}.match-roster-details summary,.match-log-details summary{cursor:pointer;color:#fde68a;font-weight:800}.match-log-details p{padding:3px}.match-player{transition:left .1s linear,top .1s linear}.match-player .offline-card{box-shadow:0 2px 5px #0008}.match-ball{transition:left .1s linear,top .1s linear}.match-player .offline-card:hover{border-color:#fde68a}#matchPitch{min-height:340px;aspect-ratio:1.8;background:repeating-linear-gradient(90deg,#176534 0 10%,#1b7039 10% 20%)}@keyframes goalWord{from{opacity:0;transform:scale(.25) rotate(-6deg)}to{opacity:1;transform:scale(1) rotate(0)}}@keyframes goalRing{from{opacity:1;transform:scale(.2)}to{opacity:0;transform:scale(5)}}@keyframes goalFlash{from{filter:brightness(2)}to{filter:brightness(1)}}@media(max-width:600px){#matchPitch{min-height:300px;aspect-ratio:1.3}.match-player{width:34px!important;height:50px!important}.match-player .offline-card{width:34px;height:50px}.match-time-strip{gap:8px;font-size:10px}.match-player .club-shirt{height:22px;width:22px}.match-kit-legend{font-size:10px}}
+</style></head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden halloween-event">
 <!-- BEAR FC CINEMATIC ENTRANCE -->
 <div id="bearCinematicIntro" aria-label="Entrata BEAR FC">
@@ -1356,6 +1377,11 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                 
                 <!-- 1. FEED & DASHBOARD VIEW -->
                 <div id="view-feed" class="view-section space-y-6">
+                    <div class="glass p-6 rounded-3xl" style="border:1px solid #a87924; padding:20px; border-radius:20px;">
+                        <h3 style="color:#fbbf24; font-weight:800; font-size:20px;">Grazie per la pazienza 💚</h3>
+                        <p style="color:#e2e8f0; margin:8px 0 16px;">Ci scusiamo per i problemi del sito. Ti regaliamo 100 FC Coins, riscattabili una sola volta per profilo.</p>
+                        <button id="claimApologyCoinsBtn" type="button" onclick="claimApologyCoins()" style="padding:12px 18px; border:0; border-radius:12px; background:#fbbf24; color:#050706; font-weight:800; cursor:pointer;">Riscatta 100 FC Coins di scuse</button>
+                    </div>
                     <!-- Welcome Banner -->
                     <div class="glass p-6 rounded-3xl relative overflow-hidden bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-amber-950/30 border border-slate-800">
                         <div class="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -1628,8 +1654,9 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
                 <!-- 4. PACCHETTI MENSILI -->
                 <div id="view-packs" class="view-section space-y-6 hidden">
+                    <div class="offline-hub"><h2>Comune, Raro, Epico e Leggendario</h2><p>Nessun giorno di attesa per gli acquisti con FC Coins. I regali gratuiti sono nella sezione sotto.</p><div id="shopPacksGrid" class="offline-shop-grid"><div class="offline-shop-pack"><h3>Pacchetto Comune</h3><p>Carte comuni con possibilità di rarità superiori</p><strong>25 FC Coins</strong><button type="button" onclick="buyShopPack('common')">ACQUISTA E APRI</button></div><div class="offline-shop-pack"><h3>Pacchetto Raro</h3><p>Possibilità aumentate di Epiche, Leggendarie e Mitiche</p><strong>75 FC Coins</strong><button type="button" onclick="buyShopPack('rare')">ACQUISTA E APRI</button></div><div class="offline-shop-pack"><h3>Pacchetto Epico</h3><p>Carta Epica o superiore</p><strong>200 FC Coins</strong><button type="button" onclick="buyShopPack('epic')">ACQUISTA E APRI</button></div><div class="offline-shop-pack"><h3>Pacchetto Leggendario</h3><p>Carta Leggendaria o Mitica</p><strong>500 FC Coins</strong><button type="button" onclick="buyShopPack('legendary')">ACQUISTA E APRI</button></div></div></div>
                     <div class="glass p-6 rounded-3xl border border-slate-800 text-center max-w-3xl mx-auto">
-                        <span class="px-3 py-1 bg-orange-500/20 border border-orange-500/30 text-orange-300 text-[10px] font-black uppercase tracking-wider rounded-full">🎃 Pacchetto Settimanale • Halloween</span>
+                        <span class="px-3 py-1 bg-orange-500/20 border border-orange-500/30 text-orange-300 text-[10px] font-black uppercase tracking-wider rounded-full">Pacchetti gratuiti</span>
                         <h2 class="text-3xl font-extrabold text-white mt-2">Negozio BEAR FC</h2>
                         <p class="text-xs text-slate-400 mt-2">Usa gli FC Coins per comprare pacchetti e giocatori, oppure converti i doppioni in crediti.</p>
                     </div>
@@ -1641,10 +1668,10 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                                     <i class="fa-solid fa-calendar-days text-orange-400"></i>
                                     Calendario Pacchetti
                                 </h3>
-                                <p class="text-[11px] text-slate-500 mt-1">2 pacchetti gratuiti ogni settimana · lunedì + mercoledì · reset il lunedì</p>
+                                <p class="text-[11px] text-slate-500 mt-1">2 pacchetti gratuiti ogni settimana · martedì e giovedì</p>
                             </div>
                             <div id="monthlyPackCounter" class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-2 rounded-xl">
-                                0 / 3 aperti questa settimana
+                                0 / 2 aperti questa settimana
                             </div>
                         </div>
 
@@ -1652,45 +1679,21 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                             <!-- Calendario inserito via JS -->
                         </div>
 
-                        <div id="halloweenPackPanel" class="mt-5 rounded-[2rem] border border-orange-500/30 bg-gradient-to-br from-orange-950/35 via-red-950/25 to-slate-950/70 p-5 sm:p-6 relative overflow-hidden">
-                            <div class="absolute -right-5 -top-7 text-8xl opacity-10">🎃</div>
-                            <div class="absolute -left-5 -bottom-8 text-8xl opacity-10">🕸️</div>
-                            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10">
-                                <div>
-                                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full halloween-badge text-[9px] font-black uppercase tracking-[.22em]">🎃 Pacchetto Evento</div>
-                                    <h3 class="text-2xl font-black text-white mt-3">Pacchetto Halloween</h3>
-                                    <p class="text-xs text-orange-100/70 mt-2 max-w-2xl">Una selezione esclusiva delle carte Halloween. L'apertura usa una scena horror completamente diversa dal pacchetto normale.</p>
-                                    <p id="halloweenPackStatus" class="text-[11px] font-black text-orange-300 mt-3">1 apertura evento disponibile questa settimana.</p>
-                                </div>
-                                <button id="halloweenPackBtn" onclick="openHalloweenPack()" class="w-full lg:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 via-red-600 to-red-900 hover:from-orange-400 hover:via-red-500 hover:to-red-800 text-white font-black text-xs shadow-[0_0_30px_rgba(249,115,22,.18)] transition">
-                                    🎃 APRI PACCHETTO HALLOWEEN
-                                </button>
-                            </div>
-                        </div>
+                        
 
-                        <div class="mt-5 rounded-3xl border border-fuchsia-500/30 bg-fuchsia-500/5 p-5">
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                                <div>
-                                    
-                                    <p class="text-xs text-slate-400 mt-1">Temporaneo: prova le aperture delle diverse rarità. Lo toglieremo dopo il test.</p>
-                                </div>
-                                <div class="text-[10px] text-slate-500">Non consuma FC Coins</div>
-                            </div>
-                            
-                        </div>
                         <div class="mt-5 grid grid-cols-2 md:grid-cols-4 gap-2 text-center">
                             <div class="rounded-xl border border-slate-800 bg-black/20 p-3">
                                 <div class="text-xs font-black text-slate-300">COMUNE</div>
-                                <div class="text-sm font-black text-white mt-1">60%</div>
+                                <div class="text-sm font-black text-white mt-1">96%</div>
                             </div>
                             
                             <div class="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
                                 <div class="text-xs font-black text-amber-400">EPICA</div>
-                                <div class="text-sm font-black text-white mt-1">10%</div>
+                                <div class="text-sm font-black text-white mt-1">3,5%</div>
                             </div>
                             <div class="rounded-xl border border-yellow-300/30 bg-yellow-300/5 p-3">
                                 <div class="text-xs font-black text-yellow-200">LEGGENDARIA</div>
-                                <div class="text-sm font-black text-white mt-1">3%</div>
+                                <div class="text-sm font-black text-white mt-1">0,499%</div>
                             </div>
                         </div>
                     </div>
@@ -1738,7 +1741,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                                 </div>
                                 <span class="text-[10px] font-black uppercase tracking-widest text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-2 rounded-xl">FC Coins</span>
                             </div>
-                            <div id="shopPacksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+                            <p class="text-sm text-amber-300">Tutti i pacchetti acquistabili sono in cima al Negozio. I pacchetti gratuiti hanno un calendario separato.</p>
                         </div>
 
                         <div class="glass p-6 rounded-3xl border border-slate-800">
@@ -1798,123 +1801,47 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
                 <!-- 6. MODALITÀ PARTITA OFFLINE -->
                 <div id="view-match" class="view-section space-y-6 hidden">
-                    <div class="glass p-6 md:p-8 rounded-3xl border border-slate-800">
-                        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-7">
-                            <div>
-                                <span class="px-3 py-1 bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-[10px] font-black uppercase tracking-wider rounded-full">Modalità Partita Offline</span>
-                                <h2 class="text-3xl font-black text-white mt-3">Le tue competizioni</h2>
-                                <p class="text-xs text-slate-400 mt-2 max-w-2xl">Gioca con la tua squadra BEAR FC. Partiamo dal Campionato Italiano e aggiungeremo le altre competizioni in seguito.</p>
-                            </div>
-                            <div class="px-4 py-3 rounded-2xl bg-slate-900/80 border border-slate-800 text-right">
-                                <div class="text-[10px] text-slate-500 uppercase font-bold">Stagione</div>
-                                <div class="text-sm font-black text-amber-400">2026 / 27</div>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                            <button onclick="openItalianLeague()" class="competition-card text-left glass-card p-5 rounded-3xl border border-amber-500/25 bg-gradient-to-br from-emerald-950/70 to-slate-950/80 transition duration-200">
-                                <div class="flex items-start justify-between">
-                                    <div class="comp-icon">🇮🇹</div>
-                                    <span class="text-[9px] font-black uppercase tracking-widest text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full">Disponibile</span>
-                                </div>
-                                <h3 class="text-xl font-black text-white mt-5">Campionato Italiano</h3>
-                                <p class="text-xs text-slate-400 mt-1">Calendario, classifica e giornate della tua stagione.</p>
-                                <div class="play-comp mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black">
-                                    <i class="fa-solid fa-play"></i> ENTRA
-                                </div>
-                            </button>
-
-                            <button onclick="comingSoonCompetition('Coppa Italia')" class="competition-card text-left glass-card p-5 rounded-3xl border border-slate-800 bg-slate-950/60 transition duration-200">
-                                <div class="flex items-start justify-between">
-                                    <div class="comp-icon">🏆</div>
-                                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 bg-slate-800 px-2.5 py-1 rounded-full">Presto</span>
-                                </div>
-                                <h3 class="text-xl font-black text-white mt-5">Coppa Italia</h3>
-                                <p class="text-xs text-slate-400 mt-1">Sfide a eliminazione diretta con la tua rosa.</p>
-                                <div class="play-comp mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 text-slate-400 text-xs font-black">
-                                    <i class="fa-solid fa-lock"></i> IN ARRIVO
-                                </div>
-                            </button>
-
-                            <button onclick="comingSoonCompetition('Competizioni Europee')" class="competition-card text-left glass-card p-5 rounded-3xl border border-slate-800 bg-slate-950/60 transition duration-200">
-                                <div class="flex items-start justify-between">
-                                    <div class="comp-icon">🌍</div>
-                                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 bg-slate-800 px-2.5 py-1 rounded-full">Presto</span>
-                                </div>
-                                <h3 class="text-xl font-black text-white mt-5">Competizioni Europee</h3>
-                                <p class="text-xs text-slate-400 mt-1">Una futura competizione internazionale per BEAR FC.</p>
-                                <div class="play-comp mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 text-slate-400 text-xs font-black">
-                                    <i class="fa-solid fa-lock"></i> IN ARRIVO
-                                </div>
-                            </button>
-                        </div>
+                  <div class="offline-hub">
+                    <h2>Il tuo club, le tue competizioni</h2>
+                    <p>Crea nome e divisa, schiera le carte trovate nei pacchetti e affronta i tornei offline.</p>
+                    <div class="offline-club-editor">
+                      <div><label for="offlineClubName">Nome squadra</label><input id="offlineClubName" maxlength="30" placeholder="BEAR FC"></div>
+                      <div><label for="offlineKitPrimary">Colore principale</label><input id="offlineKitPrimary" type="color" value="#16a34a"></div>
+                      <div><label for="offlineKitSecondary">Secondo colore</label><input id="offlineKitSecondary" type="color" value="#050706"></div>
+                      <div><label for="offlineKitPattern">Divisa</label><select id="offlineKitPattern"><option value="stripes">Strisce</option><option value="solid">Tinta unita</option><option value="diagonal">Fascia diagonale</option></select></div>
+                      <button onclick="saveOfflineClub()">Salva squadra e divisa</button>
                     </div>
+                    <div id="offlineClubPreview" class="offline-kit-legend"></div><p id="offlineClubSaveStatus" role="status"></p>
+                  </div>
+                  <div class="offline-hub">
+                    <h3>La tua formazione</h3><p id="offlineLineupSummary"></p>
+                    <div id="offlineLineup" class="offline-lineup"></div>
+                    <div class="offline-actions"><button onclick="openMatchFormation()">Scegli le carte per ruolo</button><button onclick="autoOfflineFormation()">Formazione automatica</button></div>
+                    <p>Le carte appartengono alla tua collezione. Ogni giocatore può essere schierato una sola volta. I posti vuoti sono coperti da BOT da 48 a 54 OVR.</p>
+                    <span id="matchTeamRating" style="display:none"></span>
+                  </div>
+                  <div class="offline-competitions">
+                    <button data-competition="seriea" onclick="openOfflineCompetition('seriea')"><span>🇮🇹</span><strong>Campionato Italiano</strong><small>Andata e ritorno · classifica</small></button>
+                    <button data-competition="champions" onclick="openOfflineCompetition('champions')"><span>⭐</span><strong>Champions League</strong><small>Girone · semifinale · finale</small></button>
+                    <button data-competition="coppa" onclick="openOfflineCompetition('coppa')"><span>🏆</span><strong>Coppa Italia</strong><small>Quarti · semifinale · finale</small></button>
+                    <button data-competition="europa" onclick="openOfflineCompetition('europa')"><span>🌍</span><strong>Europa League</strong><small>Girone · semifinale · finale</small></button>
+                    <button data-competition="supercoppa" onclick="openOfflineCompetition('supercoppa')"><span>🥇</span><strong>Supercoppa</strong><small>Semifinale · finale</small></button>
+                  </div>
+                  <div id="offlineLeaguePanel" class="offline-hub">
+                    <h3 id="offlineCompetitionTitle">Campionato Italiano</h3><p id="offlineCompetitionFormat"></p>
+                    <div class="offline-stats"><div>Fase<strong id="leagueRound">1</strong></div><div>Punti<strong id="bearPoints">0</strong></div><div>Vittorie<strong id="bearWins">0</strong></div><div>Partite<strong id="bearPlayed">0</strong></div></div>
+                    <p id="leagueNextMatch" class="offline-next"></p><p>Partite di oggi: <strong id="dailyMatchCount">0</strong> / 3, condivise tra tutte le competizioni.</p>
+                    <p>10 minuti a partita · 2 tempi da 5 minuti · vittoria 40 FC · pareggio 20 FC · sconfitta 10 FC · premio extra al vincitore del torneo.</p>
+                    <div class="offline-actions"><button id="btnPlayLeague" onclick="startItalianLeagueMatch()">GIOCA PARTITA</button><button onclick="resetOfflineSeasonDemo()">Nuova stagione</button></div>
+                    <h4>Partite del turno</h4><div id="offlineFixtures"></div>
+                    <div style="overflow-x:auto"><table class="league-table offline-table"><thead><tr><th>#</th><th>Squadra</th><th>PG</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>DR</th><th>PT</th></tr></thead><tbody id="serieATableBody"></tbody></table></div>
+                    <h4>Ultimi risultati</h4><div id="leagueRecentResults"></div>
+                    <p class="offline-small">Competizioni simulate con i formati del gioco. I progressi sono salvati su questo browser.</p>
+                  </div>
+                </div>
 
-                    
-<div id="offlineLeaguePanel" class="hidden glass p-6 rounded-3xl border border-slate-800">
-    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-5">
-        <div>
-            <div class="text-[10px] font-black uppercase tracking-widest text-emerald-400">🇮🇹 Serie A — Stagione 2026/27</div>
-            <h3 class="text-2xl font-black text-white mt-1">Campionato Italiano</h3>
-            <p class="text-xs text-slate-400 mt-1">20 squadre di Serie A + BEAR FC come squadra speciale del gioco.</p>
-        </div>
-        <div class="daily-box">
-            <div class="text-2xl">⚽</div>
-            <div>
-                <div class="text-[10px] text-slate-500 uppercase font-black">Partite di oggi</div>
-                <div><span id="dailyMatchCount" class="daily-count">0</span><span class="text-sm text-slate-400 font-bold"> / 3</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-        <div class="bg-slate-950/70 rounded-2xl p-4 border border-slate-800"><div class="text-[10px] text-slate-500 uppercase font-bold">Giornata</div><div id="leagueRound" class="text-xl font-black text-white mt-1">1 / 38</div></div>
-        <div class="bg-slate-950/70 rounded-2xl p-4 border border-slate-800"><div class="text-[10px] text-slate-500 uppercase font-bold">Punti BEAR</div><div id="bearPoints" class="text-xl font-black text-amber-400 mt-1">0</div></div>
-        <div class="bg-slate-950/70 rounded-2xl p-4 border border-slate-800"><div class="text-[10px] text-slate-500 uppercase font-bold">Vittorie</div><div id="bearWins" class="text-xl font-black text-white mt-1">0</div></div>
-        <div class="bg-slate-950/70 rounded-2xl p-4 border border-slate-800"><div class="text-[10px] text-slate-500 uppercase font-bold">Partite</div><div id="bearPlayed" class="text-xl font-black text-emerald-400 mt-1">0</div></div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row gap-2 mb-4">
-        <button onclick="startItalianLeagueMatch()" id="btnPlayLeague" class="flex-1 px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-500 text-white text-xs font-black shadow-lg">
-            <i class="fa-solid fa-futbol mr-2"></i> GIOCA PROSSIMA PARTITA
-        </button>
-        <button onclick="openMatchFormation()" class="px-4 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-black">
-            <i class="fa-solid fa-shirt mr-2"></i> FORMAZIONE
-        </button>
-        <button onclick="resetOfflineSeasonDemo()" class="px-4 py-3 rounded-2xl bg-slate-900 border border-slate-800 text-slate-400 text-xs font-black">RESET DEMO</button>
-    </div>
-
-    
-      </div>
-    </div>
-
-    <div class="grid gap-5 md:grid-cols-2">
-      <div class="rounded-2xl p-5" style="background:rgba(20,20,20,.82);border:1px solid rgba(249,115,22,.28);">
-        <h2 class="font-bold text-lg mb-2">👥 Club Online</h2>
-        <p class="text-sm opacity-75 mb-4">Il club sarà condiviso online tramite Supabase.</p>
-        <div class="flex gap-2 flex-wrap">
-          <button type="button" onclick="createOnlineClubFromChampionship()" class="px-4 py-2 rounded-xl font-bold" style="background:#f97316;color:#111;">
-            CREA CLUB
-          </button>
-          <button type="button" onclick="joinOnlineClubFromChampionship()" class="px-4 py-2 rounded-xl font-bold" style="background:#27272a;color:#fff;">
-            ENTRA CON CODICE
-          </button>
-        </div>
-        <div id="championshipClubStatus" class="mt-4 text-sm opacity-80">
-          Nessun club collegato.
-        </div>
-      </div>
-
-      <div class="rounded-2xl p-5" style="background:rgba(20,20,20,.82);border:1px solid rgba(249,115,22,.28);">
-        <h2 class="font-bold text-lg mb-2">⚽ Stato campionato</h2>
-        <div id="championshipCompetitionStatus" class="text-sm opacity-80">
-          Il campionato si sbloccherà quando il club avrà almeno 2 squadre complete.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<div id="view-settings" class="view-section hidden"><div class="offline-hub"><h2>Impostazioni Account</h2><label for="settingsUsername">Nome allenatore</label><input id="settingsUsername" class="bg-slate-900 text-white p-3 rounded-xl" maxlength="30"><label for="settingsEmail">Email</label><input id="settingsEmail" class="bg-slate-900 text-white p-3 rounded-xl" readonly><div class="offline-actions"><button onclick="saveSettings()">Salva impostazioni</button></div><p>Per modificare nome e divisa della squadra, apri Modalità Partita.</p></div></div>
+<section id="championshipPage" style="display:none;padding:20px;"><h2>Club online</h2><p>Collega il tuo club online.</p><button onclick="createOnlineClubFromChampionship()">Crea club</button><button onclick="joinOnlineClubFromChampionship()">Entra con codice</button><div id="championshipClubStatus">Nessun club collegato.</div><div id="championshipCompetitionStatus"></div></section>
 </main>
         </div>
     </div>
@@ -2379,6 +2306,14 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             location.reload();
         }
 
+        function updateUIState() {
+            updateCurrenciesDisplay();
+            calculateSquadRating();
+            renderCollection();
+            renderShop();
+            updateDailySponsorButton();
+        }
+
         function showApp() {
             document.getElementById('appContainer').classList.remove('hidden');
             updateUIState();
@@ -2409,6 +2344,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
         }
 
         function updateCurrenciesDisplay() {
+            updateApologyBonusButton();
             document.getElementById('sidebarUserCoins').innerText = currentUser.coins;
             document.getElementById('topbarCoins').innerText = currentUser.coins;
             document.getElementById('topbarTrophies').innerText = currentUser.trophies;
@@ -2519,7 +2455,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
         }
 
         function getCardThemeClass(player) {
-            return player && player.edition === 'Halloween' ? 'card-halloween' : `card-${player.rare}`;
+            return player && player.edition === 'Halloween' ? 'card-halloween' : `card-${String(player?.rare || 'common').toLowerCase()}`;
         }
 
         function renderCollection() {
@@ -2726,7 +2662,9 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             common:    { packCost: 25,  duplicateValue: 5,   basePlayerCost: 100,  label: 'Comune',       icon: 'fa-circle' },
             rare:      { packCost: 75,  duplicateValue: 15,  basePlayerCost: 250,  label: 'Rara',         icon: 'fa-star' },
             epic:      { packCost: 200, duplicateValue: 40,  basePlayerCost: 700,  label: 'Epica',        icon: 'fa-gem' },
-            legendary: { packCost: 500, duplicateValue: 100, basePlayerCost: 1500, label: 'Leggendaria',  icon: 'fa-crown' }
+            legendary: { packCost: 500, duplicateValue: 100, basePlayerCost: 1500, label: 'Leggendaria',  icon: 'fa-crown' },
+            mythic: { packCost: 1000, duplicateValue: 200, basePlayerCost: 3000, label: 'Mitica', icon: 'fa-signature' },
+            halloween: { packCost: 100, duplicateValue: 25, basePlayerCost: 400, label: 'Halloween', icon: 'fa-ghost' }
         };
 
         function getShopRarityConfig(playerOrRarity) {
@@ -2746,8 +2684,8 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
         }
 
         function renderShop() {
-            renderDuplicateShop();
             renderShopPacks();
+            renderDuplicateShop();
             const search = document.getElementById('shopPlayerSearch');
             renderShopPlayers(search ? search.value : '');
         }
@@ -2866,34 +2804,57 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             alert(`Convertiti ${totalCards} doppion${totalCards === 1 ? 'e' : 'i'} per un totale di +${totalCoins} FC Coins!`);
         }
 
+        function updateApologyBonusButton() {
+            const btn = document.getElementById('claimApologyCoinsBtn');
+            if (!btn) return;
+            const claimed = !!currentUser?.siteApology100CoinsV1;
+            btn.disabled = claimed;
+            btn.textContent = claimed ? '100 FC Coins già riscattati' : 'Riscatta 100 FC Coins di scuse';
+            btn.style.opacity = claimed ? '.6' : '1';
+            btn.style.cursor = claimed ? 'default' : 'pointer';
+        }
+
+        function claimApologyCoins() {
+            if (!currentUser) return;
+            // Check the saved session too, preventing a second claim from an older open tab.
+            const saved = JSON.parse(localStorage.getItem('bear_fc_current_user') || 'null');
+            if (currentUser.siteApology100CoinsV1 || (saved?.username === currentUser.username && saved.siteApology100CoinsV1)) {
+                currentUser.siteApology100CoinsV1 = true;
+                if (saved?.username === currentUser.username) currentUser.coins = saved.coins;
+                updateCurrenciesDisplay();
+                updateApologyBonusButton();
+                return;
+            }
+            const previousCoins = currentUser.coins;
+            const balance = Number(saved?.username === currentUser.username ? saved.coins : currentUser.coins);
+            currentUser.coins = (Number.isFinite(balance) ? balance : 0) + 100;
+            currentUser.siteApology100CoinsV1 = true;
+            try {
+                saveUserSession();
+            } catch (error) {
+                currentUser.coins = previousCoins;
+                delete currentUser.siteApology100CoinsV1;
+                alert('Impossibile salvare il bonus. Riprova.');
+                return;
+            }
+            updateCurrenciesDisplay();
+            updateApologyBonusButton();
+            renderShopPacks();
+            alert('Grazie per la pazienza! Hai ricevuto 100 FC Coins.');
+        }
+
         function renderShopPacks() {
             const container = document.getElementById('shopPacksGrid');
             if (!container) return;
-            container.innerHTML = '';
-
-            const order = ['common', 'rare', 'epic', 'legendary'];
-            order.forEach(rarity => {
+            const descriptions = {common:'Carte comuni con possibilità di rarità superiori', rare:'Possibilità aumentate di Epiche, Leggendarie e Mitiche', epic:'Carta Epica o superiore', legendary:'Carta Leggendaria o Mitica', mythic:'Carta Mitica firmata', halloween:'Carta Halloween garantita'};
+            container.innerHTML = ['common','rare','epic','legendary'].map(rarity => {
                 const cfg = SHOP_RARITY_CONFIG[rarity];
-                const pool = ALL_PLAYERS.filter(p => !p.edition && !p.packOnly && String(p.rare).toLowerCase() === rarity);
-                const available = pool.length > 0;
-                const card = document.createElement('div');
-                card.className = "rounded-2xl border border-slate-800 bg-slate-950/50 p-4 flex flex-col";
-                card.innerHTML = `
-                    <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-3">
-                        <i class="fa-solid ${cfg.icon} text-amber-400 text-lg"></i>
-                    </div>
-                    <div class="text-[10px] font-black uppercase tracking-widest text-slate-400">${cfg.label}</div>
-                    <h4 class="text-lg font-black text-white mt-1">Pacchetto ${cfg.label}</h4>
-                    <p class="text-[10px] text-slate-500 mt-1 flex-1">${available ? `${pool.length} carte disponibili` : 'Nessuna carta di questa rarità disponibile'}</p>
-                    <div class="text-amber-400 font-black text-sm mt-4"><i class="fa-solid fa-coins"></i> ${cfg.packCost} FC</div>
-                    <button ${available ? '' : 'disabled'} onclick="buyShopPack('${rarity}')" class="mt-3 w-full py-2.5 rounded-xl text-[10px] font-black transition ${available ? 'bg-amber-500 hover:bg-amber-400 text-slate-950' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}">
-                        ${available ? 'COMPRA PACCHETTO' : 'NON DISPONIBILE'}
-                    </button>`;
-                container.appendChild(card);
-            });
+                return '<div class="offline-shop-pack"><h3>Pacchetto '+cfg.label+'</h3><p>'+descriptions[rarity]+'</p><strong>'+cfg.packCost+' FC Coins</strong><button type="button" onclick="buyShopPack(\''+rarity+'\')">ACQUISTA E APRI</button></div>';
+            }).join('');
         }
 
         function buyShopPack(rarity) {
+            if (!['common','rare','epic','legendary'].includes(rarity)) return;
             const cfg = SHOP_RARITY_CONFIG[rarity];
             if (!cfg) return;
 
@@ -2910,8 +2871,10 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
             // I pacchetti Epico e Leggendario aumentano la probabilità delle rarità alte.
             // Il pacchetto Leggendario è anche l'unico che dà una chance significativa alla Mitica Firmata.
-            const packType = rarity === 'legendary' ? 'legendary' : (rarity === 'epic' ? 'epic' : 'normal');
-            const draw = drawPlayerFromPackType(packType);
+            const packType = ['rare','epic','legendary'].includes(rarity) ? rarity : 'normal';
+            const specialPool = rarity === 'halloween' ? ALL_PLAYERS.filter(p => p.edition === 'Halloween') : rarity === 'mythic' ? getPlayersForRarity('mythic', true) : null;
+            if (specialPool && !specialPool.length) { alert('Nessuna carta disponibile per questo pacchetto.'); return; }
+            const draw = specialPool ? { player: specialPool[Math.floor(Math.random()*specialPool.length)], rarity: rarity === 'mythic' ? 'mythic' : 'common' } : drawPlayerFromPackType(packType);
             let player = draw.player;
             let drawnRarity = draw.rarity;
 
@@ -2927,10 +2890,11 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             userCards.push(player.id);
             currentUser.cards = userCards;
             saveUserSession();
+            if (rarity === 'halloween') showHalloweenPackModal(player);
+            else showPackModal([player], drawnRarity);
             updateCurrenciesDisplay();
             renderShop();
             renderCollection();
-            showPackModal([player], drawnRarity);
         }
 
         function renderShopPlayers(searchTerm = '') {
@@ -3208,9 +3172,10 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
         function choosePackRarity(packType = 'normal') {
             const weights = {
+                rare:      [['common',70],['epic',25],['legendary',4.9],['mythic',0.1]],
                 normal:    [['common',96.0],['epic',3.5],['legendary',0.499],['mythic',0.001]],
-                epic:      [['common',35],['epic',45],['legendary',19.5],['mythic',0.5]],
-                legendary:[['common',5],['epic',34],['legendary',60],['mythic',1]]
+                epic:      [['epic',85],['legendary',14],['mythic',1]],
+                legendary:[['legendary',99],['mythic',1]]
             }[packType] || null;
             if (!weights) return 'common';
             const roll = Math.random() * 100;
@@ -3224,9 +3189,9 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
         function drawPlayerFromPackType(packType = 'normal') {
             const rarity = choosePackRarity(packType);
-            let pool = getPlayersForRarity(rarity, rarity === 'mythic' || rarity === 'legendary');
+            let pool = getPlayersForRarity(rarity, true);
             if (!pool.length && rarity === 'legendary') {
-                pool = getPlayersForRarity('epic');
+                pool = getPlayersForRarity('epic', true);
             }
             if (!pool.length && rarity === 'mythic') {
                 // La mitica firmata è esclusiva: se non è disponibile, si ricade sulla leggendaria.
@@ -3292,9 +3257,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
         // Compatibilità: eventuali vecchi pulsanti/collegamenti che richiamano openPack
         // vengono trasformati nel nuovo sistema gratuito settimanale.
         function openPack(type, cost) {
-            switchTab('packs');
-            renderMonthlyPackSchedule();
-            alert('I pacchetti normali sono disponibili solo martedì e giovedì. Halloween è disponibile lunedì e venerdì.');
+            buyShopPack(type === 'normal' ? 'common' : type);
         }
 
 
@@ -3327,42 +3290,23 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                     : '⏳ Il Pacchetto Halloween è disponibile solo lunedì e venerdì.';
         }
 
-        function openHalloweenPack() {
-            const now = new Date();
-            const day = now.getDay();
-            if (day !== 1 && day !== 5) {
-                alert('Il Pacchetto Halloween è disponibile solo il lunedì e il venerdì.');
-                updateHalloweenPackPanel();
-                return;
-            }
-            const claimed = getHalloweenPackClaim();
-            if (claimed) {
-                alert('Hai già aperto il Pacchetto Halloween oggi. Se perdi la giornata, non puoi recuperarlo.');
-                updateHalloweenPackPanel();
-                return;
-            }
-            const pool = HALLOWEEN_PLAYERS;
-            const player = pool[Math.floor(Math.random() * pool.length)];
-            if (!player) return;
+        function openHalloweenPack() { return; }
 
-            currentUser.halloweenPack = currentUser.halloweenPack || {};
-            const dateKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-            currentUser.halloweenPack[dateKey] = { openedAt:now.toISOString(), playerId:player.id };
-            userCards.push(player.id);
-            currentUser.cards = userCards;
-            saveUserSession();
-            updateCurrenciesDisplay();
-            renderCollection();
-            renderShop();
-            updateHalloweenPackPanel();
-            showHalloweenPackModal(player);
+        let packAnimationTimers = [];
+        function clearPackAnimationTimers() {
+            packAnimationTimers.forEach(clearTimeout);
+            packAnimationTimers = [];
         }
-
+        function schedulePackAnimation(callback, delay) {
+            packAnimationTimers.push(setTimeout(callback, delay));
+        }
         function showHalloweenPackModal(player) {
+            clearPackAnimationTimers();
             const modal = document.getElementById('packModal');
             const container = document.getElementById('packOpeningAnimation');
             const btn = document.getElementById('closePackBtn');
             const title = document.getElementById('packModalTitle');
+            container.className = 'pack-stage py-4';
             container.innerHTML = `
                 <div class="halloween-pack-stage">
                     <div class="halloween-pack-moon"></div>
@@ -3379,9 +3323,11 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
             const coffin = document.getElementById('halloweenCoffin');
             const reveal = document.getElementById('halloweenRevealArea');
-            setTimeout(() => coffin && coffin.classList.add('opening'), 1100);
-            setTimeout(() => {
-                if (!player) return;
+            schedulePackAnimation(() => coffin && coffin.classList.add('opening'), 1100);
+            schedulePackAnimation(() => {
+                if (!player) { btn.classList.remove('hidden'); return; }
+                const stage = container.querySelector('.halloween-pack-stage');
+                if (stage) stage.style.display = 'none';
                 const rarity = String(player.rare || 'common').toLowerCase();
                 reveal.classList.remove('hidden');
                 reveal.innerHTML = `
@@ -3412,6 +3358,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
         }
 
         function showPackModal(cards, packRarity = null) {
+            clearPackAnimationTimers();
             const modal = document.getElementById('packModal');
             const container = document.getElementById('packOpeningAnimation');
             const btn = document.getElementById('closePackBtn');
@@ -3443,7 +3390,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             const box = document.getElementById('packBoxStage');
             const reveal = document.getElementById('packRevealArea');
 
-            setTimeout(() => box && box.classList.add('opening'), 650);
+            schedulePackAnimation(() => box && box.classList.add('opening'), 650);
 
             const revealDelay = {
                 common: 1800,
@@ -3453,15 +3400,20 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                 mythic: 3400
             }[safeRarity] || 1800;
 
-            setTimeout(() => {
-                if (!player) return;
+            schedulePackAnimation(() => {
+                if (!player) { btn.classList.remove('hidden'); return; }
+                if (box) box.style.display = 'none';
+                container.querySelectorAll('.pack-cinematic-backdrop, .pack-rarity-scene, .pack-signed-stamp').forEach(effect => {
+                    const restarted = effect.cloneNode(true);
+                    effect.replaceWith(restarted);
+                });
                 reveal.classList.remove('hidden');
                 reveal.innerHTML = `
                     <div class="flex flex-col items-center gap-3 pack-reveal-label">
                         <div class="text-[10px] sm:text-xs font-black uppercase tracking-[.35em] ${safeRarity === 'mythic' ? 'text-yellow-100' : 'text-amber-200'} drop-shadow-lg">
                             ${safeRarity === 'mythic' ? '✦ CARTA MITICA FIRMATA TROVATA ✦' : `CARTA ${rarityLabel(safeRarity).toUpperCase()} TROVATA`}
                         </div>
-                        <div class="rounded-2xl p-3 flex flex-col justify-between w-[78vw] max-w-[330px] h-[112vw] max-h-[470px] min-h-[390px] ${getCardThemeClass(player)} shadow-2xl pack-card-reveal pack-reveal-${safeRarity}">
+                        <div class="rounded-2xl p-3 flex flex-col justify-between w-[78vw] max-w-[330px] h-[112vw] max-h-[470px] min-h-[390px] ${getCardThemeClass(player)} shadow-2xl pack-card-reveal">
                             <div class="flex justify-between items-start text-white px-1 z-10">
                                 <div>
                                     <div class="text-3xl font-black italic leading-none">${player.rating}</div>
@@ -3493,6 +3445,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
         }
 
         function closePackModal() {
+            clearPackAnimationTimers();
             const modal = document.getElementById('packModal');
             modal.classList.add('hidden');
             document.body.classList.remove('overflow-hidden');
@@ -3521,7 +3474,8 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
             if (!player) return null;
             // L'identità è la PERSONA, non la singola carta.
             // Quindi Schembari normale e Schembari Halloween sono lo stesso giocatore.
-            const raw = String(player.normalId || player.name || player.id).trim().toLowerCase();
+            const basePlayer = player.normalId ? ALL_PLAYERS.find(p => p.id === player.normalId) : player;
+            const raw = String(basePlayer?.name || player.name || player.id).trim().toLowerCase();
             return raw.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '');
         }
 
@@ -4029,11 +3983,11 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
     const el=document.createElement('div');
     el.id='halloweenWeeklySchedule';
     el.className='halloween-weekly-schedule';
-    el.innerHTML='<h3>🎃 Calendario Pacchetti</h3><div class="days">'
-      +'<div class="day h"><strong>Lunedì</strong>🎃 Halloween</div>'
+    el.innerHTML='<h3>Calendario pacchetti gratuiti</h3><div class="days">'
+      
       +'<div class="day n"><strong>Martedì</strong>⚽ Normale</div>'
       +'<div class="day n"><strong>Giovedì</strong>⚽ Normale</div>'
-      +'<div class="day h"><strong>Venerdì</strong>🎃 Halloween</div>'
+      
       +'</div>';
     const target=document.querySelector('main') || document.body;
     target.insertBefore(el,target.firstChild);
@@ -4047,7 +4001,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 
 
 <div id="halloweenCalendarNote" style="margin:10px auto;text-align:center;font-size:12px;opacity:.82;">
-🎃 Halloween: lunedì e venerdì · ⚽ Normali: martedì e giovedì · Evento Halloween fino al 31 ottobre
+⚽ Pacchetto gratuito: martedì e giovedì · Acquisti nello Shop disponibili ogni giorno
 </div>
 
 
@@ -4144,358 +4098,334 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
       </div>
       <div id="matchClock" class="match-clock">05:00</div>
     </div>
-    <div id="matchPitch" class="match-pitch"></div>
+    <div class="match-time-strip"><strong id="matchHalfLabel">1° TEMPO</strong><span id="matchGameMinute">0′ 00″</span><span>5 minuti reali per tempo</span></div>
+    <div id="matchKitLegend" class="offline-kit-legend"></div>
+    <div class="match-pitch-shell"><div id="matchPitch" class="match-pitch"></div><div id="matchEventBanner" class="match-event-banner hidden" aria-live="polite"><strong id="matchEventTitle"></strong><span id="matchEventSubtitle"></span><button id="startSecondHalfBtn" type="button" onclick="startOfflineSecondHalf()">Inizia secondo tempo</button></div></div>
+    <div id="matchStats" class="match-stats"></div>
+    <div id="matchPlayerDetail" style="min-height:22px;color:#fde68a;font-size:12px;padding:6px;">Tocca una carta per vedere nome e valutazione.</div>
+    <details class="match-roster-details"><summary>Le tue carte in campo</summary><div id="matchOurCards" class="offline-match-roster"></div></details>
     <div id="matchStatus" class="match-status">Preparazione della partita...</div>
+    <div style="padding:10px;color:white;"><label for="offlineTactic">Tattica: </label><select id="offlineTactic" onchange="setOfflineTactic(this.value)" style="padding:8px;border-radius:8px;background:#102018;color:white;"><option value="balanced">Equilibrio</option><option value="attack">Attacco · più rischi</option><option value="defend">Difesa · meno occasioni</option></select></div>
     <div class="match-actions">
       <button onclick="finishOfflineMatchEarly()" id="finishMatchBtn">Termina partita</button>
     </div>
-    <div class="match-note">⚡ Ritmo alto: i giocatori si muovono per tutto il campo, si scambiano la palla, fanno passaggi, tiri e parate. Le tue carte sono titolari; gli slot mancanti sono BOT.</div>
+    <details class="match-log-details"><summary>Cronaca della partita</summary><div id="matchEventLog"></div></details>
+    <div class="match-note">Le carte schierate influenzano la partita. Cambia tattica o salva ed esci per riprendere più tardi. I posti vuoti sono coperti da BOT deboli.</div>
   </div>
 </div>
 
 
 <script id="serie-a-offline-engine">
-(function(){
-  const SERIE_A = [["Atalanta","ATA"],["Bologna","BOL"],["Cagliari","CAG"],["Como","COM"],["Fiorentina","FIO"],["Frosinone","FRO"],["Genoa","GEN"],["Inter","INT"],["Juventus","JUV"],["Lazio","LAZ"],["Lecce","LEC"],["Milan","MIL"],["Monza","MON"],["Napoli","NAP"],["Parma","PAR"],["Roma","ROM"],["Sassuolo","SAS"],["Torino","TOR"],["Udinese","UDI"],["Venezia","VEN"]];
-  const KEY='bear_fc_offline_serie_a_v1';
-  const DAILY_KEY='bear_fc_offline_daily_matches_v1';
-
-  let matchTimer=null, simTimer=null, matchSeconds=300, matchRunning=false;
-  let currentOpponent=null, matchScore={home:0,away:0}, matchPlayers=[], ball={x:50,y:50,target:null};
-  let lastAction='Calcio d’inizio...';
-  let actionClock=0;
-
-  const FORMATION=[
-    ['GK',8,50],['LB',22,22],['CB1',24,43],['CB2',24,57],['RB',22,78],
-    ['CM1',40,36],['CDM',42,50],['CM2',40,64],['LW',60,18],['ST',68,50],['RW',60,82]
-  ];
-
-  function loadLeague(){
-    try{
-      const saved=JSON.parse(localStorage.getItem(KEY)||'null');
-      if(saved&&saved.teams) return saved;
-    }catch(e){}
-    const teams={};
-    SERIE_A.forEach(t=>teams[t[0]]={name:t[0],short:t[1],pg:0,w:0,d:0,l:0,gf:0,ga:0,pts:0});
-    teams['BEAR FC']={name:'BEAR FC',short:'BEAR',pg:0,w:0,d:0,l:0,gf:0,ga:0,pts:0};
-    const state={round:1,teams};
-    localStorage.setItem(KEY,JSON.stringify(state));
-    return state;
+(function () {
+  const USER='BEAR FC';
+  const ITALIAN=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia',USER];
+  const CONFIG={
+    seriea:{name:'Campionato Italiano',type:'league',clubs:ITALIAN,format:'21 squadre · 42 giornate · 40 partite e 2 riposi',bonus:150},
+    champions:{name:'Champions League',type:'europe',clubs:[USER,'Real Madrid','Manchester City','Bayern Monaco','Barcellona','Paris Saint-Germain','Liverpool','Inter'],format:'Torneo del gioco · 8 squadre · girone unico, prime 4 in semifinale',bonus:250},
+    coppa:{name:'Coppa Italia',type:'cup',clubs:[USER,'Juventus','Roma','Milan','Napoli','Lazio','Fiorentina','Atalanta'],format:'Torneo del gioco · quarti, semifinali e finale · gara unica',bonus:150},
+    europa:{name:'Europa League',type:'europe',clubs:[USER,'Roma','Porto','Ajax','Tottenham','Real Sociedad','Lione','Benfica'],format:'Torneo del gioco · 8 squadre · girone unico, prime 4 in semifinale',bonus:200},
+    supercoppa:{name:'Supercoppa',type:'cup',clubs:[USER,'Inter','Milan','Napoli'],format:'Torneo del gioco · semifinale e finale',bonus:100}
+  };
+  const FORM=[['GK',8,50],['LB',22,18],['CB1',24,39],['CB2',24,61],['RB',22,82],['CM1',43,28],['CDM',39,50],['CM2',43,72],['LW',67,15],['ST',73,50],['RW',67,85]];
+  const $=id=>document.getElementById(id), set=(id,value)=>{if($(id))$(id).textContent=value;};
+  let selected='seriea',live=null,players=[],owner=9,tick=0,tactic='balanced',simTimer=null,clockTimer=null,committing=false;
+  function profileId(){
+    if(typeof currentUser==='undefined'||!currentUser)return 'guest';
+    if(!currentUser.offlineProfileId){currentUser.offlineProfileId=currentUser.username;saveUserSession();}
+    return encodeURIComponent(currentUser.offlineProfileId);
   }
-
-  function dailyData(){
-    const today=new Date().toISOString().slice(0,10);
-    try{
-      const s=JSON.parse(localStorage.getItem(DAILY_KEY)||'null');
-      if(s&&s.date===today)return s;
-    }catch(e){}
-    const fresh={date:today,count:0};
-    localStorage.setItem(DAILY_KEY,JSON.stringify(fresh));
-    return fresh;
+  function key(kind){return `bear_fc_competitions_v3_${profileId()}_${kind}`;}
+  function activeKey(){return `bear_fc_active_match_v3_${profileId()}`;}
+  function read(k,fallback=null){try{return JSON.parse(localStorage.getItem(k)||'null')??fallback;}catch{return fallback;}}
+  function club(){return typeof currentUser!=='undefined'&&currentUser?.clubProfile?currentUser.clubProfile:{name:USER,primary:'#16a34a',secondary:'#050706',pattern:'stripes'};}
+  function display(name){return name===USER?club().name:name;}
+  function schedule(names,double=false){
+    const ring=[...names];if(ring.length%2)ring.push(null);const rounds=[];
+    for(let r=0;r<ring.length-1;r++){const games=[];for(let i=0;i<ring.length/2;i++){const a=ring[i],b=ring[ring.length-1-i];if(a&&b)games.push(r%2?[b,a]:[a,b]);}rounds.push(games);ring.splice(1,0,ring.pop());}
+    return double?rounds.concat(rounds.map(g=>g.map(([a,b])=>[b,a]))):rounds;
   }
-
-  function saveLeague(s){localStorage.setItem(KEY,JSON.stringify(s));}
-
-  function renderTable(){
-    const s=loadLeague(),d=dailyData(),body=document.getElementById('serieATableBody');
-    if(!body)return;
-    const rows=Object.values(s.teams).sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf||a.name.localeCompare(b.name));
-    body.innerHTML=rows.map((t,i)=>`<tr class="${t.name==='BEAR FC'?'beart':''}">
-      <td><span class="pos-dot">${i+1}</span></td><td>${t.name}</td><td>${t.pg}</td><td>${t.w}</td><td>${t.d}</td><td>${t.l}</td><td>${t.gf}</td><td>${t.ga}</td><td>${t.gf-t.ga}</td><td>${t.pts}</td>
-    </tr>`).join('');
-    const count=document.getElementById('dailyMatchCount');if(count)count.textContent=d.count;
-    const b=s.teams['BEAR FC'];
-    if(document.getElementById('bearPoints'))document.getElementById('bearPoints').textContent=b.pts;
-    if(document.getElementById('bearWins'))document.getElementById('bearWins').textContent=b.w;
-    if(document.getElementById('bearPlayed'))document.getElementById('bearPlayed').textContent=b.pg;
-    if(document.getElementById('leagueRound'))document.getElementById('leagueRound').textContent=`${s.round} / 38`;
-    const btn=document.getElementById('btnPlayLeague');
-    if(btn){
-      btn.disabled=d.count>=3;
-      btn.innerHTML=d.count>=3?'<i class="fa-solid fa-lock mr-2"></i> LIMITE GIORNALIERO RAGGIUNTO':'<i class="fa-solid fa-futbol mr-2"></i> GIOCA PROSSIMA PARTITA';
-    }
+  function team(name){return {name,pg:0,w:0,d:0,l:0,gf:0,ga:0,pts:0};}
+  function fresh(kind){const cfg=CONFIG[kind];return {id:`${Date.now()}_${Math.random().toString(36).slice(2)}`,kind,round:1,stage:cfg.type==='cup'?'knockout':'league',teams:Object.fromEntries(cfg.clubs.map(n=>[n,team(n)])),history:[],bracket:cfg.type==='cup'?cfg.clubs.reduce((a,n,i,all)=>{if(i%2===0)a.push([n,all[i+1]]);return a;},[]):[],completed:false,champion:null};}
+  function load(kind=selected){
+    let s=read(key(kind));if(s?.teams&&s.id)return s;
+    s=fresh(kind);
+    // Import the former Italian standings once, preserving existing progress.
+    if(kind==='seriea'){const legacy=read('bear_fc_offline_serie_a_v1');if(legacy?.teams){for(const n of CONFIG.seriea.clubs)if(legacy.teams[n])s.teams[n]={...team(n),...legacy.teams[n]};s.round=Math.max(1,Math.min(43,Number(legacy.round)||1));s.completed=s.round>42;s.history=Array.isArray(legacy.history)?legacy.history:[];}}
+    save(s);return s;
   }
-
-  function pickOpponent(){
-    const s=loadLeague();
-    return SERIE_A[(s.round-1)%SERIE_A.length][0];
-  }
-
-  function getOwnedPlayer(id){
-    if(!id||typeof ALL_PLAYERS==='undefined')return null;
-    return ALL_PLAYERS.find(p=>p.id===id)||null;
-  }
-
-  function getFormationCards(){
-    const cards=[];
-    FORMATION.forEach(([slot,x,y])=>{
-      const id=(typeof userSquad!=='undefined'&&userSquad[slot])?userSquad[slot]:null;
-      const p=getOwnedPlayer(id);
-      cards.push({slot,player:p,bot:!p,x,y,baseX:x,baseY:y,side:'home',vx:0,vy:0});
+  function save(s){localStorage.setItem(key(s.kind),JSON.stringify(s));}
+  function rounds(s){return s.stage==='knockout'?[s.bracket]:schedule(CONFIG[s.kind].clubs,s.kind==='seriea');}
+  function fixtures(s){return s.completed?[]:s.stage==='knockout'?s.bracket:rounds(s)[s.round-1]||[];}
+  function fixture(s){return fixtures(s).find(g=>g.includes(USER))||null;}
+  function standings(s){return Object.values(s.teams).sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf||a.name.localeCompare(b.name));}
+  function phase(s){if(s.completed)return 'Competizione conclusa';if(s.stage==='knockout')return s.bracket.length===1?'Finale':s.bracket.length===2?'Semifinali':'Quarti di finale';return `Giornata ${s.round} / ${rounds(s).length}`;}
+  function day(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+  function daily(){const d=read('bear_fc_offline_daily_matches_v1');return d?.date===day()?d:{date:day(),count:0};}
+  function dailySave(d){localStorage.setItem('bear_fc_offline_daily_matches_v1',JSON.stringify(d));}
+  function identity(p){return typeof getPlayerIdentityKey==='function'?getPlayerIdentityKey(p):p.id;}
+  function compatible(p,slot){return typeof isPlayerCompatibleWithSlot==='function'?isPlayerCompatibleWithSlot(p,slot):true;}
+  function ownedLineup(){
+    const seen=new Set();return FORM.map(([slot,x,y],i)=>{
+      const id=typeof userSquad!=='undefined'?userSquad[slot]:null;
+      let p=typeof ALL_PLAYERS!=='undefined'&&typeof userCards!=='undefined'&&userCards.includes(id)?ALL_PLAYERS.find(card=>card.id===id):null;
+      if(p&&(!compatible(p,slot)||seen.has(identity(p))))p=null;if(p)seen.add(identity(p));
+      return {slot,player:p||makeBot(slot,i,'home',USER),bot:!p,side:'home',x,y,baseX:x,baseY:y};
     });
-    return cards;
   }
-
-  function makeBot(slot,side,index){
-    const role=slot==='GK'?'GK':(slot.startsWith('CB')?'CB':slot.startsWith('LB')?'LB':slot.startsWith('RB')?'RB':slot.startsWith('CM')||slot==='CDM'?'CM':slot==='ST'?'ST':'W');
-    return {slot,player:{id:`bot_${side}_${index}`,name:`BOT ${role}`,pos:role,rating:68+Math.floor(Math.random()*13),pace:65+Math.floor(Math.random()*25),shoot:60+Math.floor(Math.random()*28),pass:60+Math.floor(Math.random()*28),drib:60+Math.floor(Math.random()*28),def:60+Math.floor(Math.random()*28),phys:60+Math.floor(Math.random()*28)},bot:true,side,x:side==='home'?FORM(formationIndex(slot,side),true).x:100-FORM(formationIndex(slot,side),true).x,y:FORM(formationIndex(slot,side),true).y,baseX:0,baseY:0,vx:0,vy:0};
+  function strength(name){if(name===USER)return 62;let hash=0;for(const ch of name)hash=(hash*31+ch.charCodeAt(0))>>>0;return 66+hash%16;}
+  function makeBot(slot,i,side,name){const names=['Rossi','Costa','Moretti','Silva','Romano','Martin','Greco','Lopez','Conti','Muller','Bianchi'];const value=side==='home'?48+(i%7):strength(name)+(i%5)-2;return {id:`bot_${side}_${i}`,name:side==='home'?`BOT ${slot}`:`${names[(i+name.length)%names.length]}`,pos:slot,rating:value,pace:value,shoot:slot==='GK'?25:value,pass:value,drib:value,def:value,phys:value};}
+  // Simplified home shirts using the clubs' traditional colours.
+  const CLUB_KITS={
+    Atalanta:['#005ca9','#111111','stripes'],Bologna:['#a6192e','#142b50','halves'],Cagliari:['#c41230','#122b4a','halves'],Como:['#0054a6','#ffffff','solid'],Fiorentina:['#5b2685','#ffffff','solid'],Frosinone:['#ffdd00','#005aa9','solid'],Genoa:['#a6192e','#062d55','halves'],Inter:['#0068b5','#111111','stripes'],Juventus:['#ffffff','#111111','stripes'],Lazio:['#86c8e8','#ffffff','solid'],Lecce:['#f6d900','#d71920','stripes'],Milan:['#c8102e','#111111','stripes'],Monza:['#c8102e','#ffffff','central'],Napoli:['#38a9db','#ffffff','solid'],Parma:['#ffffff','#111111','cross'],Roma:['#8a1538','#f5b335','solid'],Sassuolo:['#159447','#111111','stripes'],Torino:['#7b142b','#ffffff','solid'],Udinese:['#ffffff','#111111','stripes'],Venezia:['#111111','#ee7b22','venice'],
+    'Real Madrid':['#ffffff','#d4af37','solid'],'Manchester City':['#6caddf','#ffffff','solid'],'Bayern Monaco':['#dc052d','#ffffff','solid'],Barcellona:['#004d98','#a50044','stripes'],'Paris Saint-Germain':['#002654','#da291c','central'],Liverpool:['#c8102e','#ffffff','solid'],Porto:['#0050a4','#ffffff','stripes'],Ajax:['#ffffff','#d71920','central'],Tottenham:['#ffffff','#132257','solid'],'Real Sociedad':['#0067b1','#ffffff','stripes'],Lione:['#ffffff','#d71920','lyon'],Benfica:['#e32219','#ffffff','solid']
+  };
+  function opponentKit(name){const p=CLUB_KITS[name]||['#ffffff','#111111','solid'];return {primary:p[0],secondary:p[1],pattern:p[2]};}
+  function kitNode(style){
+    const shirt=document.createElement('span');shirt.className='club-shirt';const a=style.primary,b=style.secondary;
+    shirt.style.background=style.pattern==='stripes'?`repeating-linear-gradient(90deg,${a} 0 8px,${b} 8px 16px)`:style.pattern==='halves'?`linear-gradient(90deg,${a} 50%,${b} 50%)`:style.pattern==='central'?`linear-gradient(90deg,${a} 35%,${b} 35% 65%,${a} 65%)`:style.pattern==='cross'?`linear-gradient(0deg,transparent 48%,${b} 48% 65%,transparent 65%),linear-gradient(90deg,${a} 40%,${b} 40% 60%,${a} 60%)`:style.pattern==='venice'?`linear-gradient(0deg,${a} 35%,#009b58 35% 46%,${b} 46% 57%,${a} 57%)`:style.pattern==='lyon'?`linear-gradient(90deg,${a} 35%,#0055a4 35% 48%,${b} 48% 61%,${a} 61%)`:style.pattern==='diagonal'?`linear-gradient(135deg,${a} 40%,${b} 40% 60%,${a} 60%)`:a;
+    shirt.style.borderBottom=`3px solid ${b}`;return shirt;
   }
-
-  function formationIndex(slot){return Math.max(0,FORMATION.findIndex(f=>f[0]===slot));}
-  function FORM(i,home){
-    const f=FORMATION[Math.max(0,Math.min(FORMATION.length-1,i))];
-    return {x:home?f[1]:100-f[1],y:f[2]};
+  function miniCard(p,side,kit){
+    const card=document.createElement('button');card.type='button';card.className=`offline-card card-${String(p.rare||'common').toLowerCase()}`;card.title=`${p.name} · ${p.rating} OVR`;
+    if(p.image){const img=document.createElement('img');img.src=p.image;img.alt=p.name;img.onerror=()=>{img.style.display='none';};card.appendChild(img);}
+    const details=document.createElement('span');details.className='offline-card-details';details.textContent=`${p.rating} · ${p.pos||''}`;card.appendChild(details);
+    const name=document.createElement('span');name.className='offline-card-name';name.textContent=p.name;card.appendChild(name);
+    if(!p.image)card.appendChild(kitNode(kit));
+    const border=document.createElement('span');border.className='offline-kit-strip';border.style.background=kit.primary;card.appendChild(border);
+    card.onclick=()=>{set('matchPlayerDetail',`${side==='home'?club().name:display(live?.opponent||'Avversario')} · ${p.name} · ${p.rating} OVR · ${p.pos||''}`);};return card;
   }
-
-  function buildMatchPlayers(){
-    const home=getFormationCards();
-    home.forEach((p,i)=>{
-      p.side='home';
-      p.bot=!p.player;
-      p.baseX=FORMATION[i][1];p.baseY=FORMATION[i][2];
-      p.x=p.baseX;p.y=p.baseY;
+  function renderClub(){
+    const c=club();if($('offlineClubName'))$('offlineClubName').value=c.name;if($('offlineKitPrimary'))$('offlineKitPrimary').value=c.primary;if($('offlineKitSecondary'))$('offlineKitSecondary').value=c.secondary;if($('offlineKitPattern'))$('offlineKitPattern').value=c.pattern;
+    const preview=$('offlineClubPreview');if(preview){preview.innerHTML='';preview.appendChild(kitNode(c));const name=document.createElement('strong');name.textContent=c.name;preview.appendChild(name);}
+  }
+  function renderLineup(){
+    const grid=$('offlineLineup');if(!grid)return;grid.innerHTML='';const lineup=ownedLineup();lineup.forEach(p=>{const cell=document.createElement('div');cell.className='offline-lineup-slot';cell.appendChild(miniCard(p.player,'home',club()));const role=document.createElement('div');role.textContent=p.slot;cell.appendChild(role);grid.appendChild(cell);});
+    const owned=lineup.filter(p=>!p.bot).length,avg=Math.round(lineup.reduce((s,p)=>s+p.player.rating,0)/11);set('offlineLineupSummary',`${owned} carte schierate · ${11-owned} BOT di supporto (48–54 OVR) · Squadra ${avg} OVR`);
+  }
+  function render(){
+    const s=load(),cfg=CONFIG[selected],f=fixture(s),d=daily(),active=read(activeKey());
+    set('offlineCompetitionTitle',cfg.name);set('offlineCompetitionFormat',cfg.format);set('leagueRound',phase(s));set('dailyMatchCount',d.count);set('bearPoints',s.teams[USER].pts);set('bearWins',s.teams[USER].w);set('bearPlayed',s.teams[USER].pg);
+    const eliminated=!f&&s.stage==='knockout'&&!s.completed;set('leagueNextMatch',s.completed?`Vincitore: ${display(s.champion||standings(s)[0].name)}`:f?`${display(f[0])} vs ${display(f[1])}`:eliminated?'La tua squadra è eliminata. Simula le altre partite per vedere il vincitore.':'Turno di riposo: simula i risultati delle altre squadre.');
+    const btn=$('btnPlayLeague');if(btn){btn.disabled=!!live||s.completed||(!active&&!!f&&d.count>=3);btn.textContent=live?'PARTITA IN CORSO':active?'RIPRENDI PARTITA':s.completed?'COMPETIZIONE CONCLUSA':!f?'SIMULA ALTRE PARTITE':d.count>=3?'LIMITE GIORNALIERO RAGGIUNTO':'GIOCA PARTITA';}
+    const body=$('serieATableBody');if(body){body.innerHTML='';standings(s).forEach((t,i)=>{const row=document.createElement('tr');if(t.name===USER)row.className='beart';[i+1,display(t.name),t.pg,t.w,t.d,t.l,t.gf,t.ga,t.gf-t.ga,t.pts].forEach(v=>{const td=document.createElement('td');td.textContent=v;row.appendChild(td);});body.appendChild(row);});}
+    const bracket=$('offlineFixtures');if(bracket){bracket.innerHTML='';fixtures(s).forEach(([a,b])=>{const p=document.createElement('p');p.textContent=`${display(a)} — ${display(b)}`;if(a===USER||b===USER)p.style.color='#fbbf24';bracket.appendChild(p);});}
+    const history=$('leagueRecentResults');if(history){history.innerHTML='';s.history.slice(-8).reverse().forEach(item=>{const p=document.createElement('p');p.textContent=`${item.phase||`G${item.round}`} · ${display(item.home)} ${item.hg}–${item.ag} ${display(item.away)}${item.penaltyWinner?` · Rigori: ${display(item.penaltyWinner)}`:''}${item.reward?` · +${item.reward} FC`:''}`;history.appendChild(p);});if(!s.history.length)history.textContent='Nessuna partita giocata in questa competizione.';}
+    document.querySelectorAll('[data-competition]').forEach(btn=>{btn.setAttribute('aria-pressed',String(btn.dataset.competition===selected));});renderLineup();
+  }
+  function applyResult(s,a,b,ga,gb){const x=s.teams[a],y=s.teams[b];x.pg++;y.pg++;x.gf+=ga;x.ga+=gb;y.gf+=gb;y.ga+=ga;if(ga>gb){x.w++;y.l++;x.pts+=3;}else if(gb>ga){y.w++;x.l++;y.pts+=3;}else{x.d++;y.d++;x.pts++;y.pts++;}}
+  function goals(name){let n=0;for(let i=0;i<6;i++)if(Math.random()<.22+(strength(name)-66)/250)n++;return n;}
+  function advance(s,played=null){
+    const winners=[],label=phase(s);fixtures(s).forEach(([a,b])=>{
+      const isPlayed=played?.home===a&&played.away===b,hg=isPlayed?played.hg:goals(a),ag=isPlayed?played.ag:goals(b);
+      const winner=hg>ag?a:ag>hg?b:isPlayed&&played.penaltyWinner?played.penaltyWinner:Math.random()<.5?a:b;
+      applyResult(s,a,b,hg,ag);if(s.stage==='knockout')winners.push(winner);
+      s.history.push({home:a,away:b,hg,ag,phase:label,round:s.round,penaltyWinner:s.stage==='knockout'&&hg===ag?winner:null,reward:isPlayed?played.reward:0});
     });
-
-    const away=FORMATION.map((f,i)=>{
-      const slot=f[0];
-      const p={slot,player:null,bot:true,side:'away',x:100-f[1],y:f[2],baseX:100-f[1],baseY:f[2],vx:0,vy:0};
-      p.player={id:`bot_away_${i}`,name:`BOT ${slot==='GK'?'POR':slot}`,pos:slot==='GK'?'GK':'BOT',rating:67+Math.floor(Math.random()*16),pace:68+Math.floor(Math.random()*25),shoot:62+Math.floor(Math.random()*30),pass:62+Math.floor(Math.random()*30),drib:62+Math.floor(Math.random()*30),def:62+Math.floor(Math.random()*30),phys:62+Math.floor(Math.random()*30)};
-      return p;
-    });
-    matchPlayers=[...home,...away];
-  }
-
-  function cardImage(player){
-    if(player&&player.image)return `<img src="${player.image}" alt="${player.name}">`;
-    return `<div style="height:30px;display:flex;align-items:center;justify-content:center;font-size:17px;background:#233b2c">🤖</div>`;
-  }
-
-  function renderPitch(){
-    const pitch=document.getElementById('matchPitch');if(!pitch)return;
-    pitch.innerHTML='';
-    matchPlayers.forEach((p,i)=>{
-      const el=document.createElement('div');
-      el.className=`match-player ${p.side} ${p.bot?'bot':''}`;
-      el.id=`mp-${i}`;
-      el.innerHTML=`${cardImage(p.player)}<div class="mp-name">${p.player.name}</div>`;
-      pitch.appendChild(el);
-    });
-    const b=document.createElement('div');
-    b.className='match-ball';b.id='simBall';pitch.appendChild(b);
-    updatePitchDOM();
-  }
-
-  function updatePitchDOM(){
-    matchPlayers.forEach((p,i)=>{
-      const el=document.getElementById(`mp-${i}`);
-      if(!el)return;
-      el.style.left=`${Math.max(3,Math.min(97,p.x))}%`;
-      el.style.top=`${Math.max(5,Math.min(95,p.y))}%`;
-      el.classList.toggle('active-ball',ball.target===i);
-    });
-    const be=document.getElementById('simBall');
-    if(be){be.style.left=`${ball.x}%`;be.style.top=`${ball.y}%`;}
-  }
-
-  function moveToward(p,tx,ty,speed){
-    const dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy)||1;
-    p.x+=dx/d*speed;p.y+=dy/d*speed;
-  }
-
-  function nearestPlayer(x,y,side){
-    let best=-1,bd=1e9;
-    matchPlayers.forEach((p,i)=>{
-      if(p.side!==side)return;
-      const d=(p.x-x)**2+(p.y-y)**2;
-      if(d<bd){bd=d;best=i;}
-    });
-    return best;
-  }
-
-  function averageRating(side){
-    const ps=matchPlayers.filter(p=>p.side===side);
-    return ps.reduce((a,p)=>a+p.player.rating,0)/Math.max(1,ps.length);
-  }
-
-  function setStatus(text){
-    lastAction=text;
-    const st=document.getElementById('matchStatus');
-    if(st)st.textContent=text;
-  }
-
-  function startPossession(side){
-    const idx=nearestPlayer(ball.x,ball.y,side);
-    if(idx<0)return;
-    ball.target=idx;
-    const p=matchPlayers[idx];
-    const attacking=side==='home'?1:-1;
-    const role=p.slot;
-    let tx=p.x+attacking*(role==='ST'?15:8);
-    let ty=p.y+(Math.random()-0.5)*18;
-    tx=Math.max(5,Math.min(95,tx));ty=Math.max(7,Math.min(93,ty));
-    moveToward(p,tx,ty,1.8+Math.random()*1.7);
-  }
-
-  function passBall(side){
-    const candidates=matchPlayers.map((p,i)=>({p,i})).filter(o=>o.p.side===side&&o.i!==ball.target);
-    if(!candidates.length)return;
-    const current=matchPlayers[ball.target];
-    const forward=side==='home'?1:-1;
-    candidates.sort((a,b)=>{
-      const scoreA=(a.p.x-current.x)*forward*0.8-Math.abs(a.p.y-current.y)*0.12+Math.random()*8;
-      const scoreB=(b.p.x-current.x)*forward*0.8-Math.abs(b.p.y-current.y)*0.12+Math.random()*8;
-      return scoreB-scoreA;
-    });
-    const target=candidates[0];
-    ball.target=target.i;
-    ball.x=target.p.x;ball.y=target.p.y;
-    setStatus(`⚡ Passaggio rapido di ${current.player.name} → ${target.p.player?target.p.player.name:''}`);
-  }
-
-  function shot(side){
-    const attack=side==='home'?1:-1;
-    const shooter=nearestPlayer(attack>0?88:12,50,side);
-    if(shooter<0)return;
-    const p=matchPlayers[shooter];
-    ball.target=shooter;
-    const strength=(p.player.shoot||70)/100;
-    const team=(averageRating(side)-70)/100;
-    const goalChance=Math.max(.04,Math.min(.34,.08+strength*.13+team*.05));
-    setStatus(`🔥 ${p.player.name} calcia! ${Math.random()<.45?'PARATA!':'Tiro verso la porta!'}`);
-    ball.x=attack>0?94:6;ball.y=50+(Math.random()-0.5)*24;
-    if(Math.random()<goalChance){
-      matchScore[side]++;
-      setStatus(`⚽ GOOOOOL! ${p.player.name} — ${matchScore.home}-${matchScore.away}`);
+    if(s.stage==='knockout'){
+      if(winners.length===1){s.completed=true;s.champion=winners[0];}else s.bracket=winners.reduce((a,n,i,all)=>{if(i%2===0)a.push([n,all[i+1]]);return a;},[]);
+      s.round++;
     }else{
-      setTimeout(()=>{if(matchRunning)setStatus(`🧤 Parata! Il portiere salva il risultato.`)},450);
+      s.round++;if(s.round>rounds(s).length){if(CONFIG[s.kind].type==='europe'){const top=standings(s).slice(0,4).map(t=>t.name);s.stage='knockout';s.bracket=[[top[0],top[3]],[top[1],top[2]]];s.round=1;}else{s.completed=true;s.champion=standings(s)[0].name;}}
+    }
+    s.history=s.history.slice(-120);save(s);return s;
+  }
+  function build(snap=null){
+    if(snap?.players){players=snap.players;return;}
+    players=ownedLineup();FORM.forEach(([slot,x,y],i)=>players.push({slot,player:makeBot(slot,i,'away',live.opponent),bot:true,side:'away',x:100-x,y,baseX:x,baseY:y}));
+  }
+  function renderPitch(){const pitch=$('matchPitch');pitch.innerHTML='';players.forEach((p,i)=>{const item=document.createElement('div');item.id=`mp-${i}`;item.className=`match-player ${p.side} ${p.bot?'bot':''}`;item.appendChild(miniCard(p.player,p.side,p.side==='home'?club():opponentKit(live.opponent)));const badge=document.createElement('span');badge.className='discipline-badge';item.appendChild(badge);pitch.appendChild(item);});const ball=document.createElement('div');ball.id='simBall';ball.className='match-ball';pitch.appendChild(ball);updatePitch();
+    const strip=$('matchOurCards');if(strip){strip.innerHTML='';players.filter(p=>p.side==='home').forEach(p=>strip.appendChild(miniCard(p.player,'home',club())));}
+    const kits=$('matchKitLegend');if(kits){kits.innerHTML='';kits.appendChild(kitNode(club()));const home=document.createElement('span');home.textContent=club().name;kits.appendChild(home);kits.appendChild(kitNode(opponentKit(live.opponent)));const away=document.createElement('span');away.textContent=live.opponent;kits.appendChild(away);}
+  }
+  // Positions are percentages of the pitch. A side keeps possession until a pass,
+  // tackle, interception or restart transfers the ball.
+  function direction(side){return (live?.half===2?-1:1)*(side==='home'?1:-1);}
+  function other(side){return side==='home'?'away':'home';}
+  function progress(p,side=p.side){return direction(side)>0?p.x:100-p.x;}
+  function enabled(side){return players.map((p,i)=>({p,i})).filter(o=>o.p.side===side&&!o.p.sentOff);}
+  function nearest(x,y,side,exclude=-1){return enabled(side).filter(o=>o.i!==exclude).sort((a,b)=>Math.hypot(a.p.x-x,a.p.y-y)-Math.hypot(b.p.x-x,b.p.y-y))[0]?.i??-1;}
+  function move(p,x,y,speed){const dx=x-p.x,dy=y-p.y,d=Math.hypot(dx,dy);if(d>0){const k=Math.min(1,speed/d);p.x+=dx*k;p.y+=dy*k;}p.x=Math.max(3,Math.min(97,p.x));p.y=Math.max(4,Math.min(96,p.y));}
+  function segmentDistance(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1)));return Math.hypot(p.x-(a.x+t*dx),p.y-(a.y+t*dy));}
+  function eventText(message){set('matchStatus',message);live.events=live.events||[];live.events.unshift({minute:Math.floor(((live.half-1)*300+300-live.halfRemaining)*.15),text:message});live.events=live.events.slice(0,12);const log=$('matchEventLog');if(log){log.innerHTML='';live.events.slice(0,6).forEach(e=>{const row=document.createElement('p');row.textContent=`${e.minute}′ · ${e.text}`;log.appendChild(row);});}}
+  function centerBanner(title,subtitle,kind='event'){
+    const box=$('matchEventBanner');if(!box)return;box.className=`match-event-banner ${kind}`;box.classList.remove('hidden');set('matchEventTitle',title);set('matchEventSubtitle',subtitle);const button=$('startSecondHalfBtn');if(button)button.style.display=kind==='halftime'?'inline-block':'none';
+  }
+  function hideBanner(){if($('matchEventBanner'))$('matchEventBanner').classList.add('hidden');}
+  function resetPositions(){players.forEach(p=>{p.x=direction(p.side)>0?p.baseX:100-p.baseX;p.y=p.baseY;p.decisionDelay=0;});}
+  function kickoff(side){resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.decision=2;}
+  function stats(){if(!live)return;const s=live.stats;const total=s.home.possession+s.away.possession||1;set('matchStats',`Possesso ${Math.round(s.home.possession/total*100)}%–${Math.round(s.away.possession/total*100)}% · Tiri ${s.home.shots}–${s.away.shots} · Corner ${s.home.corners}–${s.away.corners} · Falli ${s.home.fouls}–${s.away.fouls} · 🟨 ${s.home.yellow}–${s.away.yellow} · 🟥 ${s.home.red}–${s.away.red}`);}
+  function updatePitch(){
+    players.forEach((p,i)=>{const n=$(`mp-${i}`);if(n){n.style.left=`${p.x}%`;n.style.top=`${p.y}%`;n.style.display=p.sentOff?'none':'';n.classList.toggle('active-ball',i===owner&&!live?.flight);const badge=n.querySelector('.discipline-badge');if(badge)badge.textContent=p.yellow?'🟨':'';}});
+    const b=$('simBall');if(b&&live?.ball){b.style.left=`${live.ball.x}%`;b.style.top=`${live.ball.y}%`;}stats();
+  }
+  function rating(side,stat){const ps=enabled(side);return ps.reduce((s,o)=>s+(Number(o.p.player[stat])||50),0)/(ps.length||1);}
+  function updateScore(){if(!live)return;set('matchTeamsLabel',live.fixture[0]===USER?`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`:`${live.opponent} ${live.score.away}–${live.score.home} ${club().name}`);}
+  function persist(){if(live)localStorage.setItem(activeKey(),JSON.stringify({...live,players,owner,tick,tactic}));}
+  function deadBall(type,side,x,y,wait=3){live.flight=null;owner=-1;live.deadBall={type,side,x,y,wait};live.ball={x,y};live.possession=side;}
+  function card(offender,severe=false){
+    const p=players[offender];if(!p||p.sentOff)return;const s=live.stats[p.side];
+    if(severe||p.yellow){p.sentOff=true;s.red++;if(!severe)eventText(`🟥 Secondo giallo: ${p.player.name} è espulso!`);else eventText(`🟥 Rosso diretto a ${p.player.name}!`);centerBanner('CARTELLINO ROSSO',p.player.name,'red');}
+    else{p.yellow=true;s.yellow++;eventText(`🟨 Ammonito ${p.player.name}.`);centerBanner('CARTELLINO GIALLO',p.player.name,'yellow');}
+  }
+  function foul(offender,victim,force=null){
+    const p=players[victim],d=players[offender];if(!p||!d||d.sentOff)return;
+    live.stats[d.side].fouls++;const penalty=force==='penalty'||(progress(p)>84&&p.y>27&&p.y<73);
+    if(force==='red'||Math.random()<.025)card(offender,true);else if(force==='yellow'||Math.random()<.32)card(offender);
+    const dir=direction(p.side);deadBall(penalty?'penalty':'freeKick',p.side,penalty?(dir>0?88:12):p.x,penalty?50:p.y,4);
+    eventText(penalty?`⚖️ Calcio di rigore per ${p.side==='home'?club().name:live.opponent}!`:`⚖️ Fallo su ${p.player.name}: calcio di punizione.`);
+    if(penalty)centerBanner('CALCIO DI RIGORE',p.side==='home'?club().name:live.opponent,'penalty');
+  }
+  function corner(side,y){live.stats[side].corners++;const x=direction(side)>0?98:2;deadBall('corner',side,x,y<50?2:98,3);eventText(`🚩 Calcio d’angolo per ${side==='home'?club().name:live.opponent}.`);centerBanner('CALCIO D’ANGOLO',side==='home'?club().name:live.opponent,'corner');}
+  function goal(side,scorer){
+    live.score[side]++;updateScore();eventText(`⚽ GOL! ${players[scorer]?.player.name||'Rete'} · ${side==='home'?club().name:live.opponent}`);
+    centerBanner('GOOOL!',`${players[scorer]?.player.name||''} · ${live.score.home}–${live.score.away}`,'goal');deadBall('kickoff',other(side),50,50,4.5);
+  }
+  function pass(to,kind='pass'){
+    if(owner<0||!players[to]||players[to].sentOff)return;const from=owner,p=players[from],target=players[to];
+    live.flight={kind,side:p.side,from,to,start:{...live.ball},end:{x:target.x+direction(p.side)*1.5,y:target.y},elapsed:0,duration:Math.max(.55,Math.hypot(p.x-target.x,p.y-target.y)/35)};owner=-1;live.decision=1.2;
+    if(kind==='cross')eventText(`🎯 Cross di ${p.player.name} verso ${target.player.name}.`);
+  }
+  function choosePass(from){
+    const p=players[from],defenders=enabled(other(p.side));
+    const options=enabled(p.side).filter(o=>o.i!==from&&Math.hypot(o.p.x-p.x,o.p.y-p.y)<42).map(o=>{
+      const distance=Math.hypot(o.p.x-p.x,o.p.y-p.y),pressure=Math.min(20,...defenders.map(d=>Math.hypot(d.p.x-o.p.x,d.p.y-o.p.y))),blocked=defenders.some(d=>segmentDistance(d.p,p,o.p)<3.2);
+      const forward=(o.p.x-p.x)*direction(p.side);return {...o,score:forward*.48+pressure*.85-distance*.2-(blocked?16:0)+(o.p.slot==='GK'?-5:0)+(Number(o.p.player.pass)||50)/100};
+    }).sort((a,b)=>b.score-a.score);
+    return options[0]?.i??-1;
+  }
+  function shoot(index,penalty=false,header=false){
+    const p=players[index];if(!p||p.sentOff||(!penalty&&tick<(live.nextShotAt||0)))return;live.nextShotAt=tick+180;const side=p.side,dir=direction(side);live.stats[side].shots++;
+    const distance=Math.hypot((dir>0?100:0)-p.x,(50-p.y)*.65),keeper=enabled(other(side)).find(o=>o.p.slot==='GK'),finish=Number(p.player.shoot)||50,gk=keeper?Number(keeper.p.player.def)||65:30;
+    const chance=penalty?Math.max(.52,Math.min(.87,.7+(finish-gk)/400)):Math.max(.025,Math.min(.32,.18-distance*.006+(finish-gk)/700+(header?.02:0)));
+    const roll=Math.random();const outcome=roll<chance?'goal':roll<chance+.20?'corner':roll<chance+.70?'save':'miss';
+    live.flight={kind:'shot',side,from:index,start:{...live.ball},end:{x:dir>0?100:0,y:outcome==='miss'?(p.y<50?28:72):45+Math.random()*10},elapsed:0,duration:.65,outcome,penalty};owner=-1;
+    eventText(`${penalty?'🥅 Rigore':header?'🎯 Colpo di testa':'🔥 Tiro'} di ${p.player.name}!`);
+  }
+  function flightStep(dt){
+    const f=live.flight;if(!f)return;f.elapsed+=dt;const t=Math.min(1,f.elapsed/f.duration);live.ball.x=f.start.x+(f.end.x-f.start.x)*t;live.ball.y=f.start.y+(f.end.y-f.start.y)*t;
+    if(f.kind!=='shot'&&t>.25&&t<.95){const cut=enabled(other(f.side)).find(o=>Math.hypot(o.p.x-live.ball.x,o.p.y-live.ball.y)<2.3);if(cut&&Math.random()<.2){live.flight=null;owner=cut.i;live.possession=cut.p.side;live.decision=1;eventText(`⚔️ ${cut.p.player.name} intercetta il passaggio.`);return;}}
+    if(t<1)return;live.flight=null;
+    if(f.kind==='shot'){
+      if(f.outcome==='goal')goal(f.side,f.from);else if(f.outcome==='corner')corner(f.side,live.ball.y);else if(f.outcome==='save'){owner=enabled(other(f.side)).find(o=>o.p.slot==='GK')?.i??nearest(live.ball.x,live.ball.y,other(f.side));live.possession=other(f.side);live.decision=2;eventText('🧤 Il portiere blocca il tiro.');}else{deadBall('goalKick',other(f.side),direction(f.side)>0?94:6,50,2);eventText('Tiro fuori. Rimessa dal fondo.');}
+    }else{
+      owner=players[f.to]?.sentOff?nearest(f.end.x,f.end.y,f.side):f.to;live.possession=f.side;live.decision=.9;
+      if(f.kind==='cross'&&owner>=0&&progress(players[owner])>78)shoot(owner,false,true);
     }
   }
-
-  function fastMatchStep(){
-    if(!matchRunning)return;
-    actionClock++;
-
-    // Pressing e transizioni molto più frequenti: i giocatori coprono tutto il campo.
-    const possessionSide = Math.floor(actionClock/8)%2===0 ? 'home':'away';
-    const ballPlayer=matchPlayers[ball.target];
-
-    matchPlayers.forEach((p,i)=>{
-      const attack= p.side==='home'?1:-1;
-      const dist=Math.hypot(p.x-ball.x,p.y-ball.y);
-      let tx=p.baseX,ty=p.baseY;
-
-      // Tutti possono uscire dalla posizione iniziale e seguire l'azione in ogni zona.
-      if(i===ball.target){
-        tx=ball.x+attack*8;
-        ty=ball.y;
-      }else if(dist<28){
-        tx=ball.x-attack*(3+Math.random()*9);
-        ty=ball.y+(Math.random()-0.5)*16;
+  function restartStep(dt){
+    const restart=live.deadBall;if(!restart)return;restart.wait-=dt;
+    if(restart.type==='corner')players.forEach(p=>{if(p.sentOff||p.slot==='GK')return;const dir=direction(restart.side),attacker=p.side===restart.side;const isTarget=['ST','CB1','CB2','CM1','CM2'].includes(p.slot);if(isTarget)move(p,dir>0?(attacker?85:89):(attacker?15:11),28+(FORM.findIndex(f=>f[0]===p.slot)%5)*10,.2);});
+    if(restart.wait>0)return;live.deadBall=null;hideBanner();
+    if(restart.type==='kickoff'){kickoff(restart.side);return;}
+    const side=restart.side;owner=restart.type==='goalKick'?enabled(side).find(o=>o.p.slot==='GK')?.i??nearest(restart.x,restart.y,side):enabled(side).filter(o=>o.p.slot!=='GK').sort((a,b)=>Number(b.p.player[restart.type==='penalty'?'shoot':'pass']||50)-Number(a.p.player[restart.type==='penalty'?'shoot':'pass']||50))[0]?.i??-1;
+    if(owner<0){kickoff(other(side));return;}players[owner].x=restart.x;players[owner].y=restart.y;live.ball={x:restart.x,y:restart.y};live.possession=side;live.decision=1.5;
+    if(restart.type==='penalty'){shoot(owner,true);return;}
+    if(restart.type==='corner'){const targets=enabled(side).filter(o=>o.i!==owner&&o.p.slot!=='GK').sort((a,b)=>(['CB1','CB2','ST'].includes(b.p.slot)?20:0)+Number(b.p.player.phys||50)/10-(['CB1','CB2','ST'].includes(a.p.slot)?20:0)-Number(a.p.player.phys||50)/10);pass(targets[0]?.i,'cross');return;}
+    if(restart.type==='freeKick'&&progress(players[owner])>72)shoot(owner);else{const target=choosePass(owner);if(target>=0)pass(target);}
+  }
+  function teamMovement(dt){
+    const side=live.possession||'home',dir=direction(side),ballProgress=dir>0?live.ball.x:100-live.ball.x,carrier=players[owner];
+    const pressers=enabled(other(side)).filter(o=>o.p.slot!=='GK').sort((a,b)=>Math.hypot(a.p.x-live.ball.x,a.p.y-live.ball.y)-Math.hypot(b.p.x-live.ball.x,b.p.y-live.ball.y)).slice(0,2).map(o=>o.i);
+    players.forEach((p,i)=>{
+      if(p.sentOff)return;const ownDir=direction(p.side),inPossession=p.side===side,base=ownDir>0?p.baseX:100-p.baseX,keeper=p.slot==='GK';let x=base,y=p.baseY;
+      if(keeper){x=ownDir>0?7:93;y=Math.max(37,Math.min(63,50+(live.ball.y-50)*.2));}
+      else if(i===owner){const pressure=enabled(other(side)).some(o=>Math.hypot(o.p.x-p.x,o.p.y-p.y)<6);x=p.x+ownDir*(pressure?1.5:4);y=p.y+(50-p.y)*.08;}
+      else if(inPossession){
+        const offset=Math.max(-9,Math.min(19,(ballProgress-45)*.38))+(p.side==='home'&&tactic==='attack'?6:p.side==='home'&&tactic==='defend'?-5:0);x=base+ownDir*offset;
+        if(['LB','RB'].includes(p.slot)&&ballProgress>52&&((p.slot==='LB'&&live.ball.y<50)||(p.slot==='RB'&&live.ball.y>=50)))x=ownDir>0?Math.min(82,ballProgress+8):100-Math.min(82,ballProgress+8);
+        if(p.slot==='ST')x=ownDir>0?Math.min(88,ballProgress+14):100-Math.min(88,ballProgress+14);
+        if(p.slot==='CB1'&&ballProgress>70&&p.side==='home'&&tactic==='attack')x=ownDir>0?67:33;
+        y=p.baseY+(live.ball.y-50)*.12;
       }else{
-        tx=p.baseX+attack*Math.sin(actionClock/7+i)*18;
-        ty=p.baseY+Math.cos(actionClock/6+i)*18;
-        if(ball.x>50 && p.side==='home')tx+=Math.min(22,ball.x-50);
-        if(ball.x<50 && p.side==='away')tx-=Math.min(22,50-ball.x);
+        x=base+ownDir*Math.max(-12,Math.min(10,(50-ballProgress)*.25));y=p.baseY+(live.ball.y-50)*.2;
+        if(pressers.includes(i)){x=live.ball.x-ownDir*1.5;y=live.ball.y;}
       }
-      tx=Math.max(4,Math.min(96,tx));ty=Math.max(5,Math.min(95,ty));
-      moveToward(p,tx,ty,0.9+((p.player.pace||75)/100)*1.5);
+      // Keep players spaced apart instead of piling every card around the ball.
+      players.forEach((q,j)=>{if(i===j||q.sentOff)return;const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<5&&d>.01){x+=(p.x-q.x)/d*(5-d)*.45;y+=(p.y-q.y)/d*(5-d)*.45;}});
+      move(p,x,y,dt*(2.2+(Number(p.player.pace)||50)/35));
     });
-
-    if(!ballPlayer || actionClock%8===0){
-      startPossession(possessionSide);
-    }else{
-      ball.x=ballPlayer.x+(Math.random()-0.5)*2;
-      ball.y=ballPlayer.y+(Math.random()-0.5)*2;
-    }
-
-    // Eventi ad alto ritmo.
-    if(actionClock%7===0) passBall(ballPlayer?ballPlayer.side:possessionSide);
-    if(actionClock%17===0) shot(ballPlayer?ballPlayer.side:possessionSide);
-    if(actionClock%11===0 && !String(lastAction).includes('GOOOOL')) {
-      const msgs=['🚀 Accelerazione sulla fascia!','⚔️ Contrasto duro a centrocampo!','🎯 Verticalizzazione immediata!','🏃 Inserimento profondo!','🧤 Il portiere si prepara!'];
-      setStatus(msgs[Math.floor(Math.random()*msgs.length)]);
-    }
-
-    updatePitchDOM();
+    if(carrier&&owner>=0&&!live.flight)live.ball={x:carrier.x+direction(carrier.side)*1.2,y:carrier.y};
   }
-
-  function updateClock(){
-    const m=Math.floor(matchSeconds/60),s=matchSeconds%60;
-    const el=document.getElementById('matchClock');
-    if(el)el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  function decide(dt){
+    if(owner<0)return;const p=players[owner];if(p.sentOff){owner=nearest(live.ball.x,live.ball.y,live.possession);return;}
+    const defender=enabled(other(p.side)).filter(o=>o.p.slot!=='GK').sort((a,b)=>Math.hypot(a.p.x-p.x,a.p.y-p.y)-Math.hypot(b.p.x-p.x,b.p.y-p.y))[0];
+    if(defender&&Math.hypot(defender.p.x-p.x,defender.p.y-p.y)<3.8&&live.tackleCooldown<=0){live.tackleCooldown=3;
+      if(Math.random()<.16){foul(defender.i,owner);return;}
+      if(Math.random()<Math.max(.12,Math.min(.65,.35+(Number(defender.p.player.def||50)-Number(p.player.drib||50))/200))){owner=defender.i;live.possession=defender.p.side;live.decision=1.4;eventText(`⚔️ ${defender.p.player.name} recupera il pallone.`);return;}
+    }
+    live.decision-=dt;if(live.decision>0)return;live.decision=1.6;
+    const advanced=progress(p),central=Math.abs(p.y-50)<24,pressure=defender?Math.hypot(defender.p.x-p.x,defender.p.y-p.y):20;
+    if(advanced>74&&central&&tick>=(live.nextShotAt||0)){shoot(owner);return;}
+    if(advanced>75&&!central){const target=enabled(p.side).filter(o=>o.i!==owner&&o.p.slot!=='GK'&&progress(o.p)>65&&Math.abs(o.p.y-50)<24).sort((a,b)=>Number(b.p.player.shoot||50)-Number(a.p.player.shoot||50))[0];if(target){pass(target.i,'cross');return;}}
+    const target=choosePass(owner);if(target>=0&&(pressure<9||p.slot==='GK'||progress(players[target])>advanced+3||live.decisionCount%3===0)){pass(target);}
+    live.decisionCount++;
   }
-
-  window.openMatchFormation=function(){
-    if(typeof switchTab==='function')switchTab('squad');
-    setTimeout(()=>{
-      const el=document.getElementById('view-squad');
-      if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
-    },100);
-  };
-
-  window.openItalianLeague=function(){
-    const p=document.getElementById('offlineLeaguePanel');
-    if(p){p.classList.remove('hidden');p.scrollIntoView({behavior:'smooth',block:'start'});
-    renderTable();
-  };
-
+  function step(){
+    if(!live||committing||live.halfTime)return;const dt=.1;tick++;live.tackleCooldown=Math.max(0,(live.tackleCooldown||0)-dt);
+    if(live.deadBall)restartStep(dt);else{teamMovement(dt);if(live.flight)flightStep(dt);else decide(dt);}
+    if(live.possession)live.stats[live.possession].possession+=dt;updatePitch();if(tick%10===0)persist();
+  }
+  function syncClock(){if(!live||live.halfTime)return;live.halfRemaining=Math.max(0,Math.ceil((live.deadline-Date.now())/1000));live.remaining=live.halfRemaining+(live.half===1?300:0);}
+  function clock(){
+    if(!live||committing)return;syncClock();const left=live.halfRemaining,elapsed=(live.half-1)*300+300-left,gameSeconds=Math.round(elapsed*9);
+    set('matchClock',`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`);set('matchHalfLabel',live.halfTime?'INTERVALLO':`${live.half}° TEMPO`);set('matchGameMinute',`${Math.floor(gameSeconds/60)}′ ${String(gameSeconds%60).padStart(2,'0')}″`);
+    if(left>0||live.halfTime)return;
+    if(live.half===1){live.halfTime=true;live.remaining=300;live.flight=null;live.deadBall=null;centerBanner('INTERVALLO',`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`,'halftime');eventText('Fine primo tempo. Premi «Inizia secondo tempo» per continuare.');persist();set('matchHalfLabel','INTERVALLO');}
+    else{hideBanner();finish();}
+  }
+  window.startOfflineSecondHalf=function(){if(!live?.halfTime)return;live.half=2;live.halfTime=false;live.halfRemaining=300;live.remaining=300;live.deadline=Date.now()+300000;hideBanner();kickoff('away');eventText('Inizia il secondo tempo: le squadre cambiano campo.');persist();clock();updatePitch();};
+  function initializeFootball(snap){
+    if(snap.matchSchema!==4){snap.half=1;snap.halfRemaining=Math.min(300,Number(snap.remaining)||300);snap.remaining=snap.halfRemaining+300;snap.halfTime=false;snap.matchSchema=4;}
+    snap.stats=snap.stats||{home:{possession:0,shots:0,corners:0,fouls:0,yellow:0,red:0},away:{possession:0,shots:0,corners:0,fouls:0,yellow:0,red:0}};snap.decision=snap.decision??2;snap.decisionCount=snap.decisionCount||0;snap.possession=snap.possession||'home';snap.ball=snap.ball||{x:50,y:50};
+  }
+  function rewardOnce(id,amount,trophy=false){
+    if(typeof currentUser==='undefined'||!currentUser)return false;
+    const saved=read('bear_fc_current_user');if(saved?.username===currentUser.username){currentUser.offlineMatchRewards=saved.offlineMatchRewards||currentUser.offlineMatchRewards||{};currentUser.coins=saved.coins;}
+    currentUser.offlineMatchRewards=currentUser.offlineMatchRewards||{};if(currentUser.offlineMatchRewards[id])return false;
+    currentUser.coins=(Number(currentUser.coins)||0)+amount;currentUser.offlineMatchRewards[id]=true;if(trophy)currentUser.trophies=(Number(currentUser.trophies)||0)+1;saveUserSession();updateCurrenciesDisplay();return true;
+  }
+  function finish(){
+    if(!live||committing)return;committing=true;clearInterval(clockTimer);clearInterval(simTimer);const match=live,s=load(match.kind);
+    if(s.id!==match.seasonId||s.round!==match.round||s.stage!==match.stage){set('matchStatus','Questa partita è già stata completata.');closeFinished();return;}
+    let winner=null;if(s.stage==='knockout'&&match.score.home===match.score.away){winner=Math.random()<Math.max(.2,Math.min(.8,.5+(rating('home','rating')-rating('away','rating'))/200))?USER:match.opponent;}
+    const won=winner?winner===USER:match.score.home>match.score.away,reward=won?40:match.score.home===match.score.away&&!winner?20:10;
+    const played={home:match.fixture[0],away:match.fixture[1],hg:match.fixture[0]===USER?match.score.home:match.score.away,ag:match.fixture[1]===USER?match.score.home:match.score.away,penaltyWinner:winner,reward};
+    advance(s,played);const championBonus=s.completed&&s.champion===USER?CONFIG[s.kind].bonus:0;rewardOnce(match.id,reward);if(championBonus)rewardOnce(`${s.id}_trophy`,championBonus,true);
+    const d=daily();d.count++;dailySave(d);
+    set('matchStatus',`FINE PARTITA · ${winner?`Rigori: vince ${display(winner)} · `:''}+${reward+championBonus} FC Coins${championBonus?' · Trofeo conquistato!':''}`);
+    closeFinished();
+  }
+  function closeFinished(){localStorage.removeItem(activeKey());live=null;committing=false;if($('finishMatchBtn')){$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Torna alle competizioni';}render();}
+  function openLive(snap){
+    initializeFootball(snap);live=snap;selected=snap.kind;owner=snap.owner??9;tick=snap.tick||0;tactic=snap.tactic||'balanced';build(snap);
+    players.forEach(p=>{p.baseX=FORM.find(f=>f[0]===p.slot)?.[1]||p.baseX;});
+    live.deadline=Date.now()+Math.max(1,live.halfRemaining)*1000;
+    if(!snap.players)kickoff('home');if($('offlineTactic'))$('offlineTactic').value=tactic;renderPitch();updateScore();set('matchCompetitionLabel',CONFIG[live.kind].name+' · '+phase(load(live.kind)));set('matchStatus',live.halfTime?'Intervallo: inizia il secondo tempo quando sei pronto.':'Possesso e movimenti legati all’azione.');$('offlineMatchOverlay').classList.add('show');$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Salva ed esci';
+    if(live.halfTime)centerBanner('INTERVALLO',club().name+' '+live.score.home+'–'+live.score.away+' '+live.opponent,'halftime');else hideBanner();persist();clock();clockTimer=setInterval(clock,1000);simTimer=setInterval(step,100);render();
+  }
   window.startItalianLeagueMatch=function(){
-    const d=dailyData();
-    if(d.count>=3){alert('⚽ Hai già giocato 3 partite oggi. Torna domani per altre 3.');return;}
-    if(typeof userSquad==='undefined'){}
-    currentOpponent=pickOpponent();
-    const overlay=document.getElementById('offlineMatchOverlay');
-    const round=loadLeague().round;
-    document.getElementById('matchCompetitionLabel').textContent='Serie A • Giornata '+round;
-    document.getElementById('matchTeamsLabel').textContent=`BEAR FC  ${matchScore.home}-${matchScore.away}  ${currentOpponent}`;
-    matchScore={home:0,away:0};
-    document.getElementById('matchTeamsLabel').textContent=`BEAR FC  0-0  ${currentOpponent}`;
-    document.getElementById('matchStatus').textContent='Calcio d’inizio — la tua formazione è in campo. I posti vuoti sono coperti dai BOT.';
-    matchSeconds=300;matchRunning=true;actionClock=0;lastAction='Calcio d’inizio...';
-    ball={x:50,y:50,target:null};
-    buildMatchPlayers();
-    renderPitch();
-    overlay.classList.add('show');
-    updateClock();
-    clearInterval(matchTimer);clearInterval(simTimer);
-    matchTimer=setInterval(()=>{
-      if(!matchRunning)return;
-      matchSeconds--;
-      updateClock();
-      if(matchSeconds<=0)finishMatch();
-    },1000);
-    // Ritmo visibilmente più veloce: 5 aggiornamenti al secondo.
-    simTimer=setInterval(fastMatchStep,200);
+    if(live)return;const pending=read(activeKey());if(pending){const state=load(pending.kind);if(state.id===pending.seasonId&&state.round===pending.round&&state.stage===pending.stage){openLive(pending);return;}localStorage.removeItem(activeKey());}
+    const s=load();if(s.completed)return;const f=fixture(s);if(!f){advance(s);if(s.completed&&s.champion===USER)rewardOnce(`${s.id}_trophy`,CONFIG[s.kind].bonus,true);render();return;}if(daily().count>=3){alert('Hai già giocato 3 partite oggi. Torna domani!');return;}
+    openLive({id:`${s.id}_${s.stage}_${s.round}`,kind:selected,seasonId:s.id,round:s.round,stage:s.stage,fixture:f,opponent:f.find(n=>n!==USER),score:{home:0,away:0},remaining:600,half:1,halfRemaining:300,matchSchema:4,tactic:'balanced'});
   };
-
-  window.finishOfflineMatchEarly=function(){
-    alert('⏱️ La partita deve durare almeno 5 minuti. Non puoi terminarla prima.');
+  window.finishOfflineMatchEarly=function(){if(live){clock();if(live){syncClock();persist();live=null;clearInterval(clockTimer);clearInterval(simTimer);}}hideBanner();$('offlineMatchOverlay').classList.remove('show');render();};
+  window.setOfflineTactic=function(value){if(!['balanced','attack','defend'].includes(value))return;tactic=value;set('matchStatus',`Tattica: ${value==='attack'?'Attacco · più occasioni e più rischi':value==='defend'?'Difesa · meno occasioni':'Equilibrio'}`);persist();};
+  window.openOfflineCompetition=function(kind){if(!CONFIG[kind]||live)return;selected=kind;const panel=$('offlineLeaguePanel');if(panel){panel.classList.remove('hidden');panel.scrollIntoView({behavior:'smooth',block:'start'});}render();};
+  window.openItalianLeague=function(){window.openOfflineCompetition('seriea');};
+  window.openMatchFormation=function(){if(typeof switchTab==='function')switchTab('squad');};
+  window.saveOfflineClub=function(){
+    if(typeof currentUser==='undefined'||!currentUser)return;const name=($('offlineClubName')?.value||'').trim().slice(0,30);if(!name){alert('Inserisci il nome della squadra.');return;}const color=v=>/^#[\da-f]{6}$/i.test(v)?v:'#16a34a';const pattern=$('offlineKitPattern')?.value||'stripes';
+    currentUser.clubProfile={name,primary:color($('offlineKitPrimary')?.value),secondary:color($('offlineKitSecondary')?.value),pattern:['solid','stripes','diagonal'].includes(pattern)?pattern:'stripes'};saveUserSession();renderClub();render();set('offlineClubSaveStatus','Squadra e divisa salvate!');
   };
-
-  function finishMatch(){
-    clearInterval(matchTimer);clearInterval(simTimer);matchRunning=false;
-    const st=loadLeague(),d=dailyData();
-    d.count++;localStorage.setItem(DAILY_KEY,JSON.stringify(d));
-    const bear=st.teams['BEAR FC'],opp=st.teams[currentOpponent];
-    const bg=matchScore.home,og=matchScore.away;
-    bear.pg++;opp.pg++;bear.gf+=bg;bear.ga+=og;opp.gf+=og;opp.ga+=bg;
-    if(bg>og){bear.w++;bear.pts+=3;opp.l++}
-    else if(bg===og){bear.d++;bear.pts++;opp.d++;opp.pts++}
-    else{bear.l++;opp.w++;opp.pts+=3}
-    st.round=Math.min(38,st.round+1);saveLeague(st);
-    document.getElementById('matchStatus').textContent=`FINE PARTITA — BEAR FC ${bg}-${og} ${currentOpponent}`;
-    document.getElementById('matchTeamsLabel').textContent=`BEAR FC  ${bg}-${og}  ${currentOpponent}`;
-    setTimeout(()=>{document.getElementById('offlineMatchOverlay').classList.remove('show');renderTable();},2200);
-  }
-
-  window.resetOfflineSeasonDemo=function(){
-    if(confirm('Vuoi azzerare la stagione offline?')){
-      localStorage.removeItem(KEY);localStorage.removeItem(DAILY_KEY);renderTable();
-    }
+  window.autoOfflineFormation=function(){
+    if(typeof ALL_PLAYERS==='undefined'||typeof userCards==='undefined'||!currentUser)return;const pool=ALL_PLAYERS.filter(p=>userCards.includes(p.id)).sort((a,b)=>b.rating-a.rating),used=new Set();
+    FORM.forEach(([slot])=>{const p=pool.find(card=>!used.has(identity(card))&&compatible(card,slot));userSquad[slot]=p?p.id:null;if(p)used.add(identity(p));});currentUser.squad=userSquad;saveUserSession();if(typeof renderSquadPitch==='function')renderSquadPitch();renderLineup();set('offlineClubSaveStatus','Formazione pronta: le posizioni mancanti saranno coperte dai BOT.');
   };
-
-  window.addEventListener('load',function(){setTimeout(renderTable,100);});
+  window.resetOfflineSeasonDemo=function(){if(live||read(activeKey())){alert('Concludi la partita salvata prima di iniziare una nuova stagione.');return;}if(confirm(`Iniziare una nuova ${CONFIG[selected].name}? Carte, coins e limite giornaliero restano invariati.`)){save(fresh(selected));render();}};
+  window.addEventListener('load',()=>{renderClub();render();});
+  window.addEventListener('beforeunload',()=>{if(live){syncClock();persist();}});
 })();
+
 </script>
 
 </body>
