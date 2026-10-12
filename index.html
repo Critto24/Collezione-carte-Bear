@@ -1985,7 +1985,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                   </div>
                 </div>
 
-<div id="view-settings" class="view-section hidden"><div class="offline-hub"><h2>Impostazioni Account</h2><label for="settingsUsername">Nome allenatore</label><input id="settingsUsername" class="bg-slate-900 text-white p-3 rounded-xl" maxlength="30"><label for="settingsEmail">Email</label><input id="settingsEmail" class="bg-slate-900 text-white p-3 rounded-xl" readonly><div class="offline-actions"><button onclick="saveSettings()">Salva impostazioni</button></div><p>Per modificare nome e divisa della squadra, apri Modalità Partita.</p><h3>Il tuo club su più dispositivi</h3><p id="cloudStatus">Profilo locale</p><div class="offline-actions"><button onclick="openCloudAccount()">Account online</button><button onclick="retryCloud()">Salva online / Riprova</button><button onclick="openCloudRecovery()">Recupera progressi precedenti</button></div><p>Per trasferire i progressi, registra il tuo account sul telefono dove hai già giocato. Poi accedi sugli altri dispositivi con la stessa email e password. Prima di cambiare telefono, controlla che compaia “progressi salvati”.</p></div></div>
+<div id="view-settings" class="view-section hidden"><div class="offline-hub"><h2>Impostazioni Account</h2><label for="settingsUsername">Nome allenatore</label><input id="settingsUsername" class="bg-slate-900 text-white p-3 rounded-xl" maxlength="30"><label for="settingsEmail">Email</label><input id="settingsEmail" class="bg-slate-900 text-white p-3 rounded-xl" readonly><div class="offline-actions"><button onclick="saveSettings()">Salva impostazioni</button></div><p>Per modificare nome e divisa della squadra, apri Modalità Partita.</p><h3>Il tuo club su più dispositivi</h3><p id="cloudStatus">Profilo locale</p><div class="offline-actions"><button onclick="openCloudAccount()">Account online</button><button onclick="retryCloud()">Salva online / Riprova</button><button onclick="openCloudRecovery()">Recupera progressi precedenti</button><button onclick="useBrowserOnly()">Usa solo questo browser</button></div><p>Per trasferire i progressi, registra il tuo account sul telefono dove hai già giocato. Poi accedi sugli altri dispositivi con la stessa email e password. Prima di cambiare telefono, controlla che compaia “progressi salvati”.</p></div></div>
 <section id="championshipPage" style="display:none;padding:20px;"><h2>Club online</h2><p>Collega il tuo club online.</p><button onclick="createOnlineClubFromChampionship()">Crea club</button><button onclick="joinOnlineClubFromChampionship()">Entra con codice</button><div id="championshipClubStatus">Nessun club collegato.</div><div id="championshipCompetitionStatus"></div></section>
 </main>
         </div>
@@ -4641,7 +4641,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 #cloudStatus{font-size:12px;line-height:1.6;margin-top:12px;color:#fbcba4}
 #cloudRecovery{z-index:1100002}#cloudRecovery>div{max-height:90dvh;overflow-y:auto}.cloud-backup-row{padding:15px 0;border-top:1px solid #ffffff22}.cloud-backup-row p{margin:3px 0;font-size:12px}.cloud-backup-row p:first-child{font-weight:800;color:#fed7aa}
 </style>
-<div id="cloudRecovery" class="cloud-modal hidden" role="dialog" aria-modal="true" aria-labelledby="cloudRecoveryTitle"><div><h2 id="cloudRecoveryTitle">Recupera i progressi precedenti</h2><p id="cloudRecoveryMessage"></p><div id="cloudBackupList"></div><button onclick="closeCloudRecovery()">Chiudi</button></div></div>
+<div id="cloudRecovery" class="cloud-modal hidden" role="dialog" aria-modal="true" aria-labelledby="cloudRecoveryTitle"><div><h2 id="cloudRecoveryTitle">Recupera i progressi precedenti</h2><p id="cloudRecoveryMessage"></p><div id="cloudBackupList"></div><button id="cloudKeepLocal" onclick="disconnectCloudLocal()" style="display:none">Mantieni i progressi attuali solo nel browser</button><button onclick="closeCloudRecovery()">Chiudi</button></div></div>
 <div id="cloudTransfer" class="cloud-modal hidden" role="dialog" aria-modal="true" aria-labelledby="cloudTransferTitle"><div><h2 id="cloudTransferTitle">Porta il tuo club online</h2><p id="cloudTransferSummary"></p><button onclick="cloudTransfer(true)">Trasferisci questi progressi</button><button onclick="cloudTransfer(false)">Inizia un nuovo club online</button><p>Le due collezioni non vengono sommate. Conserviamo una copia dei progressi di questo dispositivo.</p></div></div>
 <div id="cloudBlock" class="cloud-modal hidden" role="dialog" aria-modal="true" aria-labelledby="cloudBlockTitle"><div><h2 id="cloudBlockTitle">Account e salvataggi</h2><p id="cloudBlockMessage"></p><button onclick="retryCloud()">Riprova</button><button id="cloudLoadRemote" onclick="loadCloudSave()" style="display:none">Carica progressi online</button><button onclick="openCloudAccount()">Accedi</button></div></div>
 
@@ -4650,7 +4650,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   const RETURN_URL='https://critto24.github.io/Collezione-carte-Bear/';
   const client=typeof supabaseClient!=='undefined'?supabaseClient:null;
   const $=id=>document.getElementById(id);
-  let uid=null,revision=0,ready=false,busy=false,dirty=false,last='',timer=null,connecting=false,conflict=false,choice=null;
+  let uid=null,revision=0,ready=false,busy=false,dirty=false,last='',timer=null,connecting=false,conflict=false,choice=null,localRecovery=false;
   const previousLoad=window.onload,localSave=saveUserSession;
   function read(key,fallback=null){try{return JSON.parse(localStorage.getItem(key)||'null')??fallback;}catch{return fallback;}}
   function status(message){if($('cloudStatus'))$('cloudStatus').textContent=message;}
@@ -4748,7 +4748,8 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(!confirm('Caricare i progressi online? La copia locale resta conservata su questo dispositivo.'))return;
     backup(snapshot(),'conflict');ready=false;localStorage.removeItem(cacheKey());conflict=false;location.reload();
   };
-  window.openCloudRecovery=function(){
+  window.openCloudRecovery=function(localOnly=false){
+    localRecovery=localOnly;$('cloudKeepLocal').style.display=localOnly?'inline-block':'none';
     const list=$('cloudBackupList');list.innerHTML='';const entries=[];
     for(let i=0;i<localStorage.length;i++){
       const key=localStorage.key(i);if(!key.startsWith('bear_fc_backup_v1_'))continue;
@@ -4764,13 +4765,29 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       const button=document.createElement('button');button.textContent='Ripristina questa copia';button.onclick=()=>window.restoreCloudBackup(entry.key);
       row.appendChild(title);row.appendChild(detail);row.appendChild(names);row.appendChild(button);list.appendChild(row);
     }
-    $('cloudRecoveryMessage').textContent=entries.length?'Scegli la copia con le carte e i coins che avevi sul telefono. Il ripristino sostituirà i progressi attuali e li salverà sul tuo account online.':'Non sono state trovate copie in questo browser. Controlla di essere sul telefono e nel browser dove giocavi prima.';
+    $('cloudRecoveryMessage').textContent=entries.length?(localOnly?'Scegli la copia con i tuoi vecchi progressi: verrà usata soltanto in questo browser e l’accesso online sarà scollegato. Puoi anche mantenere i progressi attuali.':'Scegli la copia con le carte e i coins che avevi sul telefono. Il ripristino sostituirà i progressi attuali e li salverà sul tuo account online.'):'Non sono state trovate copie in questo browser. Controlla di essere sul telefono e nel browser dove giocavi prima.';
     $('cloudRecovery').classList.remove('hidden');
   };
   window.closeCloudRecovery=function(){$('cloudRecovery').classList.add('hidden');};
+  window.useBrowserOnly=function(){window.openCloudRecovery(true);};
+  window.disconnectCloudLocal=async function(data=null){
+    if(busy||connecting){$('cloudRecoveryMessage').textContent='Attendi che il salvataggio in corso finisca, poi riprova.';return;}
+    data=data||snapshot();if(!data?.user)return;
+    if(!confirm(`Scollegare l’accesso online su questo dispositivo e usare ${data.user.cards.length} carte e ${data.user.coins||0} FC Coins solo nel browser? L’account online resterà disponibile.`))return;
+    backup(snapshot(),'before-disconnect');const wasReady=ready;ready=false;clearTimeout(timer);
+    try{
+      if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly();
+      if(client){const result=await client.auth.signOut({scope:'local'});if(result.error)throw result.error;}
+      uid=null;dirty=false;conflict=false;choice=null;
+      apply(data,{email:data.user.email,id:null});delete currentUser.cloudUserId;localSave();
+      hideBlock();$('cloudTransfer').classList.add('hidden');$('authModal').classList.add('hidden');status('Solo questo browser · accesso online scollegato');
+      $('cloudRecoveryMessage').textContent='Progressi locali ripristinati. Da adesso vengono salvati solo in questo browser. Puoi chiudere questa finestra.';
+    }catch(error){ready=wasReady;$('cloudRecoveryMessage').textContent='Non è stato possibile scollegare l’accesso: '+error.message;}
+  };
   window.restoreCloudBackup=async function(key){
     if(!key.startsWith('bear_fc_backup_v1_'))return;
     const data=read(key);if(!data?.user||!Array.isArray(data.user.cards))return;
+    if(localRecovery)return window.disconnectCloudLocal(data);
     if(!ready||conflict||busy||connecting){$('cloudRecoveryMessage').textContent='Prima accedi al tuo account e completa la sincronizzazione. Poi torna qui per ripristinare la copia.';return;}
     if(!confirm(`Ripristinare ${data.user.cards.length} carte e ${data.user.coins||0} FC Coins di ${data.user.username}? Sostituiranno i progressi online attuali. Conserviamo anche una copia di quelli attuali.`))return;
     try{
