@@ -1069,99 +1069,211 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
 @media(max-width:600px){.offline-hub{padding:14px}.offline-hub h2{font-size:22px}.offline-club-editor{gap:9px}.offline-club-editor input:not([type=color]){max-width:180px}.offline-stats{grid-template-columns:repeat(2,1fr)}#matchPitch{min-height:260px;aspect-ratio:1.25}.match-player{width:38px!important;height:58px!important}.match-player .offline-card{width:38px;height:58px;padding:1px;border-width:1px}.match-player .offline-card-details,.match-player .offline-card-name{font-size:6px}.match-player .club-shirt{width:25px;height:25px;top:16px}.offline-match-roster .offline-card{width:64px;height:92px}.offline-competitions{grid-template-columns:repeat(2,1fr)}}
 </style><style>
 .match-pitch-shell{position:relative}.match-time-strip{display:flex;gap:14px;align-items:center;justify-content:center;color:#e2e8f0;font-size:12px;padding:8px}.match-time-strip strong{color:#fbbf24}.match-stats{padding:8px;color:#cbd5e1;font-size:11px;text-align:center;background:#101e16;border-radius:10px}.match-event-banner{position:absolute;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:rgba(2,12,7,.82);color:#fff;pointer-events:none;border-radius:15px}.match-event-banner.hidden{display:none}.match-event-banner strong{font-size:clamp(24px,6vw,60px);font-weight:1000;text-align:center}.match-event-banner span{font-weight:800;text-align:center;padding:0 15px}.match-event-banner.goal{background:radial-gradient(circle,rgba(22,163,74,.94),rgba(2,12,7,.85));animation:goalFlash .6s ease-out}.match-event-banner.goal strong{color:#fde68a;animation:goalWord .6s cubic-bezier(.2,1.4,.4,1) both}.match-event-banner.goal::before,.match-event-banner.goal::after{content:'';position:absolute;border:3px solid #fbbf24;border-radius:50%;width:100px;height:100px;animation:goalRing 1.8s ease-out both;pointer-events:none}.match-event-banner.goal::after{animation-delay:.25s}.match-event-banner.yellow strong{color:#facc15}.match-event-banner.red strong{color:#ef4444}.match-event-banner.halftime{pointer-events:auto}#startSecondHalfBtn{display:none;background:#fbbf24;padding:12px 20px;border-radius:12px;font-weight:800;color:#07110a;cursor:pointer}.discipline-badge{position:absolute;top:-6px;right:-4px;z-index:20;font-size:14px}.match-roster-details,.match-log-details{font-size:12px;padding:8px;color:#cbd5e1}.match-roster-details summary,.match-log-details summary{cursor:pointer;color:#fde68a;font-weight:800}.match-log-details p{padding:3px}.match-player{transition:left .1s linear,top .1s linear}.match-player .offline-card{box-shadow:0 2px 5px #0008}.match-ball{transition:left .1s linear,top .1s linear}.match-player .offline-card:hover{border-color:#fde68a}#matchPitch{min-height:340px;aspect-ratio:1.8;background:repeating-linear-gradient(90deg,#176534 0 10%,#1b7039 10% 20%)}@keyframes goalWord{from{opacity:0;transform:scale(.25) rotate(-6deg)}to{opacity:1;transform:scale(1) rotate(0)}}@keyframes goalRing{from{opacity:1;transform:scale(.2)}to{opacity:0;transform:scale(5)}}@keyframes goalFlash{from{filter:brightness(2)}to{filter:brightness(1)}}@media(max-width:600px){#matchPitch{min-height:300px;aspect-ratio:1.3}.match-player{width:34px!important;height:50px!important}.match-player .offline-card{width:34px;height:50px}.match-time-strip{gap:8px;font-size:10px}.match-player .club-shirt{height:22px;width:22px}.match-kit-legend{font-size:10px}}
-</style></head>
+</style><style id="bearfc-site-polish">
+/* BEAR FC: interfaccia club, verde profondo e oro */
+#appContainer{color:#edf5ef}
+#appContainer>div.flex-1{background:radial-gradient(ellipse at 85% 0%,#143a243d,transparent 48%),#080d0a!important}
+#appContainer main{padding:28px;scroll-behavior:smooth}
+#appContainer .view-section{max-width:1280px;margin-inline:auto}
+#appContainer .glass{background:linear-gradient(135deg,#14231bfa,#0c1711fa)!important;border:1px solid #ffffff10!important;box-shadow:0 12px 40px #00000024!important}
+#appContainer .glass-card{background:linear-gradient(140deg,#16271d,#101c15)!important;border:1px solid #ffffff0c!important;box-shadow:0 8px 24px #0000001a!important}
+#appContainer main h2{letter-spacing:-.035em;line-height:1.15}
+#appContainer main h3{letter-spacing:-.02em}
+#appContainer main p.text-slate-400{color:#a9bbae!important;line-height:1.65}
+#appContainer>aside{background:linear-gradient(180deg,#0e1912,#080f0b)!important;border-right:1px solid #ffffff0c!important}
+#appContainer>aside nav{background:transparent!important}
+#appContainer .nav-item{display:flex;align-items:center;gap:12px;min-height:46px;border:1px solid transparent;border-radius:13px;font-size:13px;font-weight:600;color:#a9bbae;padding:12px 16px;transition:background .2s,color .2s,border-color .2s}
+#appContainer .nav-item:hover{background:#ffffff07!important;color:#f4faf6!important;border-color:#ffffff0b}
+#appContainer .nav-item.bg-amber-600\/20{background:linear-gradient(105deg,#23643b66,#16382344)!important;color:#f8d879!important;border:1px solid #7be09b29!important;box-shadow:inset 3px 0 #fbbf24}
+#appContainer header{background:#0c1511f2!important;border-bottom:1px solid #ffffff0c!important;box-shadow:none!important;gap:16px}
+#appContainer header input{background:#16221b!important;border-color:#ffffff12!important;min-height:40px}
+#appContainer main input:not([type=color]),#appContainer main select,#appContainer main textarea{background:#09140e!important;border-color:#ffffff1c!important;border-radius:12px;min-height:42px;color:#eaf3ed}
+#appContainer main button{min-height:42px;transition:background .18s,box-shadow .18s,filter .18s}
+#appContainer main button.bg-amber-500,#claimApologyCoinsBtn{background:linear-gradient(135deg,#ffdb71,#ecb32c)!important;color:#172013!important;box-shadow:0 6px 20px #e9b52b18}
+#appContainer main button.bg-slate-800{background:#1b2b21!important;border:1px solid #ffffff14!important}
+#appContainer main button:disabled{box-shadow:none;opacity:.65}
+#appContainer button:focus-visible,#appContainer a:focus-visible{outline:2px solid #f8d879;outline-offset:3px}
+#view-feed>div:nth-child(2){padding:32px!important;background:radial-gradient(ellipse at 100% 0%,#547b233d,transparent 65%),linear-gradient(120deg,#173925,#102019)!important;border:1px solid #85df9f26!important}
+#view-feed>div:nth-child(2):before{content:'';position:absolute;right:-55px;bottom:-80px;width:280px;height:280px;border:1px solid #a7d9ae15;border-radius:50%;box-shadow:0 0 0 45px #a7d9ae07,0 0 0 90px #a7d9ae04;pointer-events:none}
+#view-feed>div:first-child{border-color:#dfb65029!important;padding:20px 24px!important;background:linear-gradient(110deg,#352c1433,#142019)!important}
+#view-feed>div:first-child h3{font-size:17px!important;color:#f4d77d!important}
+#view-feed>div:first-child p{font-size:13px;color:#bbcabf!important;line-height:1.6}
+#view-feed .glass-card h3{font-variant-numeric:tabular-nums;font-size:28px}
+#shopPacksGrid>div{border-radius:22px!important;position:relative;overflow:hidden;box-shadow:0 10px 32px #0003;transition:box-shadow .2s}
+#shopPacksGrid>div:before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,#f8d87988,transparent);pointer-events:none}
+#collectionGrid>div{box-shadow:0 8px 24px #0005;transition:box-shadow .2s}
+#monthlyPackSchedule>div{border:1px solid #ffffff14!important;border-radius:18px!important;background:#102017!important}
+#halloweenPackPanel{border-radius:22px!important;background:radial-gradient(ellipse at 95% 0%,#a145172e,transparent 65%),#1c1811!important}
+#appContainer details{border-radius:16px;border-color:#ffffff12!important}
+#appContainer summary{padding-block:12px;cursor:pointer}
+#appContainer main::-webkit-scrollbar-thumb{background:#304c39;border:2px solid #0b140e}
+@media(hover:hover){#collectionGrid>div:hover{box-shadow:0 12px 32px #0008}#shopPacksGrid>div:hover{box-shadow:0 12px 36px #0006}}
+@media(max-width:767px){
+ #appContainer main{padding:16px 12px!important}
+ #appContainer header{padding-inline:12px!important;gap:10px}
+ #appContainer header>div{min-width:0}
+ #appContainer header>div:last-child{gap:8px}
+ #appContainer>aside nav{gap:8px!important;padding:9px 12px!important}
+ #appContainer>aside nav .nav-item{border-radius:12px!important;min-height:54px!important;padding:9px 12px!important;flex-shrink:0}
+ #appContainer .view-section{gap:16px}
+ #view-feed>div:nth-child(2){padding:24px 18px!important;border-radius:22px!important}
+ #view-feed>div:nth-child(2) h2{font-size:27px!important}
+ #view-feed>div:nth-child(2) .space-x-3{display:flex;flex-wrap:wrap;gap:10px}
+ #view-feed>div:nth-child(2) .space-x-3>button{margin:0!important;flex:1 1 145px;justify-content:center;font-size:12px;padding:12px}
+ #view-feed>div:first-child{padding:18px!important;border-radius:18px!important}
+ #claimApologyCoinsBtn{width:100%;font-size:12px}
+ #shopPacksGrid{gap:12px!important}
+ #halloweenPackPanel{padding:20px!important}
+ #appContainer main .glass{border-radius:20px}
+}
+@media(prefers-reduced-motion:reduce){#appContainer main{scroll-behavior:auto}#appContainer button,#collectionGrid>div,#shopPacksGrid>div{transition:none!important}}
+
+</style>
+<style id="bearfc-creepy-halloween">
+/* BEAR FC — Halloween: stadio infestato */
+body.halloween-event{background:#080609!important}
+body.halloween-event #appContainer>div.flex-1{background:radial-gradient(ellipse at 90% 0%,#66251930,transparent 48%),radial-gradient(ellipse at 0% 65%,#3d18552b,transparent 55%),#0c090e!important}
+body.halloween-event #appContainer .glass{background:linear-gradient(135deg,#21141afa,#130e17fa)!important;border-color:#d8784022!important;box-shadow:0 12px 40px #0006,inset 0 1px #ffb47808!important}
+body.halloween-event #appContainer .glass-card{background:linear-gradient(140deg,#251820,#17121b)!important;border-color:#b4744d20!important;box-shadow:0 8px 26px #0005!important}
+body.halloween-event #appContainer>aside{background:linear-gradient(180deg,#1e1018,#0d0911)!important;border-right-color:#f9731626!important}
+body.halloween-event #appContainer header{background:#160e18f2!important;border-bottom-color:#f9731626!important}
+body.halloween-event #appContainer header input,body.halloween-event #appContainer main input:not([type=color]),body.halloween-event #appContainer main select,body.halloween-event #appContainer main textarea{background:#110b15!important;border-color:#c8784733!important}
+body.halloween-event #appContainer .nav-item{color:#c4b4c4}
+body.halloween-event #appContainer .nav-item:hover{background:#fb923c0e!important;color:#ffccaa!important}
+body.halloween-event #appContainer .nav-item.bg-amber-600\/20{background:linear-gradient(105deg,#9a34124d,#581c8730)!important;border-color:#fb923c44!important;color:#ffb878!important;box-shadow:inset 3px 0 #fb923c,0 0 20px #ea580c0c}
+body.halloween-event #appContainer main h2{text-shadow:0 2px 18px #ea580c16}
+body.halloween-event #appContainer main p.text-slate-400{color:#bdaebe!important}
+body.halloween-event #appContainer main button.bg-amber-500,body.halloween-event #claimApologyCoinsBtn{background:linear-gradient(135deg,#fdba74,#f97316)!important;color:#220c04!important;box-shadow:0 6px 24px #ea580c25}
+body.halloween-event #appContainer main button.bg-slate-800{background:#2b1b2c!important;border-color:#bc895a26!important}
+body.halloween-event #appContainer .text-amber-400,body.halloween-event #appContainer .text-amber-500{color:#ffb16e!important}
+body.halloween-event #view-feed>div:nth-child(2){background:radial-gradient(ellipse at 100% 0%,#b545183d,transparent 60%),linear-gradient(120deg,#2b1420,#181020)!important;border-color:#fb923c3b!important}
+body.halloween-event #view-feed>div:nth-child(2):before{border-color:#fb923c26;box-shadow:0 0 0 45px #fb923c09,0 0 0 90px #9333ea08}
+body.halloween-event #view-feed>div:first-child{background:linear-gradient(110deg,#71351c22,#211522)!important;border-color:#f9731630!important}
+body.halloween-event #view-feed>div:first-child h3{color:#ffc38d!important}
+body.halloween-event #monthlyPackSchedule>div{background:#211422!important;border-color:#fb923c26!important}
+body.halloween-event #halloweenPackPanel{background:radial-gradient(ellipse at 95% 0%,#ea580c35,transparent 65%),linear-gradient(135deg,#29101c,#170d20)!important;border-color:#fb923c65!important;box-shadow:0 0 35px #ea580c12!important}
+body.halloween-event #shopPacksGrid>div:before{background:linear-gradient(90deg,transparent,#fb923caa,transparent)}
+body.halloween-event #appContainer main::-webkit-scrollbar-thumb{background:#653844;border-color:#130d17}
+body.halloween-event .halloween-web{color:#d7c7df3b;filter:drop-shadow(0 0 7px #c084fc22)}
+body.halloween-event .halloween-site-decor{z-index:30;opacity:.65}
+.creepy-season-label{display:inline-flex;gap:8px;align-items:center;font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fdba74;margin-bottom:10px}
+.creepy-season-label:before{content:'';width:6px;height:6px;background:#fb923c;border-radius:50%;box-shadow:0 0 12px #f97316}
+/* Entrata: luna velata, nebbia viola e luci ambrate. */
+body.halloween-event #bearCinematicIntro{background:#08050c}
+body.halloween-event .stadium-sky{background:radial-gradient(circle at 78% 23%,#f4dac566 0 4%,#dbc5b51c 4.5%,transparent 12%),radial-gradient(ellipse at 50% 58%,#512038,#190c24 40%,#060409 78%)}
+body.halloween-event .stadium-stands{background:repeating-radial-gradient(ellipse at 50% 120%,transparent 0 13px,#8b526055 14px 15px,transparent 16px 24px),radial-gradient(ellipse at center,#352036,#100918);border-top-color:#b96d4b66}
+body.halloween-event .stadium-grass{background:repeating-linear-gradient(90deg,#163020 0 8%,#10261c 8% 16%);border-top-color:#e0c2af55}
+body.halloween-event .stadium-beam{background:linear-gradient(180deg,#ffd2aa65,#d1a4dc18 52%,transparent)}
+body.halloween-event .stadium-lamp{background:#ffdab5;box-shadow:0 0 20px #ffcc99,0 0 65px #f9731666}
+body.halloween-event .stadium-fog{background:radial-gradient(ellipse at 25% 70%,#d8b4fe25,transparent 42%),radial-gradient(ellipse at 70% 40%,#fb923c20,transparent 45%)}
+body.halloween-event .stadium-flash{background:radial-gradient(circle at center,#e9d5ff55,transparent 65%)}
+body.halloween-event .tunnel-frame:after{background:#fb923c;box-shadow:0 0 18px #ea580c}
+body.halloween-event #bearIntroTitle{color:#fff1e7;text-shadow:0 12px 50px #000,0 0 65px #f9731633}
+body.halloween-event #bearIntroTitle span{background-image:linear-gradient(170deg,#ffe3c4,#fb923c 55%,#c2410c)}
+body.halloween-event .stadium-subtitle{color:#d8b4fe}
+body.halloween-event .stadium-kicker,body.halloween-event #bearIntroHint{color:#ddc6db}
+body.halloween-event #bearIntroEnter{background:linear-gradient(120deg,#fdba74,#ea580c);border-color:#fed7aa;color:#250c04;box-shadow:0 8px 35px #ea580c33}
+body.halloween-event #bearIntroSkip{background:#1b0e22bb;border-color:#f0abfc33;color:#e9d5ff}
+body.halloween-event .stadium-content:after{background:linear-gradient(90deg,transparent,#fb923c,transparent)}
+body.halloween-event .stadium-bottom{color:#bba0bd}
+body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97316}
+@media(max-width:767px){body.halloween-event .halloween-web{font-size:40px;opacity:.55}body.halloween-event .halloween-pumpkin{opacity:.5}.creepy-season-label{font-size:9px}}
+
+</style>
+<style>.competition-locked{opacity:.65;border-style:dashed!important}.competition-locked small{line-height:1.5!important}</style></head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden halloween-event">
-<!-- BEAR FC CINEMATIC ENTRANCE -->
-<div id="bearCinematicIntro" aria-label="Entrata BEAR FC">
-  <div class="bear-intro-bg"></div>
-  <div class="bear-intro-vignette"></div>
-  <div class="bear-intro-content">
-    <div class="bear-intro-title">BEAR FC</div>
-    <div class="bear-intro-sub">ULTIMATE TEAM</div>
-
-    <div class="bear-intro-scene">
-      <div class="bear-player-row" id="bearIntroPlayers"></div>
-
-      <div class="bear-gate" id="bearIntroGate">
-        <div class="bear-gate-left"></div>
-        <div class="bear-gate-right"></div>
-        <div class="bear-gate-logo">BEAR<br><span>FC</span></div>
-      </div>
-
-      <div class="bear-character" id="bearIntroBear" aria-hidden="true">
-        <div class="bear-ear e1"></div><div class="bear-ear e2"></div>
-        <div class="bear-head">
-          <div class="bear-eye eye1"></div><div class="bear-eye eye2"></div>
-          <div class="bear-muzzle"></div><div class="bear-mouth"></div>
-        </div>
-        <div class="bear-body"></div>
-      </div>
-    </div>
-
-    <div class="bear-intro-hint" id="bearIntroHint">L'ORSO STA ARRIVANDO...</div>
-    <button type="button" id="bearIntroSkip">SALTA INTRO</button>
+<!-- BEAR FC STADIUM ENTRANCE -->
+<div id="bearCinematicIntro" role="dialog" aria-modal="true" aria-labelledby="bearIntroTitle">
+  <div class="stadium-scene" aria-hidden="true">
+    <div class="stadium-sky"></div><div class="stadium-stands"></div>
+    <div class="stadium-beam beam-left"></div><div class="stadium-beam beam-right"></div>
+    <div class="stadium-lamp lamp-left"></div><div class="stadium-lamp lamp-right"></div>
+    <div class="stadium-grass"><div class="stadium-circle"></div></div>
+    <div class="stadium-fog"></div><div class="stadium-dust"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="stadium-tunnel"><div class="tunnel-frame frame-one"></div><div class="tunnel-frame frame-two"></div><div class="tunnel-frame frame-three"></div></div><div class="stadium-flash"></div>
   </div>
+  <button type="button" id="bearIntroSkip">Salta intro <span aria-hidden="true">↗</span></button>
+  <div class="stadium-content">
+    <p class="stadium-kicker">QUANDO CALA IL BUIO, INIZIA LA SFIDA.</p>
+    <h1 id="bearIntroTitle">BEAR <span>FC</span></h1>
+    <p class="stadium-subtitle">ULTIMATE TEAM</p>
+    <p id="bearIntroHint" aria-live="polite">Il tunnel è avvolto nella nebbia. Hai il coraggio di entrare?</p>
+    <button type="button" id="bearIntroEnter">ENTRA IN CAMPO <span aria-hidden="true">→</span></button>
+  </div>
+  <div class="stadium-bottom" aria-hidden="true"><span>PASSIONE</span><i></i><span>GLORIA</span><i></i><span>BEAR FC</span></div>
 </div>
-
 <style>
-#bearCinematicIntro{position:fixed;inset:0;z-index:999999;background:#07110b;color:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:inherit}
-.bear-intro-bg{position:absolute;inset:-20%;background:radial-gradient(circle at 50% 45%,#1b7a38 0,#0b321b 28%,#050b07 66%);animation:bearBg 6s ease-in-out infinite alternate}
-.bear-intro-vignette{position:absolute;inset:0;background:radial-gradient(circle,transparent 35%,rgba(0,0,0,.78) 100%)}
-.bear-intro-content{position:relative;width:min(1100px,94vw);height:min(720px,92vh);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2}
-.bear-intro-title{font-size:clamp(42px,8vw,92px);font-weight:1000;letter-spacing:.16em;line-height:.9;text-shadow:0 8px 30px #000}
-.bear-intro-sub{margin-top:10px;font-size:11px;letter-spacing:.55em;color:#a7f3b8;font-weight:900}
-.bear-intro-scene{position:relative;width:100%;height:58%;margin-top:22px;perspective:900px}
-.bear-player-row{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);width:90%;display:flex;justify-content:center;align-items:flex-end;gap:clamp(4px,1vw,13px);z-index:3}
-.bear-intro-card{width:clamp(46px,7vw,78px);height:clamp(70px,10vw,112px);border:2px solid #d8f6e1;border-radius:10px;background:linear-gradient(150deg,#164c2a,#07150c);box-shadow:0 10px 25px #0009;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:4px;animation:playerFloat 1.8s ease-in-out infinite}
-.bear-intro-card:nth-child(2n){animation-delay:.18s}.bear-intro-card:nth-child(3n){animation-delay:.34s}
-.bear-intro-card .mini-face{font-size:clamp(20px,4vw,34px);margin-bottom:auto;padding-top:8px}
-.bear-intro-card b{font-size:clamp(6px,1vw,9px);letter-spacing:.04em;white-space:nowrap;overflow:hidden;max-width:100%}
-.bear-gate{position:absolute;left:50%;top:8%;transform:translateX(-50%);width:min(410px,52vw);height:76%;z-index:4;filter:drop-shadow(0 20px 30px #000b)}
-.bear-gate-left,.bear-gate-right{position:absolute;top:0;width:50%;height:100%;background:linear-gradient(145deg,#38423b,#101612 58%,#060907);border:4px solid #b5c2b8;box-shadow:inset 0 0 30px #000}
-.bear-gate-left{left:0;transform-origin:left center}.bear-gate-right{right:0;transform-origin:right center}
-.bear-gate-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(30px,5vw,58px);font-weight:1000;line-height:.72;text-align:center;color:#b8ff62;text-shadow:0 4px 12px #000;z-index:2}
-.bear-gate-logo span{font-size:.55em;color:#fff;letter-spacing:.3em}
-.bear-character{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) translateX(210px) scale(.82);width:150px;height:220px;z-index:5;filter:drop-shadow(0 15px 18px #000c);animation:bearWalkIn 2.5s cubic-bezier(.22,.8,.28,1) forwards}
-.bear-head{position:absolute;left:17px;top:8px;width:116px;height:105px;background:linear-gradient(145deg,#7a4a27,#2d170c);border-radius:48% 48% 45% 45%;border:5px solid #160c06}
-.bear-ear{position:absolute;top:0;width:45px;height:45px;background:#5c341b;border:5px solid #160c06;border-radius:50%;z-index:-1}.bear-ear.e1{left:12px}.bear-ear.e2{right:12px}
-.bear-eye{position:absolute;top:36px;width:12px;height:16px;background:#fff;border-radius:50%}.bear-eye:after{content:"";position:absolute;left:4px;top:4px;width:5px;height:7px;background:#000;border-radius:50%}.eye1{left:28px}.eye2{right:28px}
-.bear-muzzle{position:absolute;left:31px;bottom:15px;width:54px;height:40px;background:#c58c5d;border-radius:50%}
-.bear-mouth{position:absolute;left:53px;bottom:19px;width:20px;height:9px;background:#140804;border-radius:0 0 15px 15px}
-.bear-body{position:absolute;left:25px;top:97px;width:100px;height:118px;background:linear-gradient(145deg,#65401f,#241208);border:5px solid #160c06;border-radius:45% 45% 30% 30%}
-.bear-character.bite{animation:bearBite .72s ease-in-out forwards}
-.bear-gate.broken .bear-gate-left{animation:gateLeft .9s ease-out forwards}.bear-gate.broken .bear-gate-right{animation:gateRight .9s ease-out forwards}
-.bear-intro-hint{font-size:11px;font-weight:1000;letter-spacing:.25em;color:#d1fae5;margin-top:12px;min-height:18px;text-align:center}
-#bearIntroSkip{margin-top:15px;border:1px solid #52755f;background:#0a1b10;color:#d1fae5;padding:8px 15px;border-radius:999px;font-size:9px;font-weight:900;letter-spacing:.12em;opacity:.75}
-@keyframes bearBg{from{transform:scale(1)}to{transform:scale(1.08)}}
-@keyframes playerFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@keyframes bearWalkIn{0%{transform:translate(-50%,-50%) translateX(270px) scale(.65)}100%{transform:translate(-50%,-50%) translateX(40px) scale(.9)}}
-@keyframes bearBite{0%{transform:translate(-50%,-50%) translateX(40px) scale(.9)}40%{transform:translate(-50%,-50%) translateX(-5px) scale(1.04)}60%{transform:translate(-50%,-50%) translateX(18px) scale(.96)}100%{transform:translate(-50%,-50%) translateX(0) scale(.95)}}
-@keyframes gateLeft{to{transform:rotateY(-70deg) translateX(-18px);opacity:.25}}
-@keyframes gateRight{to{transform:rotateY(70deg) translateX(18px);opacity:.25}}
-@media(max-width:600px){.bear-character{transform:translate(-50%,-50%) translateX(125px) scale(.62)}@keyframes bearWalkIn{0%{transform:translate(-50%,-50%) translateX(180px) scale(.45)}100%{transform:translate(-50%,-50%) translateX(15px) scale(.65)}}}
+#bearCinematicIntro{position:fixed;inset:0;z-index:999999;isolation:isolate;overflow:hidden;background:#020805;color:#fff;font-family:'Inter',sans-serif;display:grid;place-items:center;min-height:100dvh}
+.stadium-scene{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.stadium-sky{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 58%,#146534 0%,#061c13 34%,#020705 74%)}
+.stadium-stands{position:absolute;left:-10%;right:-10%;top:37%;height:24%;border-radius:50% 50% 0 0;background:repeating-radial-gradient(ellipse at 50% 120%,transparent 0 13px,#43665055 14px 15px,transparent 16px 24px),radial-gradient(ellipse at center,#163526,#03120c);border-top:2px solid #5a806455;box-shadow:0 -12px 55px #22c55e16;opacity:0;animation:stadiumLights 1.8s .5s forwards}
+.stadium-grass{position:absolute;inset:59% -40% -55%;background:repeating-linear-gradient(90deg,#0e4824 0 8%,#0a391d 8% 16%);transform:perspective(500px) rotateX(48deg);transform-origin:top center;border-top:2px solid #c7eddc66;opacity:0;animation:stadiumLights 1.8s .5s forwards}
+.stadium-grass:before{content:'';position:absolute;left:50%;top:0;bottom:0;border-left:2px solid #e6fff966}
+.stadium-circle{position:absolute;left:50%;top:12%;width:170px;height:170px;border:2px solid #e6fff966;border-radius:50%;transform:translateX(-50%)}
+.stadium-tunnel{position:absolute;inset:-4%;background:linear-gradient(90deg,#010302 0%,#010302ee 18%,transparent 35% 65%,#010302ee 82%,#010302),linear-gradient(0deg,#010302 0%,transparent 30% 72%,#010302 100%);box-shadow:inset 0 0 0 7vw #010302;animation:stadiumTunnel 3s cubic-bezier(.2,.7,.2,1) forwards}
+.stadium-beam{position:absolute;top:15%;width:70%;height:90%;background:linear-gradient(180deg,#d9fff96b,#d9fff918 52%,transparent);clip-path:polygon(49% 0,51% 0,100% 100%,0 100%);transform-origin:50% 0;opacity:0;filter:blur(2px);animation:stadiumLights 1.3s .65s forwards}
+.beam-left{left:-28%;transform:rotate(-23deg)}.beam-right{right:-28%;transform:rotate(23deg);animation-delay:1s}
+.stadium-lamp{position:absolute;top:15%;width:90px;height:8px;background:#edfff8;box-shadow:0 0 20px #fff,0 0 65px #b1ffd5;opacity:0;animation:stadiumLights .4s .65s forwards}.lamp-left{left:7%}.lamp-right{right:7%;animation-delay:1s}
+.stadium-flash{position:absolute;inset:0;background:radial-gradient(circle at center,#c7ffdd77,transparent 65%);opacity:0;animation:stadiumFlash 1s 1.9s both}
+.stadium-content{position:relative;z-index:2;text-align:center;padding:32px 20px;width:min(680px,94vw)}
+.stadium-kicker{font-size:10px;letter-spacing:.32em;color:#b8d7c4;font-weight:700;opacity:0;animation:stadiumReveal .7s 1.5s forwards}
+#bearIntroTitle{font-size:clamp(48px,12vw,104px);font-weight:900;line-height:1;letter-spacing:-.06em;margin:0;text-shadow:0 8px 35px #000;opacity:0;animation:stadiumTitleImpact 1.1s 1.9s forwards}#bearIntroTitle span{color:#fbbf24}
+.stadium-subtitle{font-size:11px;letter-spacing:.48em;color:#a7f3d0;margin:14px 0 0;opacity:0;animation:stadiumReveal .7s 2.1s forwards}
+#bearIntroHint{font-size:13px;color:#d1e8da;margin:28px 0 24px;opacity:0;animation:stadiumReveal .7s 2.3s forwards}
+#bearIntroEnter{border:1px solid #fde68a;background:linear-gradient(120deg,#fbbf24,#d99a05);color:#07130b;border-radius:14px;padding:17px 28px;min-height:54px;font-size:12px;letter-spacing:.1em;font-weight:900;cursor:pointer;box-shadow:0 8px 35px #fbbf2433;opacity:0;animation:stadiumReveal .7s 2.5s forwards;transition:box-shadow .2s}#bearIntroEnter:hover{box-shadow:0 8px 45px #fbbf2466}#bearIntroEnter span{margin-left:20px;font-size:18px}
+#bearIntroSkip{position:absolute;top:max(20px,env(safe-area-inset-top));right:20px;z-index:4;min-height:44px;padding:10px 16px;border:1px solid #ffffff33;border-radius:999px;background:#04130cbb;color:#d1e8da;font-size:12px;cursor:pointer}
+#bearCinematicIntro button:focus-visible{outline:3px solid #fff;outline-offset:5px}
+.stadium-bottom{position:absolute;bottom:max(25px,env(safe-area-inset-bottom));display:flex;gap:16px;align-items:center;font-size:8px;letter-spacing:.24em;color:#9ebba8}.stadium-bottom i{width:3px;height:3px;border-radius:50%;background:#fbbf24}
+#bearCinematicIntro.stadium-exit{pointer-events:none;opacity:0;transform:scale(1.035);transition:opacity .55s ease,transform .55s ease}
+@keyframes stadiumTunnel{from{transform:scale(1);opacity:1}to{transform:scale(2.2);opacity:0}}
+@keyframes stadiumLights{to{opacity:1}}
+@keyframes stadiumFlash{0%,100%{opacity:0}25%{opacity:1}}
+@keyframes stadiumReveal{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-height:650px){.stadium-content{padding:50px 16px}.stadium-kicker{font-size:8px}#bearIntroTitle{font-size:clamp(40px,10vw,72px)}#bearIntroHint{margin:18px 0}.stadium-bottom{bottom:10px}}
+@media(prefers-reduced-motion:reduce){#bearCinematicIntro *{animation:none!important}.stadium-tunnel{opacity:0}.stadium-stands,.stadium-grass,.stadium-beam,.stadium-lamp,.stadium-content>*{opacity:1}#bearCinematicIntro.stadium-exit{transform:none;transition:none}}
+
+/* Tunnel in prospettiva, movimento delle luci e atmosfera dello stadio. */
+.stadium-scene{animation:stadiumCamera 4s cubic-bezier(.18,.65,.2,1) both}
+.tunnel-frame{position:absolute;inset:7% 12%;border:26px solid #030806;box-shadow:inset 0 0 0 2px #5e826e44,0 0 0 2px #314c3a;transform:perspective(600px) rotateX(-3deg)}
+.frame-two{inset:15% 22%;border-width:17px}.frame-three{inset:23% 32%;border-width:10px}
+.tunnel-frame:after{content:'';position:absolute;left:-8px;right:-8px;top:-10px;height:3px;background:#b7ffcc;box-shadow:0 0 15px #22c55e}
+.stadium-beam.beam-left{animation:stadiumLights 1.3s .65s forwards,stadiumSweepLeft 9s 1.8s ease-in-out infinite alternate}
+.stadium-beam.beam-right{animation:stadiumLights 1.3s 1s forwards,stadiumSweepRight 10s 2s ease-in-out infinite alternate}
+.stadium-fog{position:absolute;inset:36% -30% -10%;background:radial-gradient(ellipse at 25% 70%,#b7ffdb20,transparent 42%),radial-gradient(ellipse at 70% 40%,#b7ffdb25,transparent 45%);animation:stadiumFog 13s ease-in-out infinite alternate;pointer-events:none}
+.stadium-dust{position:absolute;inset:0}.stadium-dust i{position:absolute;left:20%;top:75%;width:3px;height:3px;border-radius:50%;background:#ffe6a2;box-shadow:0 0 12px #fbbf24;opacity:0;animation:stadiumDust 7s 1.8s linear infinite}
+.stadium-dust i:nth-child(2){left:35%;top:85%;animation-delay:2.8s}.stadium-dust i:nth-child(3){left:65%;top:80%;animation-delay:3.8s}.stadium-dust i:nth-child(4){left:80%;top:65%;animation-delay:2.3s}.stadium-dust i:nth-child(5){left:12%;top:50%;animation-delay:4.2s}.stadium-dust i:nth-child(6){left:88%;top:55%;animation-delay:3.3s}.stadium-dust i:nth-child(7){left:43%;top:95%;animation-delay:4.8s}.stadium-dust i:nth-child(8){left:56%;top:90%;animation-delay:5.3s}
+#bearIntroTitle{margin-top:35px;font-size:clamp(64px,15vw,138px);font-style:italic;text-shadow:0 12px 50px #000,0 0 70px #22c55e33}
+#bearIntroTitle span{background:linear-gradient(170deg,#fff2bd,#fbbf24 55%,#bf7a00);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stadium-subtitle{letter-spacing:.65em}
+.stadium-content:after{content:'';display:block;height:1px;width:160px;margin:30px auto 0;background:linear-gradient(90deg,transparent,#fbbf24,transparent);opacity:0;animation:stadiumReveal .8s 2.8s forwards}
+@keyframes stadiumCamera{from{transform:scale(1.14)}to{transform:scale(1)}}
+@keyframes stadiumTitleImpact{0%{opacity:0;transform:scale(1.7) translateY(-15px);filter:blur(12px)}55%{opacity:1;transform:scale(.97);filter:blur(0)}100%{opacity:1;transform:scale(1)}}
+@keyframes stadiumSweepLeft{from{transform:rotate(-32deg)}to{transform:rotate(12deg)}}
+@keyframes stadiumSweepRight{from{transform:rotate(32deg)}to{transform:rotate(-12deg)}}
+@keyframes stadiumFog{from{transform:translateX(-5%) scale(1)}to{transform:translateX(5%) scale(1.12)}}
+@keyframes stadiumDust{0%{opacity:0;transform:translate(0,0)}20%,70%{opacity:.6}100%{opacity:0;transform:translate(35px,-180px)}}
+@media(max-height:650px){#bearIntroTitle{font-size:clamp(50px,13vw,92px);margin-top:15px}.stadium-content:after{margin-top:15px}}
+@media(prefers-reduced-motion:reduce){.stadium-scene{animation:none}.stadium-dust{display:none}.stadium-content:after{opacity:1}}
 </style>
 <script>
 (function(){
   const intro=document.getElementById('bearCinematicIntro');
-  const row=document.getElementById('bearIntroPlayers');
-  const bear=document.getElementById('bearIntroBear');
-  const gate=document.getElementById('bearIntroGate');
-  const hint=document.getElementById('bearIntroHint');
-  const skip=document.getElementById('bearIntroSkip');
-  if(!intro||!row||!bear||!gate)return;
-  const names=['LICCO','MARCHETTI','SPADOLA','GURRIERI','SCHEMBARI','FERRERA','PUGLISI','CICCIO','CASCONE','STEGOSAURI'];
-  row.innerHTML=names.map((n,i)=>`<div class="bear-intro-card"><div class="mini-face">${i===9?'🦖':'⚽'}</div><b>${n}</b></div>`).join('');
-  let closed=false;
-  const closeIntro=()=>{if(closed)return;closed=true;intro.style.transition='opacity .65s ease,transform .65s ease';intro.style.opacity='0';intro.style.transform='scale(1.03)';setTimeout(()=>intro.remove(),680)};
-  skip.addEventListener('click',closeIntro);
-  hint.textContent='I GIOCATORI SONO PRONTI...';
-  setTimeout(()=>{if(closed)return;hint.textContent='L’ORSO BEAR FC STA ARRIVANDO...'},1500);
-  setTimeout(()=>{if(closed)return;hint.textContent='UN MORSO E SI PARTE!';bear.classList.add('bite')},2700);
-  setTimeout(()=>{if(closed)return;gate.classList.add('broken');hint.textContent='BEAR FC — SI PARTE!'},3300);
-  setTimeout(closeIntro,4300);
+  if(!intro)return;
+  const enter=document.getElementById('bearIntroEnter'),skip=document.getElementById('bearIntroSkip');
+  const previousFocus=document.activeElement;let closed=false;
+  function closeIntro(){
+    if(closed)return;closed=true;intro.classList.add('stadium-exit');intro.setAttribute('aria-hidden','true');
+    document.removeEventListener('keydown',handleKeys);
+    if(previousFocus&&previousFocus!==document.body&&typeof previousFocus.focus==='function')previousFocus.focus();
+    setTimeout(()=>intro.remove(),560);
+  }
+  function handleKeys(event){
+    if(event.key==='Escape'){event.preventDefault();closeIntro();}
+    if(event.key==='Tab'){event.preventDefault();(document.activeElement===skip?enter:skip).focus();}
+  }
+  enter.addEventListener('click',closeIntro);skip.addEventListener('click',closeIntro);
+  document.addEventListener('keydown',handleKeys);skip.focus();
 })();
 </script>
-
 
     <div class="halloween-site-decor" aria-hidden="true">
         <div class="halloween-web tl">🕸️</div>
@@ -1388,7 +1500,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                         <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div>
                                 <span class="px-3 py-1 bg-amber-500/20 border border-amber-500/30 text-amber-400 text-[10px] font-bold uppercase tracking-wider rounded-full">Stagione 2026</span>
-                                <h2 class="text-3xl font-extrabold text-white mt-2">Benvenuto, <span id="welcomeManagerName" class="text-amber-400">Allenatore</span>!</h2>
+                                <div class="creepy-season-label">🎃 La notte di BEAR FC</div><h2 class="text-3xl font-extrabold text-white mt-2">Benvenuto, <span id="welcomeManagerName" class="text-amber-400">Allenatore</span>!</h2>
                                 <p class="text-sm text-slate-400 mt-1">Il quartier generale di BEAR FC è pronto. Gestisci i tuoi pacchetti, colleziona le stelle del calcio e domina il campo.</p>
                             </div>
                             <div class="flex items-center space-x-3">
@@ -1846,8 +1958,8 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                   <div id="offlineLeaguePanel" class="offline-hub">
                     <h3 id="offlineCompetitionTitle">Campionato Italiano</h3><p id="offlineCompetitionFormat"></p>
                     <div class="offline-stats"><div>Fase<strong id="leagueRound">1</strong></div><div>Punti<strong id="bearPoints">0</strong></div><div>Vittorie<strong id="bearWins">0</strong></div><div>Partite<strong id="bearPlayed">0</strong></div></div>
-                    <p id="leagueNextMatch" class="offline-next"></p><p>Partite di oggi: <strong id="dailyMatchCount">0</strong> / 3, condivise tra tutte le competizioni.</p>
-                    <p>10 minuti a partita · 2 tempi da 5 minuti · vittoria 40 FC · pareggio 20 FC · sconfitta 10 FC · premio extra al vincitore del torneo.</p>
+                    <p id="leagueNextMatch" class="offline-next"></p><p>Partite di oggi: <strong id="dailyMatchCount">0</strong> · Nessun limite giornaliero.</p>
+                    <p>10 minuti a partita · 2 tempi da 5 minuti · vittoria 25 FC · pareggio 10 FC · sconfitta 0 FC · bonus solo al vincitore: Campionato 400 FC · Champions 600 FC · Europa League 350 FC · Coppa Italia 250 FC · Supercoppa 150 FC.</p>
                     <div class="offline-actions"><button id="btnPlayLeague" onclick="startItalianLeagueMatch()">GIOCA PARTITA</button><button onclick="resetOfflineSeasonDemo()">Nuova stagione</button></div>
                     <h4>Partite del turno</h4><div id="offlineFixtures"></div>
                     <div style="overflow-x:auto"><table class="league-table offline-table"><thead><tr><th>#</th><th>Squadra</th><th>PG</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>DR</th><th>PT</th></tr></thead><tbody id="serieATableBody"></tbody></table></div>
@@ -3940,14 +4052,14 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
                     clearInterval(interval);
                     if (myGoals > oppGoals) {
                         statusText.innerText = "🎉 Vittoria straordinaria! Complimenti!";
-                        currentUser.coins += 40;
+                        currentUser.coins += 25;
                         currentUser.trophies += 1;
                     } else if (myGoals === oppGoals) {
                         statusText.innerText = "🤝 Pareggio combattuto!";
-                        currentUser.coins += 20;
+                        currentUser.coins += 10;
                     } else {
                         statusText.innerText = "⚠️ Sconfitta. Rafforza la squadra e riprova!";
-                        currentUser.coins += 10;
+                        currentUser.coins += 0;
                     }
                     saveUserSession();
                     updateCurrenciesDisplay();
@@ -4166,11 +4278,11 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
   const USER='BEAR FC';
   const ITALIAN=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia',USER];
   const CONFIG={
-    seriea:{name:'Campionato Italiano',type:'league',clubs:ITALIAN,format:'21 squadre · 42 giornate · 40 partite e 2 riposi',bonus:150},
-    champions:{name:'Champions League',type:'europe',clubs:[USER,'Real Madrid','Manchester City','Bayern Monaco','Barcellona','Paris Saint-Germain','Liverpool','Inter'],format:'Torneo del gioco · 8 squadre · girone unico, prime 4 in semifinale',bonus:250},
-    coppa:{name:'Coppa Italia',type:'cup',clubs:[USER,'Juventus','Roma','Milan','Napoli','Lazio','Fiorentina','Atalanta'],format:'Torneo del gioco · quarti, semifinali e finale · gara unica',bonus:150},
-    europa:{name:'Europa League',type:'europe',clubs:[USER,'Roma','Porto','Ajax','Tottenham','Real Sociedad','Lione','Benfica'],format:'Torneo del gioco · 8 squadre · girone unico, prime 4 in semifinale',bonus:200},
-    supercoppa:{name:'Supercoppa',type:'cup',clubs:[USER,'Inter','Milan','Napoli'],format:'Torneo del gioco · semifinale e finale',bonus:100}
+    seriea:{name:'Campionato Italiano',type:'league',clubs:ITALIAN,format:'21 squadre · 42 giornate · 40 partite e 2 riposi',bonus:400},
+    champions:{name:'Champions League',type:'europe',clubs:[USER,'Real Madrid','Manchester City','Bayern Monaco','Barcellona','Paris Saint-Germain','Liverpool','Inter'],format:'Torneo del gioco · 8 squadre · girone unico, prime 4 in semifinale',bonus:600},
+    coppa:{name:'Coppa Italia',type:'cup',clubs:[USER,'Juventus','Roma','Milan','Napoli','Lazio','Fiorentina','Atalanta'],format:'Torneo del gioco · quarti, semifinali e finale · gara unica',bonus:250},
+    europa:{name:'Europa League',type:'europe',clubs:[USER,'Roma','Porto','Ajax','Tottenham','Real Sociedad','Lione','Benfica'],format:'Torneo del gioco · 8 squadre · girone unico, prime 4 in semifinale',bonus:350},
+    supercoppa:{name:'Supercoppa',type:'cup',clubs:[USER,'Inter','Milan','Napoli'],format:'Torneo del gioco · semifinale e finale',bonus:150}
   };
   const FORM=[['GK',8,50],['LB',22,18],['CB1',24,39],['CB2',24,61],['RB',22,82],['CM1',43,28],['CDM',39,50],['CM2',43,72],['LW',67,15],['ST',73,50],['RW',67,85]];
   const $=id=>document.getElementById(id), set=(id,value)=>{if($(id))$(id).textContent=value;};
@@ -4190,6 +4302,23 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
     for(let r=0;r<ring.length-1;r++){const games=[];for(let i=0;i<ring.length/2;i++){const a=ring[i],b=ring[ring.length-1-i];if(a&&b)games.push(r%2?[b,a]:[a,b]);}rounds.push(games);ring.splice(1,0,ring.pop());}
     return double?rounds.concat(rounds.map(g=>g.map(([a,b])=>[b,a]))):rounds;
   }
+  function qualificationKey(){return 'bear_fc_qualifications_v1_'+profileId();}
+  function recordQualifications(s){
+    if(!s.completed)return;
+    const q=read(qualificationKey(),{});
+    if(s.kind==='seriea'&&q.leagueId!==s.id){q.leagueId=s.id;q.position=standings(s).findIndex(t=>t.name===USER)+1;q.champions=q.position<=4;q.europa=q.position===5||q.position===6;q.leagueWinner=q.position===1;}
+    if(s.kind==='coppa'&&q.cupId!==s.id){q.cupId=s.id;q.cupWinner=s.champion===USER;}
+    localStorage.setItem(qualificationKey(),JSON.stringify(q));
+  }
+  function access(kind,continueExisting=true){
+    if(kind==='seriea'||kind==='coppa')return true;
+    const league=read(key('seriea')),cup=read(key('coppa'));
+    if(league?.completed)recordQualifications(league);if(cup?.completed)recordQualifications(cup);
+    const q=read(qualificationKey(),{}),s=read(key(kind)),pending=read(activeKey());
+    if(continueExisting&&s&&!s.completed&&(s.history?.length||s.round>1||pending?.kind===kind))return true;
+    return kind==='champions'?!!q.champions:kind==='europa'?!!q.europa:kind==='supercoppa'?!!(q.leagueWinner||q.cupWinner):false;
+  }
+  function requirement(kind){return kind==='champions'?'Concludi il campionato tra le prime 4 per qualificarti in Champions League.':kind==='europa'?'Concludi il campionato al 5° o 6° posto per qualificarti in Europa League.':'Vinci il campionato o la Coppa Italia per qualificarti in Supercoppa.';}
   function team(name){return {name,pg:0,w:0,d:0,l:0,gf:0,ga:0,pts:0};}
   function shuffledClubs(names){
     const clubs=[...names];
@@ -4258,13 +4387,13 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
   }
   function render(){
     const s=load(),cfg=CONFIG[selected],f=fixture(s),d=daily(),active=read(activeKey());
-    set('offlineCompetitionTitle',cfg.name);set('offlineCompetitionFormat',cfg.format);set('leagueRound',phase(s));set('dailyMatchCount',d.count);set('bearPoints',s.teams[USER].pts);set('bearWins',s.teams[USER].w);set('bearPlayed',s.teams[USER].pg);
+    set('offlineCompetitionTitle',cfg.name);set('offlineCompetitionFormat',cfg.format+' · Premio al vincitore: '+cfg.bonus+' FC Coins');set('leagueRound',phase(s));set('dailyMatchCount',d.count);set('bearPoints',s.teams[USER].pts);set('bearWins',s.teams[USER].w);set('bearPlayed',s.teams[USER].pg);
     const eliminated=!f&&s.stage==='knockout'&&!s.completed;set('leagueNextMatch',s.completed?`Vincitore: ${display(s.champion||standings(s)[0].name)}`:f?`${display(f[0])} vs ${display(f[1])}`:eliminated?'La tua squadra è eliminata. Simula le altre partite per vedere il vincitore.':'Turno di riposo: simula i risultati delle altre squadre.');
-    const btn=$('btnPlayLeague');if(btn){btn.disabled=!!live||s.completed||(!active&&!!f&&d.count>=3);btn.textContent=live?'PARTITA IN CORSO':active?'RIPRENDI PARTITA':s.completed?'COMPETIZIONE CONCLUSA':!f?'SIMULA ALTRE PARTITE':d.count>=3?'LIMITE GIORNALIERO RAGGIUNTO':'GIOCA PARTITA';}
+    const btn=$('btnPlayLeague');if(btn){btn.disabled=!!live||s.completed;btn.textContent=live?'PARTITA IN CORSO':active?'RIPRENDI PARTITA':s.completed?'COMPETIZIONE CONCLUSA':!f?'SIMULA ALTRE PARTITE':'GIOCA PARTITA';}
     const body=$('serieATableBody');if(body){body.innerHTML='';standings(s).forEach((t,i)=>{const row=document.createElement('tr');if(t.name===USER)row.className='beart';[i+1,display(t.name),t.pg,t.w,t.d,t.l,t.gf,t.ga,t.gf-t.ga,t.pts].forEach(v=>{const td=document.createElement('td');td.textContent=v;row.appendChild(td);});body.appendChild(row);});}
     const bracket=$('offlineFixtures');if(bracket){bracket.innerHTML='';fixtures(s).forEach(([a,b])=>{const p=document.createElement('p');p.textContent=`${display(a)} — ${display(b)}`;if(a===USER||b===USER)p.style.color='#fbbf24';bracket.appendChild(p);});}
     const history=$('leagueRecentResults');if(history){history.innerHTML='';s.history.slice(-8).reverse().forEach(item=>{const p=document.createElement('p');p.textContent=`${item.phase||`G${item.round}`} · ${display(item.home)} ${item.hg}–${item.ag} ${display(item.away)}${item.penaltyWinner?` · Rigori: ${display(item.penaltyWinner)}`:''}${item.reward?` · +${item.reward} FC`:''}`;history.appendChild(p);});if(!s.history.length)history.textContent='Nessuna partita giocata in questa competizione.';}
-    document.querySelectorAll('[data-competition]').forEach(btn=>{btn.setAttribute('aria-pressed',String(btn.dataset.competition===selected));});renderLineup();
+    document.querySelectorAll('[data-competition]').forEach(btn=>{const kind=btn.dataset.competition,allowed=access(kind);btn.setAttribute('aria-pressed',String(kind===selected));btn.setAttribute('aria-disabled',String(!allowed));btn.classList.toggle('competition-locked',!allowed);const label=btn.querySelector('small');if(label)label.textContent=allowed?(kind==='seriea'?'Andata e ritorno · classifica':kind==='coppa'?'Aperta a tutti · eliminazione diretta':'Qualificato · competizione disponibile'):'🔒 '+requirement(kind);btn.title=allowed?'Apri competizione':requirement(kind);});renderLineup();
   }
   function applyResult(s,a,b,ga,gb){const x=s.teams[a],y=s.teams[b];x.pg++;y.pg++;x.gf+=ga;x.ga+=gb;y.gf+=gb;y.ga+=ga;if(ga>gb){x.w++;y.l++;x.pts+=3;}else if(gb>ga){y.w++;x.l++;y.pts+=3;}else{x.d++;y.d++;x.pts++;y.pts++;}}
   function goals(name){let n=0;for(let i=0;i<6;i++)if(Math.random()<.22+(strength(name)-66)/250)n++;return n;}
@@ -4281,7 +4410,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
     }else{
       s.round++;if(s.round>rounds(s).length){if(CONFIG[s.kind].type==='europe'){const top=standings(s).slice(0,4).map(t=>t.name);s.stage='knockout';s.bracket=[[top[0],top[3]],[top[1],top[2]]];s.round=1;}else{s.completed=true;s.champion=standings(s)[0].name;}}
     }
-    s.history=s.history.slice(-120);save(s);return s;
+    s.history=s.history.slice(-120);save(s);recordQualifications(s);return s;
   }
   function build(snap=null){
     if(snap?.players){players=snap.players;return;}
@@ -4442,7 +4571,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
     if(!live||committing)return;committing=true;clearInterval(clockTimer);clearInterval(simTimer);const match=live,s=load(match.kind);
     if(s.id!==match.seasonId||s.round!==match.round||s.stage!==match.stage){set('matchStatus','Questa partita è già stata completata.');closeFinished();return;}
     let winner=null;if(s.stage==='knockout'&&match.score.home===match.score.away){winner=Math.random()<Math.max(.2,Math.min(.8,.5+(rating('home','rating')-rating('away','rating'))/200))?USER:match.opponent;}
-    const won=winner?winner===USER:match.score.home>match.score.away,reward=won?40:match.score.home===match.score.away&&!winner?20:10;
+    const won=winner?winner===USER:match.score.home>match.score.away,reward=won?25:match.score.home===match.score.away&&!winner?10:0;
     const played={home:match.fixture[0],away:match.fixture[1],hg:match.fixture[0]===USER?match.score.home:match.score.away,ag:match.fixture[1]===USER?match.score.home:match.score.away,penaltyWinner:winner,reward};
     advance(s,played);const championBonus=s.completed&&s.champion===USER?CONFIG[s.kind].bonus:0;rewardOnce(match.id,reward);if(championBonus)rewardOnce(`${s.id}_trophy`,championBonus,true);
     const d=daily();d.count++;dailySave(d);
@@ -4459,12 +4588,12 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
   }
   window.startItalianLeagueMatch=function(){
     if(live)return;const pending=read(activeKey());if(pending){const state=load(pending.kind);if(state.id===pending.seasonId&&state.round===pending.round&&state.stage===pending.stage){openLive(pending);return;}localStorage.removeItem(activeKey());}
-    const s=load();if(s.completed)return;const f=fixture(s);if(!f){advance(s);if(s.completed&&s.champion===USER)rewardOnce(`${s.id}_trophy`,CONFIG[s.kind].bonus,true);render();return;}if(daily().count>=3){alert('Hai già giocato 3 partite oggi. Torna domani!');return;}
+    if(!access(selected)){alert(requirement(selected));return;}const s=load();if(s.completed)return;const f=fixture(s);if(!f){advance(s);if(s.completed&&s.champion===USER)rewardOnce(`${s.id}_trophy`,CONFIG[s.kind].bonus,true);render();return;}
     openLive({id:`${s.id}_${s.stage}_${s.round}`,kind:selected,seasonId:s.id,round:s.round,stage:s.stage,fixture:f,opponent:f.find(n=>n!==USER),score:{home:0,away:0},remaining:600,half:1,halfRemaining:300,matchSchema:4,tactic:'balanced'});
   };
   window.finishOfflineMatchEarly=function(){if(live){clock();if(live){syncClock();persist();live=null;clearInterval(clockTimer);clearInterval(simTimer);}}hideBanner();$('offlineMatchOverlay').classList.remove('show');render();};
   window.setOfflineTactic=function(value){if(!['balanced','attack','defend'].includes(value))return;tactic=value;set('matchStatus',`Tattica: ${value==='attack'?'Attacco · più occasioni e più rischi':value==='defend'?'Difesa · meno occasioni':'Equilibrio'}`);persist();};
-  window.openOfflineCompetition=function(kind){if(!CONFIG[kind]||live)return;selected=kind;const panel=$('offlineLeaguePanel');if(panel){panel.classList.remove('hidden');panel.scrollIntoView({behavior:'smooth',block:'start'});}render();};
+  window.openOfflineCompetition=function(kind){if(!CONFIG[kind]||live)return;if(!access(kind)){alert(requirement(kind));return;}selected=kind;const panel=$('offlineLeaguePanel');if(panel){panel.classList.remove('hidden');panel.scrollIntoView({behavior:'smooth',block:'start'});}render();};
   window.openItalianLeague=function(){window.openOfflineCompetition('seriea');};
   window.openMatchFormation=function(){if(typeof switchTab==='function')switchTab('squad');};
   window.saveOfflineClub=function(){
@@ -4475,7 +4604,7 @@ const supabaseClient = (window.supabase && SUPABASE_READY)
     if(typeof ALL_PLAYERS==='undefined'||typeof userCards==='undefined'||!currentUser)return;const pool=ALL_PLAYERS.filter(p=>userCards.includes(p.id)).sort((a,b)=>b.rating-a.rating),used=new Set();
     FORM.forEach(([slot])=>{const p=pool.find(card=>!used.has(identity(card))&&compatible(card,slot));userSquad[slot]=p?p.id:null;if(p)used.add(identity(p));});currentUser.squad=userSquad;saveUserSession();if(typeof renderSquadPitch==='function')renderSquadPitch();renderLineup();set('offlineClubSaveStatus','Formazione pronta: le posizioni mancanti saranno coperte dai BOT.');
   };
-  window.resetOfflineSeasonDemo=function(){if(live||read(activeKey())){alert('Concludi la partita salvata prima di iniziare una nuova stagione.');return;}if(confirm(`Iniziare una nuova ${CONFIG[selected].name}? Carte, coins e limite giornaliero restano invariati.`)){save(fresh(selected));render();}};
+  window.resetOfflineSeasonDemo=function(){if(!access(selected,false)){alert(requirement(selected));return;}recordQualifications(load());if(live||read(activeKey())){alert('Concludi la partita salvata prima di iniziare una nuova stagione.');return;}if(confirm(`Iniziare una nuova ${CONFIG[selected].name}? Carte e coins restano invariati.`)){save(fresh(selected));render();}};
   window.addEventListener('load',()=>{renderClub();render();});
   window.addEventListener('beforeunload',()=>{if(live){syncClock();persist();}});
 })();
