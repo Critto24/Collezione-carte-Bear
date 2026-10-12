@@ -1197,7 +1197,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 @media(max-width:600px){.match-pitch-shell{perspective:900px;padding:5px 0 14px}#matchPitch{transform:rotateX(11deg) scale(.95);box-shadow:0 10px 0 #10321c,0 12px 0 #476044,0 20px 25px #0007}#matchPitch .match-player .offline-card{transform:perspective(400px) rotateX(-11deg)}}
 @media(prefers-reduced-motion:reduce){#matchPitch .match-ball{transition:none}}
 </style><style id="bearfc-match-hide-overall">#matchPitch .offline-card-details{display:none!important}</style>
-</head>
+<style>.player-career-panel{margin:20px 0;padding:16px;border:1px solid #fb923c33;border-radius:18px;background:#1b121c}.player-career-panel summary{cursor:pointer;font-weight:800;color:#fdba74}.player-career-panel td{font-variant-numeric:tabular-nums}</style><style>.mission-hub{padding:22px;border-radius:22px}.mission-hub h3{font-size:22px;font-weight:900;color:#fdba74}.mission-hub>p{font-size:12px;color:#c7b6cb;line-height:1.7;margin:8px 0 18px}#missionCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.mission-card{padding:16px;border:1px solid #fb923c25;border-radius:16px;background:#180f1b;display:flex;flex-direction:column;gap:9px}.mission-card small{color:#c4a7d4;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.mission-card h4{font-size:14px;font-weight:800;flex:1}.mission-card p{font-size:12px;color:#fed7aa}.mission-card progress{width:100%;height:7px;accent-color:#fb923c}.mission-card button{padding:10px;border-radius:10px;background:#fb923c;color:#230c04;font-size:12px;font-weight:800}.mission-card button:disabled{background:#342738;color:#b6a4bc}@media(max-width:600px){#missionCards{grid-template-columns:1fr}.mission-hub{padding:18px}}</style></head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden halloween-event">
 <!-- BEAR FC STADIUM ENTRANCE -->
 <div id="bearCinematicIntro" role="dialog" aria-modal="true" aria-labelledby="bearIntroTitle">
@@ -1531,6 +1531,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                         </div>
                     </div>
 
+<section class="glass mission-hub"><h3>🎯 Missioni del club</h3><p>Tre obiettivi diversi ogni giorno, anche a rotazione. Le missioni settimanali si rinnovano il lunedì. Premi riscattabili una sola volta · progresso dalle nuove partite concluse.</p><div id="missionCards"></div></section>
                     <!-- Quick Stats Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div class="glass-card p-5 rounded-2xl flex items-center space-x-4">
@@ -1959,7 +1960,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                     <div id="offlineClubPreview" class="offline-kit-legend"></div><p id="offlineClubSaveStatus" role="status"></p>
                   </div>
                   <div class="offline-hub">
-                    <h3>La tua formazione</h3><p id="offlineLineupSummary"></p>
+                    <details class="player-career-panel"><summary>📊 Statistiche dei tuoi giocatori</summary><p id="playerCareerLeader"></p><p class="offline-small">Presenze, gol e assist dalle nuove partite completate. Tutte le competizioni · statistiche separate per carta · BOT esclusi.</p><div style="overflow-x:auto"><table class="offline-table"><thead><tr><th>Giocatore</th><th>Presenze</th><th>Gol</th><th>Assist</th></tr></thead><tbody id="playerCareerBody"></tbody></table></div></details><h3>La tua formazione</h3><p id="offlineLineupSummary"></p>
                     <div id="offlineLineup" class="offline-lineup"></div>
                     <div class="offline-actions"><button onclick="openMatchFormation()">Scegli le carte per ruolo</button><button onclick="autoOfflineFormation()">Formazione automatica</button></div>
                     <p>Le carte appartengono alla tua collezione. Ogni giocatore può essere schierato una sola volta. I posti vuoti sono coperti da BOT da 48 a 54 OVR.</p>
@@ -2489,6 +2490,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
         }
 
         function updateCurrenciesDisplay() {
+            if(typeof window.renderMissions==='function')window.renderMissions();
             updateApologyBonusButton();
             document.getElementById('sidebarUserCoins').innerText = currentUser.coins;
             document.getElementById('topbarCoins').innerText = currentUser.coins;
@@ -4385,7 +4387,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     const body=$('serieATableBody');if(body){body.innerHTML='';standings(s).forEach((t,i)=>{const row=document.createElement('tr');if(t.name===USER)row.className='beart';[i+1,display(t.name),t.pg,t.w,t.d,t.l,t.gf,t.ga,t.gf-t.ga,t.pts].forEach(v=>{const td=document.createElement('td');td.textContent=v;row.appendChild(td);});body.appendChild(row);});}
     const bracket=$('offlineFixtures');if(bracket){bracket.innerHTML='';fixtures(s).forEach(([a,b])=>{const p=document.createElement('p');p.textContent=`${display(a)} — ${display(b)}`;if(a===USER||b===USER)p.style.color='#fbbf24';bracket.appendChild(p);});}
     const history=$('leagueRecentResults');if(history){history.innerHTML='';s.history.slice(-8).reverse().forEach(item=>{const p=document.createElement('p');p.textContent=`${item.phase||`G${item.round}`} · ${display(item.home)} ${item.hg}–${item.ag} ${display(item.away)}${item.penaltyWinner?` · Rigori: ${display(item.penaltyWinner)}`:''}${item.reward?` · +${item.reward} FC`:''}`;history.appendChild(p);});if(!s.history.length)history.textContent='Nessuna partita giocata in questa competizione.';}
-    document.querySelectorAll('[data-competition]').forEach(btn=>{const kind=btn.dataset.competition,allowed=access(kind);btn.setAttribute('aria-pressed',String(kind===selected));btn.setAttribute('aria-disabled',String(!allowed));btn.classList.toggle('competition-locked',!allowed);const label=btn.querySelector('small');if(label)label.textContent=allowed?(kind==='seriea'?'Andata e ritorno · classifica':kind==='coppa'?'Aperta a tutti · eliminazione diretta':'Qualificato · competizione disponibile'):'🔒 '+requirement(kind);btn.title=allowed?'Apri competizione':requirement(kind);});renderLineup();
+    document.querySelectorAll('[data-competition]').forEach(btn=>{const kind=btn.dataset.competition,allowed=access(kind);btn.setAttribute('aria-pressed',String(kind===selected));btn.setAttribute('aria-disabled',String(!allowed));btn.classList.toggle('competition-locked',!allowed);const label=btn.querySelector('small');if(label)label.textContent=allowed?(kind==='seriea'?'Andata e ritorno · classifica':kind==='coppa'?'Aperta a tutti · eliminazione diretta':'Qualificato · competizione disponibile'):'🔒 '+requirement(kind);btn.title=allowed?'Apri competizione':requirement(kind);});renderLineup();renderPlayerCareer();renderMissions();
   }
   function applyResult(s,a,b,ga,gb){const x=s.teams[a],y=s.teams[b];x.pg++;y.pg++;x.gf+=ga;x.ga+=gb;y.gf+=gb;y.ga+=ga;if(ga>gb){x.w++;y.l++;x.pts+=3;}else if(gb>ga){y.w++;x.l++;y.pts+=3;}else{x.d++;y.d++;x.pts++;y.pts++;}}
   function goals(name){let n=0;for(let i=0;i<6;i++)if(Math.random()<.22+(strength(name)-66)/250)n++;return n;}
@@ -4427,7 +4429,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   function hideBanner(){if($('matchEventBanner'))$('matchEventBanner').classList.add('hidden');}
   function resetPositions(){players.forEach(p=>{p.x=direction(p.side)>0?p.baseX:100-p.baseX;p.y=p.baseY;p.decisionDelay=0;});}
-  function kickoff(side){resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.decision=2;}
+  function kickoff(side){live.lastCompletedPass=null;resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.decision=2;}
   function stats(){if(!live)return;const s=live.stats;const total=s.home.possession+s.away.possession||1;set('matchStats',`Possesso ${Math.round(s.home.possession/total*100)}%–${Math.round(s.away.possession/total*100)}% · Tiri ${s.home.shots}–${s.away.shots} · Corner ${s.home.corners}–${s.away.corners} · Falli ${s.home.fouls}–${s.away.fouls} · 🟨 ${s.home.yellow}–${s.away.yellow} · 🟥 ${s.home.red}–${s.away.red}`);}
   function updatePitch(){
     players.forEach((p,i)=>{const n=$(`mp-${i}`);if(n){n.style.left=`${p.x}%`;n.style.top=`${p.y}%`;n.style.display=p.sentOff?'none':'';n.classList.toggle('active-ball',i===owner&&!live?.flight);const badge=n.querySelector('.discipline-badge');if(badge)badge.textContent=p.yellow?'🟨':'';}});
@@ -4436,7 +4438,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   function rating(side,stat){const ps=enabled(side);return ps.reduce((s,o)=>s+(Number(o.p.player[stat])||50),0)/(ps.length||1);}
   function updateScore(){if(!live)return;set('matchTeamsLabel',live.fixture[0]===USER?`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`:`${live.opponent} ${live.score.away}–${live.score.home} ${club().name}`);}
   function persist(){if(live)localStorage.setItem(activeKey(),JSON.stringify({...live,players,owner,tick,tactic}));}
-  function deadBall(type,side,x,y,wait=3){live.flight=null;owner=-1;live.deadBall={type,side,x,y,wait};live.ball={x,y};live.possession=side;}
+  function deadBall(type,side,x,y,wait=3){live.lastCompletedPass=null;live.flight=null;owner=-1;live.deadBall={type,side,x,y,wait};live.ball={x,y};live.possession=side;}
   function card(offender,severe=false){
     const p=players[offender];if(!p||p.sentOff)return;const s=live.stats[p.side];
     if(severe||p.yellow){p.sentOff=true;s.red++;if(!severe)eventText(`🟥 Secondo giallo: ${p.player.name} è espulso!`);else eventText(`🟥 Rosso diretto a ${p.player.name}!`);centerBanner('CARTELLINO ROSSO',p.player.name,'red');}
@@ -4451,7 +4453,84 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(penalty)centerBanner('CALCIO DI RIGORE',p.side==='home'?club().name:live.opponent,'penalty');
   }
   function corner(side,y){live.stats[side].corners++;const x=direction(side)>0?98:2;deadBall('corner',side,x,y<50?2:98,3);eventText(`🚩 Calcio d’angolo per ${side==='home'?club().name:live.opponent}.`);centerBanner('CALCIO D’ANGOLO',side==='home'?club().name:live.opponent,'corner');}
+  const DAILY_MISSIONS={
+    easy:[{id:'play1',text:'Completa una partita',metric:'played',target:1,reward:5},{id:'goal1',text:'Segna almeno un gol',metric:'goals',target:1,reward:5},{id:'assist1',text:'Realizza un assist con una tua carta',metric:'assists',target:1,reward:5}],
+    medium:[{id:'goals3',text:'Segna 3 gol, anche in più partite',metric:'goals',target:3,reward:8},{id:'win1',text:'Vinci una partita',metric:'wins',target:1,reward:8},{id:'play3',text:'Completa 3 partite',metric:'played',target:3,reward:8},{id:'assists2',text:'Realizza 2 assist con le tue carte',metric:'assists',target:2,reward:8}],
+    hard:[{id:'cleanWin',text:'Vinci senza subire gol',metric:'cleanWins',target:1,reward:12},{id:'win2',text:'Vinci 2 partite consecutive oggi',metric:'bestStreak',target:2,reward:12},{id:'scorers2',text:'Segna con 2 carte diverse della tua squadra',metric:'scorers',target:2,reward:12},{id:'winBy2',text:'Vinci con almeno 2 gol di scarto',metric:'wideWins',target:1,reward:12}]
+  };
+  const WEEKLY_MISSIONS=[{id:'play5',text:'Completa 5 partite',metric:'played',target:5,reward:15,difficulty:'Facile'},{id:'scorers3',text:'Segna con 3 carte diverse della tua squadra',metric:'scorers',target:3,reward:20,difficulty:'Media'},{id:'win3',text:'Vinci 3 partite consecutive nella settimana',metric:'bestStreak',target:3,reward:30,difficulty:'Difficile'}];
+  function missionDates(){const now=new Date(),number=Math.floor(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate())/86400000);const monday=number-((now.getDay()+6)%7);return {day:number,week:monday};}
+  function dailyTasks(number){return Object.entries(DAILY_MISSIONS).map(([level,pool],i)=>({...pool[((number+i)%pool.length+pool.length)%pool.length],difficulty:level==='easy'?'Facile':level==='medium'?'Media':'Difficile'}));}
+  function missionPeriod(type,date){
+    currentUser.missions=currentUser.missions||{daily:{},weekly:{}};currentUser.missions[type]=currentUser.missions[type]||{};
+    const bag=currentUser.missions[type];if(!bag[date])bag[date]={played:0,goals:0,assists:0,wins:0,cleanWins:0,wideWins:0,streak:0,bestStreak:0,scorers:[],claimed:{}};
+    return bag[date];
+  }
+  function missionProgress(period,task){return task.metric==='scorers'?new Set(period.scorers||[]).size:Number(period[task.metric])||0;}
+  function recordMissionMatch(match,winner){
+    currentUser.missionMatches=currentUser.missionMatches||{};if(currentUser.missionMatches[match.id])return;
+    const dates=missionDates(),won=winner?winner===USER:match.score.home>match.score.away;
+    const performances=Object.entries(match.playerPerformance||{}),scorers=performances.filter(([,p])=>p.goals>0).map(([id])=>id);
+    for(const [type,date] of [['daily',dates.day],['weekly',dates.week]]){
+      const p=missionPeriod(type,date);p.played++;p.goals+=match.score.home;p.assists+=performances.reduce((sum,[,s])=>sum+(Number(s.assists)||0),0);
+      if(won){p.wins++;if(match.score.away===0)p.cleanWins++;if(match.score.home-match.score.away>=2)p.wideWins++;}
+      p.streak=won?p.streak+1:0;p.bestStreak=Math.max(p.bestStreak,p.streak);p.scorers=[...new Set([...p.scorers,...scorers])];
+      const oldest=type==='daily'?dates.day-14:dates.week-56;Object.keys(currentUser.missions[type]).forEach(k=>{if(Number(k)<oldest)delete currentUser.missions[type][k];});
+    }
+    currentUser.missionMatches[match.id]=true;saveUserSession();
+  }
+  function renderMissions(){
+    const panel=$('missionCards');if(!panel||typeof currentUser==='undefined'||!currentUser)return;panel.innerHTML='';const dates=missionDates();
+    for(const [type,date,tasks] of [['daily',dates.day,dailyTasks(dates.day)],['weekly',dates.week,WEEKLY_MISSIONS]]){
+      const period=missionPeriod(type,date);
+      for(const task of tasks){
+        const card=document.createElement('div');card.className='mission-card';const label=document.createElement('small');label.textContent=(type==='daily'?'Giornaliera':'Settimanale')+' · '+task.difficulty;
+        const title=document.createElement('h4');title.textContent=task.text;const progress=Math.min(task.target,missionProgress(period,task));
+        const info=document.createElement('p');info.textContent=progress+' / '+task.target+' · '+task.reward+' FC Coins';
+        const bar=document.createElement('progress');bar.max=task.target;bar.value=progress;bar.setAttribute('aria-label',task.text);
+        const button=document.createElement('button'),claimed=!!period.claimed[task.id];button.disabled=claimed||progress<task.target;button.textContent=claimed?'Riscattato':progress>=task.target?'Riscatta '+task.reward+' FC':'Da completare';button.onclick=()=>window.claimMission(type,date,task.id);
+        card.appendChild(label);card.appendChild(title);card.appendChild(info);card.appendChild(bar);card.appendChild(button);panel.appendChild(card);
+      }
+    }
+  }
+  window.renderMissions=renderMissions;
+  window.claimMission=function(type,date,id){
+    if(!currentUser)return;const dates=missionDates();if(type!=='daily'&&type!=='weekly')return;
+    if(Number(date)!==(type==='daily'?dates.day:dates.week)){renderMissions();alert('Il periodo di questa missione è terminato.');return;}
+    const task=(type==='daily'?dailyTasks(dates.day):WEEKLY_MISSIONS).find(t=>t.id===id);if(!task)return;
+    const saved=read('bear_fc_current_user');if(saved?.username===currentUser.username&&saved?.cloudUserId===currentUser.cloudUserId){currentUser.missions=saved.missions||currentUser.missions;currentUser.coins=saved.coins;}
+    const period=missionPeriod(type,date);if(period.claimed[id]||missionProgress(period,task)<task.target)return;
+    period.claimed[id]=true;currentUser.coins=(Number(currentUser.coins)||0)+task.reward;saveUserSession();updateCurrenciesDisplay();renderMissions();
+  };
+
+  function ensureMatchCareer(){
+    live.playerPerformance=live.playerPerformance||{};
+    players.filter(p=>p.side==='home'&&!p.bot).forEach(p=>{if(!live.playerPerformance[p.player.id])live.playerPerformance[p.player.id]={goals:0,assists:0};});
+  }
+  function commitPlayerCareer(match){
+    currentUser.playerCareer=currentUser.playerCareer||{};currentUser.playerCareerMatches=currentUser.playerCareerMatches||{};
+    if(currentUser.playerCareerMatches[match.id])return;
+    for(const [id,stats] of Object.entries(match.playerPerformance||{})){
+      const total=currentUser.playerCareer[id]||{appearances:0,goals:0,assists:0};
+      total.appearances++;total.goals+=Number(stats.goals)||0;total.assists+=Number(stats.assists)||0;currentUser.playerCareer[id]=total;
+    }
+    currentUser.playerCareerMatches[match.id]=true;saveUserSession();
+  }
+  function renderPlayerCareer(){
+    const body=$('playerCareerBody');if(!body||typeof currentUser==='undefined'||!currentUser)return;body.innerHTML='';
+    const ids=new Set([...(currentUser.cards||[]),...Object.keys(currentUser.playerCareer||{})]);
+    const rows=[...ids].map(id=>({player:ALL_PLAYERS.find(p=>p.id===id),stats:currentUser.playerCareer?.[id]||{appearances:0,goals:0,assists:0}})).filter(r=>r.player).sort((a,b)=>b.stats.goals-a.stats.goals||b.stats.assists-a.stats.assists||b.stats.appearances-a.stats.appearances||a.player.name.localeCompare(b.player.name));
+    set('playerCareerLeader',rows[0]?.stats.goals>0?'👑 Miglior marcatore: '+rows[0].player.name+' · '+rows[0].stats.goals+' gol':'Il tuo primo marcatore ti aspetta.');
+    rows.forEach(({player,stats})=>{const row=document.createElement('tr');[player.name+(player.edition==='Halloween'?' 🎃':''),stats.appearances,stats.goals,stats.assists].forEach(value=>{const cell=document.createElement('td');cell.textContent=value;row.appendChild(cell);});body.appendChild(row);});
+    if(!rows.length){const row=document.createElement('tr'),cell=document.createElement('td');cell.colSpan=4;cell.textContent='Trova le tue carte nei pacchetti e schierale per iniziare.';row.appendChild(cell);body.appendChild(row);}
+  }
+  window.renderPlayerCareer=renderPlayerCareer;
   function goal(side,scorer){
+    ensureMatchCareer();const scorerPlayer=players[scorer];
+    if(side==='home'&&scorerPlayer&&!scorerPlayer.bot){live.playerPerformance[scorerPlayer.player.id].goals++;}
+    const assist=live.lastCompletedPass;
+    if(side==='home'&&assist&&assist.side===side&&assist.to===scorer&&assist.from!==scorer&&tick-assist.tick<=100&&!players[assist.from]?.bot&&live.playerPerformance[players[assist.from]?.player.id])live.playerPerformance[players[assist.from].player.id].assists++;
+
     live.score[side]++;updateScore();eventText(`⚽ GOL! ${players[scorer]?.player.name||'Rete'} · ${side==='home'?club().name:live.opponent}`);
     centerBanner('GOOOL!',`${players[scorer]?.player.name||''} · ${live.score.home}–${live.score.away}`,'goal');deadBall('kickoff',other(side),50,50,4.5);
   }
@@ -4494,12 +4573,12 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   function flightStep(dt){
     const f=live.flight;if(!f)return;f.elapsed+=dt;const t=Math.min(1,f.elapsed/f.duration);live.ball.x=f.start.x+(f.end.x-f.start.x)*t;live.ball.y=f.start.y+(f.end.y-f.start.y)*t;
-    if(f.kind!=='shot'&&t>.25&&t<.95){const cut=enabled(other(f.side)).find(o=>Math.hypot(o.p.x-live.ball.x,o.p.y-live.ball.y)<2.3);if(cut&&Math.random()<.2){live.flight=null;owner=cut.i;live.possession=cut.p.side;live.decision=1;eventText(`⚔️ ${cut.p.player.name} intercetta il passaggio.`);return;}}
+    if(f.kind!=='shot'&&t>.25&&t<.95){const cut=enabled(other(f.side)).find(o=>Math.hypot(o.p.x-live.ball.x,o.p.y-live.ball.y)<2.3);if(cut&&Math.random()<.2){live.flight=null;live.lastCompletedPass=null;owner=cut.i;live.possession=cut.p.side;live.decision=1;eventText(`⚔️ ${cut.p.player.name} intercetta il passaggio.`);return;}}
     if(t<1)return;live.flight=null;
     if(f.kind==='shot'){
-      if(f.outcome==='goal')goal(f.side,f.from);else if(f.outcome==='corner')corner(f.side,live.ball.y);else if(f.outcome==='save'){owner=enabled(other(f.side)).find(o=>o.p.slot==='GK')?.i??nearest(live.ball.x,live.ball.y,other(f.side));live.possession=other(f.side);live.decision=2;eventText('🧤 Il portiere blocca il tiro.');}else{deadBall('goalKick',other(f.side),direction(f.side)>0?94:6,50,2);eventText('Tiro fuori. Rimessa dal fondo.');}
+      if(f.outcome==='goal')goal(f.side,f.from);else if(f.outcome==='corner')corner(f.side,live.ball.y);else if(f.outcome==='save'){live.lastCompletedPass=null;owner=enabled(other(f.side)).find(o=>o.p.slot==='GK')?.i??nearest(live.ball.x,live.ball.y,other(f.side));live.possession=other(f.side);live.decision=2;eventText('🧤 Il portiere blocca il tiro.');}else{deadBall('goalKick',other(f.side),direction(f.side)>0?94:6,50,2);eventText('Tiro fuori. Rimessa dal fondo.');}
     }else{
-      owner=players[f.to]?.sentOff?nearest(f.end.x,f.end.y,f.side):f.to;live.possession=f.side;live.decision=2.2;
+      owner=players[f.to]?.sentOff?nearest(f.end.x,f.end.y,f.side):f.to;live.possession=f.side;live.decision=2.2;live.lastCompletedPass={side:f.side,from:f.from,to:owner,tick};
       if(f.kind==='cross'&&owner>=0&&progress(players[owner])>78)shoot(owner,false,true);
     }
   }
@@ -4548,7 +4627,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     const defender=enabled(other(p.side)).filter(o=>o.p.slot!=='GK').sort((a,b)=>Math.hypot(a.p.x-p.x,a.p.y-p.y)-Math.hypot(b.p.x-p.x,b.p.y-p.y))[0];
     if(defender&&Math.hypot(defender.p.x-p.x,defender.p.y-p.y)<3.8&&live.tackleCooldown<=0){live.tackleCooldown=4.5;
       if(Math.random()<(defender.p.yellow?.035:.075)){foul(defender.i,owner);return;}
-      if(Math.random()<Math.max(.12,Math.min(.65,.35+(Number(defender.p.player.def||50)-Number(p.player.drib||50))/200))){owner=defender.i;live.possession=defender.p.side;live.decision=1.4;eventText(`⚔️ ${defender.p.player.name} recupera il pallone.`);return;}
+      if(Math.random()<Math.max(.12,Math.min(.65,.35+(Number(defender.p.player.def||50)-Number(p.player.drib||50))/200))){live.lastCompletedPass=null;owner=defender.i;live.possession=defender.p.side;live.decision=1.4;eventText(`⚔️ ${defender.p.player.name} recupera il pallone.`);return;}
     }
     live.decision-=dt;if(live.decision>0)return;live.decision=2.5;
     const advanced=progress(p),central=Math.abs(p.y-50)<24,pressure=defender?Math.hypot(defender.p.x-p.x,defender.p.y-p.y):20;
@@ -4592,14 +4671,14 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     let winner=null;if(s.stage==='knockout'&&match.score.home===match.score.away){winner=Math.random()<Math.max(.2,Math.min(.8,.5+(rating('home','rating')-rating('away','rating'))/200))?USER:match.opponent;}
     const won=winner?winner===USER:match.score.home>match.score.away,reward=won?25:match.score.home===match.score.away&&!winner?10:0;
     const played={home:match.fixture[0],away:match.fixture[1],hg:match.fixture[0]===USER?match.score.home:match.score.away,ag:match.fixture[1]===USER?match.score.home:match.score.away,penaltyWinner:winner,reward};
-    advance(s,played);const championBonus=s.completed&&s.champion===USER?CONFIG[s.kind].bonus:0;rewardOnce(match.id,reward);if(championBonus)rewardOnce(`${s.id}_trophy`,championBonus,true);
+    commitPlayerCareer(match);recordMissionMatch(match,winner);advance(s,played);const championBonus=s.completed&&s.champion===USER?CONFIG[s.kind].bonus:0;rewardOnce(match.id,reward);if(championBonus)rewardOnce(`${s.id}_trophy`,championBonus,true);
     const d=daily();d.count++;dailySave(d);
     set('matchStatus',`FINE PARTITA · ${winner?`Rigori: vince ${display(winner)} · `:''}+${reward+championBonus} FC Coins${championBonus?' · Trofeo conquistato!':''}`);
     closeFinished();
   }
   function closeFinished(){localStorage.removeItem(activeKey());live=null;committing=false;if($('finishMatchBtn')){$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Torna alle competizioni';}render();}
   function openLive(snap){
-    initializeFootball(snap);live=snap;selected=snap.kind;owner=snap.owner??9;tick=snap.tick||0;tactic=snap.tactic||'balanced';build(snap);
+    initializeFootball(snap);live=snap;selected=snap.kind;owner=snap.owner??9;tick=snap.tick||0;tactic=snap.tactic||'balanced';build(snap);ensureMatchCareer();
     players.forEach(p=>{p.baseX=FORM.find(f=>f[0]===p.slot)?.[1]||p.baseX;});
     live.deadline=Date.now()+Math.max(1,live.halfRemaining)*1000;
     if(!snap.players)kickoff('home');if($('offlineTactic'))$('offlineTactic').value=tactic;renderPitch();updateScore();set('matchCompetitionLabel',CONFIG[live.kind].name+' · '+phase(load(live.kind)));set('matchStatus',live.halfTime?'Intervallo: inizia il secondo tempo quando sei pronto.':'Possesso e movimenti legati all’azione.');$('offlineMatchOverlay').classList.add('show');$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Salva ed esci';
