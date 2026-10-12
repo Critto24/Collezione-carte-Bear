@@ -983,9 +983,10 @@
 </style>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script id="bearfc-supabase-config">
-const SUPABASE_URL = 'https://pggvacfskcwlbcqtazjw.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_SBNaxcReGPSoQ6bAlEgIwA_x3VvSmNy';
+const SUPABASE_URL = 'https://nwdivvufbjuhlexzwikx.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_6uc05LimubKE295Bqccemg_ERKwI3ac';
 const SUPABASE_READY = true;
 const supabaseClient = (window.supabase && SUPABASE_READY)
   ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
@@ -1195,7 +1196,8 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 #matchPitch .match-ball:after{content:'';position:absolute;left:1px;top:calc(12px + var(--ball-lift));width:14px;height:6px;border-radius:50%;background:#0005;filter:blur(1px);pointer-events:none}
 @media(max-width:600px){.match-pitch-shell{perspective:900px;padding:5px 0 14px}#matchPitch{transform:rotateX(11deg) scale(.95);box-shadow:0 10px 0 #10321c,0 12px 0 #476044,0 20px 25px #0007}#matchPitch .match-player .offline-card{transform:perspective(400px) rotateX(-11deg)}}
 @media(prefers-reduced-motion:reduce){#matchPitch .match-ball{transition:none}}
-</style></head>
+</style><style id="bearfc-match-hide-overall">#matchPitch .offline-card-details{display:none!important}</style>
+</head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden halloween-event">
 <!-- BEAR FC STADIUM ENTRANCE -->
 <div id="bearCinematicIntro" role="dialog" aria-modal="true" aria-labelledby="bearIntroTitle">
@@ -1342,8 +1344,8 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
             <!-- Login Form -->
             <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Username o Email</label>
-                    <input type="text" id="loginUsername" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition" placeholder="Es. bear_fan99">
+                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Email dell’account online</label>
+                    <input type="email" id="loginUsername" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition" placeholder="tu@email.com">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Password</label>
@@ -1369,11 +1371,11 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                     <input type="password" id="regPassword" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition" placeholder="••••••••">
                 </div>
                 <button type="submit" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-xl shadow-lg hover:from-emerald-500 hover:to-emerald-400 transition transform active:scale-95">
-                    Crea Account & Ricevi Bonus (1000 FC Coins) <i class="fa-solid fa-user-plus ml-2"></i>
+                    Crea account online <i class="fa-solid fa-user-plus ml-2"></i>
                 </button>
             </form>
 
-            <div id="authError" class="mt-4 text-center text-xs text-rose-400 hidden"></div>
+            <button type="button" onclick="closeCloudAuth()" class="mt-4 w-full py-2 text-sm text-slate-300">Chiudi</button><div id="authError" class="mt-4 text-center text-xs text-rose-400 hidden"></div>
         </div>
     </div>
 
@@ -1983,7 +1985,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                   </div>
                 </div>
 
-<div id="view-settings" class="view-section hidden"><div class="offline-hub"><h2>Impostazioni Account</h2><label for="settingsUsername">Nome allenatore</label><input id="settingsUsername" class="bg-slate-900 text-white p-3 rounded-xl" maxlength="30"><label for="settingsEmail">Email</label><input id="settingsEmail" class="bg-slate-900 text-white p-3 rounded-xl" readonly><div class="offline-actions"><button onclick="saveSettings()">Salva impostazioni</button></div><p>Per modificare nome e divisa della squadra, apri Modalità Partita.</p></div></div>
+<div id="view-settings" class="view-section hidden"><div class="offline-hub"><h2>Impostazioni Account</h2><label for="settingsUsername">Nome allenatore</label><input id="settingsUsername" class="bg-slate-900 text-white p-3 rounded-xl" maxlength="30"><label for="settingsEmail">Email</label><input id="settingsEmail" class="bg-slate-900 text-white p-3 rounded-xl" readonly><div class="offline-actions"><button onclick="saveSettings()">Salva impostazioni</button></div><p>Per modificare nome e divisa della squadra, apri Modalità Partita.</p><h3>Il tuo club su più dispositivi</h3><p id="cloudStatus">Profilo locale</p><div class="offline-actions"><button onclick="openCloudAccount()">Account online</button><button onclick="retryCloud()">Salva online / Riprova</button></div><p>Per trasferire i progressi, registra il tuo account sul telefono dove hai già giocato. Poi accedi sugli altri dispositivi con la stessa email e password. Prima di cambiare telefono, controlla che compaia “progressi salvati”.</p></div></div>
 <section id="championshipPage" style="display:none;padding:20px;"><h2>Club online</h2><p>Collega il tuo club online.</p><button onclick="createOnlineClubFromChampionship()">Crea club</button><button onclick="joinOnlineClubFromChampionship()">Entra con codice</button><div id="championshipClubStatus">Nessun club collegato.</div><div id="championshipCompetitionStatus"></div></section>
 </main>
         </div>
@@ -4234,32 +4236,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 </div>
 
 
-<script id="bearfc-emergency-entry-fix">
-(function(){
-  function forceEnterSite(){
-    try{
-      var app=document.getElementById('appContainer');
-      var auth=document.getElementById('authModal');
-      var welcome=document.getElementById('halloweenWelcomeModal');
-      var splash=document.getElementById('offlineMatchSplash');
-      if(app){
-        app.classList.remove('hidden');
-        app.style.display='flex';
-      }
-      if(auth) auth.classList.add('hidden');
-      if(welcome) welcome.classList.add('hidden');
-      if(splash) splash.classList.add('hidden');
-      document.body.classList.remove('overflow-hidden');
-    }catch(e){}
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(forceEnterSite, 50); });
-  }else{
-    setTimeout(forceEnterSite, 50);
-  }
-  window.addEventListener('load', function(){ setTimeout(forceEnterSite, 50); });
-})();
-</script>
+
 
 
 <div id="offlineMatchOverlay" class="match-overlay">
@@ -4653,5 +4630,135 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 
 </script>
 
+<style>
+#authModal{z-index:1100000!important;padding:16px;overflow-y:auto}
+#authModal>div{max-height:92dvh;overflow-y:auto}
+.cloud-modal{position:fixed;inset:0;z-index:1100001;background:#08060df2;display:flex;align-items:center;justify-content:center;padding:20px;color:#fff}
+.cloud-modal.hidden{display:none}
+.cloud-modal>div{max-width:460px;width:100%;padding:26px;border:1px solid #fb923c55;border-radius:22px;background:#211522;box-shadow:0 20px 70px #0008}
+.cloud-modal h2{font-size:22px;font-weight:900;margin-bottom:14px}.cloud-modal p{font-size:14px;line-height:1.7;color:#e2d4e5;margin-bottom:18px}
+.cloud-modal button{padding:13px 16px;border-radius:12px;background:#fb923c;color:#210e04;font-weight:800;margin:5px;cursor:pointer}
+#cloudStatus{font-size:12px;line-height:1.6;margin-top:12px;color:#fbcba4}
+</style>
+<div id="cloudTransfer" class="cloud-modal hidden" role="dialog" aria-modal="true" aria-labelledby="cloudTransferTitle"><div><h2 id="cloudTransferTitle">Porta il tuo club online</h2><p id="cloudTransferSummary"></p><button onclick="cloudTransfer(true)">Trasferisci questi progressi</button><button onclick="cloudTransfer(false)">Inizia un nuovo club online</button><p>Le due collezioni non vengono sommate. Conserviamo una copia dei progressi di questo dispositivo.</p></div></div>
+<div id="cloudBlock" class="cloud-modal hidden" role="dialog" aria-modal="true" aria-labelledby="cloudBlockTitle"><div><h2 id="cloudBlockTitle">Account e salvataggi</h2><p id="cloudBlockMessage"></p><button onclick="retryCloud()">Riprova</button><button id="cloudLoadRemote" onclick="loadCloudSave()" style="display:none">Carica progressi online</button><button onclick="openCloudAccount()">Accedi</button></div></div>
+
+<script id="bearfc-cloud-accounts">
+(function(){
+  const RETURN_URL='https://critto24.github.io/Collezione-carte-Bear/';
+  const client=typeof supabaseClient!=='undefined'?supabaseClient:null;
+  const $=id=>document.getElementById(id);
+  let uid=null,revision=0,ready=false,busy=false,dirty=false,last='',timer=null,connecting=false,conflict=false,choice=null;
+  const previousLoad=window.onload,localSave=saveUserSession;
+  function read(key,fallback=null){try{return JSON.parse(localStorage.getItem(key)||'null')??fallback;}catch{return fallback;}}
+  function status(message){if($('cloudStatus'))$('cloudStatus').textContent=message;}
+  function cacheKey(){return 'bear_fc_cloud_pending_v1_'+uid;}
+  function gameKey(key,profile){const p=encodeURIComponent(profile);return key.startsWith('bear_fc_competitions_v3_'+p+'_')||key==='bear_fc_active_match_v3_'+p||key==='bear_fc_qualifications_v1_'+p||key==='bear_fc_offline_serie_a_v1'||key==='bear_fc_offline_daily_matches_v1'||key==='bearfc_daily_sponsor_claim'||key.startsWith('bearfc_pack_claim_')||key.startsWith('bearfc_pack_bag_');}
+  function snapshot(){
+    if(!currentUser)return null;
+    const profile=currentUser.offlineProfileId||currentUser.username,storage={};
+    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(gameKey(k,profile))storage[k]=localStorage.getItem(k);}
+    const user=JSON.parse(JSON.stringify(currentUser));delete user.password;delete user.cloudUserId;
+    return {version:1,user,storage};
+  }
+  function backup(data,label='local'){if(data)localStorage.setItem('bear_fc_backup_v1_'+label+'_'+Date.now(),JSON.stringify(data));}
+  function showBlock(message,reload=false){
+    $('cloudBlock').classList.remove('hidden');$('cloudBlockMessage').textContent=message;
+    $('cloudLoadRemote').style.display=reload?'inline-block':'none';
+  }
+  function hideBlock(){$('cloudBlock').classList.add('hidden');}
+  function apply(data,user){
+    if(!data?.user||!Array.isArray(data.user.cards)||!data.storage||typeof data.storage!=='object')throw Error('Formato del salvataggio online non valido.');
+    backup(snapshot(),'before-load');
+    const oldProfile=currentUser?.offlineProfileId||currentUser?.username;
+    const newProfile=data.user.offlineProfileId||data.user.username;
+    const remove=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(gameKey(k,oldProfile)||gameKey(k,newProfile))remove.push(k);}remove.forEach(k=>localStorage.removeItem(k));
+    currentUser={...data.user,email:user.email,cloudUserId:user.id};
+    for(const [k,v] of Object.entries(data.storage))if(gameKey(k,newProfile)&&typeof v==='string')localStorage.setItem(k,v);
+    localStorage.setItem('bear_fc_credit_reset_v2','1');localSave();loadUserData();showApp();updateHalloweenPackPanel();
+  }
+  function fresh(user){return {version:1,user:{username:user.user_metadata?.username||'Mister Bear',email:user.email,coins:0,trophies:0,cards:[],squad:{LW:null,ST:null,RW:null,CM1:null,CDM:null,CM2:null,LB:null,CB1:null,CB2:null,RB:null,GK:null},weeklyPacks:{},offlineProfileId:user.id},storage:{}};}
+  async function remote(){const result=await client.from('bear_fc_saves').select('save_data,revision').eq('user_id',uid).maybeSingle();if(result.error)throw result.error;return result.data;}
+  function mark(){if(!ready||conflict)return;dirty=true;localStorage.setItem(cacheKey(),JSON.stringify({revision,data:snapshot()}));status('Modifiche sul dispositivo · salvataggio online in corso…');clearTimeout(timer);timer=setTimeout(()=>flush(),1200);}
+  async function flush(){
+    if(!ready||!uid||busy||conflict)return false;
+    const data=snapshot(),encoded=JSON.stringify(data);if(!dirty&&encoded===last)return true;
+    busy=true;dirty=true;localStorage.setItem(cacheKey(),JSON.stringify({revision,data}));
+    try{
+      const result=await client.from('bear_fc_saves').update({save_data:data,revision:revision+1,updated_at:new Date().toISOString()}).eq('user_id',uid).eq('revision',revision).select('revision').maybeSingle();
+      if(result.error)throw result.error;
+      if(!result.data){conflict=true;if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly();backup(snapshot(),'conflict');showBlock('Questo account è stato aggiornato su un altro dispositivo. Una copia dei progressi di questo telefono è conservata qui. Carica il salvataggio online per continuare.',true);status('Conflitto tra dispositivi');return false;}
+      revision=result.data.revision;last=encoded;dirty=JSON.stringify(snapshot())!==encoded;
+      if(!dirty)localStorage.removeItem(cacheKey());else localStorage.setItem(cacheKey(),JSON.stringify({revision,data:snapshot()}));
+      status('Account online · progressi salvati');return true;
+    }catch(error){status('Salvataggio non inviato · premi Riprova. I progressi restano su questo dispositivo.');return false;}
+    finally{busy=false;}
+  }
+  async function establish(user){
+    if(connecting||ready&&uid===user.id)return;connecting=true;ready=false;uid=user.id;showBlock('Caricamento dei tuoi progressi online…');
+    try{
+      let row=await remote();const pending=read(cacheKey());
+      if(row){
+        revision=Number(row.revision);
+        if(pending&&pending.revision!==revision){backup(pending.data,'conflict');conflict=true;showBlock('Ci sono progressi locali non sincronizzati e un salvataggio più recente online. La copia locale è conservata su questo dispositivo. Carica quello online per continuare.',true);return;}
+        apply(pending?.data||row.save_data,user);last=JSON.stringify(row.save_data);dirty=!!pending;
+      }else{
+        const local=snapshot();
+        if(currentUser?.cloudUserId&&currentUser.cloudUserId!==user.id){apply(fresh(user),user);}
+        else{
+          connecting=false;choice={user,local};$('cloudTransferSummary').textContent=`Su questo dispositivo: ${local?.user.cards.length||0} carte e ${local?.user.coins||0} FC Coins. Vuoi trasferire questi progressi al nuovo account?`;
+          $('cloudTransfer').classList.remove('hidden');hideBlock();return;
+        }
+        const result=await client.from('bear_fc_saves').insert({user_id:uid,save_data:snapshot(),revision:1}).select('revision').single();if(result.error)throw result.error;revision=1;last=JSON.stringify(snapshot());
+      }
+      ready=true;conflict=false;hideBlock();$('authModal').classList.add('hidden');status('Account online · progressi salvati');if(dirty)await flush();
+    }catch(error){showBlock('Impossibile caricare il salvataggio. Controlla la connessione e premi Riprova. I progressi sul telefono sono conservati.');status('Connessione all’account da completare');}
+    finally{connecting=false;}
+  }
+  window.cloudTransfer=async function(useLocal){
+    if(!choice||connecting)return;connecting=true;const selected=choice;selected.useLocal=useLocal;showBlock('Creazione del salvataggio online…');
+    try{
+      const data=useLocal?selected.local:fresh(selected.user);backup(selected.local,'transfer');apply(data,selected.user);
+      const result=await client.from('bear_fc_saves').insert({user_id:uid,save_data:snapshot(),revision:1}).select('revision').single();if(result.error)throw result.error;
+      revision=1;ready=true;dirty=false;conflict=false;last=JSON.stringify(snapshot());choice=null;$('cloudTransfer').classList.add('hidden');$('authModal').classList.add('hidden');hideBlock();status('Account online · progressi salvati');
+    }catch(error){$('cloudBlockMessage').textContent='Trasferimento non completato. I progressi sono conservati: premi Riprova.';}
+    finally{connecting=false;}
+  };
+  window.openCloudAccount=function(){if(!client){alert('Il servizio online non è caricato. Controlla Internet e ricarica il sito.');return;}if(ready){alert('Sei già collegato: '+currentUser.email+'. Per cambiare account, prima salva ed esci.');return;}hideBlock();$('authModal').classList.remove('hidden');switchAuthTab('login');};
+  window.closeCloudAuth=function(){$('authModal').classList.add('hidden');if(currentUser?.cloudUserId&&!ready)showBlock('Accedi per recuperare il tuo account online.');};
+  window.handleLogin=async function(event){event.preventDefault();if(!client)return showAuthError('Servizio online non disponibile.');if(connecting)return;
+    const email=$('loginUsername').value.trim(),password=$('loginPassword').value;showAuthError('Accesso in corso…');
+    try{const result=await client.auth.signInWithPassword({email,password});$('loginPassword').value='';if(result.error)throw result.error;await establish(result.data.user);}catch(error){showAuthError('Accesso non riuscito: '+error.message);}
+  };
+  window.handleRegister=async function(event){event.preventDefault();if(!client)return showAuthError('Servizio online non disponibile.');
+    const email=$('regEmail').value.trim(),password=$('regPassword').value,username=$('regUsername').value.trim();if(password.length<8)return showAuthError('Scegli una password di almeno 8 caratteri.');
+    showAuthError('Creazione account…');try{const result=await client.auth.signUp({email,password,options:{emailRedirectTo:RETURN_URL,data:{username}}});$('regPassword').value='';if(result.error)throw result.error;if(result.data.session)await establish(result.data.user);else showAuthError('Controlla la tua email e conferma l’account. Poi torna qui e accedi con email e password. I progressi di questo telefono restano conservati.');}catch(error){showAuthError('Registrazione non riuscita: '+error.message);}
+  };
+  window.saveUserSession=function(){localSave();mark();};
+  window.retryCloud=async function(){
+    try{
+      if(choice){const existing=await remote();if(existing){const user=choice.user;choice=null;$('cloudTransfer').classList.add('hidden');return establish(user);}return window.cloudTransfer(choice.useLocal??true);}
+      if(ready&&!conflict)return flush();if(!client)return;const result=await client.auth.getSession();if(result.error)throw result.error;
+      if(result.data.session)await establish(result.data.session.user);else{hideBlock();window.openCloudAccount();}
+    }catch(error){status('Connessione non disponibile · riprova tra poco');}
+  };
+  window.loadCloudSave=async function(){
+    if(!confirm('Caricare i progressi online? La copia locale resta conservata su questo dispositivo.'))return;
+    backup(snapshot(),'conflict');ready=false;localStorage.removeItem(cacheKey());conflict=false;location.reload();
+  };
+  window.logout=async function(){
+    if(uid){if(!ready||conflict){alert('Prima completa la sincronizzazione o carica il salvataggio online.');return;}if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly();if(!await flush()){alert('Salvataggio non completato. Riprova prima di uscire.');return;}ready=false;await client.auth.signOut();}
+    backup(snapshot(),'logout');const profile=currentUser?.offlineProfileId||currentUser?.username,keys=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(gameKey(k,profile))keys.push(k);}keys.forEach(k=>localStorage.removeItem(k));localStorage.removeItem('bear_fc_current_user');location.reload();
+  };
+  window.onload=async function(){previousLoad();status('Profilo locale · collega un account per usare altri dispositivi');
+    if(!client){status('Servizio online non caricato · controlla Internet');return;}
+    showBlock('Controllo account online…');try{const result=await client.auth.getSession();if(result.error)throw result.error;if(result.data.session)await establish(result.data.session.user);else if(currentUser?.cloudUserId){showBlock('Accedi nuovamente per utilizzare questo account.');$('authModal').classList.remove('hidden');}else hideBlock();}catch(error){if(currentUser?.cloudUserId)showBlock('Connessione non disponibile. Riprova per caricare il tuo account.');else hideBlock();status('Connessione online non disponibile');}
+  };
+  if(client)client.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_IN'&&session)setTimeout(()=>{if(document.readyState==='complete')establish(session.user);},0);if(event==='SIGNED_OUT'&&ready){ready=false;showBlock('Sessione terminata. Accedi di nuovo.');}});
+  setInterval(()=>{if(ready&&!conflict){if(JSON.stringify(snapshot())!==last){dirty=true;flush();}}},5000);
+  window.addEventListener('beforeunload',event=>{if(ready&&(dirty||busy||JSON.stringify(snapshot())!==last)){localStorage.setItem(cacheKey(),JSON.stringify({revision,data:snapshot()}));event.preventDefault();event.returnValue='';}});
+})();
+
+</script>
 </body>
 </html>
