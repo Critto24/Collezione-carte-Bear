@@ -1180,7 +1180,22 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 @media(max-width:767px){body.halloween-event .halloween-web{font-size:40px;opacity:.55}body.halloween-event .halloween-pumpkin{opacity:.5}.creepy-season-label{font-size:9px}}
 
 </style>
-<style>.competition-locked{opacity:.65;border-style:dashed!important}.competition-locked small{line-height:1.5!important}</style></head>
+<style>.competition-locked{opacity:.65;border-style:dashed!important}.competition-locked small{line-height:1.5!important}</style><style id="bearfc-smaller-match-cards">
+#matchPitch .match-player{width:38px!important;height:54px!important;overflow:visible;background:transparent;border:0;box-shadow:none}
+#matchPitch .match-player .offline-card{width:38px!important;height:54px!important;min-width:0;min-height:0}
+#matchPitch .match-player.active-ball{box-shadow:none;filter:drop-shadow(0 0 4px #fde68a)}
+@media(max-width:600px){#matchPitch .match-player,#matchPitch .match-player .offline-card{width:29px!important;height:43px!important}#matchPitch .match-player .club-shirt{width:18px;height:18px}#matchPitch .discipline-badge{font-size:10px}}
+</style><style id="bearfc-pitch-depth">
+.match-pitch-shell{perspective:1050px;padding:12px 0 20px;background:radial-gradient(ellipse at 50% 70%,#365f2833,transparent 70%);overflow:hidden}
+#matchPitch{transform:rotateX(17deg) scale(.94);transform-origin:50% 50%;box-shadow:0 16px 0 #10321c,0 18px 0 #476044,0 30px 45px #0008;border-radius:8px;overflow:visible;background:linear-gradient(180deg,#0002,transparent 70%),repeating-linear-gradient(90deg,#176534 0 10%,#1b7039 10% 20%)}
+#matchPitch .match-player{transform:translate(-50%,-50%);isolation:isolate}
+#matchPitch .match-player:before{content:'';position:absolute;left:4px;right:-5px;bottom:-3px;height:11px;background:#0006;border-radius:50%;transform:skewX(-30deg);filter:blur(2px);z-index:-1}
+#matchPitch .match-player .offline-card{transform:perspective(400px) rotateX(-17deg);transform-origin:bottom center;box-shadow:2px 3px 0 #08130c,0 4px 7px #0008}
+#matchPitch .match-ball{--ball-lift:0px;transform:translate(-50%,calc(-50% - var(--ball-lift)));background:radial-gradient(circle at 30% 25%,#fff 15%,#e7e7e7 50%,#a0a0a0);box-shadow:inset -2px -2px 3px #0005,0 1px 3px #0005}
+#matchPitch .match-ball:after{content:'';position:absolute;left:1px;top:calc(12px + var(--ball-lift));width:14px;height:6px;border-radius:50%;background:#0005;filter:blur(1px);pointer-events:none}
+@media(max-width:600px){.match-pitch-shell{perspective:900px;padding:5px 0 14px}#matchPitch{transform:rotateX(11deg) scale(.95);box-shadow:0 10px 0 #10321c,0 12px 0 #476044,0 20px 25px #0007}#matchPitch .match-player .offline-card{transform:perspective(400px) rotateX(-11deg)}}
+@media(prefers-reduced-motion:reduce){#matchPitch .match-ball{transition:none}}
+</style></head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden halloween-event">
 <!-- BEAR FC STADIUM ENTRANCE -->
 <div id="bearCinematicIntro" role="dialog" aria-modal="true" aria-labelledby="bearIntroTitle">
@@ -1766,7 +1781,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 
                 <!-- 4. PACCHETTI MENSILI -->
                 <div id="view-packs" class="view-section space-y-6 hidden">
-                    <div class="offline-hub"><h2>Comune, Raro, Epico e Leggendario</h2><p>Nessun giorno di attesa per gli acquisti con FC Coins. I regali gratuiti sono nella sezione sotto.</p><div id="shopPacksGrid" class="offline-shop-grid"><div class="offline-shop-pack"><h3>Pacchetto Comune</h3><p>Carte comuni con possibilità di rarità superiori</p><strong>25 FC Coins</strong><button type="button" onclick="buyShopPack('common')">ACQUISTA E APRI</button></div><div class="offline-shop-pack"><h3>Pacchetto Raro</h3><p>Possibilità aumentate di Epiche, Leggendarie e Mitiche</p><strong>75 FC Coins</strong><button type="button" onclick="buyShopPack('rare')">ACQUISTA E APRI</button></div><div class="offline-shop-pack"><h3>Pacchetto Epico</h3><p>Carta Epica o superiore</p><strong>200 FC Coins</strong><button type="button" onclick="buyShopPack('epic')">ACQUISTA E APRI</button></div><div class="offline-shop-pack"><h3>Pacchetto Leggendario</h3><p>Carta Leggendaria o Mitica</p><strong>500 FC Coins</strong><button type="button" onclick="buyShopPack('legendary')">ACQUISTA E APRI</button></div></div></div>
+                    <div class="offline-hub"><h2>Comune, Raro, Epico e Leggendario</h2><p>Nessun giorno di attesa per gli acquisti con FC Coins. I regali gratuiti sono nella sezione sotto.</p><div id="shopPacksGrid" class="offline-shop-grid"><div class="offline-shop-pack"><h3>Pacchetto Comune</h3><p>Carte comuni con possibilità di rarità superiori</p><strong>25 FC Coins</strong><button type="button" onclick="buyShopPack('common')">ACQUISTA E APRI</button></div><div class="offline-shop-pack"><h3>Pacchetto Raro</h3><p>Possibilità aumentate di Epiche, Leggendarie e Mitiche</p><strong>75 FC Coins</strong><button type="button" onclick="buyShopPack('rare')">ACQUISTA E APRI</button></div><div class="offline-shop-pack"><h3>Pacchetto Epico</h3><p>Carta Epica o superiore</p><strong>200 FC Coins</strong><button type="button" onclick="buyShopPack('epic')">ACQUISTA E APRI</button></div><div class="offline-shop-pack"><h3>Pacchetto Leggendario</h3><p>Leggendaria 99,5% · Mitica 0,5%</p><strong>800 FC Coins</strong><button type="button" onclick="buyShopPack('legendary')">ACQUISTA E APRI</button></div></div></div>
                     <div class="glass p-6 rounded-3xl border border-slate-800 text-center max-w-3xl mx-auto">
                         <span class="px-3 py-1 bg-orange-500/20 border border-orange-500/30 text-orange-300 text-[10px] font-black uppercase tracking-wider rounded-full">Pacchetti gratuiti</span>
                         <h2 class="text-3xl font-extrabold text-white mt-2">Negozio BEAR FC</h2>
@@ -2790,7 +2805,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
             common:    { packCost: 25,  duplicateValue: 5,   basePlayerCost: 100,  label: 'Comune',       icon: 'fa-circle' },
             rare:      { packCost: 75,  duplicateValue: 15,  basePlayerCost: 250,  label: 'Rara',         icon: 'fa-star' },
             epic:      { packCost: 200, duplicateValue: 40,  basePlayerCost: 700,  label: 'Epica',        icon: 'fa-gem' },
-            legendary: { packCost: 500, duplicateValue: 100, basePlayerCost: 1500, label: 'Leggendaria',  icon: 'fa-crown' },
+            legendary: { packCost: 800, duplicateValue: 100, basePlayerCost: 1500, label: 'Leggendaria',  icon: 'fa-crown' },
             mythic: { packCost: 1000, duplicateValue: 200, basePlayerCost: 3000, label: 'Mitica', icon: 'fa-signature' },
             halloween: { packCost: 100, duplicateValue: 25, basePlayerCost: 400, label: 'Halloween', icon: 'fa-ghost' }
         };
@@ -2974,7 +2989,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
         function renderShopPacks() {
             const container = document.getElementById('shopPacksGrid');
             if (!container) return;
-            const descriptions = {common:'Carte comuni con possibilità di rarità superiori', rare:'Possibilità aumentate di Epiche, Leggendarie e Mitiche', epic:'Carta Epica o superiore', legendary:'Carta Leggendaria o Mitica', mythic:'Carta Mitica firmata', halloween:'Carta Halloween garantita'};
+            const descriptions = {common:'Carte comuni con possibilità di rarità superiori', rare:'Possibilità aumentate di Epiche, Leggendarie e Mitiche', epic:'Carta Epica o superiore', legendary:'Leggendaria 99,5% · Mitica 0,5%', mythic:'Carta Mitica firmata', halloween:'Carta Halloween garantita'};
             container.innerHTML = ['common','rare','epic','legendary'].map(rarity => {
                 const cfg = SHOP_RARITY_CONFIG[rarity];
                 return '<div class="offline-shop-pack"><h3>Pacchetto '+cfg.label+'</h3><p>'+descriptions[rarity]+'</p><strong>'+cfg.packCost+' FC Coins</strong><button type="button" onclick="buyShopPack(\''+rarity+'\')">ACQUISTA E APRI</button></div>';
@@ -2998,7 +3013,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
             }
 
             // I pacchetti Epico e Leggendario aumentano la probabilità delle rarità alte.
-            // Il pacchetto Leggendario è anche l'unico che dà una chance significativa alla Mitica Firmata.
+            // Il pacchetto Leggendario garantisce Leggendaria (99,5%) o Mitica firmata (0,5%).
             const packType = ['rare','epic','legendary'].includes(rarity) ? rarity : 'normal';
             const specialPool = rarity === 'halloween' ? ALL_PLAYERS.filter(p => p.edition === 'Halloween') : rarity === 'mythic' ? getPlayersForRarity('mythic', true) : null;
             if (specialPool && !specialPool.length) { alert('Nessuna carta disponibile per questo pacchetto.'); return; }
@@ -3303,7 +3318,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                 rare:      [['common',70],['epic',25],['legendary',4.9],['mythic',0.1]],
                 normal:    [['common',96.0],['epic',3.5],['legendary',0.499],['mythic',0.001]],
                 epic:      [['epic',85],['legendary',14],['mythic',1]],
-                legendary:[['legendary',99],['mythic',1]]
+                legendary:[['legendary',99.5],['mythic',0.5]]
             }[packType] || null;
             if (!weights) return 'common';
             const roll = Math.random() * 100;
@@ -4439,7 +4454,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   function stats(){if(!live)return;const s=live.stats;const total=s.home.possession+s.away.possession||1;set('matchStats',`Possesso ${Math.round(s.home.possession/total*100)}%–${Math.round(s.away.possession/total*100)}% · Tiri ${s.home.shots}–${s.away.shots} · Corner ${s.home.corners}–${s.away.corners} · Falli ${s.home.fouls}–${s.away.fouls} · 🟨 ${s.home.yellow}–${s.away.yellow} · 🟥 ${s.home.red}–${s.away.red}`);}
   function updatePitch(){
     players.forEach((p,i)=>{const n=$(`mp-${i}`);if(n){n.style.left=`${p.x}%`;n.style.top=`${p.y}%`;n.style.display=p.sentOff?'none':'';n.classList.toggle('active-ball',i===owner&&!live?.flight);const badge=n.querySelector('.discipline-badge');if(badge)badge.textContent=p.yellow?'🟨':'';}});
-    const b=$('simBall');if(b&&live?.ball){b.style.left=`${live.ball.x}%`;b.style.top=`${live.ball.y}%`;}stats();
+    const b=$('simBall');if(b&&live?.ball){b.style.left=`${live.ball.x}%`;b.style.top=`${live.ball.y}%`;const flight=live.flight,phase=flight?Math.min(1,flight.elapsed/flight.duration):0;const lift=flight?Math.sin(phase*Math.PI)*(flight.kind==='cross'?27:flight.kind==='shot'?12:3):0;b.style.setProperty('--ball-lift',lift+'px');}stats();
   }
   function rating(side,stat){const ps=enabled(side);return ps.reduce((s,o)=>s+(Number(o.p.player[stat])||50),0)/(ps.length||1);}
   function updateScore(){if(!live)return;set('matchTeamsLabel',live.fixture[0]===USER?`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`:`${live.opponent} ${live.score.away}–${live.score.home} ${club().name}`);}
@@ -4453,7 +4468,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   function foul(offender,victim,force=null){
     const p=players[victim],d=players[offender];if(!p||!d||d.sentOff)return;
     live.stats[d.side].fouls++;const penalty=force==='penalty'||(progress(p)>84&&p.y>27&&p.y<73);
-    if(force==='red'||Math.random()<.025)card(offender,true);else if(force==='yellow'||Math.random()<.32)card(offender);
+    if(force==='red'||Math.random()<.004)card(offender,true);else if(force==='yellow'||Math.random()<(d.yellow?.06:.18))card(offender);
     const dir=direction(p.side);deadBall(penalty?'penalty':'freeKick',p.side,penalty?(dir>0?88:12):p.x,penalty?50:p.y,4);
     eventText(penalty?`⚖️ Calcio di rigore per ${p.side==='home'?club().name:live.opponent}!`:`⚖️ Fallo su ${p.player.name}: calcio di punizione.`);
     if(penalty)centerBanner('CALCIO DI RIGORE',p.side==='home'?club().name:live.opponent,'penalty');
@@ -4465,21 +4480,37 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   function pass(to,kind='pass'){
     if(owner<0||!players[to]||players[to].sentOff)return;const from=owner,p=players[from],target=players[to];
-    live.flight={kind,side:p.side,from,to,start:{...live.ball},end:{x:target.x+direction(p.side)*1.5,y:target.y},elapsed:0,duration:Math.max(.55,Math.hypot(p.x-target.x,p.y-target.y)/35)};owner=-1;live.decision=1.2;
+    live.flight={kind,side:p.side,from,to,start:{...live.ball},end:{x:target.x+direction(p.side)*1.5,y:target.y},elapsed:0,duration:Math.max(.85,Math.hypot(p.x-target.x,p.y-target.y)/23)};owner=-1;live.decision=2.2;
     if(kind==='cross')eventText(`🎯 Cross di ${p.player.name} verso ${target.player.name}.`);
   }
   function choosePass(from){
-    const p=players[from],defenders=enabled(other(p.side));
-    const options=enabled(p.side).filter(o=>o.i!==from&&Math.hypot(o.p.x-p.x,o.p.y-p.y)<42).map(o=>{
-      const distance=Math.hypot(o.p.x-p.x,o.p.y-p.y),pressure=Math.min(20,...defenders.map(d=>Math.hypot(d.p.x-o.p.x,d.p.y-o.p.y))),blocked=defenders.some(d=>segmentDistance(d.p,p,o.p)<3.2);
-      const forward=(o.p.x-p.x)*direction(p.side);return {...o,score:forward*.48+pressure*.85-distance*.2-(blocked?16:0)+(o.p.slot==='GK'?-5:0)+(Number(o.p.player.pass)||50)/100};
-    }).sort((a,b)=>b.score-a.score);
+    const p=players[from],defenders=enabled(other(p.side)),advanced=progress(p);
+    const underPressure=defenders.some(d=>Math.hypot(d.p.x-p.x,d.p.y-p.y)<7);
+    const options=enabled(p.side).filter(o=>{
+      const distance=Math.hypot(o.p.x-p.x,o.p.y-p.y),forward=progress(o.p)-advanced;
+      // Recycle possession locally; never send an attacker back across the pitch.
+      return o.i!==from&&distance>3&&distance<34&&forward>=-14&&!(advanced>60&&o.p.slot==='GK')&&!(advanced>68&&['CB1','CB2'].includes(o.p.slot)&&forward<-7);
+    }).map(o=>{
+      const distance=Math.hypot(o.p.x-p.x,o.p.y-p.y),forward=progress(o.p)-advanced;
+      const pressure=Math.min(16,...defenders.map(d=>Math.hypot(d.p.x-o.p.x,d.p.y-o.p.y)));
+      const blocked=defenders.some(d=>segmentDistance(d.p,p,o.p)<2.8&&Math.hypot(d.p.x-p.x,d.p.y-p.y)>3);
+      let roleBonus=0;
+      if(p.slot==='GK')roleBonus=['CB1','CB2'].includes(o.p.slot)?24:['LB','RB'].includes(o.p.slot)?12:-18;
+      else if(['CB1','CB2','CDM'].includes(p.slot)&&advanced<58)roleBonus=['LB','RB'].includes(o.p.slot)?23:['CM1','CM2','CDM'].includes(o.p.slot)?10:0;
+      else if(['LB','RB'].includes(p.slot)&&advanced<67)roleBonus=(p.slot==='LB'?['LW','CM1']:['RW','CM2']).includes(o.p.slot)?22:0;
+      else if(['LW','RW','LB','RB'].includes(p.slot)&&advanced>=67)roleBonus=['ST','CM1','CM2'].includes(o.p.slot)&&Math.abs(o.p.y-50)<25?24:0;
+      const boxRun=progress(o.p)>72&&Math.abs(o.p.y-50)<22?7:0;
+      return {...o,score:roleBonus+forward*.6+pressure*.45-distance*.28-(blocked?24:0)-(forward<0?8:0)+boxRun+(underPressure&&distance<18?5:0)};
+    }).filter(o=>o.score>-12).sort((a,b)=>b.score-a.score);
     return options[0]?.i??-1;
   }
   function shoot(index,penalty=false,header=false){
     const p=players[index];if(!p||p.sentOff||(!penalty&&tick<(live.nextShotAt||0)))return;live.nextShotAt=tick+180;const side=p.side,dir=direction(side);live.stats[side].shots++;
     const distance=Math.hypot((dir>0?100:0)-p.x,(50-p.y)*.65),keeper=enabled(other(side)).find(o=>o.p.slot==='GK'),finish=Number(p.player.shoot)||50,gk=keeper?Number(keeper.p.player.def)||65:30;
-    const chance=penalty?Math.max(.52,Math.min(.87,.7+(finish-gk)/400)):Math.max(.025,Math.min(.32,.18-distance*.006+(finish-gk)/700+(header?.02:0)));
+    // Better finishing from useful positions, with a gentle reduction in open, high-scoring games.
+    const totalGoals=live.score.home+live.score.away;
+    const finishingBalance=totalGoals>=5?.72:totalGoals>=3?.88:1;
+    const chance=penalty?Math.max(.52,Math.min(.87,.7+(finish-gk)/400)):Math.max(.05,Math.min(.28,.23-distance*.0065+(finish-gk)/850+(header?.025:0)))*finishingBalance;
     const roll=Math.random();const outcome=roll<chance?'goal':roll<chance+.20?'corner':roll<chance+.70?'save':'miss';
     live.flight={kind:'shot',side,from:index,start:{...live.ball},end:{x:dir>0?100:0,y:outcome==='miss'?(p.y<50?28:72):45+Math.random()*10},elapsed:0,duration:.65,outcome,penalty};owner=-1;
     eventText(`${penalty?'🥅 Rigore':header?'🎯 Colpo di testa':'🔥 Tiro'} di ${p.player.name}!`);
@@ -4491,7 +4522,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(f.kind==='shot'){
       if(f.outcome==='goal')goal(f.side,f.from);else if(f.outcome==='corner')corner(f.side,live.ball.y);else if(f.outcome==='save'){owner=enabled(other(f.side)).find(o=>o.p.slot==='GK')?.i??nearest(live.ball.x,live.ball.y,other(f.side));live.possession=other(f.side);live.decision=2;eventText('🧤 Il portiere blocca il tiro.');}else{deadBall('goalKick',other(f.side),direction(f.side)>0?94:6,50,2);eventText('Tiro fuori. Rimessa dal fondo.');}
     }else{
-      owner=players[f.to]?.sentOff?nearest(f.end.x,f.end.y,f.side):f.to;live.possession=f.side;live.decision=.9;
+      owner=players[f.to]?.sentOff?nearest(f.end.x,f.end.y,f.side):f.to;live.possession=f.side;live.decision=2.2;
       if(f.kind==='cross'&&owner>=0&&progress(players[owner])>78)shoot(owner,false,true);
     }
   }
@@ -4512,10 +4543,16 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     players.forEach((p,i)=>{
       if(p.sentOff)return;const ownDir=direction(p.side),inPossession=p.side===side,base=ownDir>0?p.baseX:100-p.baseX,keeper=p.slot==='GK';let x=base,y=p.baseY;
       if(keeper){x=ownDir>0?7:93;y=Math.max(37,Math.min(63,50+(live.ball.y-50)*.2));}
-      else if(i===owner){const pressure=enabled(other(side)).some(o=>Math.hypot(o.p.x-p.x,o.p.y-p.y)<6);x=p.x+ownDir*(pressure?1.5:4);y=p.y+(50-p.y)*.08;}
+      else if(i===owner){
+        const pressure=enabled(other(side)).some(o=>Math.hypot(o.p.x-p.x,o.p.y-p.y)<6),lateral=['LB','RB','LW','RW'].includes(p.slot);
+        x=p.x+ownDir*(keeper?0:pressure?1:3);y=lateral?p.baseY:p.y+(50-p.y)*.04;
+        if(['CB1','CB2'].includes(p.slot)&&progress(p)>48)x=p.x;
+        if((p.dribbleUntil||0)>tick){x=p.x+ownDir*2.5;y=p.y+(p.dribbleDirection||1)*5;}
+      }
       else if(inPossession){
         const offset=Math.max(-9,Math.min(19,(ballProgress-45)*.38))+(p.side==='home'&&tactic==='attack'?6:p.side==='home'&&tactic==='defend'?-5:0);x=base+ownDir*offset;
         if(['LB','RB'].includes(p.slot)&&ballProgress>52&&((p.slot==='LB'&&live.ball.y<50)||(p.slot==='RB'&&live.ball.y>=50)))x=ownDir>0?Math.min(82,ballProgress+8):100-Math.min(82,ballProgress+8);
+        if(['LW','RW','CM1','CM2'].includes(p.slot)&&ballProgress>58){const run=Math.min(86,ballProgress+(['LW','RW'].includes(p.slot)?10:3));x=ownDir>0?Math.max(x,run):Math.min(x,100-run);}
         if(p.slot==='ST')x=ownDir>0?Math.min(88,ballProgress+14):100-Math.min(88,ballProgress+14);
         if(p.slot==='CB1'&&ballProgress>70&&p.side==='home'&&tactic==='attack')x=ownDir>0?67:33;
         y=p.baseY+(live.ball.y-50)*.12;
@@ -4524,23 +4561,28 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
         if(pressers.includes(i)){x=live.ball.x-ownDir*1.5;y=live.ball.y;}
       }
       // Keep players spaced apart instead of piling every card around the ball.
-      players.forEach((q,j)=>{if(i===j||q.sentOff)return;const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<5&&d>.01){x+=(p.x-q.x)/d*(5-d)*.45;y+=(p.y-q.y)/d*(5-d)*.45;}});
-      move(p,x,y,dt*(2.2+(Number(p.player.pace)||50)/35));
+      players.forEach((q,j)=>{if(i===j||q.sentOff)return;const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<7&&d>.01){x+=(p.x-q.x)/d*(7-d)*.65;y+=(p.y-q.y)/d*(7-d)*.65;}});
+      move(p,x,y,dt*(1.5+(Number(p.player.pace)||50)/48));
     });
     if(carrier&&owner>=0&&!live.flight)live.ball={x:carrier.x+direction(carrier.side)*1.2,y:carrier.y};
   }
   function decide(dt){
     if(owner<0)return;const p=players[owner];if(p.sentOff){owner=nearest(live.ball.x,live.ball.y,live.possession);return;}
     const defender=enabled(other(p.side)).filter(o=>o.p.slot!=='GK').sort((a,b)=>Math.hypot(a.p.x-p.x,a.p.y-p.y)-Math.hypot(b.p.x-p.x,b.p.y-p.y))[0];
-    if(defender&&Math.hypot(defender.p.x-p.x,defender.p.y-p.y)<3.8&&live.tackleCooldown<=0){live.tackleCooldown=3;
-      if(Math.random()<.16){foul(defender.i,owner);return;}
+    if(defender&&Math.hypot(defender.p.x-p.x,defender.p.y-p.y)<3.8&&live.tackleCooldown<=0){live.tackleCooldown=4.5;
+      if(Math.random()<(defender.p.yellow?.035:.075)){foul(defender.i,owner);return;}
       if(Math.random()<Math.max(.12,Math.min(.65,.35+(Number(defender.p.player.def||50)-Number(p.player.drib||50))/200))){owner=defender.i;live.possession=defender.p.side;live.decision=1.4;eventText(`⚔️ ${defender.p.player.name} recupera il pallone.`);return;}
     }
-    live.decision-=dt;if(live.decision>0)return;live.decision=1.6;
+    live.decision-=dt;if(live.decision>0)return;live.decision=2.5;
     const advanced=progress(p),central=Math.abs(p.y-50)<24,pressure=defender?Math.hypot(defender.p.x-p.x,defender.p.y-p.y):20;
-    if(advanced>74&&central&&tick>=(live.nextShotAt||0)){shoot(owner);return;}
+    const lateral=['LB','RB','LW','RW'].includes(p.slot);
+    if(lateral&&advanced<74&&pressure<10&&pressure>4&&tick>=(p.nextDribbleAt||0)&&Number(p.player.drib||50)>Number(defender.p.player.def||50)-8){
+      p.dribbleDirection=p.y<50?1:-1;p.dribbleUntil=tick+18;p.nextDribbleAt=tick+90;
+      eventText('👟 '+p.player.name+' cerca spazio sulla fascia.');return;
+    }
+    if(advanced>70&&central&&tick>=(live.nextShotAt||0)){shoot(owner);return;}
     if(advanced>75&&!central){const target=enabled(p.side).filter(o=>o.i!==owner&&o.p.slot!=='GK'&&progress(o.p)>65&&Math.abs(o.p.y-50)<24).sort((a,b)=>Number(b.p.player.shoot||50)-Number(a.p.player.shoot||50))[0];if(target){pass(target.i,'cross');return;}}
-    const target=choosePass(owner);if(target>=0&&(pressure<9||p.slot==='GK'||progress(players[target])>advanced+3||live.decisionCount%3===0)){pass(target);}
+    const target=choosePass(owner);if(target>=0&&(pressure<9||['GK','CB1','CB2','CDM'].includes(p.slot)||progress(players[target])>advanced+3||(lateral&&advanced>=67)||(advanced<72&&live.decisionCount%3===0))){pass(target);}
     live.decisionCount++;
   }
   function step(){
