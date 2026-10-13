@@ -1197,7 +1197,74 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 @media(max-width:600px){.match-pitch-shell{perspective:900px;padding:5px 0 14px}#matchPitch{transform:rotateX(11deg) scale(.95);box-shadow:0 10px 0 #10321c,0 12px 0 #476044,0 20px 25px #0007}#matchPitch .match-player .offline-card{transform:perspective(400px) rotateX(-11deg)}}
 @media(prefers-reduced-motion:reduce){#matchPitch .match-ball{transition:none}}
 </style><style id="bearfc-match-hide-overall">#matchPitch .offline-card-details{display:none!important}</style>
-<style>.player-career-panel{margin:20px 0;padding:16px;border:1px solid #fb923c33;border-radius:18px;background:#1b121c}.player-career-panel summary{cursor:pointer;font-weight:800;color:#fdba74}.player-career-panel td{font-variant-numeric:tabular-nums}</style><style>.mission-hub{padding:22px;border-radius:22px}.mission-hub h3{font-size:22px;font-weight:900;color:#fdba74}.mission-hub>p{font-size:12px;color:#c7b6cb;line-height:1.7;margin:8px 0 18px}#missionCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.mission-card{padding:16px;border:1px solid #fb923c25;border-radius:16px;background:#180f1b;display:flex;flex-direction:column;gap:9px}.mission-card small{color:#c4a7d4;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.mission-card h4{font-size:14px;font-weight:800;flex:1}.mission-card p{font-size:12px;color:#fed7aa}.mission-card progress{width:100%;height:7px;accent-color:#fb923c}.mission-card button{padding:10px;border-radius:10px;background:#fb923c;color:#230c04;font-size:12px;font-weight:800}.mission-card button:disabled{background:#342738;color:#b6a4bc}@media(max-width:600px){#missionCards{grid-template-columns:1fr}.mission-hub{padding:18px}}</style></head>
+<style>.player-career-panel{margin:20px 0;padding:16px;border:1px solid #fb923c33;border-radius:18px;background:#1b121c}.player-career-panel summary{cursor:pointer;font-weight:800;color:#fdba74}.player-career-panel td{font-variant-numeric:tabular-nums}</style><style>.mission-hub{padding:22px;border-radius:22px}.mission-hub h3{font-size:22px;font-weight:900;color:#fdba74}.mission-hub>p{font-size:12px;color:#c7b6cb;line-height:1.7;margin:8px 0 18px}#missionCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.mission-card{padding:16px;border:1px solid #fb923c25;border-radius:16px;background:#180f1b;display:flex;flex-direction:column;gap:9px}.mission-card small{color:#c4a7d4;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.mission-card h4{font-size:14px;font-weight:800;flex:1}.mission-card p{font-size:12px;color:#fed7aa}.mission-card progress{width:100%;height:7px;accent-color:#fb923c}.mission-card button{padding:10px;border-radius:10px;background:#fb923c;color:#230c04;font-size:12px;font-weight:800}.mission-card button:disabled{background:#342738;color:#b6a4bc}@media(max-width:600px){#missionCards{grid-template-columns:1fr}.mission-hub{padding:18px}}</style><style>.goal-replay{position:relative;width:min(75%,360px);height:clamp(110px,22vh,190px);border:2px solid #fde68a88;border-radius:10px;overflow:hidden;box-shadow:0 8px 24px #0005}.goal-replay svg{width:100%;height:100%;display:block}.replay-ball{position:absolute;width:10px;height:10px;border-radius:50%;background:#fff;border:1px solid #222;transform:translate(-50%,-50%);box-shadow:0 0 10px #fff8}.match-event-banner.goal{gap:8px}.match-event-banner.goal strong{font-size:clamp(26px,5vw,48px)}@media(prefers-reduced-motion:reduce){.replay-ball{animation:none!important}}</style><style id="bearfc-real-goal-replay">
+.goal-replay.live-replay{width:min(90%,580px);height:clamp(145px,28vh,240px);background:#0c2015;border-color:#fde68aaa;overflow:hidden;perspective:850px}
+.live-replay-label{position:absolute;top:5px;left:8px;z-index:20;padding:3px 7px!important;border-radius:5px;background:#000a;color:#fff;font-size:9px!important;letter-spacing:.15em}
+.replay-match-pitch{position:absolute;inset:5px;border:1px solid #ffffff88;border-radius:5px;background:repeating-linear-gradient(90deg,#176534 0 10%,#1b7039 10% 20%);transform:rotateX(10deg) scale(.96)}
+.replay-match-pitch:before{content:'';position:absolute;left:50%;top:0;bottom:0;border-left:1px solid #ffffff88}.replay-match-pitch:after{content:'';position:absolute;left:50%;top:50%;width:18%;height:40%;border:1px solid #ffffff88;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.replay-player{position:absolute;transform:translate(-50%,-50%);transition:left .145s linear,top .145s linear;z-index:4;pointer-events:none}
+.replay-player .offline-card{width:27px!important;height:38px!important;padding:0;border-width:1px;box-shadow:3px 5px 6px #0006;transform:rotateX(-10deg);transition:transform .2s}
+.replay-player .offline-card-details{display:none!important}.replay-player .offline-card-name{font-size:5px!important;padding:1px}.replay-player .club-shirt{width:18px;height:18px;top:8px}.replay-player .offline-kit-strip{height:2px}.replay-player.away .offline-card{border-color:#93c5fd}
+.replay-player.replay-shooting .offline-card{transform:rotateX(-10deg) rotate(-9deg) scale(1.17);box-shadow:0 0 12px #fde68a}.replay-player.replay-scorer .offline-card{transform:scale(1.2);box-shadow:0 0 18px #fbbf24;border-color:#fff7c2}
+.replay-match-ball{--replay-lift:0px;position:absolute;z-index:9;width:8px;height:8px;border:1px solid #222;background:#fff;border-radius:50%;transform:translate(-50%,calc(-50% - var(--replay-lift)));transition:left .145s linear,top .145s linear;box-shadow:1px 3px 4px #0008;pointer-events:none}
+@media(max-width:600px){.replay-player .offline-card{width:22px!important;height:31px!important}.replay-player .offline-card-name{font-size:4px!important}}
+@media(prefers-reduced-motion:reduce){.replay-player,.replay-player .offline-card,.replay-match-ball{transition:none!important}}
+</style><style id="bearfc-closeup-goal">
+.goal-replay.closeup-goal{position:relative;width:min(94%,620px);height:clamp(175px,31vh,280px);background:radial-gradient(ellipse at 70% 0%,#334337,#07100c 65%);perspective:700px;overflow:hidden;border:1px solid #fde68a88;isolation:isolate}
+.closeup-crowd{position:absolute;inset:0 0 49%;background:repeating-radial-gradient(ellipse at 70% 130%,#dbe9bd33 0 1px,transparent 2px 9px),linear-gradient(180deg,#0d1410,#283b2d);border-bottom:2px solid #d3e5c833}
+.closeup-grass{position:absolute;inset:38% -40% -45%;background:repeating-linear-gradient(90deg,#1a652f 0 10%,#217a3b 10% 20%);transform:perspective(350px) rotateX(34deg);transform-origin:top center;box-shadow:inset 0 20px 30px #0003}
+.closeup-grass:after{content:'';position:absolute;left:50%;top:4%;width:36%;height:36%;border:2px solid #ffffff77}
+.closeup-goalmouth{position:absolute;left:57%;top:21%;width:32%;height:32%;border:4px solid #eef5ed;border-bottom:0;transform:perspective(300px) rotateY(-12deg);box-shadow:4px -3px 0 #8daca0;z-index:2}
+.closeup-net{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 9px,#ffffff55 9px 10px),repeating-linear-gradient(0deg,transparent 0 9px,#ffffff55 9px 10px),#060f0844;transform-origin:center;animation:closeupNet .6s 2.3s ease-out both}
+.closeup-light{position:absolute;top:-25%;width:16%;height:120%;background:linear-gradient(180deg,#fff4ba33,transparent);transform:rotate(24deg);filter:blur(3px);pointer-events:none}.closeup-light.light-a{left:24%}.closeup-light.light-b{right:6%;transform:rotate(-20deg)}
+.closeup-shooter{position:absolute;left:13%;top:48%;z-index:6;transform-origin:bottom center;animation:closeupRun 1.05s ease-out both,closeupKick .4s 1.05s ease-in-out forwards,closeupCelebrate 1s 2.7s ease-out forwards}
+.closeup-shooter:before{content:'';position:absolute;bottom:-7px;left:0;width:100%;height:12px;background:#0006;border-radius:50%;filter:blur(3px)}
+.closeup-shooter .offline-card{width:clamp(48px,11vw,76px)!important;height:clamp(68px,16vw,106px)!important;padding:0;box-shadow:0 10px 25px #0009;border-width:2px;background:#172d1d}
+.closeup-shooter .offline-card-details,.closeup-keeper .offline-card-details{display:none!important}.closeup-shooter .offline-card-name{font-size:8px!important}.closeup-shooter .club-shirt{width:40px;height:40px;top:18px}
+.closeup-keeper{position:absolute;left:70%;top:30%;z-index:3;transform-origin:bottom center;animation:closeupDive .85s 1.5s ease-out forwards}.closeup-keeper .offline-card{width:30px!important;height:43px!important;padding:0;border-color:#cbd5e1}.closeup-keeper .offline-card-name{font-size:5px!important}.closeup-keeper .club-shirt{width:20px;height:20px;top:10px}
+.closeup-football{position:absolute;left:26%;top:79%;z-index:7;font-size:22px;line-height:1;transform:translate(-50%,-50%);filter:drop-shadow(0 3px 2px #0007);animation:closeupShot 1.15s 1.18s cubic-bezier(.2,.3,.7,1) forwards}
+.closeup-ball-shadow{position:absolute;left:26%;top:86%;width:20px;height:6px;background:#0006;border-radius:50%;filter:blur(2px);animation:closeupShadow 1.15s 1.18s forwards}
+.closeup-impact{position:absolute;left:76%;top:34%;width:32px;height:32px;border:2px solid #fde68a;border-radius:50%;opacity:0;z-index:8;animation:closeupGoalBurst .7s 2.28s ease-out forwards}
+.closeup-label{position:absolute;left:8px;top:7px;padding:4px 7px!important;font-size:9px!important;background:#0008;letter-spacing:.13em;border-radius:5px;color:#e6f2e9}
+.closeup-celebration{position:absolute;bottom:7px;left:36%;right:5%;font-size:clamp(11px,3vw,17px);font-weight:900;color:#fff4ba;text-shadow:0 2px 10px #000;text-align:right;opacity:0;animation:closeupText .5s 2.7s forwards;z-index:10}
+@keyframes closeupRun{from{transform:translateX(-25px) scale(.88)}to{transform:translateX(20px) scale(1)}}
+@keyframes closeupKick{0%{transform:translateX(20px) rotate(0)}35%{transform:translateX(15px) rotate(-12deg)}75%{transform:translateX(25px) rotate(10deg)}100%{transform:translateX(22px) rotate(0)}}
+@keyframes closeupCelebrate{0%{transform:translateX(22px) scale(1);filter:drop-shadow(0 0 0 #fbbf24)}45%{transform:translate(22px,-12px) scale(1.1);filter:drop-shadow(0 0 16px #fbbf24)}100%{transform:translateX(22px) scale(1.05);filter:drop-shadow(0 0 12px #fbbf24)}}
+@keyframes closeupShot{0%{left:26%;top:79%;transform:translate(-50%,-50%) scale(1)}50%{left:52%;top:42%;transform:translate(-50%,-50%) rotate(180deg) scale(.8)}100%{left:78%;top:35%;transform:translate(-50%,-50%) rotate(360deg) scale(.5)}}
+@keyframes closeupShadow{to{left:78%;top:53%;opacity:.25;transform:scale(.5)}}
+@keyframes closeupDive{to{transform:translateX(-22px) rotate(-55deg)}}
+@keyframes closeupNet{0%,100%{transform:translateX(0)}35%{transform:translateX(7px) scale(1.04)}65%{transform:translateX(-2px)}}
+@keyframes closeupGoalBurst{0%{opacity:1;transform:scale(.1)}100%{opacity:0;transform:scale(3)}}
+@keyframes closeupText{to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.closeup-goal *{animation:none!important}.closeup-football{left:78%;top:35%;font-size:12px}.closeup-celebration{opacity:1}}
+</style><style id="bearfc-club-visuals">
+.club-home-hero{padding:26px!important;position:relative;overflow:hidden}.club-home-top{display:flex;align-items:center;gap:18px;margin-top:20px}.club-home-top h3{font-size:clamp(24px,5vw,38px);font-weight:900}.club-home-top .club-shirt{width:70px;height:70px}.club-home-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}.club-home-overview div{padding:12px;border-radius:14px;background:#0003;border:1px solid #ffffff0d}.club-home-overview small{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#baa7c4;margin-bottom:6px}.club-home-overview strong{font-size:13px;color:#f5e8cf}.club-home-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}.club-home-actions button{padding:12px 18px;border-radius:12px;font-weight:800;background:#fb923c;color:#210e04}.club-home-actions button:last-child{background:#35213a;color:#eee2f3}
+#homeFormationCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(76px,1fr));gap:8px}.club-home-hero .home-player-card{height:115px;min-height:0;border-radius:12px}.club-home-hero .home-card-info{padding:7px}.club-home-hero .home-rating{font-size:18px}.club-home-hero .home-name{font-size:9px}.club-home-hero .home-pos{font-size:7px}
+#collectionGrid .card-legendary:not(.card-halloween),#collectionGrid .card-mythic:not(.card-halloween){position:relative;isolation:isolate;box-shadow:0 8px 28px #0005,0 0 18px #fbbf2422}
+#collectionGrid .card-legendary:not(.card-halloween):after,#collectionGrid .card-mythic:not(.card-halloween):after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,#fff4c344 48%,transparent 62%);transform:translateX(-130%);pointer-events:none;z-index:4}
+#collectionGrid .card-legendary:hover:after,#collectionGrid .card-legendary:active:after,#collectionGrid .card-mythic:hover:after,#collectionGrid .card-mythic:active:after{animation:clubCardShine .8s ease-out forwards}#cardInspectorModal .card-mythic{box-shadow:0 0 25px #fff6,0 0 55px #fbbf2444}
+.match-pitch-shell{background:radial-gradient(ellipse at center,#23482b55,transparent 70%),repeating-linear-gradient(0deg,#34493822 0 2px,transparent 2px 7px),#08110c;border-top:3px solid #8caf8a44;border-bottom:3px solid #8caf8a44}.match-pitch-shell:before,.match-pitch-shell:after{content:'';position:absolute;top:0;width:45%;height:50%;background:linear-gradient(180deg,#eaffdc22,transparent);clip-path:polygon(0 0,8% 0,100% 100%,30% 100%);pointer-events:none;z-index:2}.match-pitch-shell:before{left:0}.match-pitch-shell:after{right:0;transform:scaleX(-1)}#matchPitch{box-shadow:0 12px 0 #17321a,0 15px 0 #55714b,0 22px 30px #0008}
+.club-screen{position:fixed;inset:0;z-index:1000003;display:grid;place-items:center;padding:18px;background:#070a0def;backdrop-filter:blur(8px);color:#f4edf7}.club-screen.hidden{display:none}.club-screen-box{width:min(880px,100%);max-height:92dvh;overflow-y:auto;padding:30px;border-radius:28px;border:1px solid #fb923c44;background:radial-gradient(ellipse at 50% 0%,#3a2543,#17101e 65%);text-align:center;box-shadow:0 25px 70px #0008}.club-screen h2{font-size:clamp(26px,5vw,42px);font-weight:900;margin:12px 0}.screen-kicker{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#fdba74;font-weight:800}.pre-match-versus{display:grid;grid-template-columns:1fr 40px 1fr;align-items:center;gap:14px;margin:30px 0}.pre-match-versus>span{font-size:22px;font-weight:900;color:#c4a7d1}.pre-match-versus h3{font-size:18px;font-weight:900}.pre-match-versus p{font-size:12px;color:#fed7aa;margin:8px 0}.pre-match-cards{display:flex;justify-content:center;gap:7px;align-items:center}.pre-match-cards .club-shirt{width:38px;height:38px}.pre-match-cards>.offline-card{width:64px;height:90px;animation:clubCardArrival .5s both}.pre-match-cards>.offline-card:nth-child(3){animation-delay:.1s}.pre-match-cards>.offline-card:nth-child(4){animation-delay:.2s}.screen-primary,.screen-secondary{min-height:46px;padding:13px 22px;border-radius:13px;font-weight:900;margin:8px;cursor:pointer}.screen-primary{background:#fb923c;color:#220e04}.screen-secondary{background:#ffffff0a;border:1px solid #ffffff22;color:#e9d9ef}.screen-note{font-size:12px;color:#bda9c9}.result-big-score{font-size:clamp(52px,12vw,88px);font-weight:900;letter-spacing:-.06em}.result-coins{margin:18px auto;color:#fdba74;font-weight:900;padding:12px;border:1px solid #fb923c33;border-radius:12px;max-width:450px}.result-details{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0}.result-details section{padding:18px;background:#ffffff04;border-radius:18px;border:1px solid #ffffff0d}.result-details h3{font-weight:800;margin:8px 0}.result-details p,.result-details small{font-size:12px;line-height:1.7;color:#d6c3df}#resultBestCard{display:flex;justify-content:center;margin:12px}#resultBestCard .offline-card{width:100px;height:140px;box-shadow:0 0 28px #fbbf2422}.result-details small{font-size:10px}
+@keyframes clubCardShine{to{transform:translateX(130%)}}@keyframes clubCardArrival{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.club-home-hero{padding:20px!important}.club-home-overview{gap:7px}.club-home-overview div{padding:9px}.club-home-overview strong{font-size:11px}#homeFormationCards{grid-template-columns:repeat(4,1fr)}.club-screen-box{padding:20px 12px}.pre-match-versus{gap:5px;grid-template-columns:1fr 24px 1fr}.pre-match-versus h3{font-size:14px}.pre-match-cards{gap:4px;flex-wrap:wrap}.pre-match-cards .club-shirt{width:28px;height:28px}.pre-match-cards>.offline-card{width:42px;height:63px}.pre-match-cards .offline-card-name,.pre-match-cards .offline-card-details{font-size:6px}.result-details{grid-template-columns:1fr}.result-details section{padding:12px}}
+@media(prefers-reduced-motion:reduce){.pre-match-cards>.offline-card,#collectionGrid .card-legendary:after,#collectionGrid .card-mythic:after{animation:none!important}}
+
+</style><style id="bearfc-realistic-field">
+#matchPitch{border:0!important;margin:35px 17px!important;background:linear-gradient(0deg,#0000000a,transparent 45%,#ffffff05),repeating-linear-gradient(90deg,#1b6e35 0 10%,#237c40 10% 20%)!important;box-shadow:0 10px 0 #123719,0 12px 0 #546d47,0 20px 28px #0007}
+#matchPitch:before,#matchPitch:after{display:none!important}
+.pitch-architecture{position:absolute;inset:0;pointer-events:none;z-index:0}.pitch-architecture svg{display:block;width:100%;height:100%;filter:drop-shadow(0 1px 1px #0002)}
+.stadium-supporters{position:absolute;left:12px;right:12px;height:27px;pointer-events:none;z-index:1;border:1px solid #7f918333;border-radius:7px;background-color:#15201b;background-image:radial-gradient(circle at 4px 4px,#ef4444 0 1.4px,transparent 1.8px),radial-gradient(circle at 12px 8px,#60a5fa 0 1.5px,transparent 1.9px),radial-gradient(circle at 21px 4px,#fbbf24 0 1.4px,transparent 1.8px),radial-gradient(circle at 31px 9px,#f3f4f6 0 1.5px,transparent 1.9px),radial-gradient(circle at 36px 3px,#4ade80 0 1.3px,transparent 1.8px),linear-gradient(0deg,#0007,transparent);background-size:42px 14px,42px 14px,42px 14px,42px 14px,42px 14px,100% 100%;box-shadow:inset 0 -4px 6px #0005}
+.supporters-top{top:3px}.supporters-bottom{bottom:3px;transform:rotate(180deg)}
+@media(max-width:600px){#matchPitch{margin:29px 9px!important}.stadium-supporters{height:23px;left:6px;right:6px}.pitch-architecture svg{filter:none}}
+</style><style id="bearfc-visible-supporters">
+.stadium-supporters{height:36px;background-color:#1b2522;background-image:radial-gradient(ellipse at 5px 7px,#ff625f 0 2.5px,transparent 2.9px),radial-gradient(ellipse at 16px 13px,#72b8ff 0 2.6px,transparent 3px),radial-gradient(ellipse at 28px 6px,#ffe16b 0 2.5px,transparent 2.9px),radial-gradient(ellipse at 39px 12px,#fff 0 2.6px,transparent 3px),radial-gradient(ellipse at 47px 5px,#69ed92 0 2.4px,transparent 2.9px),linear-gradient(0deg,#0005,transparent);background-size:54px 18px,54px 18px,54px 18px,54px 18px,54px 18px,100% 100%;animation:bearSupporterJump 1.7s ease-in-out infinite;box-shadow:inset 0 -3px 6px #0004,0 0 10px #ffffff08}
+.supporters-bottom{animation-delay:.65s}
+#matchPitch{margin-top:44px!important;margin-bottom:44px!important}
+@keyframes bearSupporterJump{0%,100%{background-position:0 0,0 0,0 0,0 0,0 0,0 0}25%{background-position:0 -3px,0 0,0 -4px,0 0,0 -2px,0 0}55%{background-position:0 0,0 -4px,0 0,0 -3px,0 0,0 0}80%{background-position:0 -2px,0 0,0 -3px,0 0,0 -4px,0 0}}
+@media(max-width:600px){.stadium-supporters{height:32px}#matchPitch{margin-top:38px!important;margin-bottom:38px!important}}
+@media(prefers-reduced-motion:reduce){.stadium-supporters{animation:none!important}}
+</style>
+<style id="bearfc-keeper-save">#matchPitch .match-player.keeper-diving .offline-card{transform:perspective(400px) rotateX(-14deg) rotate(var(--keeper-lean,22deg));transition:transform .22s ease;box-shadow:0 3px 12px #0008}@media(prefers-reduced-motion:reduce){#matchPitch .match-player.keeper-diving .offline-card{transition:none}}</style></head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden halloween-event">
 <!-- BEAR FC STADIUM ENTRANCE -->
 <div id="bearCinematicIntro" role="dialog" aria-modal="true" aria-labelledby="bearIntroTitle">
@@ -1512,25 +1579,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                         <button id="claimApologyCoinsBtn" type="button" onclick="claimApologyCoins()" style="padding:12px 18px; border:0; border-radius:12px; background:#fbbf24; color:#050706; font-weight:800; cursor:pointer;">Riscatta 100 FC Coins di scuse</button>
                     </div>
                     <!-- Welcome Banner -->
-                    <div class="glass p-6 rounded-3xl relative overflow-hidden bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-amber-950/30 border border-slate-800">
-                        <div class="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div>
-                                <span class="px-3 py-1 bg-amber-500/20 border border-amber-500/30 text-amber-400 text-[10px] font-bold uppercase tracking-wider rounded-full">Stagione 2026</span>
-                                <div class="creepy-season-label">🎃 La notte di BEAR FC</div><h2 class="text-3xl font-extrabold text-white mt-2">Benvenuto, <span id="welcomeManagerName" class="text-amber-400">Allenatore</span>!</h2>
-                                <p class="text-sm text-slate-400 mt-1">Il quartier generale di BEAR FC è pronto. Gestisci i tuoi pacchetti, colleziona le stelle del calcio e domina il campo.</p>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <button onclick="switchTab('packs')" class="px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-2xl text-sm shadow-lg shadow-amber-500/20 transition flex items-center gap-2">
-                                    <i class="fa-solid fa-box-open"></i> Apri Pacchetto Gratis
-                                </button>
-                                <button onclick="showMaintenance()" class="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl text-sm border border-slate-700 transition flex items-center gap-2">
-                                    <i class="fa-solid fa-futbol text-emerald-400"></i> Gioca Partita
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
+<div class="glass club-home-hero"><span class="screen-kicker">IL TUO QUARTIER GENERALE</span><div class="creepy-season-label">🎃 La notte di BEAR FC</div><h2 class="text-3xl font-extrabold text-white mt-2">Benvenuto, <span id="welcomeManagerName" class="text-amber-400">Allenatore</span>!</h2><div class="club-home-top"><div id="clubHomeKit"></div><div><h3 id="clubHomeName">BEAR FC</h3><p>La tua squadra. Le tue carte. La tua storia.</p></div></div><div class="club-home-overview"><div><small>Prossimo avversario</small><strong id="clubHomeNext"></strong></div><div><small>Miglior marcatore</small><strong id="clubHomeScorer"></strong></div><div><small>Forza squadra</small><strong id="clubHomeRating"></strong></div></div><div class="club-home-actions"><button onclick="openOfflineMatch()">⚽ Gioca partita</button><button onclick="switchTab('packs')">🎁 Apri pacchetti</button><button onclick="switchTab('squad')">La tua formazione</button></div><div id="homeFormationCards"></div></div>
 <section class="glass mission-hub"><h3>🎯 Missioni del club</h3><p>Tre obiettivi diversi ogni giorno, anche a rotazione. Le missioni settimanali si rinnovano il lunedì. Premi riscattabili una sola volta · progresso dalle nuove partite concluse.</p><div id="missionCards"></div></section>
                     <!-- Quick Stats Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -2536,6 +2585,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                 }
                 grid.appendChild(el);
             });
+            if(typeof window.renderClubHome==='function')window.renderClubHome();
         }
 
         function calculateSquadRating() {
@@ -4252,7 +4302,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     </div>
     <div class="match-time-strip"><strong id="matchHalfLabel">1° TEMPO</strong><span id="matchGameMinute">0′ 00″</span><span>5 minuti reali per tempo</span></div>
     <div id="matchKitLegend" class="offline-kit-legend"></div>
-    <div class="match-pitch-shell"><div id="matchPitch" class="match-pitch"></div><div id="matchEventBanner" class="match-event-banner hidden" aria-live="polite"><strong id="matchEventTitle"></strong><span id="matchEventSubtitle"></span><button id="startSecondHalfBtn" type="button" onclick="startOfflineSecondHalf()">Inizia secondo tempo</button></div></div>
+    <div class="match-pitch-shell"><div class="stadium-supporters supporters-top" aria-hidden="true"></div><div class="stadium-supporters supporters-bottom" aria-hidden="true"></div><div id="matchPitch" class="match-pitch"></div><div id="matchEventBanner" class="match-event-banner hidden" aria-live="polite"><strong id="matchEventTitle"></strong><span id="matchEventSubtitle"></span><button id="startSecondHalfBtn" type="button" onclick="startOfflineSecondHalf()">Inizia secondo tempo</button></div></div>
     <div id="matchStats" class="match-stats"></div>
     <div id="matchPlayerDetail" style="min-height:22px;color:#fde68a;font-size:12px;padding:6px;">Tocca una carta per vedere nome e valutazione.</div>
     <details class="match-roster-details"><summary>Le tue carte in campo</summary><div id="matchOurCards" class="offline-match-roster"></div></details>
@@ -4349,7 +4399,9 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       return {slot,player:p||makeBot(slot,i,'home',USER),bot:!p,side:'home',x,y,baseX:x,baseY:y};
     });
   }
-  function strength(name){if(name===USER)return 62;let hash=0;for(const ch of name)hash=(hash*31+ch.charCodeAt(0))>>>0;return 66+hash%16;}
+  // Valori di gioco indicativi, non rating ufficiali: gerarchia italiana ispirata ai risultati 2025/26.
+  const CLUB_STRENGTH={Inter:87,Napoli:85,Roma:82,Como:81,Milan:83,Juventus:84,Atalanta:81,Bologna:78,Lazio:79,Udinese:75,Sassuolo:74,Torino:74,Parma:72,Cagliari:71,Fiorentina:77,Genoa:72,Lecce:69,Monza:68,Venezia:67,Frosinone:67,'Real Madrid':89,'Manchester City':88,'Bayern Monaco':88,Barcellona:88,'Paris Saint-Germain':89,Liverpool:87,Porto:80,Ajax:79,Tottenham:82,'Real Sociedad':79,Lione:78,Benfica:81};
+  function strength(name){if(name===USER)return typeof currentUser!=='undefined'&&currentUser?Math.round(ownedLineup().reduce((sum,p)=>sum+(Number(p.player.rating)||50),0)/11):62;return CLUB_STRENGTH[name]||72;}
   function makeBot(slot,i,side,name){const names=['Rossi','Costa','Moretti','Silva','Romano','Martin','Greco','Lopez','Conti','Muller','Bianchi'];const value=side==='home'?48+(i%7):strength(name)+(i%5)-2;return {id:`bot_${side}_${i}`,name:side==='home'?`BOT ${slot}`:`${names[(i+name.length)%names.length]}`,pos:slot,rating:value,pace:value,shoot:slot==='GK'?25:value,pass:value,drib:value,def:value,phys:value};}
   // Simplified home shirts using the clubs' traditional colours.
   const CLUB_KITS={
@@ -4379,6 +4431,45 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     const grid=$('offlineLineup');if(!grid)return;grid.innerHTML='';const lineup=ownedLineup();lineup.forEach(p=>{const cell=document.createElement('div');cell.className='offline-lineup-slot';cell.appendChild(miniCard(p.player,'home',club()));const role=document.createElement('div');role.textContent=p.slot;cell.appendChild(role);grid.appendChild(cell);});
     const owned=lineup.filter(p=>!p.bot).length,avg=Math.round(lineup.reduce((s,p)=>s+p.player.rating,0)/11);set('offlineLineupSummary',`${owned} carte schierate · ${11-owned} BOT di supporto (48–54 OVR) · Squadra ${avg} OVR`);
   }
+  let pendingPresentation=null;
+  function renderClubHome(){
+    if(typeof currentUser==='undefined'||!currentUser)return;
+    set('clubHomeName',club().name);const kit=$('clubHomeKit');if(kit){kit.innerHTML='';kit.appendChild(kitNode(club()));}
+    const season=load('seriea'),next=fixture(season);set('clubHomeNext',season.completed?'Campionato concluso':next?display(next.find(n=>n!==USER)):'Turno di riposo');
+    const best=Object.entries(currentUser.playerCareer||{}).filter(([,s])=>s.goals>0).sort((a,b)=>b[1].goals-a[1].goals)[0];
+    const player=best&&ALL_PLAYERS.find(p=>p.id===best[0]);set('clubHomeScorer',player?player.name+' · '+best[1].goals+' gol':'Il primo gol ti aspetta');
+    set('clubHomeRating',Math.round(ownedLineup().reduce((sum,p)=>sum+p.player.rating,0)/11)+' OVR');
+  }
+  window.renderClubHome=renderClubHome;
+  function previewSide(container,side,kit){
+    const box=$(container);if(!box)return;box.innerHTML='';box.appendChild(kitNode(kit));
+    players.filter(p=>p.side===side).sort((a,b)=>b.player.rating-a.player.rating).slice(0,3).forEach(p=>{const card=miniCard(p.player,side,kit);card.onclick=null;card.tabIndex=-1;box.appendChild(card);});
+  }
+  function showMatchPresentation(snap){
+    pendingPresentation=snap;
+    const our=ownedLineup(),opponent=FORM.map(([slot],i)=>({player:makeBot(slot,i,'away',snap.opponent)}));
+    set('preMatchCompetition',CONFIG[snap.kind].name);set('preMatchHomeName',club().name);set('preMatchAwayName',snap.opponent);
+    set('preMatchHomeRating',Math.round(our.reduce((s,p)=>s+p.player.rating,0)/11)+' OVR');set('preMatchAwayRating',Math.round(opponent.reduce((s,p)=>s+p.player.rating,0)/11)+' OVR');
+    for(const [id,lineup,kit] of [['preMatchHomeCards',our,club()],['preMatchAwayCards',opponent,opponentKit(snap.opponent)]]){
+      const box=$(id);box.innerHTML='';box.appendChild(kitNode(kit));lineup.slice().sort((a,b)=>b.player.rating-a.player.rating).slice(0,3).forEach(p=>{const card=miniCard(p.player,id==='preMatchHomeCards'?'home':'away',kit);card.onclick=null;card.tabIndex=-1;box.appendChild(card);});
+    }
+    $('matchPresentation').classList.remove('hidden');
+  }
+  window.startPresentedMatch=function(){
+    const snap=pendingPresentation;if(!snap)return;const season=load(snap.kind);if(season.id!==snap.seasonId||season.round!==snap.round){pendingPresentation=null;$('matchPresentation').classList.add('hidden');alert('Il calendario è cambiato. Riapri la partita.');return;}
+    pendingPresentation=null;$('matchPresentation').classList.add('hidden');openLive(snap);
+  };
+  window.closeMatchPresentation=function(){pendingPresentation=null;$('matchPresentation').classList.add('hidden');};
+  function showMatchResult(match,reward,bonus,winner){
+    set('resultHeadline',winner?winner===USER?'Vittoria ai rigori':'Sconfitta ai rigori':match.score.home>match.score.away?'Vittoria!':match.score.home===match.score.away?'Pareggio':'Sconfitta');
+    set('resultScore',match.score.home+' – '+match.score.away);set('resultTeams',club().name+' · '+match.opponent);set('resultCoins','+'+reward+' FC Coins'+(bonus?' · +'+bonus+' bonus trofeo':''));
+    const ours=players.filter(p=>p.side==='home');const ranked=ours.map(p=>({p,stats:match.playerPerformance?.[p.player.id]||{goals:(match.goalEvents||[]).filter(e=>e.side==='home'&&e.id===p.player.id).length,assists:0}})).sort((a,b)=>b.stats.goals*3+b.stats.assists*2-(a.stats.goals*3+a.stats.assists*2)||b.p.player.rating-a.p.player.rating);
+    const best=ranked[0],cardBox=$('resultBestCard');cardBox.innerHTML='';if(best){const card=miniCard(best.p.player,'home',club());card.onclick=null;card.tabIndex=-1;cardBox.appendChild(card);set('resultBestName',best.p.player.name);set('resultBestStats',best.stats.goals+' gol · '+best.stats.assists+' assist');}
+    const scorers=$('resultScorers');scorers.innerHTML='';for(const goal of match.goalEvents||[]){const p=document.createElement('p');p.textContent=goal.minute+'′ · '+goal.name+' · '+(goal.side==='home'?club().name:match.opponent);scorers.appendChild(p);}if(!(match.goalEvents||[]).length)scorers.textContent='Nessun marcatore registrato.';
+    $('matchResultPanel').classList.remove('hidden');
+  }
+  window.closeMatchResult=function(){$('matchResultPanel').classList.add('hidden');$('offlineMatchOverlay').classList.remove('show');render();renderClubHome();};
+
   function render(){
     const s=load(),cfg=CONFIG[selected],f=fixture(s),d=daily(),active=read(activeKey());
     set('offlineCompetitionTitle',cfg.name);set('offlineCompetitionFormat',cfg.format+' · Premio al vincitore: '+cfg.bonus+' FC Coins');set('leagueRound',phase(s));set('dailyMatchCount',d.count);set('bearPoints',s.teams[USER].pts);set('bearWins',s.teams[USER].w);set('bearPlayed',s.teams[USER].pg);
@@ -4387,10 +4478,10 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     const body=$('serieATableBody');if(body){body.innerHTML='';standings(s).forEach((t,i)=>{const row=document.createElement('tr');if(t.name===USER)row.className='beart';[i+1,display(t.name),t.pg,t.w,t.d,t.l,t.gf,t.ga,t.gf-t.ga,t.pts].forEach(v=>{const td=document.createElement('td');td.textContent=v;row.appendChild(td);});body.appendChild(row);});}
     const bracket=$('offlineFixtures');if(bracket){bracket.innerHTML='';fixtures(s).forEach(([a,b])=>{const p=document.createElement('p');p.textContent=`${display(a)} — ${display(b)}`;if(a===USER||b===USER)p.style.color='#fbbf24';bracket.appendChild(p);});}
     const history=$('leagueRecentResults');if(history){history.innerHTML='';s.history.slice(-8).reverse().forEach(item=>{const p=document.createElement('p');p.textContent=`${item.phase||`G${item.round}`} · ${display(item.home)} ${item.hg}–${item.ag} ${display(item.away)}${item.penaltyWinner?` · Rigori: ${display(item.penaltyWinner)}`:''}${item.reward?` · +${item.reward} FC`:''}`;history.appendChild(p);});if(!s.history.length)history.textContent='Nessuna partita giocata in questa competizione.';}
-    document.querySelectorAll('[data-competition]').forEach(btn=>{const kind=btn.dataset.competition,allowed=access(kind);btn.setAttribute('aria-pressed',String(kind===selected));btn.setAttribute('aria-disabled',String(!allowed));btn.classList.toggle('competition-locked',!allowed);const label=btn.querySelector('small');if(label)label.textContent=allowed?(kind==='seriea'?'Andata e ritorno · classifica':kind==='coppa'?'Aperta a tutti · eliminazione diretta':'Qualificato · competizione disponibile'):'🔒 '+requirement(kind);btn.title=allowed?'Apri competizione':requirement(kind);});renderLineup();renderPlayerCareer();renderMissions();
+    document.querySelectorAll('[data-competition]').forEach(btn=>{const kind=btn.dataset.competition,allowed=access(kind);btn.setAttribute('aria-pressed',String(kind===selected));btn.setAttribute('aria-disabled',String(!allowed));btn.classList.toggle('competition-locked',!allowed);const label=btn.querySelector('small');if(label)label.textContent=allowed?(kind==='seriea'?'Andata e ritorno · classifica':kind==='coppa'?'Aperta a tutti · eliminazione diretta':'Qualificato · competizione disponibile'):'🔒 '+requirement(kind);btn.title=allowed?'Apri competizione':requirement(kind);});renderLineup();renderPlayerCareer();renderMissions();renderClubHome();
   }
   function applyResult(s,a,b,ga,gb){const x=s.teams[a],y=s.teams[b];x.pg++;y.pg++;x.gf+=ga;x.ga+=gb;y.gf+=gb;y.ga+=ga;if(ga>gb){x.w++;y.l++;x.pts+=3;}else if(gb>ga){y.w++;x.l++;y.pts+=3;}else{x.d++;y.d++;x.pts++;y.pts++;}}
-  function goals(name){let n=0;for(let i=0;i<6;i++)if(Math.random()<.22+(strength(name)-66)/250)n++;return n;}
+  function goals(name){let n=0;for(let i=0;i<6;i++)if(Math.random()<.16+(strength(name)-66)/170)n++;return n;}
   function advance(s,played=null){
     const winners=[],label=phase(s);fixtures(s).forEach(([a,b])=>{
       const isPlayed=played?.home===a&&played.away===b,hg=isPlayed?played.hg:goals(a),ag=isPlayed?played.ag:goals(b);
@@ -4410,7 +4501,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(snap?.players){players=snap.players;return;}
     players=ownedLineup();FORM.forEach(([slot,x,y],i)=>players.push({slot,player:makeBot(slot,i,'away',live.opponent),bot:true,side:'away',x:100-x,y,baseX:x,baseY:y}));
   }
-  function renderPitch(){const pitch=$('matchPitch');pitch.innerHTML='';players.forEach((p,i)=>{const item=document.createElement('div');item.id=`mp-${i}`;item.className=`match-player ${p.side} ${p.bot?'bot':''}`;item.appendChild(miniCard(p.player,p.side,p.side==='home'?club():opponentKit(live.opponent)));const badge=document.createElement('span');badge.className='discipline-badge';item.appendChild(badge);pitch.appendChild(item);});const ball=document.createElement('div');ball.id='simBall';ball.className='match-ball';pitch.appendChild(ball);updatePitch();
+  function renderPitch(){const pitch=$('matchPitch');pitch.innerHTML="<div class=\"pitch-architecture\" aria-hidden=\"true\"><svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\"><g fill=\"none\" stroke=\"#f3faf0\" stroke-width=\".45\" opacity=\".92\"><rect x=\"3\" y=\"4\" width=\"94\" height=\"92\"/><path d=\"M50 4V96\"/><ellipse cx=\"50\" cy=\"50\" rx=\"8.8\" ry=\"15\"/><path d=\"M3 24H19V76H3 M97 24H81V76H97 M3 37H9V63H3 M97 37H91V63H97\"/><path d=\"M19 39A9 15 0 0 1 19 61 M81 39A9 15 0 0 0 81 61\"/><path d=\"M3 8Q7 8 7 4 M93 4Q93 8 97 8 M3 92Q7 92 7 96 M93 96Q93 92 97 92\"/></g><g fill=\"#f3faf0\"><ellipse cx=\"50\" cy=\"50\" rx=\".55\" ry=\".9\"/><ellipse cx=\"14\" cy=\"50\" rx=\".45\" ry=\".75\"/><ellipse cx=\"86\" cy=\"50\" rx=\".45\" ry=\".75\"/></g><g class=\"field-goal-net\" fill=\"#dcebe41c\" stroke=\"#ffffff66\" stroke-width=\".18\"><path d=\"M.5 41H3V59H.5Z M97 41H99.5V59H97Z\"/><path d=\"M1.3 41V59 M2.1 41V59 M97.9 41V59 M98.7 41V59 M.5 44H3 M.5 47H3 M.5 50H3 M.5 53H3 M.5 56H3 M97 44H99.5 M97 47H99.5 M97 50H99.5 M97 53H99.5 M97 56H99.5\"/></g><g fill=\"none\" stroke=\"#fff\" stroke-width=\".65\"><path d=\"M3 41H.5V59H3 M97 41H99.5V59H97\"/></g></svg></div>";players.forEach((p,i)=>{const item=document.createElement('div');item.id=`mp-${i}`;item.className=`match-player ${p.side} ${p.bot?'bot':''}`;item.appendChild(miniCard(p.player,p.side,p.side==='home'?club():opponentKit(live.opponent)));const badge=document.createElement('span');badge.className='discipline-badge';item.appendChild(badge);pitch.appendChild(item);});const ball=document.createElement('div');ball.id='simBall';ball.className='match-ball';pitch.appendChild(ball);updatePitch();
     const strip=$('matchOurCards');if(strip){strip.innerHTML='';players.filter(p=>p.side==='home').forEach(p=>strip.appendChild(miniCard(p.player,'home',club())));}
     const kits=$('matchKitLegend');if(kits){kits.innerHTML='';kits.appendChild(kitNode(club()));const home=document.createElement('span');home.textContent=club().name;kits.appendChild(home);kits.appendChild(kitNode(opponentKit(live.opponent)));const away=document.createElement('span');away.textContent=live.opponent;kits.appendChild(away);}
   }
@@ -4425,24 +4516,37 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   function segmentDistance(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1)));return Math.hypot(p.x-(a.x+t*dx),p.y-(a.y+t*dy));}
   function eventText(message){set('matchStatus',message);live.events=live.events||[];live.events.unshift({minute:Math.floor(((live.half-1)*300+300-live.halfRemaining)*.15),text:message});live.events=live.events.slice(0,12);const log=$('matchEventLog');if(log){log.innerHTML='';live.events.slice(0,6).forEach(e=>{const row=document.createElement('p');row.textContent=`${e.minute}′ · ${e.text}`;log.appendChild(row);});}}
   function centerBanner(title,subtitle,kind='event'){
-    const box=$('matchEventBanner');if(!box)return;box.className=`match-event-banner ${kind}`;box.classList.remove('hidden');set('matchEventTitle',title);set('matchEventSubtitle',subtitle);const button=$('startSecondHalfBtn');if(button)button.style.display=kind==='halftime'?'inline-block':'none';
+    const box=$('matchEventBanner');if(!box)return;const oldReplay=box.querySelector('.goal-replay');if(oldReplay)oldReplay.remove();box.className=`match-event-banner ${kind}`;box.classList.remove('hidden');set('matchEventTitle',title);set('matchEventSubtitle',subtitle);const button=$('startSecondHalfBtn');if(button)button.style.display=kind==='halftime'?'inline-block':'none';
   }
   function hideBanner(){if($('matchEventBanner'))$('matchEventBanner').classList.add('hidden');}
   function resetPositions(){players.forEach(p=>{p.x=direction(p.side)>0?p.baseX:100-p.baseX;p.y=p.baseY;p.decisionDelay=0;});}
   function kickoff(side){live.lastCompletedPass=null;resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.decision=2;}
   function stats(){if(!live)return;const s=live.stats;const total=s.home.possession+s.away.possession||1;set('matchStats',`Possesso ${Math.round(s.home.possession/total*100)}%–${Math.round(s.away.possession/total*100)}% · Tiri ${s.home.shots}–${s.away.shots} · Corner ${s.home.corners}–${s.away.corners} · Falli ${s.home.fouls}–${s.away.fouls} · 🟨 ${s.home.yellow}–${s.away.yellow} · 🟥 ${s.home.red}–${s.away.red}`);}
   function updatePitch(){
-    players.forEach((p,i)=>{const n=$(`mp-${i}`);if(n){n.style.left=`${p.x}%`;n.style.top=`${p.y}%`;n.style.display=p.sentOff?'none':'';n.classList.toggle('active-ball',i===owner&&!live?.flight);const badge=n.querySelector('.discipline-badge');if(badge)badge.textContent=p.yellow?'🟨':'';}});
+    players.forEach((p,i)=>{const n=$(`mp-${i}`);if(n){n.style.left=`${p.x}%`;n.style.top=`${p.y}%`;n.style.display=p.sentOff?'none':'';n.classList.toggle('active-ball',i===owner&&!live?.flight);n.classList.toggle('keeper-diving',(p.keeperDiveUntil||0)>tick);n.style.setProperty('--keeper-lean',((p.keeperDiveDirection||1)*22)+'deg');const badge=n.querySelector('.discipline-badge');if(badge)badge.textContent=p.yellow?'🟨':'';}});
     const b=$('simBall');if(b&&live?.ball){b.style.left=`${live.ball.x}%`;b.style.top=`${live.ball.y}%`;const flight=live.flight,phase=flight?Math.min(1,flight.elapsed/flight.duration):0;const lift=flight?Math.sin(phase*Math.PI)*(flight.kind==='cross'?27:flight.kind==='shot'?12:3):0;b.style.setProperty('--ball-lift',lift+'px');}stats();
   }
-  function rating(side,stat){const ps=enabled(side);return ps.reduce((s,o)=>s+(Number(o.p.player[stat])||50),0)/(ps.length||1);}
+  function ability(player,stat){
+    const overall=Math.max(1,Math.min(110,Number(player.rating)||50));
+    const specialty=Math.max(1,Math.min(110,Number(player[stat])||overall));
+    return stat==='rating'?overall:overall*.75+specialty*.25;
+  }
+  function rating(side,stat){const ps=enabled(side);return ps.reduce((s,o)=>s+ability(o.p.player,stat),0)/(ps.length||1);}
   function updateScore(){if(!live)return;set('matchTeamsLabel',live.fixture[0]===USER?`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`:`${live.opponent} ${live.score.away}–${live.score.home} ${club().name}`);}
   function persist(){if(live)localStorage.setItem(activeKey(),JSON.stringify({...live,players,owner,tick,tactic}));}
   function deadBall(type,side,x,y,wait=3){live.lastCompletedPass=null;live.flight=null;owner=-1;live.deadBall={type,side,x,y,wait};live.ball={x,y};live.possession=side;}
   function card(offender,severe=false){
     const p=players[offender];if(!p||p.sentOff)return;const s=live.stats[p.side];
-    if(severe||p.yellow){p.sentOff=true;s.red++;if(!severe)eventText(`🟥 Secondo giallo: ${p.player.name} è espulso!`);else eventText(`🟥 Rosso diretto a ${p.player.name}!`);centerBanner('CARTELLINO ROSSO',p.player.name,'red');}
-    else{p.yellow=true;s.yellow++;eventText(`🟨 Ammonito ${p.player.name}.`);centerBanner('CARTELLINO GIALLO',p.player.name,'yellow');}
+    p.yellowCount=Math.max(Number(p.yellowCount)||0,p.yellow?1:0);
+    if(!severe){p.yellowCount++;p.yellow=true;s.yellow++;}
+    if(severe||p.yellowCount>=2){
+      p.sentOff=true;s.red++;
+      eventText(severe?'🟥 Rosso diretto a '+p.player.name+'!':'🟥 Secondo giallo: '+p.player.name+' è espulso!');
+      centerBanner('CARTELLINO ROSSO',p.player.name+(severe?' · Rosso diretto':' · Seconda ammonizione'),'red');
+      if(owner===offender){owner=-1;live.lastCompletedPass=null;}
+      if(live.flight&&(live.flight.from===offender||live.flight.to===offender)){live.flight=null;owner=nearest(live.ball.x,live.ball.y,other(p.side));live.possession=other(p.side);}
+    }else{eventText('🟨 Ammonito '+p.player.name+'.');centerBanner('CARTELLINO GIALLO',p.player.name,'yellow');}
+    updatePitch();persist();
   }
   function foul(offender,victim,force=null){
     const p=players[victim],d=players[offender];if(!p||!d||d.sentOff)return;
@@ -4450,9 +4554,9 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(force==='red'||Math.random()<.004)card(offender,true);else if(force==='yellow'||Math.random()<(d.yellow?.06:.18))card(offender);
     const dir=direction(p.side);deadBall(penalty?'penalty':'freeKick',p.side,penalty?(dir>0?88:12):p.x,penalty?50:p.y,4);
     eventText(penalty?`⚖️ Calcio di rigore per ${p.side==='home'?club().name:live.opponent}!`:`⚖️ Fallo su ${p.player.name}: calcio di punizione.`);
-    if(penalty)centerBanner('CALCIO DI RIGORE',p.side==='home'?club().name:live.opponent,'penalty');
+    if(penalty&&!d.sentOff)centerBanner('CALCIO DI RIGORE',p.side==='home'?club().name:live.opponent,'penalty');
   }
-  function corner(side,y){live.stats[side].corners++;const x=direction(side)>0?98:2;deadBall('corner',side,x,y<50?2:98,3);eventText(`🚩 Calcio d’angolo per ${side==='home'?club().name:live.opponent}.`);centerBanner('CALCIO D’ANGOLO',side==='home'?club().name:live.opponent,'corner');}
+  function corner(side,y){live.stats[side].corners++;const x=direction(side)>0?98:2;deadBall('corner',side,x,y<50?2:98,12);eventText(`🚩 Calcio d’angolo per ${side==='home'?club().name:live.opponent}.`);centerBanner('CALCIO D’ANGOLO',side==='home'?club().name:live.opponent,'corner');}
   const DAILY_MISSIONS={
     easy:[{id:'play1',text:'Completa una partita',metric:'played',target:1,reward:5},{id:'goal1',text:'Segna almeno un gol',metric:'goals',target:1,reward:5},{id:'assist1',text:'Realizza un assist con una tua carta',metric:'assists',target:1,reward:5}],
     medium:[{id:'goals3',text:'Segna 3 gol, anche in più partite',metric:'goals',target:3,reward:8},{id:'win1',text:'Vinci una partita',metric:'wins',target:1,reward:8},{id:'play3',text:'Completa 3 partite',metric:'played',target:3,reward:8},{id:'assists2',text:'Realizza 2 assist con le tue carte',metric:'assists',target:2,reward:8}],
@@ -4525,17 +4629,29 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(!rows.length){const row=document.createElement('tr'),cell=document.createElement('td');cell.colSpan=4;cell.textContent='Trova le tue carte nei pacchetti e schierale per iniziare.';row.appendChild(cell);body.appendChild(row);}
   }
   window.renderPlayerCareer=renderPlayerCareer;
-  function goal(side,scorer){
+  function showGoalReplay(shot,side,scorer){
+    const banner=$('matchEventBanner'),player=players[scorer];if(!banner||!player)return;
+    const scene=document.createElement('div');scene.className='goal-replay closeup-goal';scene.setAttribute('aria-label','Animazione ravvicinata: '+player.player.name+' calcia, il pallone entra in rete e la carta esulta.');
+    scene.innerHTML='<div class="closeup-crowd"></div><div class="closeup-light light-a"></div><div class="closeup-light light-b"></div><div class="closeup-grass"></div><div class="closeup-goalmouth"><div class="closeup-net"></div></div><div class="closeup-ball-shadow"></div><div class="closeup-football">⚽</div><div class="closeup-impact"></div><span class="closeup-label">CAMERA GOL</span>';
+    const shooter=document.createElement('div');shooter.className='closeup-shooter';const kit=side==='home'?club():opponentKit(live.opponent);
+    const card=miniCard(player.player,side,kit);card.onclick=null;card.tabIndex=-1;shooter.appendChild(card);scene.appendChild(shooter);
+    const keeper=enabled(other(side)).find(o=>o.p.slot==='GK');
+    if(keeper){const figure=document.createElement('div');figure.className='closeup-keeper';const keeperCard=miniCard(keeper.p.player,other(side),side==='home'?opponentKit(live.opponent):club());keeperCard.onclick=null;keeperCard.tabIndex=-1;figure.appendChild(keeperCard);scene.appendChild(figure);}
+    const celebration=document.createElement('div');celebration.className='closeup-celebration';celebration.textContent=player.player.name+' · GOL!';scene.appendChild(celebration);banner.appendChild(scene);
+  }
+  function goal(side,scorer,shot=null){
+    live.goalEvents=live.goalEvents||[];live.goalEvents.push({side,id:players[scorer]?.player.id,name:players[scorer]?.player.name||'Rete',minute:Math.floor(((live.half-1)*300+300-live.halfRemaining)*.15)});
+
     ensureMatchCareer();const scorerPlayer=players[scorer];
     if(side==='home'&&scorerPlayer&&!scorerPlayer.bot){live.playerPerformance[scorerPlayer.player.id].goals++;}
     const assist=live.lastCompletedPass;
     if(side==='home'&&assist&&assist.side===side&&assist.to===scorer&&assist.from!==scorer&&tick-assist.tick<=100&&!players[assist.from]?.bot&&live.playerPerformance[players[assist.from]?.player.id])live.playerPerformance[players[assist.from].player.id].assists++;
 
     live.score[side]++;updateScore();eventText(`⚽ GOL! ${players[scorer]?.player.name||'Rete'} · ${side==='home'?club().name:live.opponent}`);
-    centerBanner('GOOOL!',`${players[scorer]?.player.name||''} · ${live.score.home}–${live.score.away}`,'goal');deadBall('kickoff',other(side),50,50,4.5);
+    centerBanner('GOOOL!',`${players[scorer]?.player.name||''} · ${live.score.home}–${live.score.away}`,'goal');showGoalReplay(shot,side,scorer);deadBall('kickoff',other(side),50,50,5);
   }
   function pass(to,kind='pass'){
-    if(owner<0||!players[to]||players[to].sentOff)return;const from=owner,p=players[from],target=players[to];
+    if(owner<0||players[owner]?.sentOff||!players[to]||players[to].sentOff||players[to].side!==players[owner].side)return;const from=owner,p=players[from],target=players[to];
     live.flight={kind,side:p.side,from,to,start:{...live.ball},end:{x:target.x+direction(p.side)*1.5,y:target.y},elapsed:0,duration:Math.max(.85,Math.hypot(p.x-target.x,p.y-target.y)/23)};owner=-1;live.decision=2.2;
     if(kind==='cross')eventText(`🎯 Cross di ${p.player.name} verso ${target.player.name}.`);
   }
@@ -4561,43 +4677,93 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     return options[0]?.i??-1;
   }
   function shoot(index,penalty=false,header=false){
-    const p=players[index];if(!p||p.sentOff||(!penalty&&tick<(live.nextShotAt||0)))return;live.nextShotAt=tick+180;const side=p.side,dir=direction(side);live.stats[side].shots++;
-    const distance=Math.hypot((dir>0?100:0)-p.x,(50-p.y)*.65),keeper=enabled(other(side)).find(o=>o.p.slot==='GK'),finish=Number(p.player.shoot)||50,gk=keeper?Number(keeper.p.player.def)||65:30;
+    const p=players[index];if(!p||p.sentOff||(!penalty&&!header&&tick<(live.nextShotAt||0)))return;live.nextShotAt=tick+180;const side=p.side,dir=direction(side);live.stats[side].shots++;
+    const distance=Math.hypot((dir>0?100:0)-p.x,(50-p.y)*.65),keeper=enabled(other(side)).find(o=>o.p.slot==='GK'),finish=ability(p.player,'shoot'),gk=keeper?ability(keeper.p.player,'def'):30;
     // Better finishing from useful positions, with a gentle reduction in open, high-scoring games.
     const totalGoals=live.score.home+live.score.away;
     const finishingBalance=totalGoals>=5?.72:totalGoals>=3?.88:1;
-    const chance=penalty?Math.max(.52,Math.min(.87,.7+(finish-gk)/400)):Math.max(.05,Math.min(.28,.23-distance*.0065+(finish-gk)/850+(header?.025:0)))*finishingBalance;
-    const roll=Math.random();const outcome=roll<chance?'goal':roll<chance+.20?'corner':roll<chance+.70?'save':'miss';
-    live.flight={kind:'shot',side,from:index,start:{...live.ball},end:{x:dir>0?100:0,y:outcome==='miss'?(p.y<50?28:72):45+Math.random()*10},elapsed:0,duration:.65,outcome,penalty};owner=-1;
+    const openGameBoost=totalGoals===0&&live.half===2&&live.halfRemaining<180?.035:0;
+    const chance=penalty?Math.max(.52,Math.min(.87,.7+(finish-gk)/400)):Math.max(.05,Math.min(.28,.23-distance*.0065+(finish-gk)/850+(header?.025:0)+openGameBoost))*finishingBalance;
+    const roll=Math.random();let outcome=roll<chance?'goal':roll<chance+.20?'corner':roll<chance+.70?'save':'miss';if(!keeper&&outcome!=='miss')outcome='goal';
+    const goalX=dir>0?100:0,goalY=43+Math.random()*14;
+    const start={...live.ball},keeperX=dir>0?94:6;
+    const contactRatio=Math.max(.05,Math.min(.95,(keeperX-start.x)/(goalX-start.x||1)));
+    const contact={x:keeperX,y:start.y+(goalY-start.y)*contactRatio};
+    const end=outcome==='save'?contact:outcome==='miss'?{x:goalX,y:p.y<50?30:70}:{x:goalX,y:goalY};
+    live.flight={kind:'shot',side,from:index,start,end,elapsed:0,duration:.85,outcome,penalty,keeperIndex:keeper?.i??-1,contact,keeperTouched:false,contactFraction:contactRatio,goalEnd:{x:goalX,y:goalY},deflectEnd:{x:goalX,y:goalY<50?33:67}};owner=-1;
+    if(keeper&&outcome!=='miss'){keeper.p.keeperDiveUntil=tick+13;keeper.p.keeperDiveDirection=goalY<keeper.p.y?-1:1;}
+
     eventText(`${penalty?'🥅 Rigore':header?'🎯 Colpo di testa':'🔥 Tiro'} di ${p.player.name}!`);
   }
   function flightStep(dt){
-    const f=live.flight;if(!f)return;f.elapsed+=dt;const t=Math.min(1,f.elapsed/f.duration);live.ball.x=f.start.x+(f.end.x-f.start.x)*t;live.ball.y=f.start.y+(f.end.y-f.start.y)*t;
-    if(f.kind!=='shot'&&t>.25&&t<.95){const cut=enabled(other(f.side)).find(o=>Math.hypot(o.p.x-live.ball.x,o.p.y-live.ball.y)<2.3);if(cut&&Math.random()<.2){live.flight=null;live.lastCompletedPass=null;owner=cut.i;live.possession=cut.p.side;live.decision=1;eventText(`⚔️ ${cut.p.player.name} intercetta il passaggio.`);return;}}
+    const f=live.flight;if(!f)return;
+    if(f.kind==='shot'&&f.outcome==='corner'&&!f.keeperTouched&&f.elapsed+dt>=f.duration*(f.contactFraction||.7)){
+      f.keeperTouched=true;live.ball={...f.contact};eventText('🧤 Il portiere tocca il pallone e lo devia oltre la linea di fondo.');
+      f.start={...f.contact};f.end={...f.deflectEnd};f.elapsed=0;f.duration=.45;
+      if(players[f.keeperIndex]){players[f.keeperIndex].x=f.contact.x;players[f.keeperIndex].y=f.contact.y;}
+    }
+    f.elapsed+=dt;const t=Math.min(1,f.elapsed/f.duration);live.ball.x=f.start.x+(f.end.x-f.start.x)*t;live.ball.y=f.start.y+(f.end.y-f.start.y)*t;
+    if(f.kind!=='shot'&&t>.25&&t<.95){const cut=enabled(other(f.side)).find(o=>Math.hypot(o.p.x-live.ball.x,o.p.y-live.ball.y)<2.3);if(cut&&Math.random()<Math.max(.07,Math.min(.35,.2+(ability(cut.p.player,'def')-ability(players[f.from].player,'pass'))/220))){live.flight=null;live.lastCompletedPass=null;owner=cut.i;live.possession=cut.p.side;live.decision=1;eventText(`⚔️ ${cut.p.player.name} intercetta il passaggio.`);return;}}
     if(t<1)return;live.flight=null;
     if(f.kind==='shot'){
-      if(f.outcome==='goal')goal(f.side,f.from);else if(f.outcome==='corner')corner(f.side,live.ball.y);else if(f.outcome==='save'){live.lastCompletedPass=null;owner=enabled(other(f.side)).find(o=>o.p.slot==='GK')?.i??nearest(live.ball.x,live.ball.y,other(f.side));live.possession=other(f.side);live.decision=2;eventText('🧤 Il portiere blocca il tiro.');}else{deadBall('goalKick',other(f.side),direction(f.side)>0?94:6,50,2);eventText('Tiro fuori. Rimessa dal fondo.');}
+      if(f.outcome==='goal'){if(f.end.y>41&&f.end.y<59)goal(f.side,f.from,f);else{deadBall('goalKick',other(f.side),direction(f.side)>0?94:6,50,2);eventText('Tiro fuori. Rimessa dal fondo.');}}else if(f.outcome==='corner'&&f.keeperTouched)corner(f.side,live.ball.y);else if(f.outcome==='save'){live.lastCompletedPass=null;owner=players[f.keeperIndex]&&!players[f.keeperIndex].sentOff?f.keeperIndex:enabled(other(f.side)).find(o=>o.p.slot==='GK')?.i??nearest(live.ball.x,live.ball.y,other(f.side));if(owner>=0){players[owner].x=f.end.x;players[owner].y=f.end.y;live.ball={x:players[owner].x,y:players[owner].y};}live.possession=other(f.side);live.decision=2;eventText('🧤 Il portiere blocca il tiro.');}else{deadBall('goalKick',other(f.side),direction(f.side)>0?94:6,50,2);eventText('Tiro fuori. Rimessa dal fondo.');}
     }else{
       owner=players[f.to]?.sentOff?nearest(f.end.x,f.end.y,f.side):f.to;live.possession=f.side;live.decision=2.2;live.lastCompletedPass={side:f.side,from:f.from,to:owner,tick};
-      if(f.kind==='cross'&&owner>=0&&progress(players[owner])>78)shoot(owner,false,true);
+      if(f.kind==='cross'&&owner>=0&&progress(players[owner])>78){
+        const marker=nearest(players[owner].x,players[owner].y,other(f.side)),defender=players[marker];
+        const contest=Math.max(.35,Math.min(.85,.65+(ability(players[owner].player,'phys')-(defender?ability(defender.player,'def'):50))/180));
+        if(!f.cornerCross||Math.random()<contest)shoot(owner,false,true);
+        else{owner=marker;live.possession=other(f.side);live.lastCompletedPass=null;eventText('🛡️ '+(defender?.player.name||'Il difensore')+' anticipa il colpo di testa.');}
+      }
+      live.cornerPhase=null;
     }
   }
+  function prepareCorner(restart){
+    if(restart.positions)return;
+    const side=restart.side,dir=direction(side),at=progress=>dir>0?progress:100-progress;
+    const kickers=enabled(side).filter(o=>['LW','RW','LB','RB'].includes(o.p.slot)).sort((a,b)=>ability(b.p.player,'pass')-ability(a.p.player,'pass')+(restart.y<50?(a.p.slot.endsWith('L')?0:0):0));
+    restart.kicker=(enabled(side).find(o=>o.p.slot===(restart.y<50?'LW':'RW'))||kickers[0]||enabled(side).find(o=>o.p.slot!=='GK'))?.i;
+    restart.positions=[];restart.targets=[];
+    const boxSlots=['ST','CB1','CB2','CM1','CM2','LW','RW'];
+    enabled(side).forEach(({p,i})=>{
+      let x=at(44),y=p.baseY;
+      if(i===restart.kicker){x=restart.x;y=restart.y;}
+      else if(p.slot==='GK'){x=at(8);y=50;}
+      else if(boxSlots.includes(p.slot)){const index=restart.targets.length;x=at([86,89,83,88,85,81][index%6]);y=[36,49,63,73,27,57][index%6];restart.targets.push(i);}
+      else if(p.slot==='CDM'){x=at(74);y=50;}
+      restart.positions.push({i,x,y});
+    });
+    const defenders=enabled(other(side)),markers=defenders.filter(o=>!['GK','ST','LW'].includes(o.p.slot));
+    defenders.forEach(({p,i})=>{let x=at(88),y=p.baseY;if(p.slot==='GK'){x=at(96);y=50;}else if(p.slot==='ST'){x=at(58);y=50;}else if(p.slot==='LW'){x=at(67);y=20;}
+      const mark=markers.findIndex(o=>o.i===i);if(mark>=0&&restart.targets.length){const target=restart.positions.find(o=>o.i===restart.targets[mark%restart.targets.length]);x=target.x+dir*2;y=target.y+(mark%2?3:-3);}
+      restart.positions.push({i,x,y});
+    });
+    live.cornerPhase=restart;
+  }
+  function moveCornerPlayers(restart,dt){restart.positions.forEach(({i,x,y})=>{const p=players[i];if(p&&!p.sentOff)move(p,x,y,dt*(5+ability(p.player,'pace')/35));});}
   function restartStep(dt){
     const restart=live.deadBall;if(!restart)return;restart.wait-=dt;
-    if(restart.type==='corner')players.forEach(p=>{if(p.sentOff||p.slot==='GK')return;const dir=direction(restart.side),attacker=p.side===restart.side;const isTarget=['ST','CB1','CB2','CM1','CM2'].includes(p.slot);if(isTarget)move(p,dir>0?(attacker?85:89):(attacker?15:11),28+(FORM.findIndex(f=>f[0]===p.slot)%5)*10,.2);});
+    if(restart.type==='corner'){prepareCorner(restart);moveCornerPlayers(restart,dt);}
     if(restart.wait>0)return;live.deadBall=null;hideBanner();
     if(restart.type==='kickoff'){kickoff(restart.side);return;}
-    const side=restart.side;owner=restart.type==='goalKick'?enabled(side).find(o=>o.p.slot==='GK')?.i??nearest(restart.x,restart.y,side):enabled(side).filter(o=>o.p.slot!=='GK').sort((a,b)=>Number(b.p.player[restart.type==='penalty'?'shoot':'pass']||50)-Number(a.p.player[restart.type==='penalty'?'shoot':'pass']||50))[0]?.i??-1;
+    const side=restart.side;owner=restart.type==='corner'?restart.kicker:restart.type==='goalKick'?enabled(side).find(o=>o.p.slot==='GK')?.i??nearest(restart.x,restart.y,side):enabled(side).filter(o=>o.p.slot!=='GK').sort((a,b)=>ability(b.p.player,restart.type==='penalty'?'shoot':'pass')-ability(a.p.player,restart.type==='penalty'?'shoot':'pass'))[0]?.i??-1;
     if(owner<0){kickoff(other(side));return;}players[owner].x=restart.x;players[owner].y=restart.y;live.ball={x:restart.x,y:restart.y};live.possession=side;live.decision=1.5;
     if(restart.type==='penalty'){shoot(owner,true);return;}
-    if(restart.type==='corner'){const targets=enabled(side).filter(o=>o.i!==owner&&o.p.slot!=='GK').sort((a,b)=>(['CB1','CB2','ST'].includes(b.p.slot)?20:0)+Number(b.p.player.phys||50)/10-(['CB1','CB2','ST'].includes(a.p.slot)?20:0)-Number(a.p.player.phys||50)/10);pass(targets[0]?.i,'cross');return;}
+    if(restart.type==='corner'){
+      const targets=restart.targets.filter(i=>!players[i].sentOff&&progress(players[i])>78).map(i=>({i,score:ability(players[i].player,'phys')*.6+ability(players[i].player,'shoot')*.3+Math.min(10,...enabled(other(side)).filter(o=>o.p.slot!=='GK').map(o=>Math.hypot(o.p.x-players[i].x,o.p.y-players[i].y)))*2})).sort((a,b)=>b.score-a.score);
+      if(targets.length){pass(targets[0].i,'cross');if(live.flight)live.flight.cornerCross=true;}else{live.cornerPhase=null;const target=choosePass(owner);if(target>=0)pass(target);}
+      return;
+    }
     if(restart.type==='freeKick'&&progress(players[owner])>72)shoot(owner);else{const target=choosePass(owner);if(target>=0)pass(target);}
   }
   function teamMovement(dt){
+    if(live.cornerPhase&&live.flight?.cornerCross){moveCornerPlayers(live.cornerPhase,dt);return;}
+    live.cornerPhase=null;
     const side=live.possession||'home',dir=direction(side),ballProgress=dir>0?live.ball.x:100-live.ball.x,carrier=players[owner];
     const pressers=enabled(other(side)).filter(o=>o.p.slot!=='GK').sort((a,b)=>Math.hypot(a.p.x-live.ball.x,a.p.y-live.ball.y)-Math.hypot(b.p.x-live.ball.x,b.p.y-live.ball.y)).slice(0,2).map(o=>o.i);
     players.forEach((p,i)=>{
       if(p.sentOff)return;const ownDir=direction(p.side),inPossession=p.side===side,base=ownDir>0?p.baseX:100-p.baseX,keeper=p.slot==='GK';let x=base,y=p.baseY;
+      if(keeper&&live.flight?.kind==='shot'&&live.flight.keeperIndex===i&&live.flight.outcome!=='miss'){const f=live.flight;const targetY=f.outcome==='goal'?Math.max(32,Math.min(68,f.contact.y+(f.contact.y<50?12:-12))):f.contact.y;move(p,f.contact.x,targetY,dt*32);return;}
       if(keeper){x=ownDir>0?7:93;y=Math.max(37,Math.min(63,50+(live.ball.y-50)*.2));}
       else if(i===owner){
         const pressure=enabled(other(side)).some(o=>Math.hypot(o.p.x-p.x,o.p.y-p.y)<6),lateral=['LB','RB','LW','RW'].includes(p.slot);
@@ -4618,7 +4784,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       }
       // Keep players spaced apart instead of piling every card around the ball.
       players.forEach((q,j)=>{if(i===j||q.sentOff)return;const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<7&&d>.01){x+=(p.x-q.x)/d*(7-d)*.65;y+=(p.y-q.y)/d*(7-d)*.65;}});
-      move(p,x,y,dt*(1.5+(Number(p.player.pace)||50)/48));
+      move(p,x,y,dt*(1.5+ability(p.player,'pace')/48));
     });
     if(carrier&&owner>=0&&!live.flight)live.ball={x:carrier.x+direction(carrier.side)*1.2,y:carrier.y};
   }
@@ -4627,28 +4793,33 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     const defender=enabled(other(p.side)).filter(o=>o.p.slot!=='GK').sort((a,b)=>Math.hypot(a.p.x-p.x,a.p.y-p.y)-Math.hypot(b.p.x-p.x,b.p.y-p.y))[0];
     if(defender&&Math.hypot(defender.p.x-p.x,defender.p.y-p.y)<3.8&&live.tackleCooldown<=0){live.tackleCooldown=4.5;
       if(Math.random()<(defender.p.yellow?.035:.075)){foul(defender.i,owner);return;}
-      if(Math.random()<Math.max(.12,Math.min(.65,.35+(Number(defender.p.player.def||50)-Number(p.player.drib||50))/200))){live.lastCompletedPass=null;owner=defender.i;live.possession=defender.p.side;live.decision=1.4;eventText(`⚔️ ${defender.p.player.name} recupera il pallone.`);return;}
+      if(Math.random()<Math.max(.12,Math.min(.65,.35+(ability(defender.p.player,'def')-ability(p.player,'drib'))/200))){live.lastCompletedPass=null;owner=defender.i;live.possession=defender.p.side;live.decision=1.4;eventText(`⚔️ ${defender.p.player.name} recupera il pallone.`);return;}
     }
     live.decision-=dt;if(live.decision>0)return;live.decision=2.5;
     const advanced=progress(p),central=Math.abs(p.y-50)<24,pressure=defender?Math.hypot(defender.p.x-p.x,defender.p.y-p.y):20;
     const lateral=['LB','RB','LW','RW'].includes(p.slot);
-    if(lateral&&advanced<74&&pressure<10&&pressure>4&&tick>=(p.nextDribbleAt||0)&&Number(p.player.drib||50)>Number(defender.p.player.def||50)-8){
+    if(lateral&&advanced<74&&pressure<10&&pressure>4&&tick>=(p.nextDribbleAt||0)&&ability(p.player,'drib')>ability(defender.p.player,'def')-8){
       p.dribbleDirection=p.y<50?1:-1;p.dribbleUntil=tick+18;p.nextDribbleAt=tick+90;
       eventText('👟 '+p.player.name+' cerca spazio sulla fascia.');return;
     }
     if(advanced>70&&central&&tick>=(live.nextShotAt||0)){shoot(owner);return;}
-    if(advanced>75&&!central){const target=enabled(p.side).filter(o=>o.i!==owner&&o.p.slot!=='GK'&&progress(o.p)>65&&Math.abs(o.p.y-50)<24).sort((a,b)=>Number(b.p.player.shoot||50)-Number(a.p.player.shoot||50))[0];if(target){pass(target.i,'cross');return;}}
+    if(advanced>75&&!central){const target=enabled(p.side).filter(o=>o.i!==owner&&o.p.slot!=='GK'&&progress(o.p)>65&&Math.abs(o.p.y-50)<24).sort((a,b)=>ability(b.p.player,'shoot')-ability(a.p.player,'shoot'))[0];if(target){pass(target.i,'cross');return;}}
     const target=choosePass(owner);if(target>=0&&(pressure<9||['GK','CB1','CB2','CDM'].includes(p.slot)||progress(players[target])>advanced+3||(lateral&&advanced>=67)||(advanced<72&&live.decisionCount%3===0))){pass(target);}
     live.decisionCount++;
   }
   function step(){
-    if(!live||committing||live.halfTime)return;const dt=.1;tick++;live.tackleCooldown=Math.max(0,(live.tackleCooldown||0)-dt);
+    if(!live||committing||live.halfTime||document.hidden||matchBackgroundAt!==null)return;const dt=.1;tick++;live.tackleCooldown=Math.max(0,(live.tackleCooldown||0)-dt);
     if(live.deadBall)restartStep(dt);else{teamMovement(dt);if(live.flight)flightStep(dt);else decide(dt);}
     if(live.possession)live.stats[live.possession].possession+=dt;updatePitch();if(tick%10===0)persist();
   }
-  function syncClock(){if(!live||live.halfTime)return;live.halfRemaining=Math.max(0,Math.ceil((live.deadline-Date.now())/1000));live.remaining=live.halfRemaining+(live.half===1?300:0);}
+  let matchBackgroundAt=null;
+  function pauseBackgroundMatch(){if(!live||live.halfTime||matchBackgroundAt!==null)return;syncClock();matchBackgroundAt=Date.now();persist();}
+  function resumeBackgroundMatch(){if(!live||matchBackgroundAt===null){matchBackgroundAt=null;return;}live.deadline+=Math.max(0,Date.now()-matchBackgroundAt);matchBackgroundAt=null;persist();clock();set('matchStatus','Partita ripresa: il tempo in secondo piano non è stato conteggiato.');}
+  if(typeof document.addEventListener==='function')document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseBackgroundMatch();else resumeBackgroundMatch();});
+  window.addEventListener('pagehide',pauseBackgroundMatch);window.addEventListener('pageshow',resumeBackgroundMatch);
+  function syncClock(){if(!live||live.halfTime||matchBackgroundAt!==null)return;live.halfRemaining=Math.max(0,Math.ceil((live.deadline-Date.now())/1000));live.remaining=live.halfRemaining+(live.half===1?300:0);}
   function clock(){
-    if(!live||committing)return;syncClock();const left=live.halfRemaining,elapsed=(live.half-1)*300+300-left,gameSeconds=Math.round(elapsed*9);
+    if(!live||committing||document.hidden||matchBackgroundAt!==null)return;syncClock();const left=live.halfRemaining,elapsed=(live.half-1)*300+300-left,gameSeconds=Math.round(elapsed*9);
     set('matchClock',`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`);set('matchHalfLabel',live.halfTime?'INTERVALLO':`${live.half}° TEMPO`);set('matchGameMinute',`${Math.floor(gameSeconds/60)}′ ${String(gameSeconds%60).padStart(2,'0')}″`);
     if(left>0||live.halfTime)return;
     if(live.half===1){live.halfTime=true;live.remaining=300;live.flight=null;live.deadBall=null;centerBanner('INTERVALLO',`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`,'halftime');eventText('Fine primo tempo. Premi «Inizia secondo tempo» per continuare.');persist();set('matchHalfLabel','INTERVALLO');}
@@ -4674,11 +4845,14 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     commitPlayerCareer(match);recordMissionMatch(match,winner);advance(s,played);const championBonus=s.completed&&s.champion===USER?CONFIG[s.kind].bonus:0;rewardOnce(match.id,reward);if(championBonus)rewardOnce(`${s.id}_trophy`,championBonus,true);
     const d=daily();d.count++;dailySave(d);
     set('matchStatus',`FINE PARTITA · ${winner?`Rigori: vince ${display(winner)} · `:''}+${reward+championBonus} FC Coins${championBonus?' · Trofeo conquistato!':''}`);
-    closeFinished();
+    closeFinished();showMatchResult(match,reward,championBonus,winner);
   }
-  function closeFinished(){localStorage.removeItem(activeKey());live=null;committing=false;if($('finishMatchBtn')){$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Torna alle competizioni';}render();}
+  function closeFinished(){matchBackgroundAt=null;localStorage.removeItem(activeKey());live=null;committing=false;if($('finishMatchBtn')){$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Torna alle competizioni';}render();}
   function openLive(snap){
-    initializeFootball(snap);live=snap;selected=snap.kind;owner=snap.owner??9;tick=snap.tick||0;tactic=snap.tactic||'balanced';build(snap);ensureMatchCareer();
+    matchBackgroundAt=null;
+    snap.controlMode='auto';delete snap.controlledPlayer;
+    
+    initializeFootball(snap);live=snap;selected=snap.kind;owner=snap.owner??9;tick=snap.tick||0;tactic=snap.tactic||'balanced';build(snap);players.forEach(p=>{p.yellowCount=Math.max(Number(p.yellowCount)||0,p.yellow?1:0);if(p.yellowCount>=2)p.sentOff=true;});ensureMatchCareer();
     players.forEach(p=>{p.baseX=FORM.find(f=>f[0]===p.slot)?.[1]||p.baseX;});
     live.deadline=Date.now()+Math.max(1,live.halfRemaining)*1000;
     if(!snap.players)kickoff('home');if($('offlineTactic'))$('offlineTactic').value=tactic;renderPitch();updateScore();set('matchCompetitionLabel',CONFIG[live.kind].name+' · '+phase(load(live.kind)));set('matchStatus',live.halfTime?'Intervallo: inizia il secondo tempo quando sei pronto.':'Possesso e movimenti legati all’azione.');$('offlineMatchOverlay').classList.add('show');$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Salva ed esci';
@@ -4687,7 +4861,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   window.startItalianLeagueMatch=function(){
     if(live)return;const pending=read(activeKey());if(pending){const state=load(pending.kind);if(state.id===pending.seasonId&&state.round===pending.round&&state.stage===pending.stage){openLive(pending);return;}localStorage.removeItem(activeKey());}
     if(!access(selected)){alert(requirement(selected));return;}const s=load();if(s.completed)return;const f=fixture(s);if(!f){advance(s);if(s.completed&&s.champion===USER)rewardOnce(`${s.id}_trophy`,CONFIG[s.kind].bonus,true);render();return;}
-    openLive({id:`${s.id}_${s.stage}_${s.round}`,kind:selected,seasonId:s.id,round:s.round,stage:s.stage,fixture:f,opponent:f.find(n=>n!==USER),score:{home:0,away:0},remaining:600,half:1,halfRemaining:300,matchSchema:4,tactic:'balanced'});
+    showMatchPresentation({id:`${s.id}_${s.stage}_${s.round}`,kind:selected,seasonId:s.id,round:s.round,stage:s.stage,fixture:f,opponent:f.find(n=>n!==USER),score:{home:0,away:0},remaining:600,half:1,halfRemaining:300,matchSchema:4,tactic:'balanced',controlMode:'auto'});
   };
   window.finishOfflineMatchEarly=function(){if(live){clock();if(live){syncClock();persist();live=null;clearInterval(clockTimer);clearInterval(simTimer);}}hideBanner();$('offlineMatchOverlay').classList.remove('show');render();};
   window.setOfflineTactic=function(value){if(!['balanced','attack','defend'].includes(value))return;tactic=value;set('matchStatus',`Tattica: ${value==='attack'?'Attacco · più occasioni e più rischi':value==='defend'?'Difesa · meno occasioni':'Equilibrio'}`);persist();};
@@ -4731,6 +4905,14 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   const $=id=>document.getElementById(id);
   let uid=null,revision=0,ready=false,busy=false,dirty=false,last='',timer=null,connecting=false,conflict=false,choice=null,localRecovery=false;
   const previousLoad=window.onload,localSave=saveUserSession;
+  let registering=false;
+  function registrationError(error){
+    const message=String(error.message||''),code=String(error.code||'');
+    if(code==='over_email_send_rate_limit'||/email.*rate.*limit/i.test(message))return 'Supabase ha raggiunto il limite delle email di conferma. Il gestore deve configurare un servizio email SMTP per permettere le registrazioni degli amici.';
+    if(code==='email_address_not_authorized'||/email address not authorized/i.test(message))return 'Il servizio email di Supabase non può inviare la conferma a questo indirizzo. Il gestore deve configurare un servizio email SMTP.';
+    if(/signups.*not allowed|signup.*disabled/i.test(message))return 'Le nuove registrazioni sono disattivate nelle impostazioni Authentication di Supabase.';
+    return 'Registrazione non riuscita: '+message;
+  }
   function read(key,fallback=null){try{return JSON.parse(localStorage.getItem(key)||'null')??fallback;}catch{return fallback;}}
   function status(message){if($('cloudStatus'))$('cloudStatus').textContent=message;}
   function cacheKey(){return 'bear_fc_cloud_pending_v1_'+uid;}
@@ -4812,8 +4994,9 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     try{const result=await client.auth.signInWithPassword({email,password});$('loginPassword').value='';if(result.error)throw result.error;await establish(result.data.user);}catch(error){showAuthError('Accesso non riuscito: '+error.message);}
   };
   window.handleRegister=async function(event){event.preventDefault();if(!client)return showAuthError('Servizio online non disponibile.');
+    if(registering)return;
     const email=$('regEmail').value.trim(),password=$('regPassword').value,username=$('regUsername').value.trim();if(password.length<8)return showAuthError('Scegli una password di almeno 8 caratteri.');
-    showAuthError('Creazione account…');try{const result=await client.auth.signUp({email,password,options:{emailRedirectTo:RETURN_URL,data:{username}}});$('regPassword').value='';if(result.error)throw result.error;if(result.data.session)await establish(result.data.user);else showAuthError('Controlla la tua email e conferma l’account. Poi torna qui e accedi con email e password. I progressi di questo telefono restano conservati.');}catch(error){showAuthError('Registrazione non riuscita: '+error.message);}
+    registering=true;showAuthError('Creazione account…');try{const result=await client.auth.signUp({email,password,options:{emailRedirectTo:RETURN_URL,data:{username}}});if(result.error)throw result.error;$('regPassword').value='';if(result.data.session)await establish(result.data.user);else showAuthError('Controlla la tua email e conferma l’account. Poi torna qui e accedi con email e password. I progressi di questo telefono restano conservati.');}catch(error){showAuthError(registrationError(error));}finally{registering=false;}
   };
   window.saveUserSession=function(){localSave();mark();};
   window.retryCloud=async function(){
@@ -4890,5 +5073,8 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 })();
 
 </script>
+<div id="matchPresentation" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="preMatchCompetition"><div class="club-screen-box"><p class="screen-kicker" id="preMatchCompetition"></p><h2>Si accendono i riflettori</h2><div class="pre-match-versus"><section><h3 id="preMatchHomeName"></h3><p id="preMatchHomeRating"></p><div id="preMatchHomeCards" class="pre-match-cards"></div></section><span>VS</span><section><h3 id="preMatchAwayName"></h3><p id="preMatchAwayRating"></p><div id="preMatchAwayCards" class="pre-match-cards"></div></section></div><p class="screen-note">Le tre carte più forti di ogni squadra · 2 tempi da 5 minuti</p><button onclick="startPresentedMatch()" class="screen-primary">CALCIO D’INIZIO →</button><button onclick="closeMatchPresentation()" class="screen-secondary">Torna al club</button></div></div>
+<div id="matchResultPanel" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="resultHeadline"><div class="club-screen-box"><p class="screen-kicker">FISCHIO FINALE</p><h2 id="resultHeadline"></h2><div id="resultScore" class="result-big-score"></div><p id="resultTeams"></p><p id="resultCoins" class="result-coins"></p><div class="result-details"><section><p class="screen-kicker">Migliore della tua squadra</p><div id="resultBestCard"></div><h3 id="resultBestName"></h3><p id="resultBestStats"></p><small>Scelto in base a gol e assist; a parità, overall.</small></section><section><h3>Marcatori</h3><div id="resultScorers"></div></section></div><button onclick="closeMatchResult()" class="screen-primary">TORNA AL CLUB</button></div></div>
+
 </body>
 </html>
