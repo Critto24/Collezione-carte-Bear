@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -1265,7 +1264,30 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 @media(max-width:600px){.stadium-supporters{height:32px}#matchPitch{margin-top:38px!important;margin-bottom:38px!important}}
 @media(prefers-reduced-motion:reduce){.stadium-supporters{animation:none!important}}
 </style>
-<style id="bearfc-keeper-save">#matchPitch .match-player.keeper-diving .offline-card{transform:perspective(400px) rotateX(-14deg) rotate(var(--keeper-lean,22deg));transition:transform .22s ease;box-shadow:0 3px 12px #0008}@media(prefers-reduced-motion:reduce){#matchPitch .match-player.keeper-diving .offline-card{transition:none}}</style></head>
+<style id="bearfc-keeper-save">#matchPitch .match-player.keeper-diving .offline-card{transform:perspective(400px) rotateX(-14deg) rotate(var(--keeper-lean,22deg));transition:transform .22s ease;box-shadow:0 3px 12px #0008}@media(prefers-reduced-motion:reduce){#matchPitch .match-player.keeper-diving .offline-card{transition:none}}</style><style id="bearfc-pack-card-3d">
+/* Oggetti con facce, spessore e rotazione tridimensionale nel browser. */
+.pack-solid-3d{--solid-width:190px;--solid-height:245px;--solid-depth:28px;width:var(--solid-width)!important;height:var(--solid-height)!important;border:0!important;background:transparent!important;box-shadow:none!important;border-radius:0;transform-style:preserve-3d;overflow:visible!important;animation:solidPackFloat 1.8s ease-in-out infinite!important}
+.pack-solid-3d:before,.pack-solid-3d:after{display:none!important}.solid-face{position:absolute;backface-visibility:hidden;border:1px solid #f7d886;box-sizing:border-box;background:linear-gradient(140deg,#ddb345,#0e4a28 45%,#08150d)}
+.solid-front,.solid-back{inset:0;border-radius:17px}.solid-front{transform:translateZ(calc(var(--solid-depth)/2));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;box-shadow:inset 0 0 20px #ffffff18,0 0 30px #fbbf2422}.solid-front strong{font-size:28px;font-weight:900;letter-spacing:.1em;color:#fff2ba;text-shadow:0 3px 8px #000}.solid-front span{background:#fbbf24;color:#112014;padding:12px 5px;width:105%;text-align:center;font-size:12px;font-weight:900;letter-spacing:.1em;transform:rotate(-5deg)}.solid-front b{font-size:45px;color:#fde68a}.solid-back{transform:rotateY(180deg) translateZ(calc(var(--solid-depth)/2));display:grid;place-items:center;color:#fbbf24;font-weight:900}
+.solid-left,.solid-right{width:var(--solid-depth);height:100%;top:0;left:50%;background:linear-gradient(90deg,#493e1b,#cfab48,#655529)}.solid-left{transform:translateX(-50%) rotateY(-90deg) translateZ(calc(var(--solid-width)/2))}.solid-right{transform:translateX(-50%) rotateY(90deg) translateZ(calc(var(--solid-width)/2))}
+.solid-top,.solid-bottom{width:100%;height:var(--solid-depth);left:0;top:50%;background:linear-gradient(0deg,#695625,#ebca68)}.solid-top{transform:translateY(-50%) rotateX(90deg) translateZ(calc(var(--solid-height)/2))}.solid-bottom{transform:translateY(-50%) rotateX(-90deg) translateZ(calc(var(--solid-height)/2))}
+.pack-opening-light{position:absolute;inset:-30%;background:radial-gradient(circle,#fff5c788,transparent 65%);transform:translateZ(20px);opacity:0;pointer-events:none}
+.pack-solid-3d.opening{animation:solidPackOpen 1.05s ease-in forwards!important}.pack-solid-3d.opening .solid-top{animation:solidPackLid .7s ease-out forwards}.pack-solid-3d.opening .pack-opening-light{animation:solidPackLight 1.05s ease-out forwards}
+@keyframes solidPackFloat{0%,100%{transform:rotateY(-24deg) rotateX(6deg) translateY(0)}50%{transform:rotateY(-12deg) rotateX(3deg) translateY(-8px)}}
+@keyframes solidPackOpen{0%{transform:rotateY(-20deg) rotateX(5deg);opacity:1}30%{transform:rotateY(10deg) rotateX(-8deg) scale(1.05)}65%{transform:rotateY(-12deg) rotateX(3deg) scale(1.1);opacity:1}100%{transform:rotateY(35deg) scale(.45);opacity:0}}
+@keyframes solidPackLid{to{transform:translateY(-50%) rotateX(150deg) translateZ(calc(var(--solid-height)/2)) translateY(-35px)}}@keyframes solidPackLight{20%{opacity:0}55%{opacity:1;transform:translateZ(30px) scale(1.5)}100%{opacity:0;transform:translateZ(30px) scale(2)}}
+.card-solid-3d{--card-yaw:0deg;--card-pitch:0deg;--card-light-x:50%;position:relative!important;perspective:1000px;transform-style:preserve-3d!important;transform:perspective(1000px) rotateX(var(--card-pitch)) rotateY(var(--card-yaw))!important;overflow:visible!important;background:transparent!important;border:0!important;box-shadow:0 0 28px color-mix(in srgb,var(--card-light) 35%,transparent)!important;animation:none!important;transition:transform .16s ease;touch-action:none;user-select:none;cursor:grab;border-radius:18px}
+.card-solid-3d.card-dragging{transition:none;cursor:grabbing}.card-solid-3d:focus-visible{outline:2px solid #fff;outline-offset:9px}
+.card-solid-face{position:absolute;inset:0;border-radius:18px;backface-visibility:hidden;overflow:hidden;border:2px solid var(--card-light);box-sizing:border-box}.card-solid-front{transform:translateZ(3px);padding:12px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 0 0 18px #ffffff0a}.card-solid-front:after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at var(--card-light-x) 15%,#ffffff35,transparent 62%),linear-gradient(125deg,transparent 35%,#ffffff20 50%,transparent 65%);mix-blend-mode:screen;z-index:8}
+.card-solid-back{transform:rotateY(180deg) translateZ(3px);background:repeating-linear-gradient(45deg,#ffffff03 0 2px,transparent 2px 12px),radial-gradient(circle at center,#1c4b2b,#050d08 70%);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:20px;color:var(--card-light);box-shadow:inset 0 0 35px #0008}.card-solid-back strong{font-size:42px;font-weight:900;letter-spacing:-.04em}.card-solid-back span{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}.card-solid-back small{font-size:10px;color:#bacfbe}
+.card-solid-edge{position:absolute;top:0;bottom:0;left:50%;width:6px;transform:translateX(-50%) rotateY(90deg);background:var(--card-light);border-radius:3px}
+.card-solid-3d.card-rare,.card-solid-3d.card-epic{box-shadow:0 0 30px var(--card-light)!important}.card-solid-3d.card-legendary{box-shadow:0 0 45px #fbbf2477!important}.card-solid-3d.card-mythic{box-shadow:0 0 60px #fff3b888!important}.card3d-inspector-shell{flex-shrink:0;perspective:1000px;display:flex;flex-direction:column;align-items:center}
+.card-3d-controls{display:flex;gap:8px;justify-content:center;margin-top:16px;position:relative;z-index:12}.card-3d-controls button{min-height:42px;min-width:44px;padding:9px 15px;background:#102319;border:1px solid #fbbf2466;color:#fde68a;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer}
+#cardInspectorCard.card-solid-3d{width:min(75vw,300px);height:420px;min-height:0}#cardInspectorModal .card-3d-controls{flex-wrap:wrap}#packRevealArea .card-solid-3d,#halloweenRevealArea .card-solid-3d{width:min(72vw,300px)!important;height:410px!important;min-height:0!important}
+@media(max-width:600px){.pack-solid-3d{--solid-width:165px;--solid-height:225px;--solid-depth:24px}#packRevealArea .card-solid-3d,#halloweenRevealArea .card-solid-3d{height:365px!important}#cardInspectorCard.card-solid-3d{height:380px}.card-solid-back strong{font-size:34px}}
+@media(prefers-reduced-motion:reduce){.pack-solid-3d{animation:none!important;transform:rotateY(-20deg)}.pack-solid-3d.opening{animation:solidPackOpen .1s forwards!important}.pack-solid-3d.opening .solid-top,.pack-solid-3d.opening .pack-opening-light{animation:none!important}.card-solid-3d{transition:none!important}}
+
+</style></head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden halloween-event">
 <!-- BEAR FC STADIUM ENTRANCE -->
 <div id="bearCinematicIntro" role="dialog" aria-modal="true" aria-labelledby="bearIntroTitle">
@@ -2036,7 +2058,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                   </div>
                 </div>
 
-<div id="view-settings" class="view-section hidden"><div class="offline-hub"><h2>Impostazioni Account</h2><label for="settingsUsername">Nome allenatore</label><input id="settingsUsername" class="bg-slate-900 text-white p-3 rounded-xl" maxlength="30"><label for="settingsEmail">Email</label><input id="settingsEmail" class="bg-slate-900 text-white p-3 rounded-xl" readonly><div class="offline-actions"><button onclick="saveSettings()">Salva impostazioni</button></div><p>Per modificare nome e divisa della squadra, apri Modalità Partita.</p><h3>Il tuo club su più dispositivi</h3><p id="cloudStatus">Profilo locale</p><div class="offline-actions"><button onclick="openCloudAccount()">Account online</button><button onclick="retryCloud()">Salva online / Riprova</button><button onclick="openCloudRecovery()">Recupera progressi precedenti</button><button onclick="useBrowserOnly()">Usa solo questo browser</button></div><p>Per trasferire i progressi, registra il tuo account sul telefono dove hai già giocato. Poi accedi sugli altri dispositivi con la stessa email e password. Prima di cambiare telefono, controlla che compaia “progressi salvati”.</p></div></div>
+<div id="view-settings" class="view-section hidden"><div class="offline-hub"><h2>Impostazioni Account</h2><label for="settingsUsername">Nome allenatore</label><input id="settingsUsername" class="bg-slate-900 text-white p-3 rounded-xl" maxlength="30"><label for="settingsEmail">Email</label><input id="settingsEmail" class="bg-slate-900 text-white p-3 rounded-xl" readonly><div class="offline-actions"><button onclick="saveSettings()">Salva impostazioni</button></div><p>Per modificare nome e divisa della squadra, apri Modalità Partita.</p><h3>Il tuo club su più dispositivi</h3><p id="cloudStatus">Profilo locale</p><div class="offline-actions"><button onclick="openCloudAccount()">Account online</button><button onclick="retryCloud()">Salva online / Riprova</button><button onclick="refreshGameCloud()">Aggiorna campionati online</button><button onclick="openCloudRecovery()">Recupera progressi precedenti</button><button onclick="useBrowserOnly()">Usa solo questo browser</button></div><p>Per trasferire i progressi, registra il tuo account sul telefono dove hai già giocato. Poi accedi sugli altri dispositivi con la stessa email e password. Prima di cambiare telefono, controlla che compaia “progressi salvati”.</p></div></div>
 <section id="championshipPage" style="display:none;padding:20px;"><h2>Club online</h2><p>Collega il tuo club online.</p><button onclick="createOnlineClubFromChampionship()">Crea club</button><button onclick="joinOnlineClubFromChampionship()">Entra con codice</button><div id="championshipClubStatus">Nessun club collegato.</div><div id="championshipCompetitionStatus"></div></section>
 </main>
         </div>
@@ -2735,6 +2757,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                 </div>
                 <div class="text-[10px] font-black text-white bg-black/60 py-2 rounded-xl text-center uppercase tracking-widest">BEAR FC • ${player.edition === 'Halloween' ? 'HALLOWEEN 🎃' : rarityLabel(rarity)}</div>
             `;
+            if(typeof window.enableCard3D==='function')window.enableCard3D(card,player,rarity);
             document.getElementById('cardInspectorName').innerText = player.name;
             document.getElementById('cardInspectorPosition').innerText = `Overall ${player.rating} • ${player.pos}`;
             document.getElementById('cardInspectorRarity').innerText = player.edition === 'Halloween' ? 'Halloween 🎃' : rarityLabel(rarity);
@@ -3550,6 +3573,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
             document.body.classList.add('overflow-hidden');
 
             const coffin = document.getElementById('halloweenCoffin');
+            if(typeof window.preparePack3D==='function')window.preparePack3D(coffin,true);
             const reveal = document.getElementById('halloweenRevealArea');
             schedulePackAnimation(() => coffin && coffin.classList.add('opening'), 1100);
             schedulePackAnimation(() => {
@@ -3575,6 +3599,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                             <div class="text-[10px] font-black text-orange-100 bg-black/65 py-2 rounded-xl text-center uppercase tracking-widest">BEAR FC • HALLOWEEN 🎃</div>
                         </div>
                     </div>`;
+                if(typeof window.enableCard3D==='function')window.enableCard3D(reveal.querySelector('.halloween-pack-card'),player,rarity);
                 title.innerText = '🩸 CARTA HALLOWEEN SBLOCCATA!';
                 btn.classList.remove('hidden');
             }, 2700);
@@ -3616,6 +3641,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
             document.body.classList.add('overflow-hidden');
 
             const box = document.getElementById('packBoxStage');
+            if(typeof window.preparePack3D==='function')window.preparePack3D(box);
             const reveal = document.getElementById('packRevealArea');
 
             schedulePackAnimation(() => box && box.classList.add('opening'), 650);
@@ -3662,6 +3688,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                         </div>
                     </div>
                 `;
+                if(typeof window.enableCard3D==='function')window.enableCard3D(reveal.querySelector('.pack-card-reveal'),player,safeRarity);
                 title.innerText =
                     safeRarity === 'mythic' ? '✦ CM7 — CARTA MITICA FIRMATA!' :
                     safeRarity === 'legendary' ? '👑 CARTA LEGGENDARIA SBLOCCATA!' :
@@ -4381,7 +4408,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(kind==='seriea'){const legacy=read('bear_fc_offline_serie_a_v1');if(legacy?.teams){for(const n of CONFIG.seriea.clubs)if(legacy.teams[n])s.teams[n]={...team(n),...legacy.teams[n]};s.round=Math.max(1,Math.min(43,Number(legacy.round)||1));s.completed=s.round>42;s.history=Array.isArray(legacy.history)?legacy.history:[];s.calendar=schedule(CONFIG[kind].clubs,true);}}
     save(s);return s;
   }
-  function save(s){localStorage.setItem(key(s.kind),JSON.stringify(s));}
+  function save(s){localStorage.setItem(key(s.kind),JSON.stringify(s));if(typeof window.queueGameCloudSync==='function')window.queueGameCloudSync();}
   function rounds(s){return s.stage==='knockout'?[s.bracket]:(Array.isArray(s.calendar)&&s.calendar.length?s.calendar:schedule(CONFIG[s.kind].clubs,s.kind==='seriea'));}
   function fixtures(s){return s.completed?[]:s.stage==='knockout'?s.bracket:rounds(s)[s.round-1]||[];}
   function fixture(s){return fixtures(s).find(g=>g.includes(USER))||null;}
@@ -4442,6 +4469,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     set('clubHomeRating',Math.round(ownedLineup().reduce((sum,p)=>sum+p.player.rating,0)/11)+' OVR');
   }
   window.renderClubHome=renderClubHome;
+  window.refreshOfflineCompetitions=render;
   function previewSide(container,side,kit){
     const box=$(container);if(!box)return;box.innerHTML='';box.appendChild(kitNode(kit));
     players.filter(p=>p.side===side).sort((a,b)=>b.player.rating-a.player.rating).slice(0,3).forEach(p=>{const card=miniCard(p.player,side,kit);card.onclick=null;card.tabIndex=-1;box.appendChild(card);});
@@ -4534,7 +4562,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   function rating(side,stat){const ps=enabled(side);return ps.reduce((s,o)=>s+ability(o.p.player,stat),0)/(ps.length||1);}
   function updateScore(){if(!live)return;set('matchTeamsLabel',live.fixture[0]===USER?`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`:`${live.opponent} ${live.score.away}–${live.score.home} ${club().name}`);}
-  function persist(){if(live)localStorage.setItem(activeKey(),JSON.stringify({...live,players,owner,tick,tactic}));}
+  function persist(){if(live){localStorage.setItem(activeKey(),JSON.stringify({...live,players,owner,tick,tactic}));if(typeof window.queueGameCloudSync==='function')window.queueGameCloudSync();}}
   function deadBall(type,side,x,y,wait=3){live.lastCompletedPass=null;live.flight=null;owner=-1;live.deadBall={type,side,x,y,wait};live.ball={x,y};live.possession=side;}
   function card(offender,severe=false){
     const p=players[offender];if(!p||p.sentOff)return;const s=live.stats[p.side];
@@ -4846,7 +4874,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     commitPlayerCareer(match);recordMissionMatch(match,winner);advance(s,played);const championBonus=s.completed&&s.champion===USER?CONFIG[s.kind].bonus:0;rewardOnce(match.id,reward);if(championBonus)rewardOnce(`${s.id}_trophy`,championBonus,true);
     const d=daily();d.count++;dailySave(d);
     set('matchStatus',`FINE PARTITA · ${winner?`Rigori: vince ${display(winner)} · `:''}+${reward+championBonus} FC Coins${championBonus?' · Trofeo conquistato!':''}`);
-    closeFinished();showMatchResult(match,reward,championBonus,winner);
+    closeFinished();showMatchResult(match,reward,championBonus,winner);if(typeof window.flushGameCloudSync==='function')window.flushGameCloudSync();
   }
   function closeFinished(){matchBackgroundAt=null;localStorage.removeItem(activeKey());live=null;committing=false;if($('finishMatchBtn')){$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Torna alle competizioni';}render();}
   function openLive(snap){
@@ -4861,10 +4889,10 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   window.startItalianLeagueMatch=function(){
     if(live)return;const pending=read(activeKey());if(pending){const state=load(pending.kind);if(state.id===pending.seasonId&&state.round===pending.round&&state.stage===pending.stage){openLive(pending);return;}localStorage.removeItem(activeKey());}
-    if(!access(selected)){alert(requirement(selected));return;}const s=load();if(s.completed)return;const f=fixture(s);if(!f){advance(s);if(s.completed&&s.champion===USER)rewardOnce(`${s.id}_trophy`,CONFIG[s.kind].bonus,true);render();return;}
+    if(!access(selected)){alert(requirement(selected));return;}const s=load();if(s.completed)return;const f=fixture(s);if(!f){advance(s);if(s.completed&&s.champion===USER)rewardOnce(`${s.id}_trophy`,CONFIG[s.kind].bonus,true);render();if(typeof window.flushGameCloudSync==='function')window.flushGameCloudSync();return;}
     showMatchPresentation({id:`${s.id}_${s.stage}_${s.round}`,kind:selected,seasonId:s.id,round:s.round,stage:s.stage,fixture:f,opponent:f.find(n=>n!==USER),score:{home:0,away:0},remaining:600,half:1,halfRemaining:300,matchSchema:4,tactic:'balanced',controlMode:'auto'});
   };
-  window.finishOfflineMatchEarly=function(){if(live){clock();if(live){syncClock();persist();live=null;clearInterval(clockTimer);clearInterval(simTimer);}}hideBanner();$('offlineMatchOverlay').classList.remove('show');render();};
+  window.finishOfflineMatchEarly=function(sync=true){if(live){clock();if(live){syncClock();persist();live=null;clearInterval(clockTimer);clearInterval(simTimer);}}hideBanner();$('offlineMatchOverlay').classList.remove('show');render();if(sync&&typeof window.flushGameCloudSync==='function')return window.flushGameCloudSync();};
   window.setOfflineTactic=function(value){if(!['balanced','attack','defend'].includes(value))return;tactic=value;set('matchStatus',`Tattica: ${value==='attack'?'Attacco · più occasioni e più rischi':value==='defend'?'Difesa · meno occasioni':'Equilibrio'}`);persist();};
   window.openOfflineCompetition=function(kind){if(!CONFIG[kind]||live)return;if(!access(kind)){alert(requirement(kind));return;}selected=kind;const panel=$('offlineLeaguePanel');if(panel){panel.classList.remove('hidden');panel.scrollIntoView({behavior:'smooth',block:'start'});}render();};
   window.openItalianLeague=function(){window.openOfflineCompetition('seriea');};
@@ -4923,7 +4951,8 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     const profile=currentUser.offlineProfileId||currentUser.username,storage={};
     for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(gameKey(k,profile))storage[k]=localStorage.getItem(k);}
     const user=JSON.parse(JSON.stringify(currentUser));delete user.password;delete user.cloudUserId;
-    return {version:1,user,storage};
+    const competitions={};for(const kind of ['seriea','champions','coppa','europa','supercoppa']){const state=read('bear_fc_competitions_v3_'+encodeURIComponent(profile)+'_'+kind);if(state)competitions[kind]=state;}
+    return {version:2,user,storage,competitions};
   }
   function backup(data,label='local'){if(data)localStorage.setItem('bear_fc_backup_v1_'+label+'_'+Date.now(),JSON.stringify(data));}
   function showBlock(message,reload=false){
@@ -4939,6 +4968,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     const remove=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(gameKey(k,oldProfile)||gameKey(k,newProfile))remove.push(k);}remove.forEach(k=>localStorage.removeItem(k));
     currentUser={...data.user,email:user.email,cloudUserId:user.id};
     for(const [k,v] of Object.entries(data.storage))if(gameKey(k,newProfile)&&typeof v==='string')localStorage.setItem(k,v);
+    for(const [kind,state] of Object.entries(data.competitions||{}))if(['seriea','champions','coppa','europa','supercoppa'].includes(kind)&&state?.id&&state?.teams)localStorage.setItem('bear_fc_competitions_v3_'+encodeURIComponent(newProfile)+'_'+kind,JSON.stringify(state));
     localStorage.setItem('bear_fc_credit_reset_v2','1');localSave();loadUserData();showApp();updateHalloweenPackPanel();
   }
   function fresh(user){return {version:1,user:{username:user.user_metadata?.username||'Mister Bear',email:user.email,coins:0,trophies:0,cards:[],squad:{LW:null,ST:null,RW:null,CM1:null,CDM:null,CM2:null,LB:null,CB1:null,CB2:null,RB:null,GK:null},weeklyPacks:{},offlineProfileId:user.id},storage:{}};}
@@ -4951,7 +4981,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     try{
       const result=await client.from('bear_fc_saves').update({save_data:data,revision:revision+1,updated_at:new Date().toISOString()}).eq('user_id',uid).eq('revision',revision).select('revision').maybeSingle();
       if(result.error)throw result.error;
-      if(!result.data){conflict=true;if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly();backup(snapshot(),'conflict');showBlock('Questo account è stato aggiornato su un altro dispositivo. Una copia dei progressi di questo telefono è conservata qui. Carica il salvataggio online per continuare.',true);status('Conflitto tra dispositivi');return false;}
+      if(!result.data){conflict=true;if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly(false);backup(snapshot(),'conflict');showBlock('Questo account è stato aggiornato su un altro dispositivo. Una copia dei progressi di questo telefono è conservata qui. Carica il salvataggio online per continuare.',true);status('Conflitto tra dispositivi');return false;}
       revision=result.data.revision;last=encoded;dirty=JSON.stringify(snapshot())!==encoded;
       if(!dirty)localStorage.removeItem(cacheKey());else localStorage.setItem(cacheKey(),JSON.stringify({revision,data:snapshot()}));
       status('Account online · progressi salvati');return true;
@@ -5000,6 +5030,14 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     registering=true;showAuthError('Creazione account…');try{const result=await client.auth.signUp({email,password,options:{emailRedirectTo:RETURN_URL,data:{username}}});if(result.error)throw result.error;$('regPassword').value='';if(result.data.session)await establish(result.data.user);else showAuthError('Controlla la tua email e conferma l’account. Poi torna qui e accedi con email e password. I progressi di questo telefono restano conservati.');}catch(error){showAuthError(registrationError(error));}finally{registering=false;}
   };
   window.saveUserSession=function(){localSave();mark();};
+  window.queueGameCloudSync=function(){mark();};
+  window.flushGameCloudSync=async function(){mark();const saved=await flush();if($('competitionCloudStatus'))$('competitionCloudStatus').textContent=!uid?'Campionato salvato in questo browser':saved?'Campionato salvato online':'Campionato salvato sul dispositivo · sincronizzazione online da completare';return saved;};
+  window.refreshGameCloud=async function(){
+    if(!ready||busy||connecting||conflict)return;
+    const active=document.getElementById('offlineMatchOverlay');if(active?.classList.contains('show'))return;
+    if(dirty||JSON.stringify(snapshot())!==last){await flush();return;}
+    try{const row=await remote();if(row&&Number(row.revision)>revision){const session=await client.auth.getSession();if(session.data.session?.user.id!==uid)return;apply(row.save_data,session.data.session.user);revision=Number(row.revision);last=JSON.stringify(snapshot());status('Account online · campionati aggiornati');if(typeof window.refreshOfflineCompetitions==='function')window.refreshOfflineCompetitions();}}catch(error){status('Aggiornamento campionati non disponibile · riprova');}
+  };
   window.retryCloud=async function(){
     try{
       if(choice){const existing=await remote();if(existing){const user=choice.user;choice=null;$('cloudTransfer').classList.add('hidden');return establish(user);}return window.cloudTransfer(choice.useLocal??true);}
@@ -5039,7 +5077,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(!confirm(`Scollegare l’accesso online su questo dispositivo e usare ${data.user.cards.length} carte e ${data.user.coins||0} FC Coins solo nel browser? L’account online resterà disponibile.`))return;
     backup(snapshot(),'before-disconnect');const wasReady=ready;ready=false;clearTimeout(timer);
     try{
-      if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly();
+      if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly(false);
       if(client){const result=await client.auth.signOut({scope:'local'});if(result.error)throw result.error;}
       uid=null;dirty=false;conflict=false;choice=null;
       apply(data,{email:data.user.email,id:null});delete currentUser.cloudUserId;localSave();
@@ -5054,14 +5092,14 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(!ready||conflict||busy||connecting){$('cloudRecoveryMessage').textContent='Prima accedi al tuo account e completa la sincronizzazione. Poi torna qui per ripristinare la copia.';return;}
     if(!confirm(`Ripristinare ${data.user.cards.length} carte e ${data.user.coins||0} FC Coins di ${data.user.username}? Sostituiranno i progressi online attuali. Conserviamo anche una copia di quelli attuali.`))return;
     try{
-      if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly();
+      if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly(false);
       const session=await client.auth.getSession();if(session.error||session.data.session?.user.id!==uid)throw Error('Accedi nuovamente al tuo account.');
       backup(snapshot(),'before-restore');apply(data,session.data.session.user);mark();
       const saved=await flush();$('cloudRecoveryMessage').textContent=saved?'Ripristino completato e salvato online. Sul computer ricarica il sito e accedi allo stesso account.':'Copia recuperata sul dispositivo, ma non ancora salvata online. Controlla lo stato della sincronizzazione prima di passare al computer.';
     }catch(error){$('cloudRecoveryMessage').textContent='Ripristino non completato: '+error.message;}
   };
   window.logout=async function(){
-    if(uid){if(!ready||conflict){alert('Prima completa la sincronizzazione o carica il salvataggio online.');return;}if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly();if(!await flush()){alert('Salvataggio non completato. Riprova prima di uscire.');return;}ready=false;await client.auth.signOut();}
+    if(uid){if(!ready||conflict){alert('Prima completa la sincronizzazione o carica il salvataggio online.');return;}if(typeof finishOfflineMatchEarly==='function')finishOfflineMatchEarly(false);if(!await flush()){alert('Salvataggio non completato. Riprova prima di uscire.');return;}ready=false;await client.auth.signOut();}
     backup(snapshot(),'logout');const profile=currentUser?.offlineProfileId||currentUser?.username,keys=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(gameKey(k,profile))keys.push(k);}keys.forEach(k=>localStorage.removeItem(k));localStorage.removeItem('bear_fc_current_user');location.reload();
   };
   window.onload=async function(){previousLoad();status('Profilo locale · collega un account per usare altri dispositivi');
@@ -5070,12 +5108,44 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   };
   if(client)client.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_IN'&&session)setTimeout(()=>{if(document.readyState==='complete')establish(session.user);},0);if(event==='SIGNED_OUT'&&ready){ready=false;showBlock('Sessione terminata. Accedi di nuovo.');}});
   setInterval(()=>{if(ready&&!conflict){if(JSON.stringify(snapshot())!==last){dirty=true;flush();}}},5000);
+  window.addEventListener('focus',()=>window.refreshGameCloud());
+  if(typeof document.addEventListener==='function')document.addEventListener('visibilitychange',()=>{if(!document.hidden)window.refreshGameCloud();});
   window.addEventListener('beforeunload',event=>{if(ready&&(dirty||busy||JSON.stringify(snapshot())!==last)){localStorage.setItem(cacheKey(),JSON.stringify({revision,data:snapshot()}));event.preventDefault();event.returnValue='';}});
 })();
 
 </script>
 <div id="matchPresentation" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="preMatchCompetition"><div class="club-screen-box"><p class="screen-kicker" id="preMatchCompetition"></p><h2>Si accendono i riflettori</h2><div class="pre-match-versus"><section><h3 id="preMatchHomeName"></h3><p id="preMatchHomeRating"></p><div id="preMatchHomeCards" class="pre-match-cards"></div></section><span>VS</span><section><h3 id="preMatchAwayName"></h3><p id="preMatchAwayRating"></p><div id="preMatchAwayCards" class="pre-match-cards"></div></section></div><p class="screen-note">Le tre carte più forti di ogni squadra · 2 tempi da 5 minuti</p><button onclick="startPresentedMatch()" class="screen-primary">CALCIO D’INIZIO →</button><button onclick="closeMatchPresentation()" class="screen-secondary">Torna al club</button></div></div>
-<div id="matchResultPanel" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="resultHeadline"><div class="club-screen-box"><p class="screen-kicker">FISCHIO FINALE</p><h2 id="resultHeadline"></h2><div id="resultScore" class="result-big-score"></div><p id="resultTeams"></p><p id="resultCoins" class="result-coins"></p><div class="result-details"><section><p class="screen-kicker">Migliore della tua squadra</p><div id="resultBestCard"></div><h3 id="resultBestName"></h3><p id="resultBestStats"></p><small>Scelto in base a gol e assist; a parità, overall.</small></section><section><h3>Marcatori</h3><div id="resultScorers"></div></section></div><button onclick="closeMatchResult()" class="screen-primary">TORNA AL CLUB</button></div></div>
+<div id="matchResultPanel" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="resultHeadline"><div class="club-screen-box"><p class="screen-kicker">FISCHIO FINALE</p><h2 id="resultHeadline"></h2><div id="resultScore" class="result-big-score"></div><p id="resultTeams"></p><p id="resultCoins" class="result-coins"></p><p id="competitionCloudStatus" style="font-size:12px;color:#d8c6df">Salvataggio campionato in corso…</p><div class="result-details"><section><p class="screen-kicker">Migliore della tua squadra</p><div id="resultBestCard"></div><h3 id="resultBestName"></h3><p id="resultBestStats"></p><small>Scelto in base a gol e assist; a parità, overall.</small></section><section><h3>Marcatori</h3><div id="resultScorers"></div></section></div><button onclick="closeMatchResult()" class="screen-primary">TORNA AL CLUB</button></div></div>
 
+<script id="bearfc-pack-card-3d-script">
+(function(){
+  window.preparePack3D=function(box,halloween=false){
+    if(!box)return;box.classList.add('pack-solid-3d');
+    box.innerHTML='<div class="solid-face solid-front"><strong>BEAR FC</strong><span>'+(halloween?'HALLOWEEN':'ULTIMATE PACK')+'</span><b>✦</b></div><div class="solid-face solid-back">BEAR FC</div><div class="solid-face solid-left"></div><div class="solid-face solid-right"></div><div class="solid-face solid-top"></div><div class="solid-face solid-bottom"></div><div class="pack-opening-light"></div>';
+  };
+  window.enableCard3D=function(element,player,rarity){
+    if(!element)return;
+    const color={common:'#bac7bb',rare:'#4ade80',epic:'#c084fc',legendary:'#fbbf24',mythic:'#fff4b8'}[rarity]||'#bac7bb';
+    const markup=element.innerHTML;element.innerHTML='';element.classList.add('card-solid-3d');element.style.setProperty('--card-light',color);
+    element.setAttribute('tabindex','0');element.setAttribute('role','group');element.setAttribute('aria-label',player.name+'. Carta ruotabile: trascina oppure usa le frecce. Home per tornare al fronte.');
+    const front=document.createElement('div');front.className='card-solid-face card-solid-front '+getCardThemeClass(player);front.innerHTML=markup;
+    const back=document.createElement('div');back.className='card-solid-face card-solid-back';
+    const brand=document.createElement('strong');brand.textContent='BEAR FC';const badge=document.createElement('span');badge.textContent=rarityLabel(rarity);const hint=document.createElement('small');hint.textContent='Trascina per tornare al fronte';back.appendChild(brand);back.appendChild(badge);back.appendChild(hint);
+    const edge=document.createElement('div');edge.className='card-solid-edge';element.appendChild(front);element.appendChild(back);element.appendChild(edge);
+    let yaw=0,pitch=0,pointer=null,startX=0,startY=0,initialYaw=0,initialPitch=0;
+    function draw(){element.style.setProperty('--card-yaw',yaw+'deg');element.style.setProperty('--card-pitch',pitch+'deg');}
+    element.onpointerdown=event=>{if(event.button!==undefined&&event.button!==0)return;event.preventDefault();pointer=event.pointerId;startX=event.clientX;startY=event.clientY;initialYaw=yaw;initialPitch=pitch;element.setPointerCapture(pointer);element.classList.add('card-dragging');};
+    element.onpointermove=event=>{if(event.pointerId!==pointer)return;event.preventDefault();yaw=initialYaw+(event.clientX-startX)*.7;pitch=Math.max(-28,Math.min(28,initialPitch-(event.clientY-startY)*.35));element.style.setProperty('--card-light-x',Math.max(10,Math.min(90,50+(event.clientX-startX)*.15))+'%');draw();};
+    const release=event=>{if(event.pointerId===pointer){pointer=null;element.classList.remove('card-dragging');}};element.onpointerup=release;element.onpointercancel=release;element.onlostpointercapture=release;
+    element.onkeydown=event=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home'].includes(event.key))return;event.preventDefault();if(event.key==='ArrowLeft')yaw-=20;if(event.key==='ArrowRight')yaw+=20;if(event.key==='ArrowUp')pitch=Math.min(28,pitch+8);if(event.key==='ArrowDown')pitch=Math.max(-28,pitch-8);if(event.key==='Home'){yaw=0;pitch=0;}draw();};
+    let parent=element.parentNode;
+    if(element.id==='cardInspectorCard'&&parent&&!parent.classList.contains('card3d-inspector-shell')){const shell=document.createElement('div');shell.className='card3d-inspector-shell';parent.insertBefore(shell,element);shell.appendChild(element);parent=shell;}
+    if(parent){const old=parent.querySelector?.('.card-3d-controls');if(old)old.remove();const controls=document.createElement('div');controls.className='card-3d-controls';
+      for(const [text,action] of [['↶',()=>{yaw-=45;draw();}],['Fronte',()=>{yaw=0;pitch=0;draw();}],['↷',()=>{yaw+=45;draw();}]]){const button=document.createElement('button');button.type='button';button.textContent=text;button.setAttribute('aria-label',text==='↶'?'Ruota a sinistra':text==='↷'?'Ruota a destra':'Mostra il fronte');button.onclick=action;controls.appendChild(button);}parent.appendChild(controls);}
+    draw();
+  };
+})();
+
+</script>
 </body>
 </html>
