@@ -963,6 +963,24 @@
 @media(max-width:600px){.pre-match-cards{height:270px}.presentation-slot{width:38px;height:57px}.presentation-slot .offline-card-name,.presentation-slot .offline-card-details{font-size:6px}.presentation-slot .club-shirt{width:22px;height:22px}.pre-match-tunnel{height:210px}.pre-match-versus{margin:15px 0}}
 @media(prefers-reduced-motion:reduce){.pre-match-tunnel{display:none}.presentation-slot{animation:none;opacity:1}}
 
+
+.goal-replay.penalty-camera{width:min(94%,620px);height:clamp(230px,40vh,330px);background:linear-gradient(#142333 0 40%,#245b3c 40% 100%);perspective:650px;isolation:isolate}
+.penalty-lights{position:absolute;inset:0;background:radial-gradient(ellipse at 15% 0%,#dcf4ff88,transparent 35%),radial-gradient(ellipse at 85% 0%,#dcf4ff88,transparent 35%)}
+.penalty-goal{position:absolute;left:18%;top:15%;width:64%;height:32%;border:5px solid white;border-bottom:0;box-shadow:0 0 25px #e9faff22}.penalty-net{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 16px,#ffffff44 16px 17px),repeating-linear-gradient(0deg,transparent 0 15px,#ffffff44 15px 16px)}
+.penalty-spot{position:absolute;left:49%;top:80%;width:8px;height:4px;background:white;border-radius:50%}
+.penalty-shooter{position:absolute;left:39%;top:56%;width:70px;height:98px;z-index:4;animation:penaltyRun 2.8s both}.penalty-keeper{position:absolute;left:50%;top:24%;width:52px;height:73px;z-index:3;transform:translateX(-50%);animation:penaltyDive 1s 2.6s both}
+.penalty-shooter .offline-card,.penalty-keeper .offline-card{width:100%;height:100%;pointer-events:none}.penalty-shooter .club-shirt{width:32px;height:34px}.penalty-keeper .club-shirt{width:25px;height:26px}.penalty-shooter .offline-card-name,.penalty-keeper .offline-card-name{font-size:8px}
+.penalty-ball{position:absolute;left:49%;top:78%;font-size:24px;z-index:5;animation:penaltyBallGoal 1s 2.7s both}.penalty-camera-label{position:absolute;left:12px;top:10px;font-size:10px;letter-spacing:.15em;color:#d9f4ff}.penalty-outcome{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:28px;color:#ffe79b;opacity:0;animation:penaltyResult .3s 3.7s forwards}
+.outcome-save .penalty-ball{animation-name:penaltyBallSaved}.outcome-corner .penalty-ball{animation-name:penaltyBallCorner}.outcome-miss .penalty-ball{animation-name:penaltyBallMiss}.outcome-goal .penalty-keeper{animation-name:penaltyWrongDive}.outcome-goal .penalty-net{animation:penaltyNet .5s 3.4s both}
+@keyframes penaltyRun{0%,35%{transform:translate(0,0) rotateY(-12deg)}80%{transform:translate(16px,-5px) rotateY(-6deg)}100%{transform:translate(24px,-10px) rotate(-14deg)}}
+@keyframes penaltyDive{to{left:62%;transform:translateX(-50%) rotate(65deg)}}@keyframes penaltyWrongDive{to{left:38%;transform:translateX(-50%) rotate(-65deg)}}
+@keyframes penaltyBallGoal{to{left:72%;top:28%;scale:.4}}@keyframes penaltyBallSaved{to{left:62%;top:38%;scale:.5}}@keyframes penaltyBallCorner{65%{left:62%;top:38%;scale:.5}100%{left:93%;top:43%;scale:.4}}@keyframes penaltyBallMiss{to{left:92%;top:23%;scale:.4}}@keyframes penaltyResult{to{opacity:1}}@keyframes penaltyNet{50%{transform:translateY(4px)}}
+@media(prefers-reduced-motion:reduce){.penalty-camera *{animation-duration:.01s!important;animation-delay:0s!important}}
+
+
+.formation-editor{z-index:1000004}.formation-editor .club-screen-box{width:min(1000px,100%)}.formation-editor-layout{display:grid;grid-template-columns:minmax(280px,1fr) minmax(220px,.8fr);gap:22px;margin:18px 0}.formation-edit-pitch{height:440px;position:relative;border:2px solid #abedc966;border-radius:18px;background:linear-gradient(90deg,transparent 49.7%,#ffffff44 49.7% 50.3%,transparent 50.3%),repeating-linear-gradient(0deg,#154b32 0 50px,#1b583d 50px 100px)}.formation-edit-pitch:before{content:'';position:absolute;left:30%;right:30%;top:0;height:16%;border:2px solid #ffffff55;border-top:0}.formation-edit-slot{position:absolute;transform:translate(-50%,-50%);width:66px;text-align:center}.formation-edit-slot>.offline-card{width:66px;height:88px;cursor:pointer;border:2px solid #ffffff55;transition:box-shadow .15s}.formation-edit-slot.selected>.offline-card{outline:3px solid #fbbf24;box-shadow:0 0 25px #fbbf2466}.formation-edit-slot>span{font-size:9px;font-weight:900;color:white;background:#071a10bb;border-radius:5px;padding:2px 6px}.formation-edit-card .offline-card-name,.formation-edit-card .offline-card-details{font-size:8px}.formation-edit-card .club-shirt{width:30px;height:32px}.formation-bench{background:#ffffff05;border:1px solid #ffffff18;padding:16px;border-radius:18px}.formation-bench h3{font-size:17px;font-weight:800;margin-bottom:15px;color:#fde68a}#preFormationChoices{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:10px;max-height:335px;overflow-y:auto;padding:5px}.formation-choice>.offline-card{width:76px;height:106px;margin:auto}.formation-choice small{display:block;font-size:9px;margin-top:5px;color:#e4d5eb}.formation-choice .offline-card-name,.formation-choice .offline-card-details{font-size:8px}.formation-choice .club-shirt{width:34px;height:36px}.formation-summary{color:#fde68a;font-weight:800}.formation-options{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}.formation-options select{background:#251b2f;border:1px solid #bda9cc88;border-radius:10px;padding:10px;color:white}.formation-editor-actions{position:sticky;bottom:-30px;padding:10px;background:#17101ef5;z-index:3;border-top:1px solid #ffffff18}.formation-edit-open{border-color:#fbbf2466;color:#fde68a}
+@media(max-width:650px){.formation-editor-layout{grid-template-columns:1fr;gap:14px}.formation-edit-pitch{height:390px}.formation-edit-slot{width:55px}.formation-edit-slot>.offline-card{width:55px;height:75px}.formation-bench{padding:12px}#preFormationChoices{max-height:220px}.formation-editor-actions{bottom:-20px}.formation-editor-actions button{margin:4px;padding:12px;font-size:12px}}
+
 </style>
 <style id="home-formation-cards-css">
 .home-formation-wrap{background:linear-gradient(145deg,rgba(2,44,34,.82),rgba(15,23,42,.92));border:1px solid rgba(16,185,129,.25);box-shadow:0 20px 50px rgba(0,0,0,.25)}
@@ -4520,12 +4538,39 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     $('matchPresentation').classList.remove('lineup-ready');
     $('matchPresentation').classList.remove('hidden');
   }
+
+  let formationDraft=null,formationSlot='ST';
+  const ROLE_LABEL={GK:'Portiere',LB:'Terzino sinistro',CB1:'Difensore centrale',CB2:'Difensore centrale',RB:'Terzino destro',CM1:'Centrocampista',CDM:'Mediano',CM2:'Centrocampista',LW:'Ala sinistra',ST:'Attaccante',RW:'Ala destra'};
+  function draftPlayer(slot){const id=formationDraft?.[slot];return ALL_PLAYERS.find(p=>p.id===id&&userCards.includes(id)&&compatible(p,slot));}
+  function renderFormationEditor(){
+    const field=$('preFormationPitch'),choices=$('preFormationChoices');field.innerHTML='';choices.innerHTML='';let owned=0,total=0;
+    FORM.forEach(([slot,x,y],i)=>{const card=draftPlayer(slot),p=card||makeBot(slot,i,'home',USER);if(card)owned++;total+=p.rating;
+      const cell=document.createElement('div');cell.className='formation-edit-slot'+(slot===formationSlot?' selected':'');cell.style.left=y+'%';cell.style.top=(94-x)+'%';
+      const button=miniCard(p,'home',club());button.classList.add('formation-edit-card');button.setAttribute('aria-label',ROLE_LABEL[slot]+': '+p.name+'. Tocca per cambiare');button.setAttribute('aria-pressed',String(slot===formationSlot));button.onclick=()=>{formationSlot=slot;renderFormationEditor();};cell.appendChild(button);
+      const label=document.createElement('span');label.textContent=slot;cell.appendChild(label);field.appendChild(cell);
+    });
+    set('preFormationSummary',owned+' carte · '+(11-owned)+' BOT · '+Math.round(total/11)+' OVR');set('preFormationRole',ROLE_LABEL[formationSlot]+' · '+formationSlot);
+    const pool=ALL_PLAYERS.filter(p=>userCards.includes(p.id)&&compatible(p,formationSlot)).sort((a,b)=>b.rating-a.rating);
+    pool.forEach(p=>{const wrapper=document.createElement('div');wrapper.className='formation-choice';const button=miniCard(p,'home',club());button.onclick=()=>window.pickPreMatchPlayer(p.id);button.setAttribute('aria-label','Schiera '+p.name+', '+p.rating+' OVR');wrapper.appendChild(button);
+      const assigned=FORM.find(([slot])=>slot!==formationSlot&&draftPlayer(slot)&&identity(draftPlayer(slot))===identity(p));const note=document.createElement('small');note.textContent=formationDraft[formationSlot]===p.id?'Titolare':assigned?'Sposta da '+assigned[0]:'Disponibile';wrapper.appendChild(note);choices.appendChild(wrapper);
+    });
+    if(!pool.length){const message=document.createElement('p');message.textContent='Non possiedi carte per questo ruolo: puoi usare il BOT di supporto.';choices.appendChild(message);}
+  }
+  window.openPreMatchFormation=function(){if(!pendingPresentation||live)return;formationDraft={...userSquad};formationSlot='ST';$('preFormationTactic').value=pendingPresentation.tactic||'balanced';renderFormationEditor();$('preMatchFormationEditor').classList.remove('hidden');};
+  window.pickPreMatchPlayer=function(id){if(!formationDraft)return;const p=ALL_PLAYERS.find(p=>p.id===id);if(!p||!userCards.includes(id)||!compatible(p,formationSlot))return;FORM.forEach(([slot])=>{const other=draftPlayer(slot);if(slot!==formationSlot&&other&&identity(other)===identity(p))formationDraft[slot]=null;});formationDraft[formationSlot]=id;renderFormationEditor();};
+  window.usePreMatchBot=function(){if(!formationDraft)return;formationDraft[formationSlot]=null;renderFormationEditor();};
+  window.autoPreMatchFormation=function(){if(!formationDraft)return;const used=new Set(),pool=ALL_PLAYERS.filter(p=>userCards.includes(p.id)).sort((a,b)=>b.rating-a.rating);FORM.forEach(([slot])=>{const p=pool.find(p=>compatible(p,slot)&&!used.has(identity(p)));formationDraft[slot]=p?.id||null;if(p)used.add(identity(p));});renderFormationEditor();};
+  window.cancelPreMatchFormation=function(){formationDraft=null;$('preMatchFormationEditor').classList.add('hidden');};
+  window.confirmPreMatchFormation=function(){if(!formationDraft||!pendingPresentation)return;const used=new Set();FORM.forEach(([slot])=>{const p=draftPlayer(slot);if(!p||used.has(identity(p)))formationDraft[slot]=null;else used.add(identity(p));});userSquad={...formationDraft};currentUser.squad=userSquad;
+    const choice=$('preFormationTactic').value;pendingPresentation.tactic=['balanced','attack','defend','possession','counter'].includes(choice)?choice:'balanced';saveUserSession();formationDraft=null;$('preMatchFormationEditor').classList.add('hidden');if(typeof renderSquadPitch==='function')renderSquadPitch();if(typeof calculateSquadRating==='function')calculateSquadRating();renderLineup();renderClubHome();showMatchPresentation(pendingPresentation);window.skipMatchTunnel();
+  };
+
   window.skipMatchTunnel=function(){$('matchPresentation').classList.add('lineup-ready');};
   window.startPresentedMatch=function(){
     const snap=pendingPresentation;if(!snap)return;const season=load(snap.kind);if(season.id!==snap.seasonId||season.round!==snap.round){pendingPresentation=null;$('matchPresentation').classList.add('hidden');alert('Il calendario è cambiato. Riapri la partita.');return;}
     pendingPresentation=null;$('matchPresentation').classList.add('hidden');openLive(snap);
   };
-  window.closeMatchPresentation=function(){pendingPresentation=null;$('matchPresentation').classList.add('hidden');};
+  window.closeMatchPresentation=function(){window.cancelPreMatchFormation();pendingPresentation=null;$('matchPresentation').classList.add('hidden');};
   function showMatchResult(match,reward,bonus,winner){
     set('resultHeadline',winner?winner===USER?'Vittoria ai rigori':'Sconfitta ai rigori':match.score.home>match.score.away?'Vittoria!':match.score.home===match.score.away?'Pareggio':'Sconfitta');
     set('resultScore',match.score.home+' – '+match.score.away);set('resultTeams',club().name+' · '+match.opponent);set('resultCoins','+'+reward+' FC Coins'+(bonus?' · +'+bonus+' bonus trofeo':''));
@@ -4640,7 +4685,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   function aggression(side){return side==='home'?(tactic==='defend'?1.15:tactic==='attack'?1.08:1):(CLUB_AGGRESSION[live.opponent]||1);}
   function foul(offender,victim,force=null){
     const p=players[victim],d=players[offender];if(!p||!d||d.sentOff)return;
-    p.fallenRemaining=2.2;live.stats[d.side].fouls++;const penalty=force==='penalty'||(progress(p)>84&&p.y>27&&p.y<73);
+    p.fallenRemaining=2.2;live.stats[d.side].fouls++;const penalty=force==='penalty'||(progress(p)>=81&&progress(p)<=97&&p.y>=24&&p.y<=76);
     if(force==='red')card(offender,true);else if(force==='yellow')card(offender);else if(Math.random()<.004)card(offender,true);else if(Math.random()<Math.min(.3,(d.yellow?.075:.23)*aggression(d.side)))card(offender);
     const dir=direction(p.side);deadBall(penalty?'penalty':'freeKick',p.side,penalty?(dir>0?88:12):p.x,penalty?50:p.y,4);
     eventText(penalty?`⚖️ Calcio di rigore per ${p.side==='home'?club().name:live.opponent}!`:`⚖️ Fallo su ${p.player.name}: calcio di punizione.`);
@@ -4729,6 +4774,17 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(keeper){const figure=document.createElement('div');figure.className='closeup-keeper';const keeperCard=miniCard(keeper.p.player,other(side),side==='home'?opponentKit(live.opponent):club());keeperCard.onclick=null;keeperCard.tabIndex=-1;figure.appendChild(keeperCard);scene.appendChild(figure);}
     const celebration=document.createElement('div');celebration.className='closeup-celebration';celebration.textContent=player.player.name+' · GOL!';scene.appendChild(celebration);banner.appendChild(scene);
   }
+  function showPenaltyAnimation(flight){
+    const p=players[flight.from],side=p.side,keeper=players[flight.keeperIndex];
+    centerBanner('CALCIO DI RIGORE',p.player.name+' contro '+(keeper?.player.name||'la porta'),'penalty');
+    const scene=document.createElement('div');scene.className='goal-replay penalty-camera outcome-'+flight.outcome;
+    scene.setAttribute('aria-label','Rigore di '+p.player.name+': rincorsa, tiro e risposta del portiere.');
+    scene.innerHTML='<div class="penalty-lights"></div><div class="penalty-goal"><div class="penalty-net"></div></div><div class="penalty-spot"></div><div class="penalty-ball">⚽</div><span class="penalty-camera-label">CAMERA RIGORE</span>';
+    const shooter=document.createElement('div');shooter.className='penalty-shooter';shooter.appendChild(miniCard(p.player,side,side==='home'?club():opponentKit(live.opponent)));scene.appendChild(shooter);
+    if(keeper){const figure=document.createElement('div');figure.className='penalty-keeper';figure.appendChild(miniCard(keeper.player,keeper.side,keeper.side==='home'?club():opponentKit(live.opponent)));scene.appendChild(figure);}
+    const result=document.createElement('strong');result.className='penalty-outcome';result.textContent=flight.outcome==='goal'?'GOL!':flight.outcome==='save'?'PARATO!':flight.outcome==='corner'?'DEVIATO IN ANGOLO':'FUORI!';scene.appendChild(result);$('matchEventBanner').appendChild(scene);
+    live.penaltyAnimation={flight};deadBall('penaltyAnimation',side,live.ball.x,live.ball.y,5);
+  }
   function goal(side,scorer,shot=null){
     live.goalEvents=live.goalEvents||[];live.goalEvents.push({side,id:players[scorer]?.player.id,name:players[scorer]?.player.name||'Rete',minute:Math.floor(((live.half-1)*300+300-live.halfRemaining)*.15)});
 
@@ -4795,6 +4851,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(keeper&&outcome!=='miss'){keeper.p.keeperDiveUntil=tick+13;keeper.p.keeperDiveDirection=goalY<keeper.p.y?-1:1;}
 
     eventText(`${penalty?'🥅 Rigore':header?'🎯 Colpo di testa':'🔥 Tiro'} di ${p.player.name}!`);
+    if(penalty)showPenaltyAnimation(live.flight);
   }
   function flightStep(dt){
     const f=live.flight;if(!f)return;
@@ -4845,6 +4902,10 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   function moveCornerPlayers(restart,dt){restart.positions.forEach(({i,x,y})=>{const p=players[i];if(p&&!p.sentOff)move(p,x,y,dt*(5+ability(p.player,'pace')/35));});}
   function restartStep(dt){
     const restart=live.deadBall;if(!restart)return;refereeStep(dt);restart.wait-=dt;if(refereeState().booking)restart.wait=Math.max(.2,restart.wait);
+    if(restart.type==='penaltyAnimation'){
+      if(restart.wait>0)return;
+      live.flight=live.penaltyAnimation?.flight||null;delete live.penaltyAnimation;live.deadBall=null;live.deadline=Date.now()+Math.max(0,live.stoppageRemainingMs??live.halfRemaining*1000);delete live.stoppageRemainingMs;set('matchClockState','▶ In gioco');hideBanner();return;
+    }
     if(restart.type==='corner'){prepareCorner(restart);moveCornerPlayers(restart,dt);}
     if(restart.type==='freeKick'){
       if(restart.kicker===undefined||!players[restart.kicker]||players[restart.kicker].sentOff){
@@ -4994,8 +5055,8 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     players.forEach(p=>{p.baseX=FORM.find(f=>f[0]===p.slot)?.[1]||p.baseX;});
     live.deadline=Date.now()+Math.max(1,live.halfRemaining)*1000;
     if(live.deadBall&&!Number.isFinite(live.stoppageRemainingMs))live.stoppageRemainingMs=Math.max(0,live.halfRemaining*1000);
-    if(!snap.players)kickoff('home');if($('offlineTactic'))$('offlineTactic').value=tactic;renderPitch();updateScore();set('matchCompetitionLabel',CONFIG[live.kind].name+' · '+phase(load(live.kind)));set('matchStatus',live.halfTime?'Intervallo: inizia il secondo tempo quando sei pronto.':'Possesso e movimenti legati all’azione.');$('offlineMatchOverlay').classList.add('show');$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Salva ed esci';
-    if(live.halfTime)centerBanner('INTERVALLO',club().name+' '+live.score.home+'–'+live.score.away+' '+live.opponent,'halftime');else hideBanner();persist();clock();clockTimer=setInterval(clock,1000);simTimer=setInterval(step,100);render();
+    if(live.deadBall?.type==='penaltyAnimation'&&live.penaltyAnimation?.flight){showPenaltyAnimation(live.penaltyAnimation.flight);}if(!snap.players)kickoff('home');if($('offlineTactic'))$('offlineTactic').value=tactic;renderPitch();updateScore();set('matchCompetitionLabel',CONFIG[live.kind].name+' · '+phase(load(live.kind)));set('matchStatus',live.halfTime?'Intervallo: inizia il secondo tempo quando sei pronto.':'Possesso e movimenti legati all’azione.');$('offlineMatchOverlay').classList.add('show');$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Salva ed esci';
+    if(live.halfTime)centerBanner('INTERVALLO',club().name+' '+live.score.home+'–'+live.score.away+' '+live.opponent,'halftime');else if(live.deadBall?.type!=='penaltyAnimation')hideBanner();persist();clock();clockTimer=setInterval(clock,1000);simTimer=setInterval(step,100);render();
   }
   window.startItalianLeagueMatch=function(){
     if(live)return;const pending=read(activeKey());if(pending){const state=load(pending.kind);if(state.id===pending.seasonId&&state.round===pending.round&&state.stage===pending.stage){openLive(pending);return;}localStorage.removeItem(activeKey());}
@@ -5224,7 +5285,8 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 })();
 
 </script>
-<div id="matchPresentation" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="preMatchCompetition"><div class="club-screen-box"><p class="screen-kicker" id="preMatchCompetition"></p><h2>Si accendono i riflettori</h2><div class="pre-match-tunnel" id="preMatchTunnel" aria-hidden="true"></div><button onclick="skipMatchTunnel()" class="screen-secondary">MOSTRA SUBITO LE FORMAZIONI</button><div class="pre-match-versus"><section><h3 id="preMatchHomeName"></h3><p id="preMatchHomeRating"></p><div id="preMatchHomeCards" class="pre-match-cards"></div></section><span>VS</span><section><h3 id="preMatchAwayName"></h3><p id="preMatchAwayRating"></p><div id="preMatchAwayCards" class="pre-match-cards"></div></section></div><p class="screen-note">Portiere → difesa → centrocampo → attacco · 2 tempi da 5 minuti</p><button onclick="startPresentedMatch()" class="screen-primary">CALCIO D’INIZIO →</button><button onclick="closeMatchPresentation()" class="screen-secondary">Torna al club</button></div></div>
+<div id="matchPresentation" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="preMatchCompetition"><div class="club-screen-box"><p class="screen-kicker" id="preMatchCompetition"></p><h2>Si accendono i riflettori</h2><div class="pre-match-tunnel" id="preMatchTunnel" aria-hidden="true"></div><button onclick="skipMatchTunnel()" class="screen-secondary">MOSTRA SUBITO LE FORMAZIONI</button><div class="pre-match-versus"><section><h3 id="preMatchHomeName"></h3><p id="preMatchHomeRating"></p><div id="preMatchHomeCards" class="pre-match-cards"></div></section><span>VS</span><section><h3 id="preMatchAwayName"></h3><p id="preMatchAwayRating"></p><div id="preMatchAwayCards" class="pre-match-cards"></div></section></div><p class="screen-note">Portiere → difesa → centrocampo → attacco · 2 tempi da 5 minuti</p><button onclick="openPreMatchFormation()" class="screen-secondary formation-edit-open">⚙ MODIFICA FORMAZIONE</button><button onclick="startPresentedMatch()" class="screen-primary">CALCIO D’INIZIO →</button><button onclick="closeMatchPresentation()" class="screen-secondary">Torna al club</button></div></div>
+<div id="preMatchFormationEditor" class="club-screen hidden formation-editor" role="dialog" aria-modal="true" aria-labelledby="preFormationTitle"><div class="club-screen-box"><p class="screen-kicker">SPOGLIATOIO · PRIMA DEL CALCIO D’INIZIO</p><h2 id="preFormationTitle">Scegli i tuoi titolari</h2><p class="screen-note">Tocca una posizione sul campo e scegli una delle tue carte.</p><p id="preFormationSummary" class="formation-summary"></p><div class="formation-editor-layout"><div id="preFormationPitch" class="formation-edit-pitch"></div><section class="formation-bench"><h3 id="preFormationRole"></h3><div id="preFormationChoices"></div><button class="screen-secondary" onclick="usePreMatchBot()">USA UN BOT IN QUESTO RUOLO</button></section></div><div class="formation-options"><label for="preFormationTactic">Stile di gioco</label><select id="preFormationTactic"><option value="balanced">Equilibrato</option><option value="possession">Tiki-taka</option><option value="attack">Attacco</option><option value="defend">Difesa</option><option value="counter">Contropiede</option></select><button onclick="autoPreMatchFormation()" class="screen-secondary">MIGLIOR FORMAZIONE AUTOMATICA</button></div><div class="formation-editor-actions"><button onclick="confirmPreMatchFormation()" class="screen-primary">CONFERMA FORMAZIONE</button><button onclick="cancelPreMatchFormation()" class="screen-secondary">ANNULLA</button></div></div></div>
 <div id="matchResultPanel" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="resultHeadline"><div class="club-screen-box"><p class="screen-kicker">FISCHIO FINALE</p><h2 id="resultHeadline"></h2><div id="resultScore" class="result-big-score"></div><p id="resultTeams"></p><p id="resultCoins" class="result-coins"></p><p id="competitionCloudStatus" style="font-size:12px;color:#d8c6df">Salvataggio campionato in corso…</p><div class="result-details"><section><p class="screen-kicker">Migliore della tua squadra</p><div id="resultBestCard"></div><h3 id="resultBestName"></h3><p id="resultBestStats"></p><small>Scelto in base a gol e assist; a parità, overall.</small></section><section><h3>Marcatori</h3><div id="resultScorers"></div></section></div><button onclick="closeMatchResult()" class="screen-primary">TORNA AL CLUB</button></div></div>
 
 <script id="bearfc-pack-card-3d-script">
