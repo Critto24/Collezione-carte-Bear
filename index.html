@@ -943,6 +943,26 @@
             .halloween-pack-coffin{width:145px;height:205px}.halloween-pack-coffin::before{font-size:50px}.halloween-pack-coffin::after{font-size:12px}
         }
 
+
+/* Both lineups enter the tunnel, then reveal their 4-3-3 formations. */
+.pre-match-tunnel{height:250px;position:relative;overflow:hidden;perspective:650px;border-radius:16px;background:radial-gradient(ellipse at 50% 30%,#e6f3ff66,transparent 24%),repeating-linear-gradient(90deg,#121b29 0 9%,#3f7199 9% 10%,#121b29 10% 20%);box-shadow:inset 0 0 70px 30px #000;animation:tunnelClose .8s 16s forwards}
+.pre-match-tunnel:before{content:'';position:absolute;inset:0;background:linear-gradient(60deg,transparent 35%,#b4e3ff44 45%,transparent 50%),linear-gradient(-60deg,transparent 35%,#b4e3ff44 45%,transparent 50%);pointer-events:none}
+.pre-match-tunnel:after{content:'';position:absolute;left:10%;right:10%;bottom:-85px;height:190px;transform:rotateX(65deg);background:repeating-linear-gradient(0deg,#e4f7ff88 0 3px,#1c304a 3px 35px);box-shadow:0 0 45px #7dd3fc55;pointer-events:none}
+.tunnel-walker{position:absolute;top:42%;width:78px;height:108px;opacity:0;z-index:2;animation:tunnelAdvance 5s var(--walk-delay) both;transform-style:preserve-3d}
+.tunnel-walker.home{left:calc(50% - 98px)}.tunnel-walker.away{left:calc(50% + 20px)}
+.tunnel-walker .offline-card{width:100%;height:100%;animation:tunnelStride .5s var(--walk-delay) 10 alternate;box-shadow:0 15px 25px #0009,0 0 20px #bce8ff44}
+.pre-match-cards{position:relative!important;display:block!important;height:350px;border:2px solid #d1fae555;border-radius:14px;background:linear-gradient(90deg,transparent 49.7%,#d1fae577 49.7% 50.3%,transparent 50.3%),repeating-linear-gradient(0deg,#164a36 0 45px,#1b583e 45px 90px);overflow:hidden}
+.pre-match-cards:before{content:'';position:absolute;width:30%;height:18%;top:0;left:35%;border:1px solid #ffffff66;border-top:0;pointer-events:none}
+.presentation-slot{position:absolute;transform:translate(-50%,-50%);animation:formationReveal .5s var(--lineup-delay) both;width:58px;height:80px;z-index:1}
+.presentation-slot>.offline-card{width:100%;height:100%;animation:none!important}.presentation-slot .offline-card-name,.presentation-slot .offline-card-details{font-size:8px}.presentation-slot .club-shirt{width:30px;height:32px}
+.lineup-ready .pre-match-tunnel{display:none}.lineup-ready .presentation-slot{animation:none;opacity:1}
+@keyframes tunnelAdvance{0%{opacity:0;transform:translateY(-50px) translateZ(-450px)}15%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translateY(50px) translateZ(130px)}}
+@keyframes tunnelStride{from{rotate:-3deg;translate:0 0}to{rotate:3deg;translate:0 -5px}}
+@keyframes tunnelClose{to{height:0;margin:0;opacity:0}}
+@keyframes formationReveal{from{opacity:0;scale:.65}to{opacity:1;scale:1}}
+@media(max-width:600px){.pre-match-cards{height:270px}.presentation-slot{width:38px;height:57px}.presentation-slot .offline-card-name,.presentation-slot .offline-card-details{font-size:6px}.presentation-slot .club-shirt{width:22px;height:22px}.pre-match-tunnel{height:210px}.pre-match-versus{margin:15px 0}}
+@media(prefers-reduced-motion:reduce){.pre-match-tunnel{display:none}.presentation-slot{animation:none;opacity:1}}
+
 </style>
 <style id="home-formation-cards-css">
 .home-formation-wrap{background:linear-gradient(145deg,rgba(2,44,34,.82),rgba(15,23,42,.92));border:1px solid rgba(16,185,129,.25);box-shadow:0 20px 50px rgba(0,0,0,.25)}
@@ -1287,7 +1307,12 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 @media(max-width:600px){.pack-solid-3d{--solid-width:165px;--solid-height:225px;--solid-depth:24px}#packRevealArea .card-solid-3d,#halloweenRevealArea .card-solid-3d{height:365px!important}#cardInspectorCard.card-solid-3d{height:380px}.card-solid-back strong{font-size:34px}}
 @media(prefers-reduced-motion:reduce){.pack-solid-3d{animation:none!important;transform:rotateY(-20deg)}.pack-solid-3d.opening{animation:solidPackOpen .1s forwards!important}.pack-solid-3d.opening .solid-top,.pack-solid-3d.opening .pack-opening-light{animation:none!important}.card-solid-3d{transition:none!important}}
 
-</style></head>
+</style><style id="bearfc-referee-falls">
+.match-referee{position:absolute;width:18px;height:29px;transform:translate(-50%,-50%);z-index:7;pointer-events:none;transition:left .1s linear,top .1s linear;filter:drop-shadow(2px 3px 2px #0005)}.referee-head{position:absolute;left:6px;top:0;width:7px;height:7px;background:#d8a57e;border-radius:50%}.referee-shirt{position:absolute;left:3px;top:8px;width:13px;height:11px;background:#facc15;border:1px solid #111;border-radius:3px}.referee-legs{position:absolute;left:5px;top:18px;width:10px;height:10px;background:linear-gradient(90deg,#111 0 38%,transparent 38% 60%,#111 60%);border-top:4px solid #111}.referee-arm{position:absolute;right:0;top:9px;width:4px;height:12px;border-radius:3px;background:#d8a57e;transform-origin:top center;transition:transform .3s}.referee-booking .referee-arm{transform:rotate(160deg)}.referee-card{position:absolute;right:-3px;top:-7px;width:7px;height:10px;border:1px solid #0008;opacity:0;border-radius:1px;box-shadow:0 0 8px #fff5}.referee-booking .referee-card{animation:refShowCard .3s ease-out}
+#matchPitch .match-player.player-fallen .offline-card{transform:perspective(400px) rotateX(58deg) rotate(-72deg) translateY(9px)!important;transition:transform .24s ease;box-shadow:0 4px 4px #0008}
+@keyframes refShowCard{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(prefers-reduced-motion:reduce){.match-referee,.referee-arm,#matchPitch .match-player.player-fallen .offline-card{transition:none}.referee-booking .referee-card{animation:none}}
+</style><style id="bearfc-classic-football">#matchPitch .match-ball{width:17px;height:17px;background:transparent;border:0;box-shadow:none}#matchPitch .match-ball svg{width:100%;height:100%;display:block;filter:drop-shadow(1px 2px 1px #0005)}#matchPitch .match-ball:after{z-index:-1}@media(max-width:600px){#matchPitch .match-ball{width:14px;height:14px}}</style></head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden halloween-event">
 <!-- BEAR FC STADIUM ENTRANCE -->
 <div id="bearCinematicIntro" role="dialog" aria-modal="true" aria-labelledby="bearIntroTitle">
@@ -4328,14 +4353,14 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       </div>
       <div id="matchClock" class="match-clock">05:00</div>
     </div>
-    <div class="match-time-strip"><strong id="matchHalfLabel">1° TEMPO</strong><span id="matchGameMinute">0′ 00″</span><span>5 minuti reali per tempo</span></div>
+    <div class="match-time-strip"><strong id="matchHalfLabel">1° TEMPO</strong><span id="matchGameMinute">0′ 00″</span><span>5 minuti di gioco per tempo</span><span id="matchClockState" style="color:#fde68a;font-size:10px">▶ In gioco</span></div>
     <div id="matchKitLegend" class="offline-kit-legend"></div>
     <div class="match-pitch-shell"><div class="stadium-supporters supporters-top" aria-hidden="true"></div><div class="stadium-supporters supporters-bottom" aria-hidden="true"></div><div id="matchPitch" class="match-pitch"></div><div id="matchEventBanner" class="match-event-banner hidden" aria-live="polite"><strong id="matchEventTitle"></strong><span id="matchEventSubtitle"></span><button id="startSecondHalfBtn" type="button" onclick="startOfflineSecondHalf()">Inizia secondo tempo</button></div></div>
     <div id="matchStats" class="match-stats"></div>
     <div id="matchPlayerDetail" style="min-height:22px;color:#fde68a;font-size:12px;padding:6px;">Tocca una carta per vedere nome e valutazione.</div>
     <details class="match-roster-details"><summary>Le tue carte in campo</summary><div id="matchOurCards" class="offline-match-roster"></div></details>
     <div id="matchStatus" class="match-status">Preparazione della partita...</div>
-    <div style="padding:10px;color:white;"><label for="offlineTactic">Tattica: </label><select id="offlineTactic" onchange="setOfflineTactic(this.value)" style="padding:8px;border-radius:8px;background:#102018;color:white;"><option value="balanced">Equilibrio</option><option value="attack">Attacco · più rischi</option><option value="defend">Difesa · meno occasioni</option></select></div>
+    <div style="padding:10px;color:white;"><label for="offlineTactic">Tattica: </label><select id="offlineTactic" onchange="setOfflineTactic(this.value)" style="padding:8px;border-radius:8px;background:#102018;color:white;"><option value="balanced">Equilibrio</option><option value="attack">Attacco · più rischi</option><option value="defend">Difesa · meno occasioni</option><option value="possession">Tiki-taka · passaggi corti</option><option value="counter">Contropiede · verticalizzazioni</option></select></div>
     <div class="match-actions">
       <button onclick="finishOfflineMatchEarly()" id="finishMatchBtn">Termina partita</button>
     </div>
@@ -4430,7 +4455,9 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   // Valori di gioco indicativi, non rating ufficiali: gerarchia italiana ispirata ai risultati 2025/26.
   const CLUB_STRENGTH={Inter:87,Napoli:85,Roma:82,Como:81,Milan:83,Juventus:84,Atalanta:81,Bologna:78,Lazio:79,Udinese:75,Sassuolo:74,Torino:74,Parma:72,Cagliari:71,Fiorentina:77,Genoa:72,Lecce:69,Monza:68,Venezia:67,Frosinone:67,'Real Madrid':89,'Manchester City':88,'Bayern Monaco':88,Barcellona:88,'Paris Saint-Germain':89,Liverpool:87,Porto:80,Ajax:79,Tottenham:82,'Real Sociedad':79,Lione:78,Benfica:81};
   function strength(name){if(name===USER)return typeof currentUser!=='undefined'&&currentUser?Math.round(ownedLineup().reduce((sum,p)=>sum+(Number(p.player.rating)||50),0)/11):62;return CLUB_STRENGTH[name]||72;}
-  function makeBot(slot,i,side,name){const names=['Rossi','Costa','Moretti','Silva','Romano','Martin','Greco','Lopez','Conti','Muller','Bianchi'];const value=side==='home'?48+(i%7):strength(name)+(i%5)-2;return {id:`bot_${side}_${i}`,name:side==='home'?`BOT ${slot}`:`${names[(i+name.length)%names.length]}`,pos:slot,rating:value,pace:value,shoot:slot==='GK'?25:value,pass:value,drib:value,def:value,phys:value};}
+  // Fixed game rosters inspired by real clubs; not a live transfer feed.
+  const CLUB_ROSTERS={"Atalanta":["Carnesecchi","Kolasinac","Scalvini","Hien","Bellanova","Pasalic","Ederson","De Ketelaere","Sulemana","Scamacca","Samardzic"],"Bologna":["Skorupski","Miranda","Lucumi","Casale","De Silvestri","Ferguson","Moro","Pobega","Cambiaghi","Castro","Orsolini"],"Cagliari":["Caprile","Obert","Mina","Luperto","Zappa","Deiola","Adopo","Prati","Felici","Borrelli","Luvumbo"],"Como":["Butez","Moreno","Kempf","Diego Carlos","Vojvoda","Caqueret","Perrone","Da Cunha","Jesus Rodriguez","Douvikas","Nico Paz"],"Fiorentina":["De Gea","Gosens","Ranieri","Pongracic","Dodo","Mandragora","Fagioli","Sohm","Gudmundsson","Kean","Solomon"],"Frosinone":["Palmisani","Bracaglia","Monterisi","Calvani","Oyono","Gelli","Calo","Cichella","Kvernadze","Raimondo","Ghedjemis"],"Genoa":["Bijlow","Vasquez","Ostigard","Marcandalli","Sabelli","Frendrup","Amorim","Ellertsson","Messias","Colombo","Vitinha"],"Inter":["Sommer","Dimarco","Bastoni","Akanji","Dumfries","Barella","Calhanoglu","Mkhitaryan","Thuram","Lautaro","Luis Henrique"],"Juventus":["Di Gregorio","Cambiaso","Bremer","Gatti","Kalulu","Thuram","Locatelli","McKennie","Yildiz","Jonathan David","Conceicao"],"Lazio":["Provedel","Nuno Tavares","Romagnoli","Gila","Marusic","Guendouzi","Rovella","Dele-Bashiru","Zaccagni","Castellanos","Isaksen"],"Lecce":["Falcone","Gallo","Gaspar","Tiago Gabriel","Veiga","Coulibaly","Ramadani","Kaba","Banda","Stulic","Sottil"],"Milan":["Maignan","Estupinan","Pavlovic","Gabbia","Tomori","Rabiot","Modric","Fofana","Leao","Gimenez","Pulisic"],"Monza":["Thiam","Kyriakopoulos","Carboni","Ravanelli","Birindelli","Pessina","Bianco","Colpani","Keita Balde","Petagna","Mota"],"Napoli":["Meret","Spinazzola","Buongiorno","Rrahmani","Di Lorenzo","McTominay","Lobotka","Anguissa","Neres","Hojlund","Politano"],"Parma":["Suzuki","Valeri","Valenti","Troilo","Delprato","Bernabe","Keita","Ordonez","Ondrejka","Pellegrino","Almqvist"],"Roma":["Svilar","Angelino","Ndicka","Mancini","Celik","Kone","Cristante","Pellegrini","El Shaarawy","Dovbyk","Soule"],"Sassuolo":["Muric","Doig","Muharemovic","Idzes","Walukiewicz","Kone","Matic","Thorstvedt","Lauriente","Pinamonti","Berardi"],"Torino":["Israel","Biraghi","Coco","Ismajli","Pedersen","Casadei","Asllani","Vlasic","Aboukhlal","Zapata","Adams"],"Udinese":["Okoye","Kamara","Solet","Kabasele","Zanoli","Lovric","Karlstrom","Ekkelenkamp","Atta","Davis","Zaniolo"],"Venezia":["Stankovic","Haps","Svoboda","Schingtienne","Sagrado","Busio","Duncan","Doumbia","Yeboah","Adorante","Kike Perez"],"Real Madrid":["Courtois","Carreras","Rudiger","Militao","Alexander-Arnold","Bellingham","Tchouameni","Valverde","Vinicius","Mbappe","Rodrygo"],"Manchester City":["Donnarumma","Ait-Nouri","Gvardiol","Dias","Lewis","Reijnders","Rodri","Bernardo Silva","Doku","Haaland","Foden"],"Bayern Monaco":["Neuer","Davies","Kim","Upamecano","Laimer","Goretzka","Kimmich","Musiala","Luis Diaz","Kane","Olise"],"Barcellona":["Joan Garcia","Balde","Cubarsi","Araujo","Kounde","Pedri","De Jong","Gavi","Raphinha","Lewandowski","Lamine Yamal"],"Paris Saint-Germain":["Chevalier","Nuno Mendes","Pacho","Marquinhos","Hakimi","Vitinha","Joao Neves","Fabian Ruiz","Kvaratskhelia","Dembele","Doue"],"Liverpool":["Alisson","Kerkez","Van Dijk","Konate","Frimpong","Mac Allister","Gravenberch","Szoboszlai","Gakpo","Isak","Salah"],"Porto":["Diogo Costa","Moura","Bednarek","Kiwior","Alberto Costa","Veiga","Varela","Gabri Veiga","Borja Sainz","Samu","Pepe"],"Ajax":["Jaros","Wijndal","Baas","Sutalo","Gaaei","Taylor","Regeer","Klaassen","Godts","Weghorst","Berghuis"],"Tottenham":["Vicario","Udogie","Van de Ven","Romero","Porro","Sarr","Bentancur","Maddison","Odobert","Solanke","Kudus"],"Real Sociedad":["Remiro","Sergio Gomez","Zubeldia","Caleta-Car","Aramburu","Brais Mendez","Gorrotxategi","Turrientes","Barrenetxea","Oyarzabal","Kubo"],"Lione":["Greif","Tagliafico","Niakhate","Mata","Maitland-Niles","Tolisso","Tessmann","Morton","Moreira","Satriano","Sulc"],"Benfica":["Trubin","Dahl","Otamendi","Antonio Silva","Dedic","Aursnes","Florentino","Barreiro","Schjelderup","Pavlidis","Lukebakio"]};
+  function makeBot(slot,i,side,name){const value=side==='home'?48+(i%7):strength(name)+(i%5)-2;const realName=CLUB_ROSTERS[name]?.[i];return {id:side==='home'?`bot_home_${i}`:`opponent_${name.replace(/[^a-z0-9]/gi,'_')}_${i}`,name:side==='home'?`BOT ${slot}`:realName||`${name} · ${slot}`,pos:slot,rating:value,pace:value,shoot:slot==='GK'?25:value,pass:value,drib:value,def:value,phys:value};}
   // Simplified home shirts using the clubs' traditional colours.
   const CLUB_KITS={
     Atalanta:['#005ca9','#111111','stripes'],Bologna:['#a6192e','#142b50','halves'],Cagliari:['#c41230','#122b4a','halves'],Como:['#0054a6','#ffffff','solid'],Fiorentina:['#5b2685','#ffffff','solid'],Frosinone:['#ffdd00','#005aa9','solid'],Genoa:['#a6192e','#062d55','halves'],Inter:['#0068b5','#111111','stripes'],Juventus:['#ffffff','#111111','stripes'],Lazio:['#86c8e8','#ffffff','solid'],Lecce:['#f6d900','#d71920','stripes'],Milan:['#c8102e','#111111','stripes'],Monza:['#c8102e','#ffffff','central'],Napoli:['#38a9db','#ffffff','solid'],Parma:['#ffffff','#111111','cross'],Roma:['#8a1538','#f5b335','solid'],Sassuolo:['#159447','#111111','stripes'],Torino:['#7b142b','#ffffff','solid'],Udinese:['#ffffff','#111111','stripes'],Venezia:['#111111','#ee7b22','venice'],
@@ -4479,11 +4506,21 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     const our=ownedLineup(),opponent=FORM.map(([slot],i)=>({player:makeBot(slot,i,'away',snap.opponent)}));
     set('preMatchCompetition',CONFIG[snap.kind].name);set('preMatchHomeName',club().name);set('preMatchAwayName',snap.opponent);
     set('preMatchHomeRating',Math.round(our.reduce((s,p)=>s+p.player.rating,0)/11)+' OVR');set('preMatchAwayRating',Math.round(opponent.reduce((s,p)=>s+p.player.rating,0)/11)+' OVR');
-    for(const [id,lineup,kit] of [['preMatchHomeCards',our,club()],['preMatchAwayCards',opponent,opponentKit(snap.opponent)]]){
-      const box=$(id);box.innerHTML='';box.appendChild(kitNode(kit));lineup.slice().sort((a,b)=>b.player.rating-a.player.rating).slice(0,3).forEach(p=>{const card=miniCard(p.player,id==='preMatchHomeCards'?'home':'away',kit);card.onclick=null;card.tabIndex=-1;box.appendChild(card);});
+    const tunnel=$('preMatchTunnel');tunnel.innerHTML='';
+    for(const [id,lineup,kit,side] of [['preMatchHomeCards',our,club(),'home'],['preMatchAwayCards',opponent,opponentKit(snap.opponent),'away']]){
+      const box=$(id);box.innerHTML='';
+      lineup.forEach((p,i)=>{
+        const card=miniCard(p.player,side,kit);card.onclick=null;card.tabIndex=-1;
+        const slot=document.createElement('div');slot.className='presentation-slot';slot.style.left=FORM[i][2]+'%';slot.style.top=(94-FORM[i][1])+'%';
+        slot.style.setProperty('--lineup-delay',(16+(i===0?0:i<5?.9:i<8?1.8:2.7))+'s');slot.appendChild(card);box.appendChild(slot);
+        const walk=document.createElement('div');walk.className='tunnel-walker '+side;walk.style.setProperty('--walk-delay',(i*1)+'s');
+        const wc=miniCard(p.player,side,kit);wc.onclick=null;wc.tabIndex=-1;walk.appendChild(wc);tunnel.appendChild(walk);
+      });
     }
+    $('matchPresentation').classList.remove('lineup-ready');
     $('matchPresentation').classList.remove('hidden');
   }
+  window.skipMatchTunnel=function(){$('matchPresentation').classList.add('lineup-ready');};
   window.startPresentedMatch=function(){
     const snap=pendingPresentation;if(!snap)return;const season=load(snap.kind);if(season.id!==snap.seasonId||season.round!==snap.round){pendingPresentation=null;$('matchPresentation').classList.add('hidden');alert('Il calendario è cambiato. Riapri la partita.');return;}
     pendingPresentation=null;$('matchPresentation').classList.add('hidden');openLive(snap);
@@ -4527,10 +4564,10 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     s.history=s.history.slice(-120);save(s);recordQualifications(s);return s;
   }
   function build(snap=null){
-    if(snap?.players){players=snap.players;return;}
+    if(snap?.players){players=snap.players;players.filter(p=>p.side==='away').forEach(p=>{const i=FORM.findIndex(([slot])=>slot===p.slot);if(i>=0&&CLUB_ROSTERS[live.opponent]?.[i])p.player.name=CLUB_ROSTERS[live.opponent][i];});return;}
     players=ownedLineup();FORM.forEach(([slot,x,y],i)=>players.push({slot,player:makeBot(slot,i,'away',live.opponent),bot:true,side:'away',x:100-x,y,baseX:x,baseY:y}));
   }
-  function renderPitch(){const pitch=$('matchPitch');pitch.innerHTML="<div class=\"pitch-architecture\" aria-hidden=\"true\"><svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\"><g fill=\"none\" stroke=\"#f3faf0\" stroke-width=\".45\" opacity=\".92\"><rect x=\"3\" y=\"4\" width=\"94\" height=\"92\"/><path d=\"M50 4V96\"/><ellipse cx=\"50\" cy=\"50\" rx=\"8.8\" ry=\"15\"/><path d=\"M3 24H19V76H3 M97 24H81V76H97 M3 37H9V63H3 M97 37H91V63H97\"/><path d=\"M19 39A9 15 0 0 1 19 61 M81 39A9 15 0 0 0 81 61\"/><path d=\"M3 8Q7 8 7 4 M93 4Q93 8 97 8 M3 92Q7 92 7 96 M93 96Q93 92 97 92\"/></g><g fill=\"#f3faf0\"><ellipse cx=\"50\" cy=\"50\" rx=\".55\" ry=\".9\"/><ellipse cx=\"14\" cy=\"50\" rx=\".45\" ry=\".75\"/><ellipse cx=\"86\" cy=\"50\" rx=\".45\" ry=\".75\"/></g><g class=\"field-goal-net\" fill=\"#dcebe41c\" stroke=\"#ffffff66\" stroke-width=\".18\"><path d=\"M.5 41H3V59H.5Z M97 41H99.5V59H97Z\"/><path d=\"M1.3 41V59 M2.1 41V59 M97.9 41V59 M98.7 41V59 M.5 44H3 M.5 47H3 M.5 50H3 M.5 53H3 M.5 56H3 M97 44H99.5 M97 47H99.5 M97 50H99.5 M97 53H99.5 M97 56H99.5\"/></g><g fill=\"none\" stroke=\"#fff\" stroke-width=\".65\"><path d=\"M3 41H.5V59H3 M97 41H99.5V59H97\"/></g></svg></div>";players.forEach((p,i)=>{const item=document.createElement('div');item.id=`mp-${i}`;item.className=`match-player ${p.side} ${p.bot?'bot':''}`;item.appendChild(miniCard(p.player,p.side,p.side==='home'?club():opponentKit(live.opponent)));const badge=document.createElement('span');badge.className='discipline-badge';item.appendChild(badge);pitch.appendChild(item);});const ball=document.createElement('div');ball.id='simBall';ball.className='match-ball';pitch.appendChild(ball);updatePitch();
+  function renderPitch(){const pitch=$('matchPitch');pitch.innerHTML="<div class=\"pitch-architecture\" aria-hidden=\"true\"><svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\"><g fill=\"none\" stroke=\"#f3faf0\" stroke-width=\".45\" opacity=\".92\"><rect x=\"3\" y=\"4\" width=\"94\" height=\"92\"/><path d=\"M50 4V96\"/><ellipse cx=\"50\" cy=\"50\" rx=\"8.8\" ry=\"15\"/><path d=\"M3 24H19V76H3 M97 24H81V76H97 M3 37H9V63H3 M97 37H91V63H97\"/><path d=\"M19 39A9 15 0 0 1 19 61 M81 39A9 15 0 0 0 81 61\"/><path d=\"M3 8Q7 8 7 4 M93 4Q93 8 97 8 M3 92Q7 92 7 96 M93 96Q93 92 97 92\"/></g><g fill=\"#f3faf0\"><ellipse cx=\"50\" cy=\"50\" rx=\".55\" ry=\".9\"/><ellipse cx=\"14\" cy=\"50\" rx=\".45\" ry=\".75\"/><ellipse cx=\"86\" cy=\"50\" rx=\".45\" ry=\".75\"/></g><g class=\"field-goal-net\" fill=\"#dcebe41c\" stroke=\"#ffffff66\" stroke-width=\".18\"><path d=\"M.5 41H3V59H.5Z M97 41H99.5V59H97Z\"/><path d=\"M1.3 41V59 M2.1 41V59 M97.9 41V59 M98.7 41V59 M.5 44H3 M.5 47H3 M.5 50H3 M.5 53H3 M.5 56H3 M97 44H99.5 M97 47H99.5 M97 50H99.5 M97 53H99.5 M97 56H99.5\"/></g><g fill=\"none\" stroke=\"#fff\" stroke-width=\".65\"><path d=\"M3 41H.5V59H3 M97 41H99.5V59H97\"/></g></svg></div>";players.forEach((p,i)=>{const item=document.createElement('div');item.id=`mp-${i}`;item.className=`match-player ${p.side} ${p.bot?'bot':''}`;item.appendChild(miniCard(p.player,p.side,p.side==='home'?club():opponentKit(live.opponent)));const badge=document.createElement('span');badge.className='discipline-badge';item.appendChild(badge);pitch.appendChild(item);});const ball=document.createElement('div');ball.id='simBall';ball.className='match-ball';ball.innerHTML="<svg viewBox=\"0 0 32 32\" aria-hidden=\"true\"><circle cx=\"16\" cy=\"16\" r=\"15\" fill=\"#f8fafc\" stroke=\"#20252a\" stroke-width=\"1\"/><path d=\"M16 9L23 14L20 22H12L9 14Z M3 7L8 4L12 6L10 11L5 12Z M24 4L29 8L27 13L22 11L21 6Z M3 22L7 19L11 24L10 29L5 27Z M23 22L29 20L29 26L23 29L20 26Z\" fill=\"#161b20\"/><path d=\"M16 9L12 6 M23 14L27 13 M20 22L23 22 M12 22L11 24 M9 14L5 12\" fill=\"none\" stroke=\"#63707b\" stroke-width=\".7\"/></svg>";pitch.appendChild(ball);const ref=document.createElement('div');ref.id='matchReferee';ref.className='match-referee';ref.setAttribute('aria-label','Arbitro');ref.innerHTML='<span class="referee-head"></span><span class="referee-shirt"></span><span class="referee-legs"></span><span class="referee-arm"></span><span class="referee-card"></span>';pitch.appendChild(ref);updatePitch();
     const strip=$('matchOurCards');if(strip){strip.innerHTML='';players.filter(p=>p.side==='home').forEach(p=>strip.appendChild(miniCard(p.player,'home',club())));}
     const kits=$('matchKitLegend');if(kits){kits.innerHTML='';kits.appendChild(kitNode(club()));const home=document.createElement('span');home.textContent=club().name;kits.appendChild(home);kits.appendChild(kitNode(opponentKit(live.opponent)));const away=document.createElement('span');away.textContent=live.opponent;kits.appendChild(away);}
   }
@@ -4549,21 +4586,42 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   function hideBanner(){if($('matchEventBanner'))$('matchEventBanner').classList.add('hidden');}
   function resetPositions(){players.forEach(p=>{p.x=direction(p.side)>0?p.baseX:100-p.baseX;p.y=p.baseY;p.decisionDelay=0;});}
-  function kickoff(side){live.lastCompletedPass=null;resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.decision=2;}
+  function kickoff(side){live.lastCompletedPass=null;live.oneTwo=null;live.recentPasses=[];resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.decision=2;const receiver=enabled(side).find(o=>o.p.slot==='CDM')||enabled(side).find(o=>o.i!==owner&&o.p.slot!=='GK');if(owner>=0&&receiver){receiver.p.x=50-direction(side)*9;receiver.p.y=50;pass(receiver.i,'kickoff');eventText('⚽ Calcio d’inizio: '+players[live.flight.from].player.name+' appoggia a '+receiver.p.player.name+'.');}}
   function stats(){if(!live)return;const s=live.stats;const total=s.home.possession+s.away.possession||1;set('matchStats',`Possesso ${Math.round(s.home.possession/total*100)}%–${Math.round(s.away.possession/total*100)}% · Tiri ${s.home.shots}–${s.away.shots} · Corner ${s.home.corners}–${s.away.corners} · Falli ${s.home.fouls}–${s.away.fouls} · 🟨 ${s.home.yellow}–${s.away.yellow} · 🟥 ${s.home.red}–${s.away.red}`);}
   function updatePitch(){
-    players.forEach((p,i)=>{const n=$(`mp-${i}`);if(n){n.style.left=`${p.x}%`;n.style.top=`${p.y}%`;n.style.display=p.sentOff?'none':'';n.classList.toggle('active-ball',i===owner&&!live?.flight);n.classList.toggle('keeper-diving',(p.keeperDiveUntil||0)>tick);n.style.setProperty('--keeper-lean',((p.keeperDiveDirection||1)*22)+'deg');const badge=n.querySelector('.discipline-badge');if(badge)badge.textContent=p.yellow?'🟨':'';}});
-    const b=$('simBall');if(b&&live?.ball){b.style.left=`${live.ball.x}%`;b.style.top=`${live.ball.y}%`;const flight=live.flight,phase=flight?Math.min(1,flight.elapsed/flight.duration):0;const lift=flight?Math.sin(phase*Math.PI)*(flight.kind==='cross'?27:flight.kind==='shot'?12:3):0;b.style.setProperty('--ball-lift',lift+'px');}stats();
+    players.forEach((p,i)=>{const n=$(`mp-${i}`);if(n){n.style.left=`${p.x}%`;n.style.top=`${p.y}%`;n.style.display=p.sentOff&&!p.dismissalAnimating?'none':'';n.classList.toggle('player-fallen',(p.fallenRemaining||0)>0);n.classList.toggle('active-ball',i===owner&&!live?.flight);n.classList.toggle('keeper-diving',(p.keeperDiveUntil||0)>tick);n.style.setProperty('--keeper-lean',((p.keeperDiveDirection||1)*22)+'deg');const badge=n.querySelector('.discipline-badge');if(badge)badge.textContent=p.yellow?'🟨':'';}});
+    const b=$('simBall');if(b&&live?.ball){b.style.left=`${live.ball.x}%`;b.style.top=`${live.ball.y}%`;const flight=live.flight,phase=flight?Math.min(1,flight.elapsed/flight.duration):0;const lift=flight?Math.sin(phase*Math.PI)*(flight.kind==='cross'?27:flight.kind==='shot'?12:3):0;b.style.setProperty('--ball-lift',lift+'px');}stats();updateReferee();
   }
   function ability(player,stat){
     const overall=Math.max(1,Math.min(110,Number(player.rating)||50));
     const specialty=Math.max(1,Math.min(110,Number(player[stat])||overall));
-    return stat==='rating'?overall:overall*.75+specialty*.25;
+    // Overall sets the main performance level; specialty gives a small role-specific variation.
+    return stat==='rating'?overall:Math.max(20,Math.min(125,70+(overall-70)*1.65+(specialty-overall)*.1));
   }
   function rating(side,stat){const ps=enabled(side);return ps.reduce((s,o)=>s+ability(o.p.player,stat),0)/(ps.length||1);}
   function updateScore(){if(!live)return;set('matchTeamsLabel',live.fixture[0]===USER?`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`:`${live.opponent} ${live.score.away}–${live.score.home} ${club().name}`);}
   function persist(){if(live){localStorage.setItem(activeKey(),JSON.stringify({...live,players,owner,tick,tactic}));if(typeof window.queueGameCloudSync==='function')window.queueGameCloudSync();}}
-  function deadBall(type,side,x,y,wait=3){live.lastCompletedPass=null;live.flight=null;owner=-1;live.deadBall={type,side,x,y,wait};live.ball={x,y};live.possession=side;}
+  function deadBall(type,side,x,y,wait=3){
+    if(!live.deadBall){syncClock();live.stoppageRemainingMs=Math.max(0,live.deadline-Date.now());}
+    live.lastCompletedPass=null;live.oneTwo=null;live.flight=null;owner=-1;live.deadBall={type,side,x,y,wait};live.ball={x,y};live.possession=side;
+    set('matchClockState','⏸ Gioco fermo');
+  }
+  function refereeState(){live.referee=live.referee||{x:50,y:50,booking:null};return live.referee;}
+  function refereeStep(dt){
+    players.forEach(p=>{p.fallenRemaining=Math.max(0,(p.fallenRemaining||0)-dt);});
+    const ref=refereeState(),booking=ref.booking;
+    if(booking){
+      if(booking.phase==='approach'){const distance=Math.hypot(ref.x-booking.x,ref.y-booking.y),travel=Math.max(0,(distance-2)/19);move(ref,booking.x,booking.y,dt*19);if(travel<=dt){booking.phase='show';booking.remaining=1.6;dt=Math.max(0,dt-travel);}else return;}
+      booking.remaining-=dt;
+      if(booking.remaining<=0){if(players[booking.player])players[booking.player].dismissalAnimating=false;ref.booking=null;}
+    }else if(!live.deadBall){move(ref,Math.max(20,Math.min(80,live.ball.x-9)),Math.max(20,Math.min(80,live.ball.y+13)),dt*5);}
+  }
+  function bookWithReferee(index,color){
+    const p=players[index];refereeState().booking={player:index,color,x:p.x+(p.x>50?-4:4),y:p.y,phase:'approach',remaining:1.6};
+    if(color==='red')p.dismissalAnimating=true;
+    if(!live.deadBall)deadBall('freeKick',other(p.side),p.x,p.y,4);
+  }
+  function updateReferee(){const ref=refereeState(),node=$('matchReferee');if(!node)return;node.style.left=ref.x+'%';node.style.top=ref.y+'%';node.classList.toggle('referee-booking',ref.booking?.phase==='show');const badge=node.querySelector('.referee-card');if(badge){badge.style.background=ref.booking?.color==='red'?'#ef4444':'#fde047';badge.style.opacity=ref.booking?.phase==='show'?'1':'0';}}
   function card(offender,severe=false){
     const p=players[offender];if(!p||p.sentOff)return;const s=live.stats[p.side];
     p.yellowCount=Math.max(Number(p.yellowCount)||0,p.yellow?1:0);
@@ -4571,19 +4629,22 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(severe||p.yellowCount>=2){
       p.sentOff=true;s.red++;
       eventText(severe?'🟥 Rosso diretto a '+p.player.name+'!':'🟥 Secondo giallo: '+p.player.name+' è espulso!');
-      centerBanner('CARTELLINO ROSSO',p.player.name+(severe?' · Rosso diretto':' · Seconda ammonizione'),'red');
+      bookWithReferee(offender,'red');
       if(owner===offender){owner=-1;live.lastCompletedPass=null;}
       if(live.flight&&(live.flight.from===offender||live.flight.to===offender)){live.flight=null;owner=nearest(live.ball.x,live.ball.y,other(p.side));live.possession=other(p.side);}
-    }else{eventText('🟨 Ammonito '+p.player.name+'.');centerBanner('CARTELLINO GIALLO',p.player.name,'yellow');}
+    }else{eventText('🟨 Ammonito '+p.player.name+'.');bookWithReferee(offender,'yellow');}
     updatePitch();persist();
   }
+  // Small differences in game temperament, independent of club strength.
+  const CLUB_AGGRESSION={Atalanta:1.25,Torino:1.25,Genoa:1.2,Cagliari:1.2,Lazio:1.15,Juventus:1.1,Inter:1.1,Napoli:1.05,'Real Madrid':1.05,'Bayern Monaco':1.2,Tottenham:1.2};
+  function aggression(side){return side==='home'?(tactic==='defend'?1.15:tactic==='attack'?1.08:1):(CLUB_AGGRESSION[live.opponent]||1);}
   function foul(offender,victim,force=null){
     const p=players[victim],d=players[offender];if(!p||!d||d.sentOff)return;
-    live.stats[d.side].fouls++;const penalty=force==='penalty'||(progress(p)>84&&p.y>27&&p.y<73);
-    if(force==='red'||Math.random()<.004)card(offender,true);else if(force==='yellow'||Math.random()<(d.yellow?.06:.18))card(offender);
+    p.fallenRemaining=2.2;live.stats[d.side].fouls++;const penalty=force==='penalty'||(progress(p)>84&&p.y>27&&p.y<73);
+    if(force==='red')card(offender,true);else if(force==='yellow')card(offender);else if(Math.random()<.004)card(offender,true);else if(Math.random()<Math.min(.3,(d.yellow?.075:.23)*aggression(d.side)))card(offender);
     const dir=direction(p.side);deadBall(penalty?'penalty':'freeKick',p.side,penalty?(dir>0?88:12):p.x,penalty?50:p.y,4);
     eventText(penalty?`⚖️ Calcio di rigore per ${p.side==='home'?club().name:live.opponent}!`:`⚖️ Fallo su ${p.player.name}: calcio di punizione.`);
-    if(penalty&&!d.sentOff)centerBanner('CALCIO DI RIGORE',p.side==='home'?club().name:live.opponent,'penalty');
+    if(penalty&&!refereeState().booking)centerBanner('CALCIO DI RIGORE',p.side==='home'?club().name:live.opponent,'penalty');
   }
   function corner(side,y){live.stats[side].corners++;const x=direction(side)>0?98:2;deadBall('corner',side,x,y<50?2:98,12);eventText(`🚩 Calcio d’angolo per ${side==='home'?club().name:live.opponent}.`);centerBanner('CALCIO D’ANGOLO',side==='home'?club().name:live.opponent,'corner');}
   const DAILY_MISSIONS={
@@ -4679,9 +4740,9 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     live.score[side]++;updateScore();eventText(`⚽ GOL! ${players[scorer]?.player.name||'Rete'} · ${side==='home'?club().name:live.opponent}`);
     centerBanner('GOOOL!',`${players[scorer]?.player.name||''} · ${live.score.home}–${live.score.away}`,'goal');showGoalReplay(shot,side,scorer);deadBall('kickoff',other(side),50,50,5);
   }
-  function pass(to,kind='pass'){
-    if(owner<0||players[owner]?.sentOff||!players[to]||players[to].sentOff||players[to].side!==players[owner].side)return;const from=owner,p=players[from],target=players[to];
-    live.flight={kind,side:p.side,from,to,start:{...live.ball},end:{x:target.x+direction(p.side)*1.5,y:target.y},elapsed:0,duration:Math.max(.85,Math.hypot(p.x-target.x,p.y-target.y)/23)};owner=-1;live.decision=2.2;
+  function pass(to,kind='pass',returnPass=false){
+    if(owner<0||players[owner]?.sentOff||!players[to]||players[to].sentOff||players[to].side!==players[owner].side)return;const from=owner,p=players[from],target=players[to];live.recentPasses=live.recentPasses||[];live.recentPasses.push({from,to,tick});live.recentPasses=live.recentPasses.slice(-8);if(returnPass){live.nextOneTwoAt=tick+100;live.oneTwo=null;}
+    live.flight={kind,returnPass,side:p.side,from,to,start:{...live.ball},end:{x:target.x+direction(p.side)*1.2,y:target.y},elapsed:0,duration:Math.max(.5,Math.hypot(p.x-target.x,p.y-target.y)/(p.side==='home'&&tactic==='possession'?38:32))};owner=-1;live.decision=1.15;
     if(kind==='cross')eventText(`🎯 Cross di ${p.player.name} verso ${target.player.name}.`);
   }
   function choosePass(from){
@@ -4690,7 +4751,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     const options=enabled(p.side).filter(o=>{
       const distance=Math.hypot(o.p.x-p.x,o.p.y-p.y),forward=progress(o.p)-advanced;
       // Recycle possession locally; never send an attacker back across the pitch.
-      return o.i!==from&&distance>3&&distance<34&&forward>=-14&&!(advanced>60&&o.p.slot==='GK')&&!(advanced>68&&['CB1','CB2'].includes(o.p.slot)&&forward<-7);
+      return o.i!==from&&distance>3&&distance<(p.side==='home'&&tactic==='possession'?28:p.side==='home'&&tactic==='counter'?40:34)&&forward>=-14&&!(advanced>60&&o.p.slot==='GK')&&!(advanced>68&&['CB1','CB2'].includes(o.p.slot)&&forward<-7);
     }).map(o=>{
       const distance=Math.hypot(o.p.x-p.x,o.p.y-p.y),forward=progress(o.p)-advanced;
       const pressure=Math.min(16,...defenders.map(d=>Math.hypot(d.p.x-o.p.x,d.p.y-o.p.y)));
@@ -4701,18 +4762,29 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       else if(['LB','RB'].includes(p.slot)&&advanced<67)roleBonus=(p.slot==='LB'?['LW','CM1']:['RW','CM2']).includes(o.p.slot)?22:0;
       else if(['LW','RW','LB','RB'].includes(p.slot)&&advanced>=67)roleBonus=['ST','CM1','CM2'].includes(o.p.slot)&&Math.abs(o.p.y-50)<25?24:0;
       const boxRun=progress(o.p)>72&&Math.abs(o.p.y-50)<22?7:0;
-      return {...o,score:roleBonus+forward*.6+pressure*.45-distance*.28-(blocked?24:0)-(forward<0?8:0)+boxRun+(underPressure&&distance<18?5:0)};
+      return {...o,score:roleBonus-(live.lastCompletedPass?.from===o.i?16:0)-(live.recentPasses||[]).filter(r=>r.from===from&&r.to===o.i&&tick-r.tick<120).length*13+forward*(p.side==='home'&&tactic==='counter'?1.15:.6)+pressure*.75-distance*(p.side==='home'&&tactic==='possession'?.55:.28)-(o.p.lastShotTick&&tick-o.p.lastShotTick<120?7:0)-(blocked?24:0)-(forward<0?8:0)+boxRun+(underPressure&&distance<18?5:0)};
     }).filter(o=>o.score>-12).sort((a,b)=>b.score-a.score);
     return options[0]?.i??-1;
   }
+  function shootingSpace(p){return Math.min(30,...enabled(other(p.side)).filter(o=>o.p.slot!=='GK').map(o=>Math.hypot(o.p.x-p.x,o.p.y-p.y)));}
+  function canShoot(index,header=false){
+    const p=players[index];if(!p||p.sentOff)return false;
+    const playerReady=p.lastShotTick===undefined||tick-p.lastShotTick>=35;
+    const close=progress(p)>85&&Math.abs(p.y-50)<15&&shootingSpace(p)>7;
+    const teamReady=tick>=(live.nextShotBySide?.[p.side]||0);
+    return playerReady&&(header||close||teamReady);
+  }
   function shoot(index,penalty=false,header=false){
-    const p=players[index];if(!p||p.sentOff||(!penalty&&!header&&tick<(live.nextShotAt||0)))return;live.nextShotAt=tick+180;const side=p.side,dir=direction(side);live.stats[side].shots++;
+    const p=players[index];if(!p||p.sentOff||(!penalty&&!canShoot(index,header)))return;live.nextShotBySide=live.nextShotBySide||{};live.nextShotBySide[p.side]=tick+90;live.nextShotAt=tick+90;p.lastShotTick=tick;const side=p.side,dir=direction(side);live.stats[side].shots++;
     const distance=Math.hypot((dir>0?100:0)-p.x,(50-p.y)*.65),keeper=enabled(other(side)).find(o=>o.p.slot==='GK'),finish=ability(p.player,'shoot'),gk=keeper?ability(keeper.p.player,'def'):30;
     // Better finishing from useful positions, with a gentle reduction in open, high-scoring games.
     const totalGoals=live.score.home+live.score.away;
     const finishingBalance=totalGoals>=5?.72:totalGoals>=3?.88:1;
     const openGameBoost=totalGoals===0&&live.half===2&&live.halfRemaining<180?.035:0;
-    const chance=penalty?Math.max(.52,Math.min(.87,.7+(finish-gk)/400)):Math.max(.05,Math.min(.28,.23-distance*.0065+(finish-gk)/850+(header?.025:0)+openGameBoost))*finishingBalance;
+    const oneOnOne=distance<14&&Math.abs(p.y-50)<13;
+    const unmarked=shootingSpace(p)>7;
+    const closeFinish=unmarked?Math.max(.65,Math.min(.9,.84+(finish-gk)/190-distance*.008)):Math.max(.22,Math.min(.52,.42+(finish-gk)/190-distance*.005));
+    const chance=penalty?Math.max(.52,Math.min(.87,.7+(finish-gk)/240)):(oneOnOne?closeFinish:Math.max(.04,Math.min(.25,.20-distance*.006+(finish-gk)/300+(header?.025:0)+openGameBoost))*finishingBalance);
     const roll=Math.random();let outcome=roll<chance?'goal':roll<chance+.20?'corner':roll<chance+.70?'save':'miss';if(!keeper&&outcome!=='miss')outcome='goal';
     const goalX=dir>0?100:0,goalY=43+Math.random()*14;
     const start={...live.ball},keeperX=dir>0?94:6;
@@ -4731,13 +4803,14 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       f.start={...f.contact};f.end={...f.deflectEnd};f.elapsed=0;f.duration=.45;
       if(players[f.keeperIndex]){players[f.keeperIndex].x=f.contact.x;players[f.keeperIndex].y=f.contact.y;}
     }
+    if(f.kind!=='shot'&&players[f.to]&&!players[f.to].sentOff)f.end={x:players[f.to].x+direction(f.side)*1.2,y:players[f.to].y};
     f.elapsed+=dt;const t=Math.min(1,f.elapsed/f.duration);live.ball.x=f.start.x+(f.end.x-f.start.x)*t;live.ball.y=f.start.y+(f.end.y-f.start.y)*t;
     if(f.kind!=='shot'&&t>.25&&t<.95){const cut=enabled(other(f.side)).find(o=>Math.hypot(o.p.x-live.ball.x,o.p.y-live.ball.y)<2.3);if(cut&&Math.random()<Math.max(.07,Math.min(.35,.2+(ability(cut.p.player,'def')-ability(players[f.from].player,'pass'))/220))){live.flight=null;live.lastCompletedPass=null;owner=cut.i;live.possession=cut.p.side;live.decision=1;eventText(`⚔️ ${cut.p.player.name} intercetta il passaggio.`);return;}}
     if(t<1)return;live.flight=null;
     if(f.kind==='shot'){
       if(f.outcome==='goal'){if(f.end.y>41&&f.end.y<59)goal(f.side,f.from,f);else{deadBall('goalKick',other(f.side),direction(f.side)>0?94:6,50,2);eventText('Tiro fuori. Rimessa dal fondo.');}}else if(f.outcome==='corner'&&f.keeperTouched)corner(f.side,live.ball.y);else if(f.outcome==='save'){live.lastCompletedPass=null;owner=players[f.keeperIndex]&&!players[f.keeperIndex].sentOff?f.keeperIndex:enabled(other(f.side)).find(o=>o.p.slot==='GK')?.i??nearest(live.ball.x,live.ball.y,other(f.side));if(owner>=0){players[owner].x=f.end.x;players[owner].y=f.end.y;live.ball={x:players[owner].x,y:players[owner].y};}live.possession=other(f.side);live.decision=2;eventText('🧤 Il portiere blocca il tiro.');}else{deadBall('goalKick',other(f.side),direction(f.side)>0?94:6,50,2);eventText('Tiro fuori. Rimessa dal fondo.');}
     }else{
-      owner=players[f.to]?.sentOff?nearest(f.end.x,f.end.y,f.side):f.to;live.possession=f.side;live.decision=2.2;live.lastCompletedPass={side:f.side,from:f.from,to:owner,tick};
+      owner=players[f.to]?.sentOff?nearest(f.end.x,f.end.y,f.side):f.to;live.possession=f.side;live.decision=1.15;live.lastCompletedPass={side:f.side,from:f.from,to:owner,tick};if(f.kind==='pass'&&!f.returnPass&&tick>=(live.nextOneTwoAt||0)&&players[f.from].slot!=='GK'&&(f.side!=='home'||tactic!=='defend'))live.oneTwo={from:f.from,to:owner,until:tick+28};
       if(f.kind==='cross'&&owner>=0&&progress(players[owner])>78){
         const marker=nearest(players[owner].x,players[owner].y,other(f.side)),defender=players[marker];
         const contest=Math.max(.35,Math.min(.85,.65+(ability(players[owner].player,'phys')-(defender?ability(defender.player,'def'):50))/180));
@@ -4771,12 +4844,19 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   function moveCornerPlayers(restart,dt){restart.positions.forEach(({i,x,y})=>{const p=players[i];if(p&&!p.sentOff)move(p,x,y,dt*(5+ability(p.player,'pace')/35));});}
   function restartStep(dt){
-    const restart=live.deadBall;if(!restart)return;restart.wait-=dt;
+    const restart=live.deadBall;if(!restart)return;refereeStep(dt);restart.wait-=dt;if(refereeState().booking)restart.wait=Math.max(.2,restart.wait);
     if(restart.type==='corner'){prepareCorner(restart);moveCornerPlayers(restart,dt);}
-    if(restart.wait>0)return;live.deadBall=null;hideBanner();
+    if(restart.type==='freeKick'){
+      if(restart.kicker===undefined||!players[restart.kicker]||players[restart.kicker].sentOff){
+        restart.kicker=enabled(restart.side).filter(o=>o.p.slot!=='GK').sort((a,b)=>{const score=o=>ability(o.p.player,'pass')-Math.hypot(o.p.x-restart.x,o.p.y-restart.y)*.9;return score(b)-score(a);})[0]?.i??-1;
+      }
+      const taker=players[restart.kicker];
+      if(taker){if(!(taker.fallenRemaining>0))move(taker,restart.x,restart.y,dt*(2.3+ability(taker.player,'pace')/28));if(Math.hypot(taker.x-restart.x,taker.y-restart.y)>.3||taker.fallenRemaining>0)restart.wait=Math.max(.2,restart.wait);}
+    }
+    if(restart.wait>0)return;live.deadBall=null;live.deadline=Date.now()+Math.max(0,live.stoppageRemainingMs??live.halfRemaining*1000);delete live.stoppageRemainingMs;set('matchClockState','▶ In gioco');hideBanner();
     if(restart.type==='kickoff'){kickoff(restart.side);return;}
-    const side=restart.side;owner=restart.type==='corner'?restart.kicker:restart.type==='goalKick'?enabled(side).find(o=>o.p.slot==='GK')?.i??nearest(restart.x,restart.y,side):enabled(side).filter(o=>o.p.slot!=='GK').sort((a,b)=>ability(b.p.player,restart.type==='penalty'?'shoot':'pass')-ability(a.p.player,restart.type==='penalty'?'shoot':'pass'))[0]?.i??-1;
-    if(owner<0){kickoff(other(side));return;}players[owner].x=restart.x;players[owner].y=restart.y;live.ball={x:restart.x,y:restart.y};live.possession=side;live.decision=1.5;
+    const side=restart.side;owner=['corner','freeKick'].includes(restart.type)?restart.kicker:restart.type==='goalKick'?enabled(side).find(o=>o.p.slot==='GK')?.i??nearest(restart.x,restart.y,side):enabled(side).filter(o=>o.p.slot!=='GK').sort((a,b)=>ability(b.p.player,restart.type==='penalty'?'shoot':'pass')-ability(a.p.player,restart.type==='penalty'?'shoot':'pass'))[0]?.i??-1;
+    if(owner<0){kickoff(other(side));return;}if(restart.type!=='freeKick'){players[owner].x=restart.x;players[owner].y=restart.y;}live.ball={x:restart.x,y:restart.y};live.possession=side;live.decision=1.5;
     if(restart.type==='penalty'){shoot(owner,true);return;}
     if(restart.type==='corner'){
       const targets=restart.targets.filter(i=>!players[i].sentOff&&progress(players[i])>78).map(i=>({i,score:ability(players[i].player,'phys')*.6+ability(players[i].player,'shoot')*.3+Math.min(10,...enabled(other(side)).filter(o=>o.p.slot!=='GK').map(o=>Math.hypot(o.p.x-players[i].x,o.p.y-players[i].y)))*2})).sort((a,b)=>b.score-a.score);
@@ -4796,49 +4876,67 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       if(keeper){x=ownDir>0?7:93;y=Math.max(37,Math.min(63,50+(live.ball.y-50)*.2));}
       else if(i===owner){
         const pressure=enabled(other(side)).some(o=>Math.hypot(o.p.x-p.x,o.p.y-p.y)<6),lateral=['LB','RB','LW','RW'].includes(p.slot);
-        x=p.x+ownDir*(keeper?0:pressure?1:3);y=lateral?p.baseY:p.y+(50-p.y)*.04;
+        x=p.x+ownDir*(keeper?0:pressure?1:3);y=['LW','RW'].includes(p.slot)&&progress(p)>60?p.y+(50-p.y)*.23:lateral?p.baseY:p.y+(50-p.y)*.08;
+        if(progress(p)>91)x=p.x;
         if(['CB1','CB2'].includes(p.slot)&&progress(p)>48)x=p.x;
         if((p.dribbleUntil||0)>tick){x=p.x+ownDir*2.5;y=p.y+(p.dribbleDirection||1)*5;}
       }
       else if(inPossession){
         const offset=Math.max(-9,Math.min(19,(ballProgress-45)*.38))+(p.side==='home'&&tactic==='attack'?6:p.side==='home'&&tactic==='defend'?-5:0);x=base+ownDir*offset;
-        if(['LB','RB'].includes(p.slot)&&ballProgress>52&&((p.slot==='LB'&&live.ball.y<50)||(p.slot==='RB'&&live.ball.y>=50)))x=ownDir>0?Math.min(82,ballProgress+8):100-Math.min(82,ballProgress+8);
-        if(['LW','RW','CM1','CM2'].includes(p.slot)&&ballProgress>58){const run=Math.min(86,ballProgress+(['LW','RW'].includes(p.slot)?10:3));x=ownDir>0?Math.max(x,run):Math.min(x,100-run);}
-        if(p.slot==='ST')x=ownDir>0?Math.min(88,ballProgress+14):100-Math.min(88,ballProgress+14);
-        if(p.slot==='CB1'&&ballProgress>70&&p.side==='home'&&tactic==='attack')x=ownDir>0?67:33;
         y=p.baseY+(live.ball.y-50)*.12;
+        const leftFlank=live.ball.y<50,at=value=>ownDir>0?value:100-value;
+        if(['LB','RB'].includes(p.slot)&&ballProgress>43){
+          const ballFlank=p.slot===(leftFlank?'LB':'RB');
+          x=at(Math.min(ballFlank?84:66,ballProgress+(ballFlank?9:-9)));y=p.slot==='LB'?14:86;
+          if(p.side==='home'&&tactic==='defend')x=at(Math.min(65,ballProgress-5));
+        }
+        if(['LW','RW'].includes(p.slot)&&ballProgress>52){
+          x=at(Math.min(89,ballProgress+10));
+          const overlapping=players.some(q=>q.side===p.side&&q.slot===(p.slot==='LW'?'LB':'RB')&&progress(q)>54);
+          y=overlapping||ballProgress>66?(p.slot==='LW'?35:65):(p.slot==='LW'?22:78);
+        }
+        if(['CM1','CM2'].includes(p.slot)&&ballProgress>57){x=at(Math.min(84,ballProgress+4));y=p.slot==='CM1'?42:58;if(p.side==='home'&&tactic==='defend')x=at(Math.min(67,ballProgress-9));}
+        if(p.slot==='ST'){x=at(Math.min(89,ballProgress+12));y=50+(leftFlank?7:-7);}
+        if(p.slot==='CB1'&&ballProgress>70&&p.side==='home'&&tactic==='attack')x=at(67);
+        if(live.oneTwo?.from===i&&tick<live.oneTwo.until){x=p.x+ownDir*7;y=p.y+(50-p.y)*.12;}
       }else{
         x=base+ownDir*Math.max(-12,Math.min(10,(50-ballProgress)*.25));y=p.baseY+(live.ball.y-50)*.2;
         if(pressers.includes(i)){x=live.ball.x-ownDir*1.5;y=live.ball.y;}
       }
       // Keep players spaced apart instead of piling every card around the ball.
       players.forEach((q,j)=>{if(i===j||q.sentOff)return;const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<7&&d>.01){x+=(p.x-q.x)/d*(7-d)*.65;y+=(p.y-q.y)/d*(7-d)*.65;}});
-      move(p,x,y,dt*(1.5+ability(p.player,'pace')/48));
+      move(p,x,y,dt*(1.8+ability(p.player,'pace')/24));
     });
     if(carrier&&owner>=0&&!live.flight)live.ball={x:carrier.x+direction(carrier.side)*1.2,y:carrier.y};
   }
+  function crossTargetScore(p){const space=Math.min(14,...enabled(other(p.side)).map(o=>Math.hypot(o.p.x-p.x,o.p.y-p.y)));const goals=(live.goalEvents||[]).filter(g=>g.id===p.player.id).length;return ability(p.player,'shoot')*.55+space*2-goals*2;}
   function decide(dt){
     if(owner<0)return;const p=players[owner];if(p.sentOff){owner=nearest(live.ball.x,live.ball.y,live.possession);return;}
     const defender=enabled(other(p.side)).filter(o=>o.p.slot!=='GK').sort((a,b)=>Math.hypot(a.p.x-p.x,a.p.y-p.y)-Math.hypot(b.p.x-p.x,b.p.y-p.y))[0];
-    if(defender&&Math.hypot(defender.p.x-p.x,defender.p.y-p.y)<3.8&&live.tackleCooldown<=0){live.tackleCooldown=4.5;
-      if(Math.random()<(defender.p.yellow?.035:.075)){foul(defender.i,owner);return;}
+    if(defender&&Math.hypot(defender.p.x-p.x,defender.p.y-p.y)<4.1&&live.tackleCooldown<=0){live.tackleCooldown=4;
+      if(Math.random()<(defender.p.yellow?.045:.095)*aggression(defender.p.side)){foul(defender.i,owner);return;}
       if(Math.random()<Math.max(.12,Math.min(.65,.35+(ability(defender.p.player,'def')-ability(p.player,'drib'))/200))){live.lastCompletedPass=null;owner=defender.i;live.possession=defender.p.side;live.decision=1.4;eventText(`⚔️ ${defender.p.player.name} recupera il pallone.`);return;}
     }
-    live.decision-=dt;if(live.decision>0)return;live.decision=2.5;
+    if(progress(p)>86&&Math.abs(p.y-50)<15&&shootingSpace(p)>7&&canShoot(owner)){shoot(owner);return;}
+    live.decision-=dt;if(live.decision>0)return;live.decision=p.side==='home'&&tactic==='possession'?.85:1.35;
     const advanced=progress(p),central=Math.abs(p.y-50)<24,pressure=defender?Math.hypot(defender.p.x-p.x,defender.p.y-p.y):20;
     const lateral=['LB','RB','LW','RW'].includes(p.slot);
     if(lateral&&advanced<74&&pressure<10&&pressure>4&&tick>=(p.nextDribbleAt||0)&&ability(p.player,'drib')>ability(defender.p.player,'def')-8){
       p.dribbleDirection=p.y<50?1:-1;p.dribbleUntil=tick+18;p.nextDribbleAt=tick+90;
       eventText('👟 '+p.player.name+' cerca spazio sulla fascia.');return;
     }
-    if(advanced>70&&central&&tick>=(live.nextShotAt||0)){shoot(owner);return;}
-    if(advanced>75&&!central){const target=enabled(p.side).filter(o=>o.i!==owner&&o.p.slot!=='GK'&&progress(o.p)>65&&Math.abs(o.p.y-50)<24).sort((a,b)=>ability(b.p.player,'shoot')-ability(a.p.player,'shoot'))[0];if(target){pass(target.i,'cross');return;}}
-    const target=choosePass(owner);if(target>=0&&(pressure<9||['GK','CB1','CB2','CDM'].includes(p.slot)||progress(players[target])>advanced+3||(lateral&&advanced>=67)||(advanced<72&&live.decisionCount%3===0))){pass(target);}
+    if(advanced>77&&central&&canShoot(owner)){
+      if(advanced>84){shoot(owner);return;}
+      const alternative=choosePass(owner);if(alternative>=0&&progress(players[alternative])>72&&pressure<8&&Math.abs(players[alternative].y-50)<23){pass(alternative);return;}
+      shoot(owner);return;
+    }
+    if(advanced>75&&!central){const target=enabled(p.side).filter(o=>o.i!==owner&&o.p.slot!=='GK'&&progress(o.p)>65&&Math.abs(o.p.y-50)<24).sort((a,b)=>crossTargetScore(b.p)-crossTargetScore(a.p))[0];if(target){pass(target.i,'cross');return;}}
+    let target=choosePass(owner),giveAndGo=false;const combination=live.oneTwo;if(combination&&combination.to===owner&&tick<combination.until&&players[combination.from]&&!players[combination.from].sentOff){const runner=players[combination.from],distance=Math.hypot(runner.x-p.x,runner.y-p.y),open=!enabled(other(p.side)).some(o=>segmentDistance(o.p,p,runner)<3);if(runner.side===p.side&&distance<26&&progress(runner)>advanced-3&&open){giveAndGo=true;target=combination.from;live.oneTwo=null;eventText('↔ Uno-due tra '+p.player.name+' e '+runner.player.name+'.');}}if(target>=0&&(giveAndGo||pressure<9||['GK','CB1','CB2','CDM'].includes(p.slot)||(p.side==='home'&&tactic==='possession')||progress(players[target])>advanced+3||(lateral&&advanced>=67)||(advanced<72&&live.decisionCount%3===0))){pass(target,'pass',giveAndGo);}
     live.decisionCount++;
   }
   function step(){
     if(!live||committing||live.halfTime||document.hidden||matchBackgroundAt!==null)return;const dt=.1;tick++;live.tackleCooldown=Math.max(0,(live.tackleCooldown||0)-dt);
-    if(live.deadBall)restartStep(dt);else{teamMovement(dt);if(live.flight)flightStep(dt);else decide(dt);}
+    if(live.deadBall)restartStep(dt);else{refereeStep(dt);teamMovement(dt);if(live.flight)flightStep(dt);else decide(dt);}
     if(live.possession)live.stats[live.possession].possession+=dt;updatePitch();if(tick%10===0)persist();
   }
   let matchBackgroundAt=null;
@@ -4846,11 +4944,12 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   function resumeBackgroundMatch(){if(!live||matchBackgroundAt===null){matchBackgroundAt=null;return;}live.deadline+=Math.max(0,Date.now()-matchBackgroundAt);matchBackgroundAt=null;persist();clock();set('matchStatus','Partita ripresa: il tempo in secondo piano non è stato conteggiato.');}
   if(typeof document.addEventListener==='function')document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseBackgroundMatch();else resumeBackgroundMatch();});
   window.addEventListener('pagehide',pauseBackgroundMatch);window.addEventListener('pageshow',resumeBackgroundMatch);
-  function syncClock(){if(!live||live.halfTime||matchBackgroundAt!==null)return;live.halfRemaining=Math.max(0,Math.ceil((live.deadline-Date.now())/1000));live.remaining=live.halfRemaining+(live.half===1?300:0);}
+  function syncClock(){if(!live||live.halfTime||matchBackgroundAt!==null||live.deadBall)return;live.halfRemaining=Math.max(0,Math.ceil((live.deadline-Date.now())/1000));live.remaining=live.halfRemaining+(live.half===1?300:0);}
   function clock(){
     if(!live||committing||document.hidden||matchBackgroundAt!==null)return;syncClock();const left=live.halfRemaining,elapsed=(live.half-1)*300+300-left,gameSeconds=Math.round(elapsed*9);
     set('matchClock',`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`);set('matchHalfLabel',live.halfTime?'INTERVALLO':`${live.half}° TEMPO`);set('matchGameMinute',`${Math.floor(gameSeconds/60)}′ ${String(gameSeconds%60).padStart(2,'0')}″`);
-    if(left>0||live.halfTime)return;
+    set('matchClockState',live.halfTime?'⏸ Intervallo':live.deadBall?'⏸ Gioco fermo':'▶ In gioco');
+    if(left>0||live.halfTime||live.deadBall)return;
     if(live.half===1){live.halfTime=true;live.remaining=300;live.flight=null;live.deadBall=null;centerBanner('INTERVALLO',`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`,'halftime');eventText('Fine primo tempo. Premi «Inizia secondo tempo» per continuare.');persist();set('matchHalfLabel','INTERVALLO');}
     else{hideBanner();finish();}
   }
@@ -4884,6 +4983,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     initializeFootball(snap);live=snap;selected=snap.kind;owner=snap.owner??9;tick=snap.tick||0;tactic=snap.tactic||'balanced';build(snap);players.forEach(p=>{p.yellowCount=Math.max(Number(p.yellowCount)||0,p.yellow?1:0);if(p.yellowCount>=2)p.sentOff=true;});ensureMatchCareer();
     players.forEach(p=>{p.baseX=FORM.find(f=>f[0]===p.slot)?.[1]||p.baseX;});
     live.deadline=Date.now()+Math.max(1,live.halfRemaining)*1000;
+    if(live.deadBall&&!Number.isFinite(live.stoppageRemainingMs))live.stoppageRemainingMs=Math.max(0,live.halfRemaining*1000);
     if(!snap.players)kickoff('home');if($('offlineTactic'))$('offlineTactic').value=tactic;renderPitch();updateScore();set('matchCompetitionLabel',CONFIG[live.kind].name+' · '+phase(load(live.kind)));set('matchStatus',live.halfTime?'Intervallo: inizia il secondo tempo quando sei pronto.':'Possesso e movimenti legati all’azione.');$('offlineMatchOverlay').classList.add('show');$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Salva ed esci';
     if(live.halfTime)centerBanner('INTERVALLO',club().name+' '+live.score.home+'–'+live.score.away+' '+live.opponent,'halftime');else hideBanner();persist();clock();clockTimer=setInterval(clock,1000);simTimer=setInterval(step,100);render();
   }
@@ -4893,7 +4993,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     showMatchPresentation({id:`${s.id}_${s.stage}_${s.round}`,kind:selected,seasonId:s.id,round:s.round,stage:s.stage,fixture:f,opponent:f.find(n=>n!==USER),score:{home:0,away:0},remaining:600,half:1,halfRemaining:300,matchSchema:4,tactic:'balanced',controlMode:'auto'});
   };
   window.finishOfflineMatchEarly=function(sync=true){if(live){clock();if(live){syncClock();persist();live=null;clearInterval(clockTimer);clearInterval(simTimer);}}hideBanner();$('offlineMatchOverlay').classList.remove('show');render();if(sync&&typeof window.flushGameCloudSync==='function')return window.flushGameCloudSync();};
-  window.setOfflineTactic=function(value){if(!['balanced','attack','defend'].includes(value))return;tactic=value;set('matchStatus',`Tattica: ${value==='attack'?'Attacco · più occasioni e più rischi':value==='defend'?'Difesa · meno occasioni':'Equilibrio'}`);persist();};
+  window.setOfflineTactic=function(value){if(!['balanced','attack','defend','possession','counter'].includes(value))return;tactic=value;set('matchStatus',`Tattica: ${value==='attack'?'Attacco · più occasioni e più rischi':value==='defend'?'Difesa · meno occasioni':value==='possession'?'Tiki-taka · passaggi corti':value==='counter'?'Contropiede · verticalizzazioni':'Equilibrio'}`);persist();};
   window.openOfflineCompetition=function(kind){if(!CONFIG[kind]||live)return;if(!access(kind)){alert(requirement(kind));return;}selected=kind;const panel=$('offlineLeaguePanel');if(panel){panel.classList.remove('hidden');panel.scrollIntoView({behavior:'smooth',block:'start'});}render();};
   window.openItalianLeague=function(){window.openOfflineCompetition('seriea');};
   window.openMatchFormation=function(){if(typeof switchTab==='function')switchTab('squad');};
@@ -5114,7 +5214,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 })();
 
 </script>
-<div id="matchPresentation" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="preMatchCompetition"><div class="club-screen-box"><p class="screen-kicker" id="preMatchCompetition"></p><h2>Si accendono i riflettori</h2><div class="pre-match-versus"><section><h3 id="preMatchHomeName"></h3><p id="preMatchHomeRating"></p><div id="preMatchHomeCards" class="pre-match-cards"></div></section><span>VS</span><section><h3 id="preMatchAwayName"></h3><p id="preMatchAwayRating"></p><div id="preMatchAwayCards" class="pre-match-cards"></div></section></div><p class="screen-note">Le tre carte più forti di ogni squadra · 2 tempi da 5 minuti</p><button onclick="startPresentedMatch()" class="screen-primary">CALCIO D’INIZIO →</button><button onclick="closeMatchPresentation()" class="screen-secondary">Torna al club</button></div></div>
+<div id="matchPresentation" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="preMatchCompetition"><div class="club-screen-box"><p class="screen-kicker" id="preMatchCompetition"></p><h2>Si accendono i riflettori</h2><div class="pre-match-tunnel" id="preMatchTunnel" aria-hidden="true"></div><button onclick="skipMatchTunnel()" class="screen-secondary">MOSTRA SUBITO LE FORMAZIONI</button><div class="pre-match-versus"><section><h3 id="preMatchHomeName"></h3><p id="preMatchHomeRating"></p><div id="preMatchHomeCards" class="pre-match-cards"></div></section><span>VS</span><section><h3 id="preMatchAwayName"></h3><p id="preMatchAwayRating"></p><div id="preMatchAwayCards" class="pre-match-cards"></div></section></div><p class="screen-note">Portiere → difesa → centrocampo → attacco · 2 tempi da 5 minuti</p><button onclick="startPresentedMatch()" class="screen-primary">CALCIO D’INIZIO →</button><button onclick="closeMatchPresentation()" class="screen-secondary">Torna al club</button></div></div>
 <div id="matchResultPanel" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="resultHeadline"><div class="club-screen-box"><p class="screen-kicker">FISCHIO FINALE</p><h2 id="resultHeadline"></h2><div id="resultScore" class="result-big-score"></div><p id="resultTeams"></p><p id="resultCoins" class="result-coins"></p><p id="competitionCloudStatus" style="font-size:12px;color:#d8c6df">Salvataggio campionato in corso…</p><div class="result-details"><section><p class="screen-kicker">Migliore della tua squadra</p><div id="resultBestCard"></div><h3 id="resultBestName"></h3><p id="resultBestStats"></p><small>Scelto in base a gol e assist; a parità, overall.</small></section><section><h3>Marcatori</h3><div id="resultScorers"></div></section></div><button onclick="closeMatchResult()" class="screen-primary">TORNA AL CLUB</button></div></div>
 
 <script id="bearfc-pack-card-3d-script">
