@@ -4586,7 +4586,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   function hideBanner(){if($('matchEventBanner'))$('matchEventBanner').classList.add('hidden');}
   function resetPositions(){players.forEach(p=>{p.x=direction(p.side)>0?p.baseX:100-p.baseX;p.y=p.baseY;p.decisionDelay=0;});}
-  function kickoff(side){live.lastCompletedPass=null;live.oneTwo=null;live.recentPasses=[];resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.decision=2;const receiver=enabled(side).find(o=>o.p.slot==='CDM')||enabled(side).find(o=>o.i!==owner&&o.p.slot!=='GK');if(owner>=0&&receiver){receiver.p.x=50-direction(side)*9;receiver.p.y=50;pass(receiver.i,'kickoff');eventText('⚽ Calcio d’inizio: '+players[live.flight.from].player.name+' appoggia a '+receiver.p.player.name+'.');}}
+  function kickoff(side){live.lastCompletedPass=null;live.oneTwo=null;live.recentPasses=[];resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.buildSide=side;live.buildUntil=tick+550;live.decision=2;const receiver=enabled(side).find(o=>o.p.slot==='CDM')||enabled(side).find(o=>o.i!==owner&&o.p.slot!=='GK');if(owner>=0&&receiver){receiver.p.x=50-direction(side)*9;receiver.p.y=50;pass(receiver.i,'kickoff');eventText('⚽ Calcio d’inizio: '+players[live.flight.from].player.name+' appoggia a '+receiver.p.player.name+'.');}}
   function stats(){if(!live)return;const s=live.stats;const total=s.home.possession+s.away.possession||1;set('matchStats',`Possesso ${Math.round(s.home.possession/total*100)}%–${Math.round(s.away.possession/total*100)}% · Tiri ${s.home.shots}–${s.away.shots} · Corner ${s.home.corners}–${s.away.corners} · Falli ${s.home.fouls}–${s.away.fouls} · 🟨 ${s.home.yellow}–${s.away.yellow} · 🟥 ${s.home.red}–${s.away.red}`);}
   function updatePitch(){
     players.forEach((p,i)=>{const n=$(`mp-${i}`);if(n){n.style.left=`${p.x}%`;n.style.top=`${p.y}%`;n.style.display=p.sentOff&&!p.dismissalAnimating?'none':'';n.classList.toggle('player-fallen',(p.fallenRemaining||0)>0);n.classList.toggle('active-ball',i===owner&&!live?.flight);n.classList.toggle('keeper-diving',(p.keeperDiveUntil||0)>tick);n.style.setProperty('--keeper-lean',((p.keeperDiveDirection||1)*22)+'deg');const badge=n.querySelector('.discipline-badge');if(badge)badge.textContent=p.yellow?'🟨':'';}});
@@ -4775,7 +4775,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     return playerReady&&(header||close||teamReady);
   }
   function shoot(index,penalty=false,header=false){
-    const p=players[index];if(!p||p.sentOff||(!penalty&&!canShoot(index,header)))return;live.nextShotBySide=live.nextShotBySide||{};live.nextShotBySide[p.side]=tick+90;live.nextShotAt=tick+90;p.lastShotTick=tick;const side=p.side,dir=direction(side);live.stats[side].shots++;
+    const p=players[index];if(!p||p.sentOff||(!penalty&&!canShoot(index,header)))return;live.nextShotBySide=live.nextShotBySide||{};live.nextShotBySide[p.side]=tick+240;live.nextShotAt=tick+240;p.lastShotTick=tick;const side=p.side,dir=direction(side);live.stats[side].shots++;
     const distance=Math.hypot((dir>0?100:0)-p.x,(50-p.y)*.65),keeper=enabled(other(side)).find(o=>o.p.slot==='GK'),finish=ability(p.player,'shoot'),gk=keeper?ability(keeper.p.player,'def'):30;
     // Better finishing from useful positions, with a gentle reduction in open, high-scoring games.
     const totalGoals=live.score.home+live.score.away;
@@ -4783,9 +4783,9 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     const openGameBoost=totalGoals===0&&live.half===2&&live.halfRemaining<180?.035:0;
     const oneOnOne=distance<14&&Math.abs(p.y-50)<13;
     const unmarked=shootingSpace(p)>7;
-    const closeFinish=unmarked?Math.max(.65,Math.min(.9,.84+(finish-gk)/190-distance*.008)):Math.max(.22,Math.min(.52,.42+(finish-gk)/190-distance*.005));
-    const chance=penalty?Math.max(.52,Math.min(.87,.7+(finish-gk)/240)):(oneOnOne?closeFinish:Math.max(.04,Math.min(.25,.20-distance*.006+(finish-gk)/300+(header?.025:0)+openGameBoost))*finishingBalance);
-    const roll=Math.random();let outcome=roll<chance?'goal':roll<chance+.20?'corner':roll<chance+.70?'save':'miss';if(!keeper&&outcome!=='miss')outcome='goal';
+    const closeFinish=unmarked?Math.max(.65,Math.min(.9,.84+(finish-gk)/190-distance*.008)):Math.max(.16,Math.min(.35,.28+(finish-gk)/400-distance*.005));
+    const chance=penalty?Math.max(.52,Math.min(.87,.7+(finish-gk)/240)):(oneOnOne?closeFinish:Math.max(.04,Math.min(.18,.16-distance*.006+(finish-gk)/380+(header?.025:0)+openGameBoost))*finishingBalance);
+    const roll=Math.random();let outcome=roll<chance?'goal':roll<chance+.12?'corner':roll<chance+.70?'save':'miss';if(!keeper&&outcome!=='miss')outcome='goal';
     const goalX=dir>0?100:0,goalY=43+Math.random()*14;
     const start={...live.ball},keeperX=dir>0?94:6;
     const contactRatio=Math.max(.05,Math.min(.95,(keeperX-start.x)/(goalX-start.x||1)));
@@ -4876,7 +4876,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       if(keeper){x=ownDir>0?7:93;y=Math.max(37,Math.min(63,50+(live.ball.y-50)*.2));}
       else if(i===owner){
         const pressure=enabled(other(side)).some(o=>Math.hypot(o.p.x-p.x,o.p.y-p.y)<6),lateral=['LB','RB','LW','RW'].includes(p.slot);
-        x=p.x+ownDir*(keeper?0:pressure?1:3);y=['LW','RW'].includes(p.slot)&&progress(p)>60?p.y+(50-p.y)*.23:lateral?p.baseY:p.y+(50-p.y)*.08;
+        const building=live.buildSide===p.side&&tick<(live.buildUntil||0)&&progress(p)<78;x=p.x+ownDir*(keeper?0:building?.35:pressure?1:3);if(building&&progress(p)>65)x=p.x;y=['LW','RW'].includes(p.slot)&&progress(p)>60?p.y+(50-p.y)*.23:lateral?p.baseY:p.y+(50-p.y)*.08;
         if(progress(p)>91)x=p.x;
         if(['CB1','CB2'].includes(p.slot)&&progress(p)>48)x=p.x;
         if((p.dribbleUntil||0)>tick){x=p.x+ownDir*2.5;y=p.y+(p.dribbleDirection||1)*5;}
@@ -4898,13 +4898,22 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
         if(['CM1','CM2'].includes(p.slot)&&ballProgress>57){x=at(Math.min(84,ballProgress+4));y=p.slot==='CM1'?42:58;if(p.side==='home'&&tactic==='defend')x=at(Math.min(67,ballProgress-9));}
         if(p.slot==='ST'){x=at(Math.min(89,ballProgress+12));y=50+(leftFlank?7:-7);}
         if(p.slot==='CB1'&&ballProgress>70&&p.side==='home'&&tactic==='attack')x=at(67);
+        if(live.buildSide===p.side&&tick<(live.buildUntil||0)&&ballProgress<78&&['ST','LW','RW','CM1','CM2','LB','RB'].includes(p.slot)){x=at(Math.min(73,ownDir>0?x:100-x));}
         if(live.oneTwo?.from===i&&tick<live.oneTwo.until){x=p.x+ownDir*7;y=p.y+(50-p.y)*.12;}
       }else{
         x=base+ownDir*Math.max(-12,Math.min(10,(50-ballProgress)*.25));y=p.baseY+(live.ball.y-50)*.2;
+        const ownBallProgress=ownDir>0?live.ball.x:100-live.ball.x;
+        if(ownBallProgress<38){
+          const defensiveX=value=>ownDir>0?value:100-value;
+          if(['CB1','CB2'].includes(p.slot)){x=defensiveX(Math.max(8,Math.min(28,ownBallProgress-3)));y=(p.slot==='CB1'?44:56)+(live.ball.y-50)*.3;}
+          if(['LB','RB'].includes(p.slot)){x=defensiveX(Math.max(10,Math.min(25,ownBallProgress+1)));y=p.baseY+(live.ball.y-50)*.3;}
+          if(p.slot==='CDM'){x=defensiveX(Math.max(17,Math.min(39,ownBallProgress+10)));y=50+(live.ball.y-50)*.45;}
+        }
+
         if(pressers.includes(i)){x=live.ball.x-ownDir*1.5;y=live.ball.y;}
       }
       // Keep players spaced apart instead of piling every card around the ball.
-      players.forEach((q,j)=>{if(i===j||q.sentOff)return;const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<7&&d>.01){x+=(p.x-q.x)/d*(7-d)*.65;y+=(p.y-q.y)/d*(7-d)*.65;}});
+      players.forEach((q,j)=>{if(i===j||q.sentOff||q.side!==p.side)return;const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<7&&d>.01){x+=(p.x-q.x)/d*(7-d)*.65;y+=(p.y-q.y)/d*(7-d)*.65;}});
       move(p,x,y,dt*(1.8+ability(p.player,'pace')/24));
     });
     if(carrier&&owner>=0&&!live.flight)live.ball={x:carrier.x+direction(carrier.side)*1.2,y:carrier.y};
@@ -4921,6 +4930,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     live.decision-=dt;if(live.decision>0)return;live.decision=p.side==='home'&&tactic==='possession'?.85:1.35;
     const advanced=progress(p),central=Math.abs(p.y-50)<24,pressure=defender?Math.hypot(defender.p.x-p.x,defender.p.y-p.y):20;
     const lateral=['LB','RB','LW','RW'].includes(p.slot);
+    if(live.buildSide===p.side&&tick<(live.buildUntil||0)&&advanced<78){const buildTarget=choosePass(owner);if(buildTarget>=0){pass(buildTarget);return;}}
     if(lateral&&advanced<74&&pressure<10&&pressure>4&&tick>=(p.nextDribbleAt||0)&&ability(p.player,'drib')>ability(defender.p.player,'def')-8){
       p.dribbleDirection=p.y<50?1:-1;p.dribbleUntil=tick+18;p.nextDribbleAt=tick+90;
       eventText('👟 '+p.player.name+' cerca spazio sulla fascia.');return;
@@ -4936,7 +4946,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   function step(){
     if(!live||committing||live.halfTime||document.hidden||matchBackgroundAt!==null)return;const dt=.1;tick++;live.tackleCooldown=Math.max(0,(live.tackleCooldown||0)-dt);
-    if(live.deadBall)restartStep(dt);else{refereeStep(dt);teamMovement(dt);if(live.flight)flightStep(dt);else decide(dt);}
+    if(live.deadBall){if(live.buildUntil>tick)live.buildUntil++;restartStep(dt);}else{if(live.buildSide!==live.possession){live.buildSide=live.possession;live.buildUntil=tick+400;}refereeStep(dt);teamMovement(dt);if(live.flight)flightStep(dt);else decide(dt);}
     if(live.possession)live.stats[live.possession].possession+=dt;updatePitch();if(tick%10===0)persist();
   }
   let matchBackgroundAt=null;
