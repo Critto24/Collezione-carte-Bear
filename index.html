@@ -981,6 +981,7 @@
 .formation-editor{z-index:1000004}.formation-editor .club-screen-box{width:min(1000px,100%)}.formation-editor-layout{display:grid;grid-template-columns:minmax(280px,1fr) minmax(220px,.8fr);gap:22px;margin:18px 0}.formation-edit-pitch{height:440px;position:relative;border:2px solid #abedc966;border-radius:18px;background:linear-gradient(90deg,transparent 49.7%,#ffffff44 49.7% 50.3%,transparent 50.3%),repeating-linear-gradient(0deg,#154b32 0 50px,#1b583d 50px 100px)}.formation-edit-pitch:before{content:'';position:absolute;left:30%;right:30%;top:0;height:16%;border:2px solid #ffffff55;border-top:0}.formation-edit-slot{position:absolute;transform:translate(-50%,-50%);width:66px;text-align:center}.formation-edit-slot>.offline-card{width:66px;height:88px;cursor:pointer;border:2px solid #ffffff55;transition:box-shadow .15s}.formation-edit-slot.selected>.offline-card{outline:3px solid #fbbf24;box-shadow:0 0 25px #fbbf2466}.formation-edit-slot>span{font-size:9px;font-weight:900;color:white;background:#071a10bb;border-radius:5px;padding:2px 6px}.formation-edit-card .offline-card-name,.formation-edit-card .offline-card-details{font-size:8px}.formation-edit-card .club-shirt{width:30px;height:32px}.formation-bench{background:#ffffff05;border:1px solid #ffffff18;padding:16px;border-radius:18px}.formation-bench h3{font-size:17px;font-weight:800;margin-bottom:15px;color:#fde68a}#preFormationChoices{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:10px;max-height:335px;overflow-y:auto;padding:5px}.formation-choice>.offline-card{width:76px;height:106px;margin:auto}.formation-choice small{display:block;font-size:9px;margin-top:5px;color:#e4d5eb}.formation-choice .offline-card-name,.formation-choice .offline-card-details{font-size:8px}.formation-choice .club-shirt{width:34px;height:36px}.formation-summary{color:#fde68a;font-weight:800}.formation-options{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}.formation-options select{background:#251b2f;border:1px solid #bda9cc88;border-radius:10px;padding:10px;color:white}.formation-editor-actions{position:sticky;bottom:-30px;padding:10px;background:#17101ef5;z-index:3;border-top:1px solid #ffffff18}.formation-edit-open{border-color:#fbbf2466;color:#fde68a}
 @media(max-width:650px){.formation-editor-layout{grid-template-columns:1fr;gap:14px}.formation-edit-pitch{height:390px}.formation-edit-slot{width:55px}.formation-edit-slot>.offline-card{width:55px;height:75px}.formation-bench{padding:12px}#preFormationChoices{max-height:220px}.formation-editor-actions{bottom:-20px}.formation-editor-actions button{margin:4px;padding:12px;font-size:12px}}
 
+.report-hub{padding:22px;border-radius:22px}.report-hub h3{font-size:22px;font-weight:900;color:#93c5fd}.report-hub p{font-size:13px;color:#d1c3dc;line-height:1.6;margin:10px 0}.report-box{width:min(740px,100%)}.report-box label{display:block;text-align:left;font-size:13px;margin:16px 0 7px;color:#cfe5ff}.report-box input,.report-box select,.report-box textarea{display:block;width:100%;padding:12px;border-radius:12px;border:1px solid #6786a466;background:#111827;color:white;font:inherit}.report-box textarea{resize:vertical}.report-box [role=status]{font-size:13px;line-height:1.6;margin:14px 0;color:#bfdbfe}.private-report-item{text-align:left;padding:18px;margin:12px 0;background:#ffffff05;border:1px solid #8faaca33;border-radius:16px}.private-report-item h3{font-weight:800;color:#93c5fd}.private-report-item small{font-size:11px;color:#bba9ca}.private-report-item p{white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0;font-size:14px;line-height:1.6}.private-report-item button{font-size:11px;padding:8px 12px;margin:0}
 </style>
 <style id="home-formation-cards-css">
 .home-formation-wrap{background:linear-gradient(145deg,rgba(2,44,34,.82),rgba(15,23,42,.92));border:1px solid rgba(16,185,129,.25);box-shadow:0 20px 50px rgba(0,0,0,.25)}
@@ -1646,7 +1647,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                     </div>
                     <!-- Welcome Banner -->
 <div class="glass club-home-hero"><span class="screen-kicker">IL TUO QUARTIER GENERALE</span><div class="creepy-season-label">🎃 La notte di BEAR FC</div><h2 class="text-3xl font-extrabold text-white mt-2">Benvenuto, <span id="welcomeManagerName" class="text-amber-400">Allenatore</span>!</h2><div class="club-home-top"><div id="clubHomeKit"></div><div><h3 id="clubHomeName">BEAR FC</h3><p>La tua squadra. Le tue carte. La tua storia.</p></div></div><div class="club-home-overview"><div><small>Prossimo avversario</small><strong id="clubHomeNext"></strong></div><div><small>Miglior marcatore</small><strong id="clubHomeScorer"></strong></div><div><small>Forza squadra</small><strong id="clubHomeRating"></strong></div></div><div class="club-home-actions"><button onclick="openOfflineMatch()">⚽ Gioca partita</button><button onclick="switchTab('packs')">🎁 Apri pacchetti</button><button onclick="switchTab('squad')">La tua formazione</button></div><div id="homeFormationCards"></div></div>
-<section class="glass mission-hub"><h3>🎯 Missioni del club</h3><p>Tre obiettivi diversi ogni giorno, anche a rotazione. Le missioni settimanali si rinnovano il lunedì. Premi riscattabili una sola volta · progresso dalle nuove partite concluse.</p><div id="missionCards"></div></section>
+<section class="glass report-hub"><h3>Hai trovato un problema?</h3><p>Segnalalo al gestore di BEAR FC. Il messaggio è privato e non è visibile agli altri giocatori.</p><button onclick="openPrivateReport()" class="screen-primary">SEGNALA UN PROBLEMA</button></section><section class="glass mission-hub"><h3>🎯 Missioni del club</h3><p>Tre obiettivi diversi ogni giorno, anche a rotazione. Le missioni settimanali si rinnovano il lunedì. Premi riscattabili una sola volta · progresso dalle nuove partite concluse.</p><div id="missionCards"></div></section>
                     <!-- Quick Stats Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div class="glass-card p-5 rounded-2xl flex items-center space-x-4">
@@ -2101,7 +2102,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                   </div>
                 </div>
 
-<div id="view-settings" class="view-section hidden"><div class="offline-hub"><h2>Impostazioni Account</h2><label for="settingsUsername">Nome allenatore</label><input id="settingsUsername" class="bg-slate-900 text-white p-3 rounded-xl" maxlength="30"><label for="settingsEmail">Email</label><input id="settingsEmail" class="bg-slate-900 text-white p-3 rounded-xl" readonly><div class="offline-actions"><button onclick="saveSettings()">Salva impostazioni</button></div><p>Per modificare nome e divisa della squadra, apri Modalità Partita.</p><h3>Il tuo club su più dispositivi</h3><p id="cloudStatus">Profilo locale</p><div class="offline-actions"><button onclick="openCloudAccount()">Account online</button><button onclick="retryCloud()">Salva online / Riprova</button><button onclick="refreshGameCloud()">Aggiorna campionati online</button><button onclick="openCloudRecovery()">Recupera progressi precedenti</button><button onclick="useBrowserOnly()">Usa solo questo browser</button></div><p>Per trasferire i progressi, registra il tuo account sul telefono dove hai già giocato. Poi accedi sugli altri dispositivi con la stessa email e password. Prima di cambiare telefono, controlla che compaia “progressi salvati”.</p></div></div>
+<div id="view-settings" class="view-section hidden"><div class="offline-hub"><h2>Impostazioni Account</h2><label for="settingsUsername">Nome allenatore</label><input id="settingsUsername" class="bg-slate-900 text-white p-3 rounded-xl" maxlength="30"><label for="settingsEmail">Email</label><input id="settingsEmail" class="bg-slate-900 text-white p-3 rounded-xl" readonly><div class="offline-actions"><button onclick="saveSettings()">Salva impostazioni</button></div><p>Per modificare nome e divisa della squadra, apri Modalità Partita.</p><h3>Segnalazioni</h3><p>Puoi inviare un messaggio privato al gestore. La lettura è riservata all’account amministratore.</p><div class="offline-actions"><button onclick="openPrivateReport()">Segnala un problema</button><button onclick="openReportAdmin()">Visualizza segnalazioni degli utenti</button></div><h3>Il tuo club su più dispositivi</h3><p id="cloudStatus">Profilo locale</p><div class="offline-actions"><button onclick="openCloudAccount()">Account online</button><button onclick="retryCloud()">Salva online / Riprova</button><button onclick="refreshGameCloud()">Aggiorna campionati online</button><button onclick="openCloudRecovery()">Recupera progressi precedenti</button><button onclick="useBrowserOnly()">Usa solo questo browser</button></div><p>Per trasferire i progressi, registra il tuo account sul telefono dove hai già giocato. Poi accedi sugli altri dispositivi con la stessa email e password. Prima di cambiare telefono, controlla che compaia “progressi salvati”.</p></div></div>
 <section id="championshipPage" style="display:none;padding:20px;"><h2>Club online</h2><p>Collega il tuo club online.</p><button onclick="createOnlineClubFromChampionship()">Crea club</button><button onclick="joinOnlineClubFromChampionship()">Entra con codice</button><div id="championshipClubStatus">Nessun club collegato.</div><div id="championshipCompetitionStatus"></div></section>
 </main>
         </div>
@@ -2514,6 +2515,36 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                     "def": 90,
                     "phys": 85,
                     "normalId": "ferrera_001"
+          },
+          {
+                    "id": "rare_spadola_001",
+                    "name": "Spadola",
+                    "image": "images/rare_spadola_001.png",
+                    "pos": "CM",
+                    "rating": 90,
+                    "rare": "Rare",
+                    "pace": 78,
+                    "shoot": 87,
+                    "pass": 88,
+                    "drib": 71,
+                    "def": 85,
+                    "phys": 75,
+                    "normalId": "spadola_001"
+          },
+          {
+                    "id": "rare_puglisis_001",
+                    "name": "Puglisi.S",
+                    "image": "images/rare_puglisis_001.png",
+                    "pos": "CB",
+                    "rating": 84,
+                    "rare": "Rare",
+                    "pace": 73,
+                    "shoot": 68,
+                    "pass": 68,
+                    "drib": 58,
+                    "def": 92,
+                    "phys": 91,
+                    "normalId": "puglisis_001"
           }
 ];
         let ALL_PLAYERS = [...BUILT_IN_PLAYERS, ...RARE_PLAYERS, ...HALLOWEEN_PLAYERS, ...LEGENDARY_PACK_PLAYERS];
@@ -3862,11 +3893,11 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 
         function getPlayerIdentityKey(player) {
             if (!player) return null;
-            // L'identità è la PERSONA, non la singola carta.
-            // Quindi Schembari normale e Schembari Halloween sono lo stesso giocatore.
+            // Una versione per persona e rarità: rarità diverse possono giocare insieme.
+            // Normale e Halloween della stessa rarità restano alternative.
             const basePlayer = player.normalId ? ALL_PLAYERS.find(p => p.id === player.normalId) : player;
             const raw = String(basePlayer?.name || player.name || player.id).trim().toLowerCase();
-            return raw.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '');
+            return raw.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '')+'::'+String(player.rare||'common').toLowerCase();
         }
 
         function isSamePlayerIdentity(playerA, playerB) {
@@ -4723,7 +4754,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   function hideBanner(){if($('matchEventBanner'))$('matchEventBanner').classList.add('hidden');}
   function resetPositions(){players.forEach(p=>{p.x=direction(p.side)>0?p.baseX:100-p.baseX;p.y=p.baseY;p.decisionDelay=0;});}
-  function kickoff(side){live.lastCompletedPass=null;live.oneTwo=null;live.recentPasses=[];resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.buildSide=side;live.buildUntil=tick+550;live.decision=2;const receiver=enabled(side).find(o=>o.p.slot==='CDM')||enabled(side).find(o=>o.i!==owner&&o.p.slot!=='GK');if(owner>=0&&receiver){receiver.p.x=50-direction(side)*9;receiver.p.y=50;pass(receiver.i,'kickoff');eventText('⚽ Calcio d’inizio: '+players[live.flight.from].player.name+' appoggia a '+receiver.p.player.name+'.');}}
+  function kickoff(side){live.lastCompletedPass=null;live.oneTwo=null;live.recentPasses=[];resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.buildSide=side;live.buildUntil=tick+400;live.decision=2;const receiver=enabled(side).find(o=>o.p.slot==='CDM')||enabled(side).find(o=>o.i!==owner&&o.p.slot!=='GK');if(owner>=0&&receiver){receiver.p.x=50-direction(side)*9;receiver.p.y=50;pass(receiver.i,'kickoff');eventText('⚽ Calcio d’inizio: '+players[live.flight.from].player.name+' appoggia a '+receiver.p.player.name+'.');}}
   function stats(){if(!live)return;const s=live.stats;const total=s.home.possession+s.away.possession||1;set('matchStats',`Possesso ${Math.round(s.home.possession/total*100)}%–${Math.round(s.away.possession/total*100)}% · Tiri ${s.home.shots}–${s.away.shots} · Corner ${s.home.corners}–${s.away.corners} · Falli ${s.home.fouls}–${s.away.fouls} · 🟨 ${s.home.yellow}–${s.away.yellow} · 🟥 ${s.home.red}–${s.away.red}`);}
   function updatePitch(){
     players.forEach((p,i)=>{const n=$(`mp-${i}`);if(n){n.style.left=`${p.x}%`;n.style.top=`${p.y}%`;n.style.display=p.sentOff&&!p.dismissalAnimating?'none':'';n.classList.toggle('player-fallen',(p.fallenRemaining||0)>0);n.classList.toggle('active-ball',i===owner&&!live?.flight);n.classList.toggle('keeper-diving',(p.keeperDiveUntil||0)>tick);n.style.setProperty('--keeper-lean',((p.keeperDiveDirection||1)*22)+'deg');const badge=n.querySelector('.discipline-badge');if(badge)badge.textContent=p.yellow?'🟨':'';}});
@@ -5029,7 +5060,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       if(keeper){x=ownDir>0?7:93;y=Math.max(37,Math.min(63,50+(live.ball.y-50)*.2));}
       else if(i===owner){
         const pressure=enabled(other(side)).some(o=>Math.hypot(o.p.x-p.x,o.p.y-p.y)<6),lateral=['LB','RB','LW','RW'].includes(p.slot);
-        const building=live.buildSide===p.side&&tick<(live.buildUntil||0)&&progress(p)<78;x=p.x+ownDir*(keeper?0:building?.35:pressure?1:3);if(building&&progress(p)>65)x=p.x;y=['LW','RW'].includes(p.slot)&&progress(p)>60?p.y+(50-p.y)*.23:lateral?p.baseY:p.y+(50-p.y)*.08;
+        const building=live.buildSide===p.side&&tick<(live.buildUntil||0)&&progress(p)<78;x=p.x+ownDir*(keeper?0:building?.9:pressure?1:3);if(building&&progress(p)>72)x=p.x-ownDir*.3;y=['LW','RW'].includes(p.slot)&&progress(p)>60?p.y+(50-p.y)*.23:lateral?p.baseY:p.y+(50-p.y)*.08;
         if(progress(p)>91)x=p.x;
         if(['CB1','CB2'].includes(p.slot)&&progress(p)>48)x=p.x;
         if((p.dribbleUntil||0)>tick){x=p.x+ownDir*2.5;y=p.y+(p.dribbleDirection||1)*5;}
@@ -5051,7 +5082,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
         if(['CM1','CM2'].includes(p.slot)&&ballProgress>57){x=at(Math.min(84,ballProgress+4));y=p.slot==='CM1'?42:58;if(p.side==='home'&&tactic==='defend')x=at(Math.min(67,ballProgress-9));}
         if(p.slot==='ST'){x=at(Math.min(89,ballProgress+12));y=50+(leftFlank?7:-7);}
         if(p.slot==='CB1'&&ballProgress>70&&p.side==='home'&&tactic==='attack')x=at(67);
-        if(live.buildSide===p.side&&tick<(live.buildUntil||0)&&ballProgress<78&&['ST','LW','RW','CM1','CM2','LB','RB'].includes(p.slot)){x=at(Math.min(73,ownDir>0?x:100-x));}
+        if(live.buildSide===p.side&&tick<(live.buildUntil||0)&&ballProgress<78&&['ST','LW','RW','CM1','CM2','LB','RB'].includes(p.slot)){x=at(Math.min(76,ownDir>0?x:100-x));y+=Math.sin(tick/22+i)*2.5;;}
         if(live.oneTwo?.from===i&&tick<live.oneTwo.until){x=p.x+ownDir*7;y=p.y+(50-p.y)*.12;}
       }else{
         x=base+ownDir*Math.max(-12,Math.min(10,(50-ballProgress)*.25));y=p.baseY+(live.ball.y-50)*.2;
@@ -5099,7 +5130,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   }
   function step(){
     if(!live||committing||live.halfTime||document.hidden||matchBackgroundAt!==null)return;const dt=.1;tick++;live.tackleCooldown=Math.max(0,(live.tackleCooldown||0)-dt);
-    if(live.deadBall){if(live.buildUntil>tick)live.buildUntil++;restartStep(dt);}else{if(live.buildSide!==live.possession){live.buildSide=live.possession;live.buildUntil=tick+400;}refereeStep(dt);teamMovement(dt);if(live.flight)flightStep(dt);else decide(dt);}
+    if(live.deadBall){if(live.buildUntil>tick)live.buildUntil++;restartStep(dt);}else{if(live.buildSide!==live.possession){live.buildSide=live.possession;live.buildUntil=tick+350;}refereeStep(dt);teamMovement(dt);if(live.flight)flightStep(dt);else decide(dt);}
     if(live.possession)live.stats[live.possession].possession+=dt;updatePitch();if(tick%10===0)persist();
   }
   let matchBackgroundAt=null;
@@ -5408,6 +5439,58 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       for(const [text,action] of [['↶',()=>{yaw-=45;draw();}],['Fronte',()=>{yaw=0;pitch=0;draw();}],['↷',()=>{yaw+=45;draw();}]]){const button=document.createElement('button');button.type='button';button.textContent=text;button.setAttribute('aria-label',text==='↶'?'Ruota a sinistra':text==='↷'?'Ruota a destra':'Mostra il fronte');button.onclick=action;controls.appendChild(button);}parent.appendChild(controls);}
     draw();
   };
+})();
+
+</script>
+
+<div id="privateReportModal" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="reportTitle"><div class="club-screen-box report-box"><p class="screen-kicker">MESSAGGIO PRIVATO AL GESTORE</p><h2 id="reportTitle">Segnala un problema</h2><p class="screen-note">Accedi al tuo account online per inviare. Le segnalazioni non sono pubbliche. Non inserire password o codici segreti.</p><form onsubmit="event.preventDefault();sendPrivateReport()"><label for="reportCategory">Dove hai trovato il problema?</label><select id="reportCategory"><option value="partita">Modalità partita</option><option value="pacchetti">Pacchetti e carte</option><option value="account">Account e salvataggi</option><option value="altro">Altro</option></select><label for="reportMessage">Descrivi cosa succede e come riprodurlo</label><textarea id="reportMessage" rows="6" minlength="10" maxlength="2000" required placeholder="Esempio: dopo il secondo giallo il giocatore resta in campo…"></textarea><p id="reportSendStatus" role="status" aria-live="polite"></p><button id="reportSendButton" type="submit" class="screen-primary">INVIA SEGNALAZIONE</button><button type="button" onclick="closePrivateReport()" class="screen-secondary">CHIUDI</button></form></div></div>
+<div id="reportAdminModal" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="reportAdminTitle"><div class="club-screen-box report-box"><p class="screen-kicker">AREA AMMINISTRATORE</p><h2 id="reportAdminTitle">Segnalazioni degli utenti</h2><form id="reportAdminLogin" onsubmit="event.preventDefault();unlockReportAdmin()"><label for="reportAdminEmail">Email amministratore</label><input id="reportAdminEmail" type="email" value="critto24pr0@gmail.com" autocomplete="username" required><label for="reportAdminPassword">Codice segreto dell’account</label><input id="reportAdminPassword" type="password" autocomplete="current-password" required><button id="reportAdminUnlock" type="submit" class="screen-primary">ACCEDI ALLE SEGNALAZIONI</button></form><p id="reportAdminStatus" role="status" aria-live="polite"></p><section id="reportAdminContent" class="hidden"><button onclick="refreshPrivateReports()" class="screen-secondary">AGGIORNA</button><div id="reportAdminList"></div><button id="reportAdminMore" onclick="morePrivateReports()" class="screen-secondary hidden">CARICA ALTRE</button></section><button onclick="closeReportAdmin()" class="screen-secondary">CHIUDI AREA AMMINISTRATORE</button></div></div>
+<script id="bearfc-private-reports">
+(function(){
+  const $=id=>document.getElementById(id),client=typeof supabaseClient!=='undefined'?supabaseClient:null;
+  let sending=false,admin=null,adminUser=null,adminBusy=false,page=0,loaded=0,generation=0;
+  const labels={partita:'Modalità partita',pacchetti:'Pacchetti e carte',account:'Account e salvataggi',altro:'Altro'},states={new:'Nuova',read:'Letta',resolved:'Risolta'};
+  function say(id,text){$(id).textContent=text;}
+  function errorText(error){return ['42P01','PGRST205'].includes(error?.code)?'Le segnalazioni non sono ancora attive. Il gestore deve eseguire lo script Supabase.':'Operazione non riuscita. Riprova tra poco.';}
+  window.openPrivateReport=function(){$('privateReportModal').classList.remove('hidden');say('reportSendStatus','');};
+  window.closePrivateReport=function(){if(!sending)$('privateReportModal').classList.add('hidden');};
+  window.sendPrivateReport=async function(){
+    if(sending)return;const message=$('reportMessage').value.trim(),category=$('reportCategory').value;
+    if(message.length<10||message.length>2000){say('reportSendStatus','Scrivi da 10 a 2000 caratteri per descrivere il problema.');return;}
+    if(!labels[category])return;if(!client){say('reportSendStatus','Connessione online non disponibile.');return;}
+    sending=true;$('reportSendButton').disabled=true;say('reportSendStatus','Invio in corso…');
+    try{const {data,error}=await client.auth.getUser();if(error||!data?.user){say('reportSendStatus','Accedi al tuo account online prima di inviare una segnalazione.');return;}
+      const result=await client.from('bear_fc_reports').insert({user_id:data.user.id,player_name:String(currentUser?.username||'Allenatore').slice(0,60),category,message});
+      if(result.error){say('reportSendStatus',errorText(result.error));return;}$('reportMessage').value='';say('reportSendStatus','Segnalazione inviata al gestore. Grazie!');
+    }catch{say('reportSendStatus','Connessione assente: la segnalazione non è stata inviata. Riprova quando sei online.');}
+    finally{sending=false;$('reportSendButton').disabled=false;}
+  };
+  window.openReportAdmin=function(){$('reportAdminModal').classList.remove('hidden');$('reportAdminLogin').classList.remove('hidden');$('reportAdminContent').classList.add('hidden');$('reportAdminPassword').value='';say('reportAdminStatus','Inserisci il codice segreto del tuo account amministratore.');};
+  window.closeReportAdmin=async function(){generation++;const old=admin;admin=null;adminUser=null;$('reportAdminPassword').value='';$('reportAdminList').innerHTML='';$('reportAdminModal').classList.add('hidden');if(old)try{await old.auth.signOut({scope:'local'});}catch{} };
+  window.unlockReportAdmin=async function(){
+    if(adminBusy)return;const email=$('reportAdminEmail').value.trim(),password=$('reportAdminPassword').value;if(!email||!password){say('reportAdminStatus','Inserisci email e codice segreto.');return;}
+    if(!window.supabase){say('reportAdminStatus','Connessione online non disponibile.');return;}
+    adminBusy=true;const token=++generation;$('reportAdminUnlock').disabled=true;say('reportAdminStatus','Verifica accesso…');
+    let temporary=null;
+    try{temporary=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
+      const login=await temporary.auth.signInWithPassword({email,password});if(login.error||!login.data?.user){say('reportAdminStatus','Email o codice segreto non corretti.');return;}
+      const membership=await temporary.from('bear_fc_report_admins').select('user_id').eq('user_id',login.data.user.id).maybeSingle();
+      if(membership.error){say('reportAdminStatus',errorText(membership.error));return;}if(!membership.data){say('reportAdminStatus','Questo account non è autorizzato a leggere le segnalazioni.');return;}
+      if(token!==generation)return;admin=temporary;temporary=null;adminUser=login.data.user.id;$('reportAdminLogin').classList.add('hidden');$('reportAdminContent').classList.remove('hidden');say('reportAdminStatus','Accesso amministratore verificato.');await window.refreshPrivateReports();
+    }catch{say('reportAdminStatus','Connessione assente. Riprova quando sei online.');}
+    finally{if(temporary)try{await temporary.auth.signOut({scope:'local'});}catch{}$('reportAdminPassword').value='';adminBusy=false;$('reportAdminUnlock').disabled=false;}
+  };
+  function reportNode(report){const item=document.createElement('article');item.className='private-report-item';const head=document.createElement('h3');head.textContent=labels[report.category]||'Segnalazione';item.appendChild(head);
+    const detail=document.createElement('small');detail.textContent=report.player_name+' · '+new Date(report.created_at).toLocaleString('it-IT')+' · '+(states[report.status]||'Nuova');item.appendChild(detail);
+    const body=document.createElement('p');body.textContent=report.message;item.appendChild(body);
+    const button=document.createElement('button');button.className='screen-secondary';button.textContent=report.status==='resolved'?'Segna come nuova':'Segna come risolta';button.onclick=async()=>{if(!admin)return;button.disabled=true;const current=admin;try{const result=await current.from('bear_fc_reports').update({status:report.status==='resolved'?'new':'resolved'}).eq('id',report.id).select('id');if(result.error||!result.data?.length){say('reportAdminStatus','Aggiornamento non riuscito.');return;}if(current===admin)await window.refreshPrivateReports();}catch{say('reportAdminStatus','Connessione assente.');}finally{button.disabled=false;}};item.appendChild(button);return item;
+  }
+  async function loadPage(reset){if(!admin||!adminUser)return;const current=admin,token=generation;try{if(reset){page=0;loaded=0;$('reportAdminList').innerHTML='';}
+      $('reportAdminMore').disabled=true;const result=await current.from('bear_fc_reports').select('id,player_name,category,message,status,created_at',{count:'exact'}).order('created_at',{ascending:false}).order('id',{ascending:false}).range(page*25,page*25+24);
+      if(token!==generation||current!==admin)return;if(result.error){say('reportAdminStatus',errorText(result.error));return;}
+      for(const r of result.data||[])$('reportAdminList').appendChild(reportNode(r));loaded+=(result.data||[]).length;page++;say('reportAdminStatus',loaded+' di '+(result.count??loaded)+' segnalazioni');$('reportAdminMore').classList.toggle('hidden',loaded>=(result.count??loaded));
+    }catch{say('reportAdminStatus','Connessione assente.');}finally{$('reportAdminMore').disabled=false;}}
+  window.refreshPrivateReports=()=>loadPage(true);window.morePrivateReports=()=>loadPage(false);
 })();
 
 </script>
