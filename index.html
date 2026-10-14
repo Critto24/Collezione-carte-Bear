@@ -31,7 +31,7 @@
 
         /* Carte */
         .card-common { background: linear-gradient(145deg, #202822 0%, #080b09 75%); border-color: #94a38f; }
-        .card-rare { background: linear-gradient(145deg, #16a34a 0%, #064e3b 48%, #030705 100%); border-color: #4ade80; box-shadow: 0 0 18px rgba(34,197,94,.22); }
+        .card-rare { background: linear-gradient(145deg, #2563eb 0%, #123a8c 48%, #020b24 100%); border-color: #38bdf8; box-shadow: 0 0 18px rgba(56,189,248,.3); }
         .card-epic { background: linear-gradient(145deg, #f59e0b 0%, #166534 34%, #052e16 70%, #030705 100%); border-color: #fbbf24; box-shadow: 0 0 22px rgba(245,158,11,.28); }
         .card-legendary { background: linear-gradient(145deg, #fff7c2 0%, #f59e0b 20%, #166534 52%, #020503 90%); border-color: #fde68a; box-shadow: 0 0 30px rgba(251,191,36,.45), 0 0 60px rgba(34,197,94,.18); }
 
@@ -2424,7 +2424,99 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
         // SOLO LE CARTE INSERITE NEL CODICE FANNO PARTE DEL GIOCO.
         // Le vecchie carte create dal sito vengono ignorate e rimosse dal salvataggio locale.
         localStorage.removeItem('bear_fc_custom_cards');
-        let ALL_PLAYERS = [...BUILT_IN_PLAYERS, ...HALLOWEEN_PLAYERS, ...LEGENDARY_PACK_PLAYERS];
+        const RARE_PLAYERS = [
+          {
+                    "id": "rare_cicciop_001",
+                    "name": "Ciccio.P",
+                    "image": "images/rare_cicciop_001.png",
+                    "pos": "GK",
+                    "rating": 90,
+                    "rare": "Rare",
+                    "pace": 58,
+                    "shoot": 28,
+                    "pass": 83,
+                    "drib": 38,
+                    "def": 94,
+                    "phys": 85,
+                    "normalId": "cicciop_001"
+          },
+          {
+                    "id": "rare_marchettic_001",
+                    "name": "Marchetti.C",
+                    "image": "images/rare_marchettic_001.png",
+                    "pos": "ATT",
+                    "rating": 97,
+                    "rare": "Rare",
+                    "pace": 97,
+                    "shoot": 99,
+                    "pass": 87,
+                    "drib": 98,
+                    "def": 48,
+                    "phys": 73,
+                    "normalId": "marchettic_001"
+          },
+          {
+                    "id": "rare_gurrieri_001",
+                    "name": "Gurrieri",
+                    "image": "images/rare_gurrieri_001.png",
+                    "pos": "CB",
+                    "rating": 87,
+                    "rare": "Rare",
+                    "pace": 71,
+                    "shoot": 77,
+                    "pass": 85,
+                    "drib": 75,
+                    "def": 84,
+                    "phys": 83,
+                    "normalId": "gurrieri_001"
+          },
+          {
+                    "id": "rare_cascone_001",
+                    "name": "Cascone",
+                    "image": "images/rare_cascone_001.png",
+                    "pos": "CM",
+                    "rating": 88,
+                    "rare": "Rare",
+                    "pace": 89,
+                    "shoot": 75,
+                    "pass": 88,
+                    "drib": 89,
+                    "def": 88,
+                    "phys": 93,
+                    "normalId": "cascone_001"
+          },
+          {
+                    "id": "rare_schembari_001",
+                    "name": "Schembari",
+                    "image": "images/rare_schembari_001.png",
+                    "pos": "CB",
+                    "rating": 81,
+                    "rare": "Rare",
+                    "pace": 87,
+                    "shoot": 41,
+                    "pass": 45,
+                    "drib": 43,
+                    "def": 94,
+                    "phys": 89,
+                    "normalId": "schembari_001"
+          },
+          {
+                    "id": "rare_ferrera_001",
+                    "name": "Ferrera",
+                    "image": "images/rare_ferrera_001.png",
+                    "pos": "CB",
+                    "rating": 88,
+                    "rare": "Rare",
+                    "pace": 89,
+                    "shoot": 81,
+                    "pass": 75,
+                    "drib": 73,
+                    "def": 90,
+                    "phys": 85,
+                    "normalId": "ferrera_001"
+          }
+];
+        let ALL_PLAYERS = [...BUILT_IN_PLAYERS, ...RARE_PLAYERS, ...HALLOWEEN_PLAYERS, ...LEGENDARY_PACK_PLAYERS];
 
 
         /* Current user session state */
@@ -3436,8 +3528,8 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 
         function choosePackRarity(packType = 'normal') {
             const weights = {
-                rare:      [['common',70],['epic',25],['legendary',4.9],['mythic',0.1]],
-                normal:    [['common',96.0],['epic',3.5],['legendary',0.499],['mythic',0.001]],
+                rare:      [['rare',70],['epic',25],['legendary',4.9],['mythic',0.1]],
+                normal:    [['common',90],['rare',6],['epic',3.5],['legendary',0.499],['mythic',0.001]],
                 epic:      [['epic',85],['legendary',14],['mythic',1]],
                 legendary:[['legendary',99.5],['mythic',0.5]]
             }[packType] || null;
@@ -3736,7 +3828,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                     safeRarity === 'mythic' ? '✦ CM7 — CARTA MITICA FIRMATA!' :
                     safeRarity === 'legendary' ? '👑 CARTA LEGGENDARIA SBLOCCATA!' :
                     safeRarity === 'epic' ? '💜 CARTA EPICA SBLOCCATA!' :
-                    safeRarity === 'rare' ? '🟢 CARTA RARA SBLOCCATA!' :
+                    safeRarity === 'rare' ? '🔵 CARTA RARA SBLOCCATA!' :
                     '🎉 CARTA COMUNE SBLOCCATA!';
                 btn.classList.remove('hidden');
             }, revealDelay);
@@ -5297,7 +5389,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   };
   window.enableCard3D=function(element,player,rarity){
     if(!element)return;
-    const color={common:'#bac7bb',rare:'#4ade80',epic:'#c084fc',legendary:'#fbbf24',mythic:'#fff4b8'}[rarity]||'#bac7bb';
+    const color={common:'#bac7bb',rare:'#38bdf8',epic:'#c084fc',legendary:'#fbbf24',mythic:'#fff4b8'}[rarity]||'#bac7bb';
     const markup=element.innerHTML;element.innerHTML='';element.classList.add('card-solid-3d');element.style.setProperty('--card-light',color);
     element.setAttribute('tabindex','0');element.setAttribute('role','group');element.setAttribute('aria-label',player.name+'. Carta ruotabile: trascina oppure usa le frecce. Home per tornare al fronte.');
     const front=document.createElement('div');front.className='card-solid-face card-solid-front '+getCardThemeClass(player);front.innerHTML=markup;
