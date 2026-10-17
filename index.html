@@ -1,5 +1,4 @@
-
-          <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -2099,7 +2098,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                     <h3 id="offlineCompetitionTitle">Campionato Italiano</h3><p id="offlineCompetitionFormat"></p>
                     <div class="offline-stats"><div>Fase<strong id="leagueRound">1</strong></div><div>Punti<strong id="bearPoints">0</strong></div><div>Vittorie<strong id="bearWins">0</strong></div><div>Partite<strong id="bearPlayed">0</strong></div></div>
                     <p id="leagueNextMatch" class="offline-next"></p><p>Partite di oggi: <strong id="dailyMatchCount">0</strong> · Nessun limite giornaliero.</p>
-                    <p>10 minuti a partita · 2 tempi da 5 minuti · vittoria 25 FC · pareggio 10 FC · sconfitta 0 FC · bonus solo al vincitore: Campionato 400 FC · Champions 600 FC · Europa League 350 FC · Coppa Italia 250 FC · Supercoppa 150 FC.</p>
+                    <p>6 minuti a partita · 2 tempi da 3 minuti · vittoria 20 FC · pareggio 10 FC · sconfitta 0 FC · bonus solo al vincitore: Campionato 400 FC · Champions 600 FC · Europa League 350 FC · Coppa Italia 250 FC · Supercoppa 150 FC.</p>
                     <div class="offline-actions"><button id="btnPlayLeague" onclick="startItalianLeagueMatch()">GIOCA PARTITA</button><button onclick="resetOfflineSeasonDemo()">Nuova stagione</button></div>
                     <h4>Partite del turno</h4><div id="offlineFixtures"></div>
                     <div style="overflow-x:auto"><table class="league-table offline-table"><thead><tr><th>#</th><th>Squadra</th><th>PG</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>DR</th><th>PT</th></tr></thead><tbody id="serieATableBody"></tbody></table></div>
@@ -2341,6 +2340,20 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                 def: 80,
                 phys: 65
             },
+{
+"id": "chessari_001",
+          "name": "Chessari",
+          "image": "images/chessari_001.png",
+          "pos": "CM",
+          "rating": 86,
+          "rare": "Common",
+          "pace": 90,
+          "shoot": 80,
+          "pass": 91,
+          "drib": 73,
+          "def": 88,
+          "phys": 82
+}
 ];
 
         // ================= HALLOWEEN PLAYERS =================
@@ -2551,9 +2564,71 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
                     "def": 92,
                     "phys": 91,
                     "normalId": "puglisis_001"
+          },
+          {
+                    "id": "rare_occhipinti_001",
+                    "name": "Occhipinti",
+                    "image": "images/rare_occhipinti_001.png",
+                    "pos": "DIF",
+                    "rating": 72,
+                    "rare": "Rare",
+                    "pace": 63,
+                    "shoot": 58,
+                    "pass": 73,
+                    "drib": 48,
+                    "def": 86,
+                    "phys": 68,
+                    "normalId": "occhipinti_001"
+          },
+          {
+                    "id": "rare_marchetti_001",
+                    "name": "Marchetti.A",
+                    "image": "images/rare_marchetti_001.png",
+                    "pos": "ATT",
+                    "rating": 94,
+                    "rare": "Rare",
+                    "pace": 97,
+                    "shoot": 92,
+                    "pass": 85,
+                    "drib": 91,
+                    "def": 27,
+                    "phys": 41,
+                    "normalId": "marchetti_001"
           }
 ];
-        let ALL_PLAYERS = [...BUILT_IN_PLAYERS, ...RARE_PLAYERS, ...HALLOWEEN_PLAYERS, ...LEGENDARY_PACK_PLAYERS];
+        const EPIC_PLAYERS = [
+          {
+                    "id": "epic_cicciop_001",
+                    "name": "Ciccio.P",
+                    "image": "images/epic_cicciop_001.png",
+                    "pos": "GK",
+                    "rating": 92,
+                    "rare": "Epic",
+                    "pace": 60,
+                    "shoot": 29,
+                    "pass": 85,
+                    "drib": 39,
+                    "def": 97,
+                    "phys": 88,
+                    "normalId": "cicciop_001"
+          },
+          {
+                    "id": "epic_puglisis_001",
+                    "name": "MR_Unicorno",
+                    "image": "images/epic_puglisis_001.png",
+                    "pos": "CB",
+                    "rating": 86,
+                    "rare": "Epic",
+                    "pace": 75,
+                    "shoot": 69,
+                    "pass": 70,
+                    "drib": 59,
+                    "def": 95,
+                    "phys": 95,
+                    "normalId": "puglisis_001"
+          }
+];
+        let ALL_PLAYERS = [...BUILT_IN_PLAYERS, ...RARE_PLAYERS, ...EPIC_PLAYERS, ...HALLOWEEN_PLAYERS, ...LEGENDARY_PACK_PLAYERS];
 
 
         /* Current user session state */
@@ -4500,7 +4575,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       </div>
       <div id="matchClock" class="match-clock">05:00</div>
     </div>
-    <div class="match-time-strip"><strong id="matchHalfLabel">1° TEMPO</strong><span id="matchGameMinute">0′ 00″</span><span>5 minuti di gioco per tempo</span><span id="matchClockState" style="color:#fde68a;font-size:10px">▶ In gioco</span></div>
+    <div class="match-time-strip"><strong id="matchHalfLabel">1° TEMPO</strong><span id="matchGameMinute">0′ 00″</span><span>3 minuti di gioco per tempo</span><span id="matchClockState" style="color:#fde68a;font-size:10px">▶ In gioco</span></div>
     <div id="matchKitLegend" class="offline-kit-legend"></div>
     <div class="match-pitch-shell"><div class="stadium-supporters supporters-top" aria-hidden="true"></div><div class="stadium-supporters supporters-bottom" aria-hidden="true"></div><div id="matchPitch" class="match-pitch"></div><div id="matchEventBanner" class="match-event-banner hidden" aria-live="polite"><strong id="matchEventTitle"></strong><span id="matchEventSubtitle"></span><button id="startSecondHalfBtn" type="button" onclick="startOfflineSecondHalf()">Inizia secondo tempo</button></div></div>
     <div id="matchStats" class="match-stats"></div>
@@ -4754,13 +4829,14 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   function nearest(x,y,side,exclude=-1){return enabled(side).filter(o=>o.i!==exclude).sort((a,b)=>Math.hypot(a.p.x-x,a.p.y-y)-Math.hypot(b.p.x-x,b.p.y-y))[0]?.i??-1;}
   function move(p,x,y,speed){const dx=x-p.x,dy=y-p.y,d=Math.hypot(dx,dy);if(d>0){const k=Math.min(1,speed/d);p.x+=dx*k;p.y+=dy*k;}p.x=Math.max(3,Math.min(97,p.x));p.y=Math.max(4,Math.min(96,p.y));}
   function segmentDistance(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1)));return Math.hypot(p.x-(a.x+t*dx),p.y-(a.y+t*dy));}
-  function eventText(message){set('matchStatus',message);live.events=live.events||[];live.events.unshift({minute:Math.floor(((live.half-1)*300+300-live.halfRemaining)*.15),text:message});live.events=live.events.slice(0,12);const log=$('matchEventLog');if(log){log.innerHTML='';live.events.slice(0,6).forEach(e=>{const row=document.createElement('p');row.textContent=`${e.minute}′ · ${e.text}`;log.appendChild(row);});}}
+  function eventText(message){set('matchStatus',message);live.events=live.events||[];live.events.unshift({minute:Math.floor(((live.half-1)*180+180-live.halfRemaining)*.25),text:message});live.events=live.events.slice(0,12);const log=$('matchEventLog');if(log){log.innerHTML='';live.events.slice(0,6).forEach(e=>{const row=document.createElement('p');row.textContent=`${e.minute}′ · ${e.text}`;log.appendChild(row);});}}
   function centerBanner(title,subtitle,kind='event'){
     const box=$('matchEventBanner');if(!box)return;const oldReplay=box.querySelector('.goal-replay');if(oldReplay)oldReplay.remove();const oldIntro=box.querySelector('.goal-intro');if(oldIntro)oldIntro.remove();box.className=`match-event-banner ${kind}`;box.classList.remove('hidden');set('matchEventTitle',title);set('matchEventSubtitle',subtitle);const button=$('startSecondHalfBtn');if(button)button.style.display=kind==='halftime'?'inline-block':'none';
   }
   function hideBanner(){if($('matchEventBanner'))$('matchEventBanner').classList.add('hidden');}
-  function resetPositions(){players.forEach(p=>{p.x=direction(p.side)>0?p.baseX:100-p.baseX;p.y=p.baseY;p.decisionDelay=0;});}
-  function kickoff(side){live.lastCompletedPass=null;live.oneTwo=null;live.recentPasses=[];resetPositions();owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.buildSide=side;live.buildUntil=tick+400;live.decision=2;const receiver=enabled(side).find(o=>o.p.slot==='CDM')||enabled(side).find(o=>o.i!==owner&&o.p.slot!=='GK');if(owner>=0&&receiver){receiver.p.x=50-direction(side)*9;receiver.p.y=50;pass(receiver.i,'kickoff');eventText('⚽ Calcio d’inizio: '+players[live.flight.from].player.name+' appoggia a '+receiver.p.player.name+'.');}}
+  function kickoffPosition(p,side){const own=p.side===side;let x=p.slot==='GK'?7:Math.min(own?44:39,p.baseX*.55),y=p.baseY;if(own&&p.slot==='CDM'){x=41;y=50;}if(own&&p.slot==='ST'){x=50;y=50;}return {x:direction(p.side)>0?x:100-x,y};}
+  function resetPositions(side){players.forEach(p=>{if(p.sentOff)return;const target=kickoffPosition(p,side);p.x=target.x;p.y=target.y;p.decisionDelay=0;});}
+  function kickoff(side){live.lastCompletedPass=null;live.oneTwo=null;live.recentPasses=[];resetPositions(side);owner=enabled(side).find(o=>o.p.slot==='ST')?.i??nearest(50,50,side);if(owner>=0){players[owner].x=50;players[owner].y=50;}live.ball={x:50,y:50};live.flight=null;live.deadBall=null;live.possession=side;live.buildSide=side;live.buildUntil=tick+400;live.decision=2;const receiver=enabled(side).find(o=>o.p.slot==='CDM')||enabled(side).find(o=>o.i!==owner&&o.p.slot!=='GK');if(owner>=0&&receiver){receiver.p.x=50-direction(side)*9;receiver.p.y=50;pass(receiver.i,'kickoff');eventText('⚽ Calcio d’inizio: '+players[live.flight.from].player.name+' appoggia a '+receiver.p.player.name+'.');}}
   function stats(){if(!live)return;const s=live.stats;const total=s.home.possession+s.away.possession||1;set('matchStats',`Possesso ${Math.round(s.home.possession/total*100)}%–${Math.round(s.away.possession/total*100)}% · Tiri ${s.home.shots}–${s.away.shots} · Corner ${s.home.corners}–${s.away.corners} · Falli ${s.home.fouls}–${s.away.fouls} · 🟨 ${s.home.yellow}–${s.away.yellow} · 🟥 ${s.home.red}–${s.away.red}`);}
   function updatePitch(){
     players.forEach((p,i)=>{const n=$(`mp-${i}`);if(n){n.style.left=`${p.x}%`;n.style.top=`${p.y}%`;n.style.display=p.sentOff&&!p.dismissalAnimating?'none':'';n.classList.toggle('player-fallen',(p.fallenRemaining||0)>0);n.classList.toggle('active-ball',i===owner&&!live?.flight);n.classList.toggle('keeper-diving',(p.keeperDiveUntil||0)>tick);n.style.setProperty('--keeper-lean',((p.keeperDiveDirection||1)*22)+'deg');const badge=n.querySelector('.discipline-badge');if(badge)badge.textContent=p.sentOff?'🟥':p.yellow?'🟨':'';}});
@@ -4920,7 +4996,8 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     live.penaltyAnimation={flight};deadBall('penaltyAnimation',side,live.ball.x,live.ball.y,5);
   }
   function goal(side,scorer,shot=null){
-    live.goalEvents=live.goalEvents||[];live.goalEvents.push({side,id:players[scorer]?.player.id,name:players[scorer]?.player.name||'Rete',minute:Math.floor(((live.half-1)*300+300-live.halfRemaining)*.15)});
+    if(window.bearAudio)window.bearAudio.cheer();
+    live.goalEvents=live.goalEvents||[];live.goalEvents.push({side,id:players[scorer]?.player.id,name:players[scorer]?.player.name||'Rete',minute:Math.floor(((live.half-1)*180+180-live.halfRemaining)*.25)});
 
     ensureMatchCareer();const scorerPlayer=players[scorer];
     if(side==='home'&&scorerPlayer&&!scorerPlayer.bot){live.playerPerformance[scorerPlayer.player.id].goals++;}
@@ -5046,6 +5123,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       if(restart.wait>0)return;
       live.flight=live.penaltyAnimation?.flight||null;delete live.penaltyAnimation;live.deadBall=null;live.deadline=Date.now()+Math.max(0,live.stoppageRemainingMs??live.halfRemaining*1000);delete live.stoppageRemainingMs;set('matchClockState','▶ In gioco');hideBanner();return;
     }
+    if(restart.type==='kickoff'){let ready=true;players.forEach(p=>{if(p.sentOff)return;const target=kickoffPosition(p,restart.side);move(p,target.x,target.y,dt*13);if(Math.hypot(p.x-target.x,p.y-target.y)>.15)ready=false;});if(!ready)restart.wait=Math.max(.2,restart.wait);}
     if(restart.type==='corner'){prepareCorner(restart);moveCornerPlayers(restart,dt);}
     if(restart.type==='freeKick'){
       if(restart.kicker===undefined||!players[restart.kicker]||players[restart.kicker].sentOff){
@@ -5159,18 +5237,19 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   function resumeBackgroundMatch(){if(!live||matchBackgroundAt===null){matchBackgroundAt=null;return;}live.deadline+=Math.max(0,Date.now()-matchBackgroundAt);matchBackgroundAt=null;persist();clock();set('matchStatus','Partita ripresa: il tempo in secondo piano non è stato conteggiato.');}
   if(typeof document.addEventListener==='function')document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseBackgroundMatch();else resumeBackgroundMatch();});
   window.addEventListener('pagehide',pauseBackgroundMatch);window.addEventListener('pageshow',resumeBackgroundMatch);
-  function syncClock(){if(!live||live.halfTime||matchBackgroundAt!==null||live.deadBall)return;live.halfRemaining=Math.max(0,Math.ceil((live.deadline-Date.now())/1000));live.remaining=live.halfRemaining+(live.half===1?300:0);}
+  function syncClock(){if(!live||live.halfTime||matchBackgroundAt!==null||live.deadBall)return;live.halfRemaining=Math.max(0,Math.ceil((live.deadline-Date.now())/1000));live.remaining=live.halfRemaining+(live.half===1?180:0);}
   function clock(){
-    if(!live||committing||document.hidden||matchBackgroundAt!==null)return;syncClock();const left=live.halfRemaining,elapsed=(live.half-1)*300+300-left,gameSeconds=Math.round(elapsed*9);
+    if(!live||committing||document.hidden||matchBackgroundAt!==null)return;syncClock();const left=live.halfRemaining,elapsed=(live.half-1)*180+180-left,gameSeconds=Math.round(elapsed*15);
     set('matchClock',`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`);set('matchHalfLabel',live.halfTime?'INTERVALLO':`${live.half}° TEMPO`);set('matchGameMinute',`${Math.floor(gameSeconds/60)}′ ${String(gameSeconds%60).padStart(2,'0')}″`);
     set('matchClockState',live.halfTime?'⏸ Intervallo':live.deadBall?'⏸ Gioco fermo':'▶ In gioco');
     if(left>0||live.halfTime||live.deadBall)return;
-    if(live.half===1){live.halfTime=true;live.remaining=300;live.flight=null;live.deadBall=null;centerBanner('INTERVALLO',`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`,'halftime');eventText('Fine primo tempo. Premi «Inizia secondo tempo» per continuare.');persist();set('matchHalfLabel','INTERVALLO');}
+    if(live.half===1){live.halfTime=true;live.remaining=180;live.flight=null;live.deadBall=null;centerBanner('INTERVALLO',`${club().name} ${live.score.home}–${live.score.away} ${live.opponent}`,'halftime');eventText('Fine primo tempo. Premi «Inizia secondo tempo» per continuare.');persist();set('matchHalfLabel','INTERVALLO');}
     else{hideBanner();finish();}
   }
-  window.startOfflineSecondHalf=function(){if(!live?.halfTime)return;live.half=2;live.halfTime=false;live.halfRemaining=300;live.remaining=300;live.deadline=Date.now()+300000;hideBanner();kickoff('away');eventText('Inizia il secondo tempo: le squadre cambiano campo.');persist();clock();updatePitch();};
+  window.startOfflineSecondHalf=function(){if(!live?.halfTime)return;live.half=2;live.halfTime=false;live.halfRemaining=180;live.remaining=180;live.deadline=Date.now()+180000;hideBanner();kickoff('away');eventText('Inizia il secondo tempo: le squadre cambiano campo.');persist();clock();updatePitch();};
   function initializeFootball(snap){
-    if(snap.matchSchema!==4){snap.half=1;snap.halfRemaining=Math.min(300,Number(snap.remaining)||300);snap.remaining=snap.halfRemaining+300;snap.halfTime=false;snap.matchSchema=4;}
+    if(snap.matchSchema===4&&snap.halfDurationSeconds!==180){const scale=180/(snap.halfDurationSeconds||300);snap.halfRemaining=Math.max(0,Math.min(180,Math.ceil((Number(snap.halfRemaining)||0)*scale)));snap.remaining=snap.halfRemaining+(snap.half===1?180:0);if(Number.isFinite(snap.stoppageRemainingMs))snap.stoppageRemainingMs*=scale;}snap.halfDurationSeconds=180;
+    if(snap.matchSchema!==4){snap.half=1;snap.halfRemaining=Math.min(180,Number(snap.remaining)||180);snap.remaining=snap.halfRemaining+180;snap.halfTime=false;snap.matchSchema=4;}
     snap.stats=snap.stats||{home:{possession:0,shots:0,corners:0,fouls:0,yellow:0,red:0},away:{possession:0,shots:0,corners:0,fouls:0,yellow:0,red:0}};snap.decision=snap.decision??2;snap.decisionCount=snap.decisionCount||0;snap.possession=snap.possession||'home';snap.ball=snap.ball||{x:50,y:50};
   }
   function rewardOnce(id,amount,trophy=false){
@@ -5183,15 +5262,16 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
     if(!live||committing)return;committing=true;clearInterval(clockTimer);clearInterval(simTimer);const match=live,s=load(match.kind);
     if(s.id!==match.seasonId||s.round!==match.round||s.stage!==match.stage){set('matchStatus','Questa partita è già stata completata.');closeFinished();return;}
     let winner=null;if(s.stage==='knockout'&&match.score.home===match.score.away){winner=Math.random()<Math.max(.2,Math.min(.8,.5+(rating('home','rating')-rating('away','rating'))/200))?USER:match.opponent;}
-    const won=winner?winner===USER:match.score.home>match.score.away,reward=won?25:match.score.home===match.score.away&&!winner?10:0;
+    const won=winner?winner===USER:match.score.home>match.score.away,reward=won?20:match.score.home===match.score.away&&!winner?10:0;
     const played={home:match.fixture[0],away:match.fixture[1],hg:match.fixture[0]===USER?match.score.home:match.score.away,ag:match.fixture[1]===USER?match.score.home:match.score.away,penaltyWinner:winner,reward};
     commitPlayerCareer(match);recordMissionMatch(match,winner);advance(s,played);const championBonus=s.completed&&s.champion===USER?CONFIG[s.kind].bonus:0;rewardOnce(match.id,reward);if(championBonus)rewardOnce(`${s.id}_trophy`,championBonus,true);
     const d=daily();d.count++;dailySave(d);
     set('matchStatus',`FINE PARTITA · ${winner?`Rigori: vince ${display(winner)} · `:''}+${reward+championBonus} FC Coins${championBonus?' · Trofeo conquistato!':''}`);
     closeFinished();showMatchResult(match,reward,championBonus,winner);if(typeof window.flushGameCloudSync==='function')window.flushGameCloudSync();
   }
-  function closeFinished(){matchBackgroundAt=null;localStorage.removeItem(activeKey());live=null;committing=false;if($('finishMatchBtn')){$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Torna alle competizioni';}render();}
+  function closeFinished(){if(window.bearAudio)window.bearAudio.setMatch(false);matchBackgroundAt=null;localStorage.removeItem(activeKey());live=null;committing=false;if($('finishMatchBtn')){$('finishMatchBtn').disabled=false;$('finishMatchBtn').textContent='Torna alle competizioni';}render();}
   function openLive(snap){
+    if(window.bearAudio)window.bearAudio.setMatch(true);
     matchBackgroundAt=null;
     snap.controlMode='auto';delete snap.controlledPlayer;
     
@@ -5205,9 +5285,9 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
   window.startItalianLeagueMatch=function(){
     if(live)return;const pending=read(activeKey());if(pending){const state=load(pending.kind);if(state.id===pending.seasonId&&state.round===pending.round&&state.stage===pending.stage){openLive(pending);return;}localStorage.removeItem(activeKey());}
     if(!access(selected)){alert(requirement(selected));return;}const s=load();if(s.completed)return;const f=fixture(s);if(!f){advance(s);if(s.completed&&s.champion===USER)rewardOnce(`${s.id}_trophy`,CONFIG[s.kind].bonus,true);render();if(typeof window.flushGameCloudSync==='function')window.flushGameCloudSync();return;}
-    showMatchPresentation({id:`${s.id}_${s.stage}_${s.round}`,kind:selected,seasonId:s.id,round:s.round,stage:s.stage,fixture:f,opponent:f.find(n=>n!==USER),score:{home:0,away:0},remaining:600,half:1,halfRemaining:300,matchSchema:4,tactic:'balanced',controlMode:'auto'});
+    showMatchPresentation({id:`${s.id}_${s.stage}_${s.round}`,kind:selected,seasonId:s.id,round:s.round,stage:s.stage,fixture:f,opponent:f.find(n=>n!==USER),score:{home:0,away:0},remaining:360,half:1,halfRemaining:180,halfDurationSeconds:180,matchSchema:4,tactic:'balanced',controlMode:'auto'});
   };
-  window.finishOfflineMatchEarly=function(sync=true){if(live){clock();if(live){syncClock();persist();live=null;clearInterval(clockTimer);clearInterval(simTimer);}}hideBanner();$('offlineMatchOverlay').classList.remove('show');render();if(sync&&typeof window.flushGameCloudSync==='function')return window.flushGameCloudSync();};
+  window.finishOfflineMatchEarly=function(sync=true){if(window.bearAudio)window.bearAudio.setMatch(false);if(live){clock();if(live){syncClock();persist();live=null;clearInterval(clockTimer);clearInterval(simTimer);}}hideBanner();$('offlineMatchOverlay').classList.remove('show');render();if(sync&&typeof window.flushGameCloudSync==='function')return window.flushGameCloudSync();};
   window.setOfflineTactic=function(value){if(!['balanced','attack','defend','possession','counter'].includes(value))return;tactic=value;set('matchStatus',`Tattica: ${value==='attack'?'Attacco · più occasioni e più rischi':value==='defend'?'Difesa · meno occasioni':value==='possession'?'Tiki-taka · passaggi corti':value==='counter'?'Contropiede · verticalizzazioni':'Equilibrio'}`);persist();};
   window.openOfflineCompetition=function(kind){if(!CONFIG[kind]||live)return;if(!access(kind)){alert(requirement(kind));return;}selected=kind;const panel=$('offlineLeaguePanel');if(panel){panel.classList.remove('hidden');panel.scrollIntoView({behavior:'smooth',block:'start'});}render();};
   window.openItalianLeague=function(){window.openOfflineCompetition('seriea');};
@@ -5429,7 +5509,7 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
 })();
 
 </script>
-<div id="matchPresentation" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="preMatchCompetition"><div class="club-screen-box"><p class="screen-kicker" id="preMatchCompetition"></p><h2>Si accendono i riflettori</h2><div class="pre-match-tunnel" id="preMatchTunnel" aria-hidden="true"></div><button onclick="skipMatchTunnel()" class="screen-secondary">MOSTRA SUBITO LE FORMAZIONI</button><div class="pre-match-versus"><section><h3 id="preMatchHomeName"></h3><p id="preMatchHomeRating"></p><div id="preMatchHomeCards" class="pre-match-cards"></div></section><span>VS</span><section><h3 id="preMatchAwayName"></h3><p id="preMatchAwayRating"></p><div id="preMatchAwayCards" class="pre-match-cards"></div></section></div><p class="screen-note">Portiere → difesa → centrocampo → attacco · 2 tempi da 5 minuti</p><button onclick="openPreMatchFormation()" class="screen-secondary formation-edit-open">⚙ MODIFICA FORMAZIONE</button><button onclick="startPresentedMatch()" class="screen-primary">CALCIO D’INIZIO →</button><button onclick="closeMatchPresentation()" class="screen-secondary">Torna al club</button></div></div>
+<div id="matchPresentation" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="preMatchCompetition"><div class="club-screen-box"><p class="screen-kicker" id="preMatchCompetition"></p><h2>Si accendono i riflettori</h2><div class="pre-match-tunnel" id="preMatchTunnel" aria-hidden="true"></div><button onclick="skipMatchTunnel()" class="screen-secondary">MOSTRA SUBITO LE FORMAZIONI</button><div class="pre-match-versus"><section><h3 id="preMatchHomeName"></h3><p id="preMatchHomeRating"></p><div id="preMatchHomeCards" class="pre-match-cards"></div></section><span>VS</span><section><h3 id="preMatchAwayName"></h3><p id="preMatchAwayRating"></p><div id="preMatchAwayCards" class="pre-match-cards"></div></section></div><p class="screen-note">Portiere → difesa → centrocampo → attacco · 2 tempi da 3 minuti</p><button onclick="openPreMatchFormation()" class="screen-secondary formation-edit-open">⚙ MODIFICA FORMAZIONE</button><button onclick="startPresentedMatch()" class="screen-primary">CALCIO D’INIZIO →</button><button onclick="closeMatchPresentation()" class="screen-secondary">Torna al club</button></div></div>
 <div id="preMatchFormationEditor" class="club-screen hidden formation-editor" role="dialog" aria-modal="true" aria-labelledby="preFormationTitle"><div class="club-screen-box"><p class="screen-kicker">SPOGLIATOIO · PRIMA DEL CALCIO D’INIZIO</p><h2 id="preFormationTitle">Scegli i tuoi titolari</h2><p class="screen-note">Tocca una posizione sul campo e scegli una delle tue carte.</p><p id="preFormationSummary" class="formation-summary"></p><div class="formation-editor-layout"><div id="preFormationPitch" class="formation-edit-pitch"></div><section class="formation-bench"><h3 id="preFormationRole"></h3><div id="preFormationChoices"></div><button class="screen-secondary" onclick="usePreMatchBot()">USA UN BOT IN QUESTO RUOLO</button></section></div><div class="formation-options"><label for="preFormationTactic">Stile di gioco</label><select id="preFormationTactic"><option value="balanced">Equilibrato</option><option value="possession">Tiki-taka</option><option value="attack">Attacco</option><option value="defend">Difesa</option><option value="counter">Contropiede</option></select><button onclick="autoPreMatchFormation()" class="screen-secondary">MIGLIOR FORMAZIONE AUTOMATICA</button></div><div class="formation-editor-actions"><button onclick="confirmPreMatchFormation()" class="screen-primary">CONFERMA FORMAZIONE</button><button onclick="cancelPreMatchFormation()" class="screen-secondary">ANNULLA</button></div></div></div>
 <div id="matchResultPanel" class="club-screen hidden" role="dialog" aria-modal="true" aria-labelledby="resultHeadline"><div class="club-screen-box"><p class="screen-kicker">FISCHIO FINALE</p><h2 id="resultHeadline"></h2><div id="resultScore" class="result-big-score"></div><p id="resultTeams"></p><p id="resultCoins" class="result-coins"></p><p id="competitionCloudStatus" style="font-size:12px;color:#d8c6df">Salvataggio campionato in corso…</p><div class="result-details"><section><p class="screen-kicker">Migliore della tua squadra</p><div id="resultBestCard"></div><h3 id="resultBestName"></h3><p id="resultBestStats"></p><small>Scelto in base a gol e assist; a parità, overall.</small></section><section><h3>Marcatori</h3><div id="resultScorers"></div></section></div><button onclick="closeMatchResult()" class="screen-primary">TORNA AL CLUB</button></div></div>
 
@@ -5512,6 +5592,49 @@ body.halloween-event .stadium-dust i{background:#ffb878;box-shadow:0 0 12px #f97
       for(const r of result.data||[])$('reportAdminList').appendChild(reportNode(r));loaded+=(result.data||[]).length;page++;say('reportAdminStatus',loaded+' di '+(result.count??loaded)+' segnalazioni');$('reportAdminMore').classList.toggle('hidden',loaded>=(result.count??loaded));
     }catch{say('reportAdminStatus','Connessione assente.');}finally{$('reportAdminMore').disabled=false;}}
   window.refreshPrivateReports=()=>loadPage(true);window.morePrivateReports=()=>loadPage(false);
+})();
+
+</script>
+<script id="bear-fc-stadium-audio">
+(function(){
+  'use strict';
+  let context,master,music,crowd,noise,loop,enabled=true,inMatch=false,beat=0,timer;
+  try{enabled=localStorage.getItem('bear_fc_audio_enabled')!=='false';}catch(_){}
+  const button=document.createElement('button');button.type='button';button.id='bearAudioToggle';
+  button.style.cssText='position:fixed;bottom:12px;left:12px;z-index:1000010;padding:8px 12px;border:1px solid #94a3b866;border-radius:24px;background:#0f172ae8;color:white;font-size:12px;box-shadow:0 3px 12px #0006;cursor:pointer';
+  function label(){button.textContent=enabled?'🔊 Audio attivo':'🔇 Audio spento';button.setAttribute('aria-pressed',String(enabled));button.setAttribute('aria-label',enabled?'Disattiva musica e suoni':'Attiva musica e suoni');}label();document.body.appendChild(button);
+  function ramp(param,value,time=.35){param.cancelScheduledValues(context.currentTime);param.setTargetAtTime(value,context.currentTime,time);}
+  function mix(){if(!context)return;ramp(master.gain,enabled&&!document.hidden?.65:0,.08);ramp(music.gain,inMatch?0:.17);ramp(crowd.gain,inMatch?.15:0);}
+  function tone(frequency,when,length,volume=.2,type='sine',bus=music){const osc=context.createOscillator(),gain=context.createGain();osc.type=type;osc.frequency.value=frequency;gain.gain.setValueAtTime(0,when);gain.gain.linearRampToValueAtTime(volume,when+.025);gain.gain.exponentialRampToValueAtTime(.0001,when+length);osc.connect(gain);gain.connect(bus);osc.start(when);osc.stop(when+length+.05);osc.onended=()=>{osc.disconnect();gain.disconnect();};}
+  function compose(){if(!context||context.state!=='running'||!enabled||document.hidden||inMatch)return;
+    const melody=[64,67,71,67,62,66,69,66,60,64,67,64,62,66,69,71],bass=[40,38,36,38],now=context.currentTime+.04;
+    tone(440*Math.pow(2,(melody[beat%16]-69)/12),now,.65,.24,'triangle');
+    if(beat%4===0){const n=bass[Math.floor(beat/4)%4];tone(440*Math.pow(2,(n-69)/12),now,1.5,.32);tone(440*Math.pow(2,(n+19-69)/12),now,1.5,.08);}
+    beat++;
+  }
+  async function start(){try{
+    if(!enabled)return;
+    if(!context){const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio){enabled=false;label();button.title='Audio non supportato da questo browser';return;}
+      context=new Audio();master=context.createGain();master.gain.value=0;master.connect(context.destination);music=context.createGain();music.gain.value=0;music.connect(master);crowd=context.createGain();crowd.gain.value=0;crowd.connect(master);
+      noise=context.createBuffer(1,context.sampleRate*4,context.sampleRate);const samples=noise.getChannelData(0);let smoothed=0;for(let i=0;i<samples.length;i++){smoothed=(smoothed+(Math.random()*2-1)*.12)/1.12;samples[i]=smoothed*3;}
+      loop=context.createBufferSource();loop.buffer=noise;loop.loop=true;const filter=context.createBiquadFilter();filter.type='lowpass';filter.frequency.value=1900;const ambience=context.createGain();ambience.gain.value=.8;loop.connect(filter);filter.connect(ambience);ambience.connect(crowd);loop.start();
+      const swell=context.createOscillator(),depth=context.createGain();swell.frequency.value=.18;depth.gain.value=.15;swell.connect(depth);depth.connect(ambience.gain);swell.start();
+      timer=setInterval(compose,420);
+    }
+    if(context.state==='suspended')await context.resume();mix();
+  }catch(_){button.title='Tocca per riattivare l’audio';}}
+  button.addEventListener('click',()=>{enabled=!enabled;try{localStorage.setItem('bear_fc_audio_enabled',String(enabled));}catch(_){}label();if(enabled)start();else mix();});
+  document.addEventListener('pointerdown',event=>{if(event.target!==button&&enabled)start();},{passive:true});
+  document.addEventListener('keydown',()=>{if(enabled)start();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(!context)return;if(document.hidden){mix();context.suspend().catch(()=>{});}else if(enabled)start();});
+  window.addEventListener('pagehide',()=>{if(context)context.suspend().catch(()=>{});});
+  window.addEventListener('pageshow',()=>{if(context&&enabled&&!document.hidden)start();});
+  window.bearAudio={setMatch(value){inMatch=!!value;mix();},cheer(){
+    if(!context||context.state!=='running'||!enabled||document.hidden)return;
+    try{const now=context.currentTime,source=context.createBufferSource(),filter=context.createBiquadFilter(),gain=context.createGain();source.buffer=noise;source.loop=true;filter.type='bandpass';filter.frequency.value=1050;filter.Q.value=.55;gain.gain.setValueAtTime(.02,now);gain.gain.linearRampToValueAtTime(1.25,now+.35);gain.gain.setValueAtTime(.9,now+1.4);gain.gain.exponentialRampToValueAtTime(.001,now+4.7);source.connect(filter);filter.connect(gain);gain.connect(master);source.start(now);source.stop(now+4.8);source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();};
+      tone(1760,now+.3,.42,.065,'sine',master);tone(1568,now+1.1,.6,.045,'sine',master);
+    }catch(_){}
+  }};
 })();
 
 </script>
